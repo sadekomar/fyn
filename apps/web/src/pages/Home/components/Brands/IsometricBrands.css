@@ -1,0 +1,135 @@
+.first-logo, .third-logo, .fifth-logo, .seventh-logo {
+    animation-fill-mode: forwards;
+    position: absolute;
+    animation: translateAnimationDown linear 15s infinite;
+    transform: translate(calc(var(--logo-offset)), calc(var(--logo-offset) * 0.5897435897));
+}
+
+.first-logo {
+    top: 140px;
+    left: -444px;
+}
+
+.third-logo {
+    top: -16rem;
+    left: -682px;
+}
+
+.fifth-logo{
+    top: -420px;
+    left: -525px;
+}
+
+.seventh-logo {
+    top: -323px;
+    left: 73px;
+}
+
+.second-logo, .fourth-logo, .sixth-logo {
+    animation-fill-mode: forwards;
+    position: absolute;
+    animation: translateAnimation linear 15s infinite;
+    transform: translate(calc(-1 * var(--logo-offset)), calc(-1 * var(--logo-offset) * 0.5897435897));
+}
+
+.second-logo {
+    top: 796px;
+    left: 884px;
+}
+
+.fourth-logo {
+    top: 640px;
+    left: 1056px;
+}
+
+.sixth-logo {
+    top: 390px;
+    left: 1066px;
+}
+
+.first-logo-1, .second-logo-1, .third-logo-1, .fourth-logo-1, .fifth-logo-1, .sixth-logo-1, .seventh-logo-1 {
+    --logo-offset: 0px;
+}
+.first-logo-2, .second-logo-2, .third-logo-2, .fourth-logo-2, .fifth-logo-2, .sixth-logo-2, .seventh-logo-2 {
+    --logo-offset: 60px;
+}
+.first-logo-3, .second-logo-3, .third-logo-3, .fourth-logo-3, .fifth-logo-3, .sixth-logo-3, .seventh-logo-3 {
+    --logo-offset: 120px;
+}
+.first-logo-4, .second-logo-4, .third-logo-4, .fourth-logo-4, .fifth-logo-4, .sixth-logo-4, .seventh-logo-4 {
+    --logo-offset: 180px;
+}
+.first-logo-5, .second-logo-5, .third-logo-5, .fourth-logo-5, .fifth-logo-5, .sixth-logo-5, .seventh-logo-5 {
+    --logo-offset: 240px;
+}
+.first-logo-6, .second-logo-6, .third-logo-6, .fourth-logo-6, .fifth-logo-6, .sixth-logo-6, .seventh-logo-6 {
+    --logo-offset: 300px;
+}
+.first-logo-7, .second-logo-7, .third-logo-7, .fourth-logo-7, .fifth-logo-7, .sixth-logo-7, .seventh-logo-7 {
+    --logo-offset: 360px;
+}
+.first-logo-8, .second-logo-8, .third-logo-8, .fourth-logo-8, .fifth-logo-8, .sixth-logo-8, .seventh-logo-8 {
+    --logo-offset: 420px;
+}
+.first-logo-9, .second-logo-9, .third-logo-9, .fourth-logo-9, .fifth-logo-9, .sixth-logo-9, .seventh-logo-9 {
+    --logo-offset: 480px;
+}
+.first-logo-10, .second-logo-10, .third-logo-10, .fourth-logo-10, .fifth-logo-10, .sixth-logo-10, .seventh-logo-10 {
+    --logo-offset: 540px;
+}
+
+.second-logo-11, .third-logo-11, .fourth-logo-11, .fifth-logo-11, .sixth-logo-11 {
+    --logo-offset: 600px;
+}
+.second-logo-12, .third-logo-12, .fourth-logo-12, .fifth-logo-12, .sixth-logo-12 {
+    --logo-offset: 660px;
+}
+.second-logo-13, .third-logo-13, .fourth-logo-13, .fifth-logo-13, .sixth-logo-13 {
+    --logo-offset: 720px;
+}
+.second-logo-14, .third-logo-14, .fourth-logo-14, .fifth-logo-14, .sixth-logo-14 {
+    --logo-offset: 780px;
+}
+.second-logo-15, .third-logo-15, .fourth-logo-15, .fifth-logo-15, .sixth-logo-15 {
+    --logo-offset: 840px;
+}
+.second-logo-16, .third-logo-16, .fourth-logo-16, .fifth-logo-16, .sixth-logo-16 {
+    --logo-offset: 900px;
+}
+.second-logo-17, .third-logo-17, .fourth-logo-17, .fifth-logo-17, .sixth-logo-17 {
+    --logo-offset: 960px;
+}
+.second-logo-18, .third-logo-18, .fourth-logo-18, .fifth-logo-18, .sixth-logo-18 {
+    --logo-offset: 1020px;
+}
+.second-logo-19, .third-logo-19, .fourth-logo-19, .fifth-logo-19, .sixth-logo-19 {
+    --logo-offset: 1080px;
+}
+.second-logo-20, .third-logo-20, .fourth-logo-20, .fifth-logo-20, .sixth-logo-20 {
+    --logo-offset: 1140px;
+}
+
+@keyframes translateAnimation {
+    0% {
+        transform: translate(calc(-1 * var(--logo-offset)), calc(-1 * var(--logo-offset) * 0.5897435897));
+    }
+
+    to {
+        transform: translate(calc(-1 * (var(--logo-offset) + 300px)), calc(-1 * (var(--logo-offset) + 300px) * 0.5897435897));
+    }
+}
+@keyframes translateAnimationDown {
+    0% {
+        transform: translate(calc(var(--logo-offset)), calc(var(--logo-offset) * 0.5897435897));
+    }
+
+    to {
+        transform: translate(calc((var(--logo-offset) + 300px)), calc((var(--logo-offset) + 300px) * 0.5897435897));
+    }
+}
+
+@media (max-width: 550px) {
+    .first-logo, .second-logo, .seventh-logo {
+        display: none;
+    }
+}

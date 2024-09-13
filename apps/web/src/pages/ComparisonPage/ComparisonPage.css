@@ -1,0 +1,38 @@
+.comparison-items-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.comparison-items-wrapper>div {
+    width: calc((100% - 0.5rem) / 2);
+}
+
+.comparison-item {
+    flex-shrink: 1;
+}
+
+.comparison-item-left {
+    margin-left: 0.5rem;
+}
+.comparison-item-right {
+    margin-right: 0.5rem;
+}
+
+.comparison-item .ItemImagePhoneDisplay {
+    display: block;
+}
+.comparison-item .item-data__title {
+    font-size: var(--fs-600);
+}
+.comparison-item .item-data__brand {
+    font-size: var(--fs-400);
+}
+
+.similar-items-wrapper {
+    margin-block-start: 3rem;
+}
+
+.similar-items-wrapper .gray-section-wrapper {
+    padding-block: 0;
+    background: none;
+}

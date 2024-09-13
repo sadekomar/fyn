@@ -1,0 +1,38 @@
+.ItemCard {
+    cursor: pointer;
+    padding-bottom: 14px;
+    display: grid;
+    position: relative;
+}
+
+.LikeButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 8px;
+    margin: 8px;
+}
+.ItemCard .CompareButton {
+    position: absolute;
+    right: 0;
+    top: 36px;
+    margin: 8px;
+}
+
+.itemPlaceholder__img {
+    height: 340px;
+    background-color: var(--gray-5);
+    border-radius: 8px;
+}
+
+.color-circle {
+    height: 16px;
+    width: 16px;
+    border-radius: 30px;
+    border: 1px solid rgb(186, 186, 186);
+}
+
+.color-circles-wrapper {
+    display: flex;
+    gap: 4px;
+}

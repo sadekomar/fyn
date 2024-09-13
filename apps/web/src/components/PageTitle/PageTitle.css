@@ -1,0 +1,15 @@
+.page-title {
+    margin-block-start: 3rem;
+    margin-block-end: 1rem;
+    text-transform: capitalize;
+    font-size: var(--fs-700);
+    
+    width: min(100% - (2 * var(--margin-inline)), var(--grid-max-width));
+    margin-inline: auto;
+}
+
+.page-description {
+    margin-inline: auto;
+    width: min(100% - (2 * var(--margin-inline)), var(--grid-max-width));
+    margin-block-end: 3rem;
+}

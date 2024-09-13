@@ -1,0 +1,3 @@
+.ScrollAreaFeather {
+    mask: linear-gradient(to right, transparent, rgb(0,0,0) 0%, rgb(0, 0, 0) 90%, transparent);
+}

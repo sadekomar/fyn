@@ -1,107 +1,185 @@
+/* using layers to circumvent selector specificity problems caused by radix themes */
+@import '@radix-ui/themes/styles.css' layer(radix_themes);
+
+@import url('../css/supreme.css');
+
 :root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+    --ff-main: "Supreme", Arial, sans-serif;
+    --ff-secondary: "Supreme", Arial, sans-serif;
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --fw-thin: 400;
+    --fw-regular: 500;
+    --fw-bold: 800;
 
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
+    --fs-200: clamp(0.64rem, 0.7134rem + -0.0947vi, 0.6944rem);
+    --fs-300: clamp(0.8rem, 0.8449rem + -0.058vi, 0.8333rem);
+    --fs-400: clamp(1rem, 1rem + 0vi, 1rem);
+    --fs-500: clamp(1.2rem, 1.1826rem + 0.087vi, 1.25rem);
+    --fs-600: clamp(1.44rem, 1.3974rem + 0.213vi, 1.5625rem);
+    --fs-700: clamp(1.728rem, 1.6497rem + 0.3915vi, 1.9531rem);
+    --fs-800: clamp(2.0736rem, 1.9457rem + 0.6397vi, 2.4414rem);
+    --fs-900: clamp(2.4883rem, 2.2923rem + 0.9799vi, 3.0518rem);
+    --fs-1000: clamp(2.986rem, 2.6977rem + 1.4412vi, 3.8147rem);
 
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
+    --clr-loom-blue: #5DCFFF;
+    --clr-loom-blue-700: #0079ac;
+    --clr-black-button: black;
+    --clr-gray-message-background: #ebebeb;
+    --clr-black-message-text: #272727;
+    --clr-loom-lilac-100: #E9E7F8;
+    --clr-loom-lilac: #A6A2DE;
+    --clr-loom-lilac-900: #38365E;
+    --clr-gray-text: #919191;
+    --clr-gray-background: #E4E4E4;
+    --clr-yellow-100: #F4F1E1;
+    --clr-yellow: #F7F1D2;
+    --clr-transparent-lilac: rgba(166, 162, 222, 0.6);
 
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
+    --clr-neutral-100: rgb(255 255 255);
+    --clr-neutral-200: rgb(250 250 250);
+    --clr-neutral-300: rgb(196, 196, 196);
+    --clr-neutral-400: rgb(25, 25, 25);
+    --clr-neutral-900: rgb(0 0 0);
+
+    --pd-section: 2rem;
+    --border-radius: 14px;
+    --border-radius-large: 20px;
+    --margin-inline: 4vw;
+
+    --margin-block: 1rem;
+    --margin-block-400: 1rem;
+    --margin-block-500: 2.5rem;
+    --margin-block-600: 5rem;
+    --margin-block-700: 7.5rem;
+    --margin-block-800: 10rem;
+
+    --navbar-height: 56px;
+    --width-sidemenu: 64.8vw;
+
+    /* grid settings */
+    --grid-max-width: 1250px;
+    --min-card-size: 162px;
+    --card-spacing: 1rem;
+
+    --button-height: 40px;
+
+    --padding-inline-expression: max(calc((100% - var(--grid-max-width)) / 2), var(--margin-inline));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+/* --reset-- */
 
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0px;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+html {
+    background-color: var(--clr-neutral-100);
+    /* color-scheme: dark light; */
+
+    font-family: var(--ff-main);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-thin);
+    line-height: 1.6;
+    color: var(--clr-neutral-400);
+    --webkit-font-smoothing: antialiased;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+input,
+label,
+button,
+textarea,
+select {
+    /* font: inherit; */
+    /* done to override the radix UI specificity issues */
+    font-family: var(--ff-main);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-regular);
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+button {
+    cursor: pointer;
+    border: 0px;
+    /* padding reset for --webkit */
+    padding: 0px;
+    transition: transform 300ms ease-out;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1;
+    overflow-wrap: break-word;
+    font-weight: var(--fw-bold);
+    font-family: var(--ff-secondary);
+    color: var(--clr-neutral-900);
+    letter-spacing: -0.04em;
+}
+
+body {
+    font-family: var(--ff-main);
+}
+
+p, div {
+    font-family: var(--ff-main);
+    font-weight: var(--fw-regular);
+}
+
+/* -- endreset -- */
+
+.MobileNavBarDisplay, .NavigationBarDisplay {
+    display: none;
+}
+
+@media (max-width: 769px) {
+    .MobileNavBarDisplay {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .NavigationBarDisplay {
+        display: block;
+    }
+}
+
+.footer-outlet {
+    display: flex;
+    flex-direction: column;
+}
+
+.outlet-wrapper {
+    margin-top: var(--navbar-height);
+}
+
+.cart-count-badge {
+    background-color: var(--clr-loom-lilac);
+    color: white;
+    border-radius: 30px;
+    font-size: var(--fs-200);
+    height: 22px;
+    width: 22px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

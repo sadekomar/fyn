@@ -1,0 +1,57 @@
+.categoryContainer {
+    position: relative;
+}
+
+.categoryText {
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+    /* height: fit-content;
+    width: fit-content; */
+}
+
+.textContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 50%;
+    width: 90%;
+    background: transparent;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.textContainerBackground {
+    opacity: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+.categoryImage {
+    width: 300px;
+    height: 450px;
+    object-fit: cover;
+}
+
+.imageContainer {
+    color: black;
+    background-color: black;
+}
+
+/* initial, xs: Portrait & Landscape Phones */
+@media (max-width: 768px) {
+   .categoryText {
+    color: white;
+    font-size: 50px;
+   }
+}
+/* sm, md, lg, xl: Portrait & Landscape Tablets, Laptops, Desktops  */
+@media (min-width: 768px) {
+   .categoryText {
+    color: white;
+    font-size: 70px;
+   }
+}

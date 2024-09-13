@@ -1,0 +1,45 @@
+.brands-wrapper {
+    padding-block-end: var(--margin-block-600);
+    background-color: var(--clr-yellow);
+}
+
+.brands-content {
+    margin-inline: var(--margin-inline);
+    margin-block-start: 2.5rem;
+}
+
+.brands-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.brands-title {
+    font-size: var(--fs-800);
+    line-height: 0.8;
+}
+
+.brands-description {
+    margin-block-start: 1rem;
+    font-size: var(--fs-500);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+}
+
+
+@media (min-width: 768px) {
+    .brands-wrapper {
+        display: grid;
+        padding: 0px;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .brands-content {
+        margin: 0;
+        padding-block: 7.5rem;
+        padding-inline: 1rem;
+        max-width: 48ch;
+    }
+}

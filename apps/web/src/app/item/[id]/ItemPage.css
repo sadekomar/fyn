@@ -1,0 +1,147 @@
+.ItemGrid {
+    display: grid;
+    margin: 48px;
+    margin-top: 0px;
+    grid-template-columns: 5fr 2fr;
+    gap: 15px;
+
+}
+
+.ItemImage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.ItemData {
+    display: grid;
+    grid-auto-rows: min-content;
+    height: min-content;
+    position: -webkit-sticky;
+    position: sticky;
+    top: calc(var(--navbar-height) + 1rem);
+    z-index: 1;
+}
+
+.ItemPage_Button {
+    width: 42px;
+    height: 42px;
+}
+
+.ItemPage_Button button {
+    width: 42px;
+    height: 42px;
+}
+
+@media (max-width: 768px) {
+    .ItemImageComputerDisplay {
+        display: none
+    }
+
+    .ItemGrid {
+        grid-template-columns: 1fr;
+        margin: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .ItemImagePhoneDisplay {
+        display: none;
+    }
+}
+
+.gray-section-wrapper {
+    padding-block: 4rem;
+    background-color: var(--clr-gray-background);
+}
+
+.item-data__wrapper {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.item-data__title {
+    font-size: var(--fs-800);
+}
+
+.item-data__brand {
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-500);
+}
+
+.item-data__price {
+    font-size: var(--fs-500);
+}
+
+.buy-now-link {
+    text-decoration: none;
+}
+
+.buy-now-button {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    border: 2px solid black;
+    gap: 3px;
+    justify-content: center;
+    color: var(--clr-neutral-900);
+    background-color: var(--clr-neutral-100);
+    /* border-radius: 8px; */
+}
+
+.buy-now-button:hover {
+    background-color: var(--clr-neutral-900);
+    color: var(--clr-neutral-100);
+}
+
+.sizes-title {
+    font-weight: var(--fw-bold);
+}
+
+.sizes-wrapper {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    max-width: 300px;
+    max-height: 128px;
+    overflow: scroll;
+}
+
+.size-badge {
+    background-color: var(--clr-gray-background);
+    text-decoration: line-through;
+    padding-inline: 1rem;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    font-weight: var(--fw-regular);
+    user-select: none;
+    cursor: not-allowed;
+}
+
+.size-badge-available {
+    background-color: var(--clr-loom-lilac-900);
+    color: var(--clr-neutral-100);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.action-buttons-wrapper {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.item-info {
+    text-transform: capitalize;
+}
+
+.metadata-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.size-badge-selected {
+    background-color: var(--clr-loom-lilac);
+}

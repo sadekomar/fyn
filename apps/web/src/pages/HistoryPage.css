@@ -1,0 +1,16 @@
+.subheading-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-inline: var(--margin-inline);
+    margin-block: var(--margin-block);
+}
+
+.alert-dialog-content {
+    max-width: 450px;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.alert-dialog-button {
+    padding-inline: 1rem;
+}
