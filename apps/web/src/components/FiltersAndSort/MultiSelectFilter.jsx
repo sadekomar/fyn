@@ -38,7 +38,7 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
         params.set('page', 1);
         const updatedParams = params.toString();
 
-        router.push(pathname + '?' + updatedParams)
+        router.push(pathname + '?' + updatedParams, { scroll: false });
     }
 
     function isChecked(value) {
@@ -55,8 +55,8 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
     }
 
     function resetFilter() {
-        const updatedSearchParams = getUpdatedSearchParams(filterKey, 'all')
-        router.push(pathname + '?' + updatedSearchParams);
+        const updatedParams = getUpdatedSearchParams(filterKey, 'all')
+        router.push(pathname + '?' + updatedParams, { scroll: false });
     }
 
     function selectAll() {
@@ -65,7 +65,7 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
         ));
 
         const updatedParams = getUpdatedSearchParams(filterKey, allFilters.join(','));
-        router.push(pathname + '?' + updatedParams);
+        router.push(pathname + '?' + updatedParams, { scroll: false });
     }
 
     return <>

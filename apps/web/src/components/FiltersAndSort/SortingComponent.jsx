@@ -1,13 +1,18 @@
-import React from "react";
+"use client"
 
-export function SortingComponent({ searchParams, setSearchParams }) {
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+export function SortingComponent() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
     function setSortBy(value) {
-        setSearchParams((currentSearchParams) => {
-            const newParams = new URLSearchParams(currentSearchParams);
-            newParams.set('page', 1);
-            newParams.set('sort_by', value);
-            return newParams;
-        });
+        const params = new URLSearchParams(searchParams);
+        params.set('sort_by', value);
+        params.set('page', 1);
+
+        router.push(pathname + '?' + params.toString(), { scroll: false });
     }
 
     return <>
