@@ -6,6 +6,7 @@ import './ItemPage.css'
 import './ItemPagePlaceholder.css'
 
 import { IPAddress } from '@/data/IPAddress';
+import { Suspense } from 'react';
 
 import { SnapScroller } from '@/components/ItemModal/SnapScroller';
 import { BrandInfo } from '@/components/BrandInfo';
@@ -76,7 +77,9 @@ export default async function ItemPage({ params }) {
 
         {
             (category && gender) ?
-                <SimilarItems category={category} color={color} gender={gender} /> :
+                <Suspense fallback={<div>Loading...</div>}>
+                    <SimilarItems category={category} color={color} gender={gender} />
+                </Suspense> :
                 <>
                     {/* placeholder */}
                     <div className='gray-section-wrapper'>
@@ -89,7 +92,9 @@ export default async function ItemPage({ params }) {
         }
         {
             (data) ?
-                <BrandScroller brand={data['brand']} title={'More from '} BrandInfo={<BrandInfo brand={data['brand']} />} /> :
+                <Suspense fallback={<div>Loading...</div>}>
+                    <BrandScroller brand={data['brand']} title={'More from '} BrandInfo={<BrandInfo brand={data['brand']} />} />
+                </Suspense> :
                 <>
                     {/* placeholder */}
                     <div className='h-scroller-title'>
@@ -135,7 +140,7 @@ export function ItemData({ data }) {
                         <CompareButton id={data['id']} className={'ItemPage_Button'} />
                     </Flex>
 
-                    
+
                     <SizesPicker data={data} />
 
 
