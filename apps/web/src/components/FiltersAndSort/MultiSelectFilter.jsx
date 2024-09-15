@@ -2,8 +2,7 @@
 
 import React, { useEffect } from "react";
 import { Accordion } from "../Accordion/Accordion";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
 
@@ -19,7 +18,7 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
         return params.toString();
     }
 
-    function setFilterValue(value, event) {
+    function setFilterValue(value) {
         const params = new URLSearchParams(searchParams);
         let checkedFiltersString = params.get(filterKey);
         let checkedFilters = checkedFiltersString ? checkedFiltersString.split(',') : [];
@@ -27,7 +26,8 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
         if (checkedFilters.includes(value)) {
             checkedFilters = checkedFilters.filter(currentFilter => currentFilter !== value)
         } else {
-            checkedFilters = checkedFilters.push(value)
+            checkedFilters = checkedFilters.filter(currentFilter => currentFilter !== 'all')
+            checkedFilters.push(value)
         }
 
         if (checkedFilters.length > 0) {
@@ -36,7 +36,7 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
             params.set(filterKey, 'all');
         }
         params.set('page', 1);
-        updatedParams = params.toString()
+        const updatedParams = params.toString();
 
         router.push(pathname + '?' + updatedParams)
     }
