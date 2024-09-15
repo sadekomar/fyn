@@ -11,9 +11,9 @@
     box-sizing: border-box;
     width: 0;
     height: 4.8px;
-    background: #00A2C7;
-    position: absolute;
-    top: 0;
+    background: var(--clr-loom-lilac);
+    position: fixed;
+    top: var(--navbar-height);
     left: 0;
     animation: animFw 10s linear infinite;
   }
