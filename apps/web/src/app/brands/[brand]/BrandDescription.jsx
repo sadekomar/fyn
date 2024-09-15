@@ -1,12 +1,12 @@
 "use client"
-import { Dialog } from "@radix-ui/themes";
 
+import { Dialog } from "@radix-ui/themes";
 import { descriptionsAndLogos } from "@/data/descriptionsAndLogos";
 
 export function BrandDescription({ brand }) {
-    return <p className="BrandContainer__Description">
+    return <div className="BrandContainer__Description">
         {(descriptionsAndLogos[brand]?.description.length >= 110) ?
-            <p>
+            <div>
                 {descriptionsAndLogos[brand]?.description.slice(0, 110)}
                 <Dialog.Root>
                     <Dialog.Trigger>
@@ -17,7 +17,7 @@ export function BrandDescription({ brand }) {
                     </Dialog.Content>
                 </Dialog.Root>
 
-            </p> :
+            </div> :
             <p>{descriptionsAndLogos[brand]?.description}</p>}
-    </p>;
+    </div>;
 }
