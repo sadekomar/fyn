@@ -1,90 +1,77 @@
+"use client"
+
 import React, { useEffect } from "react";
 import { Accordion } from "../Accordion/Accordion";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 
-export function MultiSelectFilter({ searchParams, setSearchParams, metadata, metadataKey, filterKey }) {
+export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
+
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    function getUpdatedSearchParams(key, value) {
+        // updates key-value and page while persisting other searchParams.
+        const params = new URLSearchParams(searchParams);
+        params.set(key, value)
+        params.set('page', 1);
+        return params.toString();
+    }
 
     function setFilterValue(value, event) {
-        console.log(value)
-        if (event.target.checked) {
-            setSearchParams((currentSearchParams) => {
-                const newParams = new URLSearchParams(currentSearchParams);
-                let existingValues = newParams.get(filterKey);
-                let valuesArray = [];
-                if (existingValues) {
-                    valuesArray = existingValues.split(',');
-                }
-                if (!valuesArray.includes(value)) {
-                    valuesArray.push(value);
-                }
-                newParams.set(filterKey, valuesArray.join(','));
-                newParams.set('page', 1);
-                return newParams;
-            });
-        }
-        else {
-            setSearchParams((currentSearchParams) => {
-                const newParams = new URLSearchParams(currentSearchParams);
-                let existingValues = newParams.get(filterKey);
-                let valuesArray = [];
-                if (existingValues) {
-                    valuesArray = existingValues.split(',');
-                }
-                if (valuesArray.includes(value)) {
-                    valuesArray = valuesArray.filter(currentValue => currentValue !== value);
-                }
-                if (valuesArray.length > 0) {
-                    newParams.set(filterKey, valuesArray.join(','));
-                }
-                else {
-                    newParams.set(filterKey, 'all')
-                }
-                newParams.set('page', 1);
-                return newParams;
-            });
+        const params = new URLSearchParams(searchParams);
+        let checkedFiltersString = params.get(filterKey);
+        let checkedFilters = checkedFiltersString ? checkedFiltersString.split(',') : [];
 
+        if (checkedFilters.includes(value)) {
+            checkedFilters = checkedFilters.filter(currentFilter => currentFilter !== value)
+        } else {
+            checkedFilters = checkedFilters.push(value)
         }
+
+        if (checkedFilters.length > 0) {
+            params.set(filterKey, checkedFilters.join(','));
+        } else {
+            params.set(filterKey, 'all');
+        }
+        params.set('page', 1);
+        updatedParams = params.toString()
+
+        router.push(pathname + '?' + updatedParams)
     }
 
     function isChecked(value) {
-        if (searchParams.get(filterKey)) {
-            const checkedValues = searchParams.get(filterKey).split(',');
+        const currentParam = searchParams.get(filterKey);
+        if (currentParam) {
+            const checkedValues = currentParam.split(',');
             if (checkedValues.includes(value)) {
-                return true
+                return true;
             }
             else {
-                return false
+                return false;
             }
         }
     }
 
-    function resetFilters() {
-        setSearchParams((currentSearchParams) => {
-            const newParams = new URLSearchParams(currentSearchParams);
-            newParams.set(filterKey, 'all');
-            newParams.set('page', 1);
-            return newParams;
-        });
+    function resetFilter() {
+        const updatedSearchParams = getUpdatedSearchParams(filterKey, 'all')
+        router.push(pathname + '?' + updatedSearchParams);
     }
+
     function selectAll() {
-        setSearchParams((currentSearchParams) => {
-            const newParams = new URLSearchParams(currentSearchParams);
-            const allFilters = metadata[metadataKey].map((filterObject, index) => (
-                filterObject[filterKey]
-             ));
-             console.log(allFilters.join(','));
-             const allFiltersString = allFilters.join(',');
+        const allFilters = metadata[metadataKey].map((filterObject, index) => (
+            filterObject[filterKey]
+        ));
 
-
-            newParams.set(filterKey, allFiltersString);
-            newParams.set('page', 1);
-            return newParams;
-        });
+        const updatedParams = getUpdatedSearchParams(filterKey, allFilters.join(','));
+        router.push(pathname + '?' + updatedParams);
     }
 
     return <>
         <Accordion trigger={metadataKey}>
             <div className="filters-buttons-wrapper">
-                <button className="filters-button" onClick={resetFilters}>Clear</button>
+                <button className="filters-button" onClick={resetFilter}>Clear</button>
                 <button className="filters-button filters-button-secondary" onClick={selectAll}>Select All</button>
             </div>
             {
