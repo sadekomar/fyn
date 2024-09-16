@@ -1,5 +1,5 @@
 /* using layers to circumvent selector specificity problems caused by radix themes */
-@import '@radix-ui/themes/styles.css' layer(radix_themes);
+/* @import '@radix-ui/themes/styles.css' layer(radix_themes); */
 
 @import url('../css/supreme.css');
 

@@ -1,5 +1,7 @@
 import "./globals.css";
-import { Theme } from '@radix-ui/themes';
+
+import { Theme } from "@radix-ui/themes";
+import '@radix-ui/themes/styles.css';
 import { MobileNavBar } from "@/components/navigation/MobileNavBar/MobileNavBar";
 import { Footer } from "@/components/navigation/Footer/Footer";
 
