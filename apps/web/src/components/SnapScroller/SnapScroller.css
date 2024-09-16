@@ -94,13 +94,16 @@
     padding: 0;
 }
 
+.rt-BaseDialogScrollPadding {
+    padding: 0;
+}
+
 .mobile-images-modal.mobile-images-modal {
     max-width: none;
     max-height: none;
     height: 100vh;
     border-radius: 0;
     padding: 0;
-    padding-top: 42px;
 }
 
 .mobile-images-modal img {
@@ -110,7 +113,7 @@
 }
 
 .mobile-images-modal-exit {
-    position: absolute;
+    position: fixed;
     right: 24px;
     top: 24px;
     height: 40px;

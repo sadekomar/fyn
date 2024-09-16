@@ -10,6 +10,8 @@ import { RecentlyViewed } from '../item/[id]/RecentlyViewed';
 import { FollowedBrands } from './FollowedBrands';
 import { BrandOfTheDay } from './BrandOfTheDay';
 import { Suspense } from 'react';
+import { HorizontalScroller } from '@/layouts/HorizontalScroller/HorizontalScroller';
+import { HScrollerPlaceholder } from '@/layouts/HorizontalScroller/HScrollerPlaceholder';
 
 export const metadata = {
     title: 'Loom Cairo: Shop 300 Local Fashion Brands in One Place',
@@ -36,13 +38,14 @@ export default function Home() {
         <Hero />
         {/* <Brands /> */}
 
-        <Suspense fallback={<div>Loading</div>}>
+        
+        <Suspense fallback={<HScrollerPlaceholder />}>
             <BrandScroller title={'Latest from '} brand={'brown toast'} />
         </Suspense>
-        <Suspense fallback={<div>Loading</div>}>
+        <Suspense fallback={<HScrollerPlaceholder />}>
             <BrandOfTheDay brand={'juvenile'} />
         </Suspense>
-        
+
         <ShopByGender />
         <ShopByCategory />
         <FollowedBrands />

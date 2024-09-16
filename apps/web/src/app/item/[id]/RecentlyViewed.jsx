@@ -11,14 +11,18 @@ import { HorizontalScroller } from '@/layouts/HorizontalScroller/HorizontalScrol
 
 
 export function RecentlyViewed() {
-    let [products, setProducts] = useState('')
-    let recentlyViewed = [];
+    let [products, setProducts] = useState([])
+    let [recentlyViewed, setRecentlyViewed] = useState([])
     
     useEffect(() => {
-        recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-        recentlyViewed.reverse();
+        const fetchRecentlyViewed = () => {
+            const storedRecentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+            setRecentlyViewed(storedRecentlyViewed.reverse());
+            return storedRecentlyViewed;
+        }
+
         const fetchProductsFromServer = (recentlyViewedString) => {
-            setProducts('')
+            setProducts([])
             fetch(`${IPAddress}/ids?ids=${recentlyViewedString}`)
                 .then((response) => (response.json()))
                 .then((data) => {
@@ -27,19 +31,16 @@ export function RecentlyViewed() {
                 .catch(e => {
                     console.log("Error fetching data", e);
                 })
-
         }
 
-        let recentlyViewedString = recentlyViewed.join(',');
+        const initialRecentlyViewed = fetchRecentlyViewed();
+        let recentlyViewedString = initialRecentlyViewed.join(',');
         fetchProductsFromServer(recentlyViewedString);
 
         const updateRecentlyViewed = (event) => {
-            console.log('updateRecentlyViewed executing')
             if (event.key === 'recentlyViewed') {
-                const recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-                recentlyViewed.reverse();
-                let recentlyViewedString = recentlyViewed.join(',');
-
+                const updatedRecentlyViewed = fetchRecentlyViewed();
+                let recentlyViewedString = updatedRecentlyViewed.join(',');
                 fetchProductsFromServer(recentlyViewedString);
             }
         }
@@ -51,7 +52,7 @@ export function RecentlyViewed() {
         }
     }, [])
 
-    if (recentlyViewed.length == 0) {
+    if (recentlyViewed.length === 0) {
         return <>
             <PageTitle><Link href={'/history'} className="inline-link">Recently Viewed</Link></PageTitle>
             <EmptyState title={"You haven't viewed anything yet."}>
@@ -64,12 +65,10 @@ export function RecentlyViewed() {
 
     return <>
         <div className='h-scroller-title'>
-            <Link className='h-scroller-title-link' to={'/history'} >
+            <Link className='h-scroller-title-link' href={'/history'} >
                 Recently Viewed
             </Link>
         </div>
-        <PageTitle><Link href={'/history'} className="inline-link">Recently Viewed</Link></PageTitle>
-
         <HorizontalScroller items={products} />
     </>
 }

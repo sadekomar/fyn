@@ -69,7 +69,7 @@ export function SnapScroller({ images, height }) {
             {/* actual image */}
             <div className="Modal__SnapScroller" id='snapScroller' ref={snapScrollerRef} style={{ height: height }} dir="ltr">
                 {images.map((image, index) => (
-                    <Dialog.Root key={index}>
+                    <Dialog.Root key={index} className='mobile-image-modal-root'>
                         <Dialog.Trigger>
                             <div style={{ height: height }} className='SnapScroller__ImageContainer LoadingPulse'>
                                 <img className='SnapScroller__Image' src={image['src']} srcSet={image['srcset']} sizes="300px" onLoad={(e) => {
@@ -78,6 +78,7 @@ export function SnapScroller({ images, height }) {
                                 }} />
                             </div>
                         </Dialog.Trigger>
+                        <Dialog.Description></Dialog.Description>
                         <Dialog.Content className='mobile-images-modal'>
                             <Dialog.Close className='mobile-images-modal-exit'>
                                 <button>

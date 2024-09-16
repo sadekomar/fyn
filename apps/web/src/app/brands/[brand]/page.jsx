@@ -29,7 +29,6 @@ import { metadata } from '../page';
 
 export async function generateMetadata({ params, searchParams }) {
     const brand = params.brand.replaceAll('%20', ' ')
-    console.log(brand)
 
     return {
         title: brand,

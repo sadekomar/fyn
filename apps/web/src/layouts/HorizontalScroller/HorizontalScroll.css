@@ -22,6 +22,7 @@
 .brand-link {
     color: var(--clr-loom-lilac);
     text-transform: capitalize;
+    text-decoration: underline;
 }
 
 .horizontalScroller {
@@ -58,4 +59,11 @@
 .scroller-link:hover{
     text-decoration: underline;
     color: rgb(79, 79, 79);
+}
+
+.scroller-title-placeholder {
+    background-color: var(--clr-gray-background);
+    height: 28px;
+    width: 60%;
+    border-radius: 8px;
 }

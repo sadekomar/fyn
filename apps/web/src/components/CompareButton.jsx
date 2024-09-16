@@ -68,7 +68,7 @@ export function CompareButton({ id, className }) {
                     {isFilled ? 'Added item to comparison' : 'Removed item from comparison'}
                 </Toast.Title>
                 <Toast.Action className="ToastAction" asChild altText="view cart">
-                    <Link className='view-comparison-button' to={'/comparison'}>View</Link>
+                    <Link className='view-comparison-button' href={'/comparison'}>View</Link>
                 </Toast.Action>
             </Toast.Root>
         </Toast.Provider >
