@@ -1,4 +1,4 @@
-import Link from 'next/link';
+ import Link from 'next/link';
 
 import { extendedCategories } from '../../data/extendedCategories';
 import './AllCategories.css'
@@ -19,7 +19,6 @@ export const metadata = {
         description: 'Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.',
     },
 }
-
 
 export default function AllCategoriesPage({searchParams}) {
     if (searchParams) {

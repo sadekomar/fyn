@@ -7,7 +7,8 @@ import { PaginationControl } from './PaginationControl';
 export async function Pagination({ params, searchParams }) {
     const searchParamsObject = new URLSearchParams(searchParams);
 
-    const response = await fetch(`${IPAddress}/metadata?brand=${params.brand}&${searchParamsObject.toString()}`);
+    // const response = await fetch(`${IPAddress}/metadata?brand=${params.brand}&${searchParamsObject.toString()}`);
+    const response = await fetch(`${IPAddress}/metadata?${searchParamsObject.toString()}`);
     const metadata = await response.json();
 
     const ITEMS_PER_PAGE = 100;

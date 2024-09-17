@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Flex } from '@radix-ui/themes';
 import { ClockIcon, Cross1Icon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
@@ -8,21 +10,22 @@ import { autofillSuggestionsList } from '../../data/autofillSuggestions';
 
 import { GridLayout } from '../../layouts/GridLayout/GridLayout';
 
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import './SearchPage.css'
 import { Pagination } from '../../components/Pagination/Pagination';
 
 import { FiltersAndCount } from '../../components/FiltersAndCount/FiltersAndCount';
-import { AllCategoriesPage } from '../AllCategories/AllCategoriesPage';
-import { ColorPills } from '../Home/components/ColorPills/ColorPills';
+// import AllCategoriesPage from '../all-categories/page';
+import { ColorPills } from '../(home)/(ColorPills)/ColorPills';
 
-export function SearchPage() {
+export default function SearchPage() {
+    const searchParams = useSearchParams();
     let [products, setProducts] = useState(null)
     let [searchHistory, setSearchHistory] = useState(null)
     let [autofill, setAutofill] = useState(null);
     let [numberOfItems, setNumberOfItems] = useState(null);
-
-    let [searchParams, setSearchParams] = useSearchParams()
+    const router = useRouter();
+    const pathname = usePathname();
 
     let isEmpty;
     let [metadata, setMetadata] = useState({
@@ -184,8 +187,9 @@ export function SearchPage() {
 
                         <form
                             onSubmit={(e) => {
-                                e.preventDefault()
-                                setSearchParams({ query: searchFieldRef.current.value })
+                                e.preventDefault();
+                                router.push(pathname + `?query=${searchFieldRef.current.value}`)
+
                                 search(searchFieldRef.current.value);
                                 searchFieldRef.current.blur();
                             }}
@@ -234,7 +238,8 @@ export function SearchPage() {
                                     key={index}
                                     onClick={() => {
                                         searchFieldRef.current.value = suggestion;
-                                        setSearchParams({ query: suggestion });
+                                        router.push(pathname + `?query=${suggestion}`);
+
                                         search(suggestion)
                                         generateAutofillSuggestions()
                                     }}
@@ -256,7 +261,9 @@ export function SearchPage() {
                                 key={index}
                                 onClick={() => {
                                     searchFieldRef.current.value = suggestion;
-                                    setSearchParams({ query: suggestion });
+                                    router.push(pathname + `?query=${suggestion}`);
+
+
                                     search(suggestion)
                                     generateAutofillSuggestions()
                                 }}
@@ -271,22 +278,22 @@ export function SearchPage() {
             {
                 searchParams.get('query') &&
                 <>
-                    <ColorPills searchParams={searchParams} setSearchParams={setSearchParams} metadata={metadata} />
-                    <FiltersAndCount numberOfItems={numberOfItems} searchParams={searchParams} setSearchParams={setSearchParams} metadata={metadata} />
+                    {/* <ColorPills searchParams={searchParams} setSearchParams={setSearchParams} metadata={metadata} /> */}
+                    <FiltersAndCount numberOfItems={numberOfItems} metadata={metadata} />
                     <GridLayout products={products} emptyState={isEmpty} />
-                    <Pagination searchParams={searchParams} setSearchParams={setSearchParams} numberOfItems={numberOfItems} />
+                    <Pagination numberOfItems={numberOfItems} />
                 </>
             }
 
 
-            {
+            {/* {
                 (!searchParams.get('query')) ?
                     <>
                         <AllCategoriesPage />
                     </>
                     :
                     <div></div>
-            }
+            } */}
         </Flex >
     </>;
 }

@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 import { LetterNavigator } from "./LetterNavigator";
-import { IPAddress } from "../../data/IPAddress";
-import { IsometricBrands } from "../(home)/(Brands)/IsometricBrands";
+import { IPAddress } from "@/data/IPAddress";
+import { IsometricBrands } from "@/app/(home)/(Brands)/IsometricBrands";
 import './AllBrands.css'
 
 export const metadata = {
