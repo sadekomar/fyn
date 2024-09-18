@@ -1,19 +1,20 @@
+"use client"
 import { Flex, Button, AlertDialog } from '@radix-ui/themes';
 import React, { useRef, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { IPAddress } from '../data/IPAddress';
-import { GridLayout } from '../layouts/GridLayout/GridLayout'
-import { PageTitle } from '../components/PageTitle/PageTitle';
+import { IPAddress } from '@/data/IPAddress';
+import { GridLayout } from '@/layouts/GridLayout/GridLayout';
+import { PageTitle } from '@/components/PageTitle/PageTitle';
 
 import './HistoryPage.css'
-import { getFromLocalStorage } from '../utils/localStorageUtils';
+import { getFromLocalStorage } from '@/utils/localStorageUtils';
 
 import Link from 'next/link';
-import { ItemCardPlaceholder } from '../components/ItemCard/ItemCardPlaceholder';
-import { EmptyState } from '../components/EmptyState/EmptyState';
+import { ItemCardPlaceholder } from '@/components/ItemCard/ItemCardPlaceholder';
+import { EmptyState } from '@/components/EmptyState/EmptyState';
 
-export function HistoryPage() {
+export default function HistoryPage() {
     const abortControllerRef = useRef(null);
     const [products, setProducts] = useState([]);
     const [error, setError] = useState();
@@ -96,9 +97,9 @@ export function HistoryPage() {
             </Helmet>
             <PageTitle>History</PageTitle>
             <EmptyState title={"You haven't viewed anything yet."}>
-                <p><Link className='inline-link' to={'/all-categories'}>Continue shopping</Link> our wide range of items and the ones you viewed will appear here.
+                <p><Link className='inline-link' href={'/all-categories'}>Continue shopping</Link> our wide range of items and the ones you viewed will appear here.
                     <br /><br />
-                    Not sure what you're looking for exactly? Explore our <Link className='inline-link' to={'/infinite-scroller'}>Infinite Brands</Link> to discover new items and brands.</p>
+                    Not sure what you're looking for exactly? Explore our <Link className='inline-link' href={'/infinite-scroller'}>Infinite Brands</Link> to discover new items and brands.</p>
             </EmptyState>
         </>;
     }
