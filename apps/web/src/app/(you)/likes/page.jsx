@@ -1,18 +1,19 @@
+"use client"
+
 import React, { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
 
-import './ItemPage/ItemPage.css'
+import '../../item/[id]/ItemPage.css'
 
-import { IPAddress } from '../data/IPAddress';
-import { GridLayout } from '../layouts/GridLayout/GridLayout';
-import { EmptyState } from '../components/EmptyState/EmptyState';
+import { IPAddress } from '@/data/IPAddress';
+import { GridLayout } from '@/layouts/GridLayout/GridLayout';
+import { EmptyState } from '@/components/EmptyState/EmptyState';
 
-import { PageTitle } from '../components/PageTitle/PageTitle';
-import { ItemCardPlaceholder } from '../components/ItemCard/ItemCardPlaceholder';
+import { PageTitle } from '@/components/PageTitle/PageTitle';
+import { ItemCardPlaceholder } from '@/components/ItemCard/ItemCardPlaceholder';
 import Link from 'next/link';
 
 
-export function LikesPage() {
+export default function LikesPage() {
     const abortControllerRef = useRef(null);
     const [products, setProducts] = useState([]);
     const [error, setError] = useState();
@@ -74,9 +75,6 @@ export function LikesPage() {
 
     if (isEmpty) {
         return <>
-            <Helmet>
-                <title>Likes</title>
-            </Helmet>
             <PageTitle>Likes</PageTitle>
             <EmptyState title={'There are no likes yet'}>
                 <p>There are no liked items yet. <Link className='inline-link' to={'/all-categories'}>Continue shopping</Link> our wide range of products and click the heart icon to save your favorites here for easy access. Happy <Link className='inline-link' to={'/all-categories'}>shopping</Link>!</p>
@@ -85,9 +83,6 @@ export function LikesPage() {
     }
 
     return <>
-        <Helmet>
-            <title>Likes</title>
-        </Helmet>
         <PageTitle>Likes</PageTitle>
         <GridLayout products={products} />
     </>
