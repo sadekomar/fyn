@@ -179,7 +179,7 @@ export function SideBar() {
                                 </NavigationMenu.Trigger>
                                 <NavigationMenu.Content className='hamburger-level-two'>
                                     <NavLink href={'/cart'}>Cart</NavLink>
-                                    <NavLink href={'/liked-items'}>Likes</NavLink>
+                                    <NavLink href={'/likes'}>Likes</NavLink>
                                     <NavLink href={'/following'}>Following</NavLink>
                                     <NavLink href={'/comparison'}>Comparisons</NavLink>
                                     <NavLink href={'/history'}>History</NavLink>

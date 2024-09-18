@@ -58,7 +58,7 @@ export function NavigationBar() {
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger className='NavigationMenuTrigger' asChild>
                             <span>
-                                <Link className='navmenu-trigger' to={'/all-categories'}>Shop</Link>
+                                <Link className='navmenu-trigger' to={'/categories'}>Shop</Link>
                                 <CaretDownIcon className="CaretDown" aria-hidden />
                             </span>
                         </NavigationMenu.Trigger>
@@ -119,7 +119,7 @@ export function NavigationBar() {
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger className='NavigationMenuTrigger' asChild>
                             <span>
-                                <Link className='navmenu-trigger' to={'/liked-items'}>You</Link>
+                                <Link className='navmenu-trigger' to={'/likes'}>You</Link>
                                 <CaretDownIcon className="CaretDown" aria-hidden />
                             </span>
                         </NavigationMenu.Trigger>
@@ -133,7 +133,7 @@ export function NavigationBar() {
                                     </NavigationMenu.Item>
                                     <NavigationMenu.Item>
                                         <NavigationMenu.Link>
-                                            <Link className='navmenu-link' to={'/liked-items'}>Likes</Link>
+                                            <Link className='navmenu-link' to={'/likes'}>Likes</Link>
                                         </NavigationMenu.Link>
                                     </NavigationMenu.Item>
                                     <NavigationMenu.Item>
