@@ -1,13 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Helmet } from 'react-helmet';
+"use client"
 
-import { IPAddress } from '../../data/IPAddress';
-import { CartLayout } from '../../layouts/CartLayout/CartLayout';
-import { removeFromLocalStorage, getFromLocalStorage } from '../../utils/localStorageUtils';
+import React, { useEffect, useState, useRef } from 'react';
+
+import { IPAddress } from '@/data/IPAddress';
+import { CartLayout } from '@/layouts/CartLayout/CartLayout';
+import { removeFromLocalStorage, getFromLocalStorage } from '@/utils/localStorageUtils';
 
 import './CartPage.css'
 
-export function Cart() {
+export default function Cart() {
     let [subtotal, setSubtotal] = useState(0);
     const abortControllerRef = useRef(null);
     const [products, setProducts] = useState([]);
@@ -69,9 +70,6 @@ export function Cart() {
 
 
     return <>
-        <Helmet>
-            <title>Cart</title>
-        </Helmet>
         <div className='cart-page-header'>
             <h2>Your Cart</h2>
             <p>When you're ready to make a purchase, we will direct you to the original website to complete your transaction.</p>
