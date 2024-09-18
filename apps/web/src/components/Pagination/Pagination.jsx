@@ -20,4 +20,3 @@ export async function Pagination({ params, searchParams }) {
         <PaginationControl numberOfPages={numberOfPages} pageNumbers={pageNumbers} />
     </>;
 }
-

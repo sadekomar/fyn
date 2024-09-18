@@ -7,7 +7,7 @@ import './SnapScroller.css'
 
 import { CrossIcon } from '../Icons/CustomIcons';
 
-export function SnapScroller({ images, height }) {
+export function SnapScroller({ images, height='440px' }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     let [imageStillLoading, setImageStillLoading] = useState(true);
 
@@ -50,7 +50,7 @@ export function SnapScroller({ images, height }) {
     }
 
     return <>
-        <div className='snap-scroller-wrapper'>
+        <div className='snap-scroller-wrapper ItemImagePhoneDisplay'>
             {/* placeholder img */}
             <img
                 src={images[0].src}

@@ -1,43 +1,43 @@
+"use client"
+
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import './ColorPills.css'
 
-export function ColorPills({ searchParams, setSearchParams, metadata }) {
+export function ColorPills({ metadata }) {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+    const currentColor = searchParams.get('color')
+
     function toggleColor(color) {
-        setSearchParams((currentSearchParams) => {
-            console.log(currentSearchParams)
-            const newParams = new URLSearchParams(currentSearchParams);
-            if (currentSearchParams.get('color') == color) {
-                newParams.set('color', 'all')
-            }
-            else {
-                newParams.set('color', color);
-            }
-            newParams.set('page', 1);
-            return newParams;
-        });
+        const params = new URLSearchParams(searchParams);
+        params.set('page', 1);
+
+        if (currentColor == color) {
+            params.set('color', 'all');
+            router.push(pathname + '?' + params.toString());
+        }
+        else {
+            params.set('color', color)
+            router.push(pathname + '?' + params.toString());
+        }
     }
 
     return <div className='color-pills-wrapper'>
-        {
-            (searchParams.get('color') == 'all') ?
-                <div className='color-pill color-pill-selected' onClick={() => { toggleColor('all'); }}>All</div> :
-                <div className='color-pill' onClick={() => { toggleColor('all'); }}>All</div>
-        }
+        <div className={`color-pill ${searchParams.get('color') === 'all' ? 'color-pill-selected' : ''}`} onClick={() => { toggleColor('all'); }}>
+            All
+        </div>
 
         {
             metadata['colors'].map((colorObject, index) => (
-                (colorObject.color == searchParams.get('color')) ?
-                    <>
-                        <div key={index} className='color-pill color-pill-selected' onClick={() => { toggleColor(colorObject.color); }}>{colorObject.color} ({colorObject.count})</div>
-                    </> :
-                    <>
-                        <div key={index} className='color-pill' onClick={() => { toggleColor(colorObject.color); }}>{colorObject.color} ({colorObject.count})</div>
-                    </>
+                <div
+                    key={index}
+                    className={`color-pill ${colorObject.color === searchParams.get('color') ? 'color-pill-selected' : ''}`}
+                    onClick={() => toggleColor(colorObject.color)}
+                >
+                    {colorObject.color} ({colorObject.count})
+                </div>
             ))
         }
-
-        {(metadata['categories'].length === 0) &&
-            [...Array(20)].map((_, index) => (
-                <span key={index} style={{ width: '90px' }}></span>
-            ))}
     </div>;
 }

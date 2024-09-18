@@ -1,16 +1,22 @@
-import { BuyNowLink, ItemData, PhoneImages, SimilarItems } from "../ItemPage/ItemPage"
+"use client"
+
+import { BuyNowLink } from "@/app/item/[id]/BuyNowLink";
+import { SnapScroller } from "@/components/SnapScroller/SnapScroller";
+import { ItemData } from "@/app/item/[id]/ItemData";
+
 import { useEffect, useState } from "react";
-import { IPAddress } from "../../data/IPAddress";
-import { getFromLocalStorage } from "../../utils/localStorageUtils";
-import { HorizontalScroller } from "../../layouts/HorizontalScroller/HorizontalScroller";
+import { IPAddress } from "@/data/IPAddress";
+import { getFromLocalStorage } from "@/utils/localStorageUtils";
+import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
+import { SimilarItems } from "@/app/item/[id]/SimilarItems";
+import ItemDataPlaceholder from "@/app/item/[id]/loading";
+import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
 
 import './ComparisonPage.css'
 
-export function ComparisonPage() {
+export default function ComparisonPage() {
     let [firstItemData, setFirstItemData] = useState(null);
     let [secondItemData, setSecondItemData] = useState(null);
-
-
 
     useEffect(() => {
         const monitorCompare = () => {
@@ -55,16 +61,29 @@ export function ComparisonPage() {
     return <>
         <div className="comparison-items-wrapper">
             <div className="comparison-item">
-                <PhoneImages data={firstItemData} height="260px" />
-                <div className="comparison-item-left">
-                    <ItemData data={firstItemData} />
-                </div>
+                {(firstItemData) ? <>
+                    <SnapScroller images={firstItemData?.images} height="260px" />
+                    <div className="comparison-item-left">
+                        <ItemData data={firstItemData} />
+                    </div>
+                </> : <>
+                    <div style={{ height: '260px', backgroundColor: 'rgb(224, 224, 224)' }}></div>
+                    <ItemDataPlaceholder />
+                </>
+                }
             </div>
             <div className="comparison-item">
-                <PhoneImages data={secondItemData} height="260px" />
-                <div className="comparison-item-right">
-                    <ItemData data={secondItemData} />
-                </div>
+                {(secondItemData) ?
+                    <>
+                        <SnapScroller images={secondItemData?.images} height="260px" />
+                        <div className="comparison-item-right">
+                            <ItemData data={secondItemData} />
+                        </div>
+                    </> : <>
+                        <div style={{ height: '260px', backgroundColor: 'rgb(224, 224, 224)' }}></div>
+                        <ItemDataPlaceholder />
+                    </>
+                }
             </div>
         </div>
         <div className="similar-items-wrapper">
@@ -77,7 +96,7 @@ export function ComparisonPage() {
                             <div className='h-scroller-title'>
                                 <div className='scroller-title-placeholder'></div>
                             </div>
-                            <HorizontalScroller />
+                            <HScrollerPlaceholder />
                         </div>
                     </>
             }
@@ -90,7 +109,7 @@ export function ComparisonPage() {
                             <div className='h-scroller-title'>
                                 <div className='scroller-title-placeholder'></div>
                             </div>
-                            <HorizontalScroller />
+                            <HScrollerPlaceholder />
                         </div>
                     </>
             }

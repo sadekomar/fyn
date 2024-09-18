@@ -112,7 +112,7 @@ export function SideBar() {
                                 <NavigationMenu.Content className="hamburger-level-two">
                                     <NavigationMenu.Sub>
                                         <NavigationMenu.Item>
-                                            <NavLink href={'/all-categories'}>
+                                            <NavLink href={'/categories'}>
                                                 All Categories
                                             </NavLink>
                                         </NavigationMenu.Item>

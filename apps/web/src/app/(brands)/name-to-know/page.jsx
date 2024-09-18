@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { BrandInfo } from '../components/BrandInfo';
+import { BrandInfo } from '@/components/BrandInfo';
 
 import { BrandScroller } from '../components/BrandScroller'
 import { useNavigate } from 'react-router-dom';

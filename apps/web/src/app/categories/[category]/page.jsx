@@ -1,80 +1,52 @@
-import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { Pagination } from '../../components/Pagination/Pagination';
-import { Helmet } from 'react-helmet';
-
-import { IPAddress } from '../../data/IPAddress';
-
 import './CategoryPage.css'
 
-import { GridLayout } from '../../layouts/GridLayout/GridLayout';
-import useSWR from 'swr';
-import { ColorPills } from '../Home/components/ColorPills/ColorPills';
-import { newCategories } from '../../data/categories';
-import { FiltersAndCount } from '../../components/FiltersAndCount/FiltersAndCount';
+import { GridLayout } from '@/layouts/GridLayout/GridLayout';
+import { ColorPills } from '@/app/(home)/(ColorPills)/ColorPills';
+import { Suspense } from 'react';
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+import { categories, newCategories } from '@/data/categories';
+import { FiltersAndCount } from '@/components/FiltersAndCount/FiltersAndCount';
+import { Pagination } from '@/components/Pagination/Pagination';
+import { IPAddress } from '@/data/IPAddress';
+import { PaginationControl } from '@/components/Pagination/PaginationControl';
 
+export default async function CategoryPage({ params, searchParams }) {
+    const fetchData = async (category, searchParams) => {
+        const searchParamsObject = new URLSearchParams(searchParams);
+        const response = await fetch(`${IPAddress}/search?category=${category}&${searchParamsObject.toString()}`);
+        return response.json();
+    };
 
-export function CategoryPage() {
-    const param = useParams()
-    let [searchParams, setSearchParams] = useSearchParams({ 'filter_automatically': 'categories' })
-    const [products, setProducts] = useState(null);
-    let [numberOfItems, setNumberOfItems] = useState(null);
+    const fetchMetadata = async (category, searchParams) => {
+        const searchParamsObject = new URLSearchParams(searchParams);
+        const metadataResponse = await fetch(`${IPAddress}/metadata?category=${category}&${searchParamsObject.toString()}`);
+        return metadataResponse.json();
+    };
 
-    let [metadata, setMetadata] = useState({
-        'brands': [],
-        'colors': [],
-        'genders': [],
-        'categories': [],
-        'materials': [],
-    });
-
-    useEffect(() => {
-        setProducts(null)
-        console.log(`${IPAddress}/search?category=${param['category']}&${searchParams.toString()}`)
-        fetch(`${IPAddress}/search?category=${param['category']}&${searchParams.toString()}`)
-            .then(response => response.json())
-            .then(data => {
-                setProducts(data)
-            })
-            .then(() => {
-                fetch(`${IPAddress}/metadata?category=${param['category']}&${searchParams.toString()}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        setMetadata(data);
-                        setNumberOfItems(data['item_count'] || 0);
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            })
-            .catch(error => console.error('Error fetching data:', error));
-
-    }, [
-        param['category'],
-        searchParams.get('brand'),
-        searchParams.get('gender'),
-        searchParams.get('color'),
-        searchParams.get('material'),
-        searchParams.get('sort_by'),
-        searchParams.get('availability'),
-        searchParams.get('page')
+    const [data, metadata] = await Promise.all([
+        fetchData(params['category'], searchParams),
+        fetchMetadata(params['category'], searchParams)
     ]);
 
+    const ITEMS_PER_PAGE = 100;
+    const numberOfItems = metadata['item_count'] || 0;
+    const numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);
+    const pageNumbers = Array.from({ length: numberOfPages }, (_, index) => index + 1);
+
     return <>
-        <Helmet>
-            <title>{param['category'].charAt(0).toUpperCase() + param['category'].slice(1)}</title>
-        </Helmet>
         <div className="category-page-header">
-            <img src={newCategories[param['category']]?.['image'] || ''} alt="" />
+            <img src={newCategories[params['category']]?.['image'] || ''} alt="" />
             <div className='category-page-title-wrapper'>
-                <h2 className="category-page-title">{param['category']}</h2>
+                <h2 className="category-page-title">{params['category']}</h2>
             </div>
         </div>
 
-        <ColorPills searchParams={searchParams} setSearchParams={setSearchParams} metadata={metadata} />
+        <ColorPills metadata={metadata} />
 
-        <FiltersAndCount numberOfItems={numberOfItems} searchParams={searchParams} setSearchParams={setSearchParams} metadata={metadata} />
-        <GridLayout products={products} />
-        <Pagination searchParams={searchParams} setSearchParams={setSearchParams} numberOfItems={numberOfItems} />
+        <FiltersAndCount numberOfItems={numberOfItems} metadata={metadata} />
+        
+        <GridLayout products={data} />
+
+        <PaginationControl numberOfPages={numberOfPages} pageNumbers={pageNumbers} />
     </>;
 }

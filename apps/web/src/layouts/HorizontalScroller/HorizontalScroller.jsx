@@ -1,21 +1,12 @@
 
 import { ItemCard } from '../../components/ItemCard/ItemCard';
-import { ItemCardPlaceholder } from '../../components/ItemCard/ItemCardPlaceholder';
 
 import './HorizontalScroll.css'
 
 export function HorizontalScroller({ items, children }) {
-    let hasItems;
-    if (items) {
-        hasItems = items.length === 0;
-    } else {
-        hasItems = true;
-    }
+
     return <div className='horizontalScroller'>
-        {hasItems ?
-            [...Array(20)].map((_, index) => (
-                <ItemCardPlaceholder key={index} />
-            )) :
+        {
             items.map((product, index) => (
                 <ItemCard
                     key={index}
