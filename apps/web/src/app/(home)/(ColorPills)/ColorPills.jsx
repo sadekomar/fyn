@@ -1,6 +1,7 @@
 "use client"
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
 import './ColorPills.css'
 
 export function ColorPills({ metadata }) {
@@ -9,19 +10,21 @@ export function ColorPills({ metadata }) {
     const pathname = usePathname();
     const currentColor = searchParams.get('color')
 
-    function toggleColor(color) {
+    const toggleColor = useCallback((color) => {
         const params = new URLSearchParams(searchParams);
         params.set('page', 1);
 
         if (currentColor == color) {
             params.set('color', 'all');
-            router.push(pathname + '?' + params.toString());
+            router.push(pathname + '?' + params.toString(), { shallow: true });
+            // window.history.pushState(null, '', `?${params.toString()}`)
         }
         else {
             params.set('color', color)
-            router.push(pathname + '?' + params.toString());
+            // window.history.pushState(null, '', `?${params.toString()}`)
+            router.push(pathname + '?' + params.toString(), { shallow: true });
         }
-    }
+    }, [searchParams, currentColor, router, pathname]);
 
     return <div className='color-pills-wrapper'>
         <div className={`color-pill ${searchParams.get('color') === 'all' ? 'color-pill-selected' : ''}`} onClick={() => { toggleColor('all'); }}>

@@ -5,12 +5,7 @@ import './ItemCard.css'
 export function ItemCardPlaceholder() {
     return (
         <>
-            <Card style={{
-                maxWidth: '100%',
-                height: 'auto',
-            }}
-                size="0"
-                variant='ghost'
+            <div
                 className='ItemCard'
             >
                 <Flex direction="column" gap="1">
@@ -41,7 +36,7 @@ export function ItemCardPlaceholder() {
                         </Box>
                     </div>
                 </Flex>
-            </Card>
+            </div>
         </>
     );
 }

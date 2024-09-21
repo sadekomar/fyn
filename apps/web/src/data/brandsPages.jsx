@@ -18,7 +18,7 @@ export const brandsPages = {
     'Infinite Brands': {
         image: '',
         description: '',
-        link: '/infinite-scroller',
+        link: '/infinite-brands',
         term: '',
         display_item: "",
         display_item_link: ""
@@ -42,7 +42,7 @@ export const brandsPages = {
     'Basics': {
         image: '',
         description: '',
-        link: '/back-to-basics',
+        link: '/basics',
         term: '',
         display_item: "",
         display_item_link: ""

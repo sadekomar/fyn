@@ -1,3 +1,5 @@
+"use client"
+
 // React window fixed size list
 import React, { useEffect, useRef, useState } from 'react';
 import { FixedSizeList as List } from 'react-window';

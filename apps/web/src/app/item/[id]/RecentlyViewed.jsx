@@ -58,7 +58,7 @@ export function RecentlyViewed() {
             <EmptyState title={"You haven't viewed anything yet."}>
                 <p><Link className='inline-link' href={'/all-categories'}>Continue shopping</Link> our wide range of items and the ones you viewed will appear here.
                     <br /><br />
-                    Not sure what you're looking for exactly? Explore our <Link className='inline-link' href={'/infinite-scroller'}>Infinite Brands</Link> to discover new items and brands.</p>
+                    Not sure what you&aposre looking for exactly? Explore our <Link className='inline-link' href={'/infinite-scroller'}>Infinite Brands</Link> to discover new items and brands.</p>
             </EmptyState>
         </>
     }

@@ -188,6 +188,7 @@ export default function SearchPage() {
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault();
+                                console.log('submitted')
                                 router.push(pathname + `?query=${searchFieldRef.current.value}`)
 
                                 search(searchFieldRef.current.value);
@@ -233,7 +234,7 @@ export default function SearchPage() {
                     className={`autofill-wrapper search-blurred ${!searchParams.get('query') ? 'autofill-wrapper-initial' : ''}`}>
                     {searchHistory &&
                         searchHistory.slice(0, 12).map((suggestion, index) => (
-                            <div className='search-history-button'>
+                            <div key={index} className='search-history-button'>
                                 <button
                                     key={index}
                                     onClick={() => {
@@ -263,7 +264,6 @@ export default function SearchPage() {
                                     searchFieldRef.current.value = suggestion;
                                     router.push(pathname + `?query=${suggestion}`);
 
-
                                     search(suggestion)
                                     generateAutofillSuggestions()
                                 }}
@@ -281,7 +281,7 @@ export default function SearchPage() {
                     {/* <ColorPills searchParams={searchParams} setSearchParams={setSearchParams} metadata={metadata} /> */}
                     <FiltersAndCount numberOfItems={numberOfItems} metadata={metadata} />
                     <GridLayout products={products} emptyState={isEmpty} />
-                    <Pagination numberOfItems={numberOfItems} />
+                    {/* <Pagination numberOfItems={numberOfItems} /> */}
                 </>
             }
 

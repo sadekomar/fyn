@@ -1,11 +1,12 @@
 import './GridLayout.css'
 
 import { ItemCard } from '../../components/ItemCard/ItemCard';
+import { GridPlaceholder } from './GridPlaceholder';
 
 export function GridLayout({ products, emptyState }) {
     return <>
         {
-            (products && products.length != 0) &&
+            (products && products.length != 0) ?
             <div className="wrapper">
                 <div className="grid">
                     {
@@ -30,8 +31,10 @@ export function GridLayout({ products, emptyState }) {
                         ))
                     }
                 </div>
-            </div>
+            </div> :
+            <GridPlaceholder />
         }
+
     </>;
 }
 

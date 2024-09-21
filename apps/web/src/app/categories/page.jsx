@@ -1,4 +1,4 @@
- import Link from 'next/link';
+import Link from 'next/link';
 
 import { extendedCategories } from '../../data/extendedCategories';
 import './AllCategories.css'
@@ -77,7 +77,7 @@ export default function AllCategoriesPage({searchParams}) {
                                     const category = extendedCategories[parentCategory][categoryKey];
                                     return (
                                         isCategoryCompatibleWithGender(category) ?
-                                            <Link href={generateCategoryLink(category.link)}>
+                                            <Link key={indexTwo} href={generateCategoryLink(category.link)}>
                                                 <img src={generateCategoryImage(category)} alt="" />
                                                 <button className='category-slider-label'>
                                                     {category.term}

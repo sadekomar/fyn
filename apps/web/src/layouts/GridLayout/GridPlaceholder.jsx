@@ -6,7 +6,7 @@ export function GridPlaceholder() {
     return <>
         <div className="wrapper">
             <div className="grid">
-                {[...Array(50)].map((_, index) => (
+                {[...Array(100)].map((_, index) => (
                     <ItemCardPlaceholder key={index} />
                 )
                 )}

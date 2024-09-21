@@ -16,31 +16,31 @@ import { HScrollerPlaceholder } from '@/layouts/HorizontalScroller/HScrollerPlac
 import { AddToRecentlyViewed } from '../AddToRecentlyViewed';
 import { DesktopImages } from './DesktopImages';
 
-export async function generateMetadata({ params }) {
-    let response = await fetch(`${IPAddress}/id?id=${params.id}`)
-    let data = await response.json()
+// export async function generateMetadata({ params }) {
+//     let response = await fetch(`${IPAddress}/id?id=${params.id}`)
+//     let data = await response.json()
 
-    return {
-        title: data.name,
-        description: data.description.slice(0, 60),
-        robots: 'index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
-        keywords: 'Loom Cairo, Local Brands, Fashion Brands, Egyptian Local Brands',
-        openGraph: {
-            title: data.name,
-            description: data.description.slice(0, 60),
-            type: 'website',
-            url: `https://loomcairo.com/item/${params.id}`,
-        },
-        twitter: {
-            card: 'summary',
-            title: data.name,
-            description: data.description.slice(0, 60),
-        },
-        alternates: {
-            canonical: `https://loomcairo.com/item/${params.id}`,
-        },
-    }
-}
+//     return {
+//         title: data.name,
+//         description: data.description.slice(0, 60),
+//         robots: 'index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
+//         keywords: 'Loom Cairo, Local Brands, Fashion Brands, Egyptian Local Brands',
+//         openGraph: {
+//             title: data.name,
+//             description: data.description.slice(0, 60),
+//             type: 'website',
+//             url: `https://loomcairo.com/item/${params.id}`,
+//         },
+//         twitter: {
+//             card: 'summary',
+//             title: data.name,
+//             description: data.description.slice(0, 60),
+//         },
+//         alternates: {
+//             canonical: `https://loomcairo.com/item/${params.id}`,
+//         },
+//     }
+// }
 
 export default async function ItemPage({ params }) {
     let response = await fetch(`${IPAddress}/id?id=${params.id}`)
@@ -49,7 +49,6 @@ export default async function ItemPage({ params }) {
     const category = data['categories'][0]
     const color = data['colors'][0]
     const gender = data['gender']
-
     return <>
         {/* <PhoneImages data={data} /> */}
         <SnapScroller images={data['images']} />
@@ -58,13 +57,13 @@ export default async function ItemPage({ params }) {
             <ItemData data={data} />
         </div >
 
-        <Suspense fallback={<div className='gray-section-wrapper'><HScrollerPlaceholder /></div>}>
-            <SimilarItems category={category} color={color} gender={gender} />
+        <SimilarItems category={category} color={color} gender={gender} />
+        <BrandScroller brand={data['brand']} title={'More from '} BrandInfo={<BrandInfo brand={data['brand']} />} />
+        {/* <Suspense fallback={<div className='gray-section-wrapper'><HScrollerPlaceholder /></div>}>
         </Suspense>
 
         <Suspense fallback={<HScrollerPlaceholder />}>
-            <BrandScroller brand={data['brand']} title={'More from '} BrandInfo={<BrandInfo brand={data['brand']} />} />
-        </Suspense>
+        </Suspense> */}
 
         <RecentlyViewed />
         <AddToRecentlyViewed />

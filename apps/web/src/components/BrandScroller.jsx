@@ -1,4 +1,3 @@
-import { Card } from '@radix-ui/themes';
 import Link from 'next/link';
 
 import { IPAddress } from '../data/IPAddress';

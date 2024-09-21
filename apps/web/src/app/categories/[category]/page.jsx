@@ -2,6 +2,7 @@ import './CategoryPage.css'
 
 import { GridLayout } from '@/layouts/GridLayout/GridLayout';
 import { ColorPills } from '@/app/(home)/(ColorPills)/ColorPills';
+import { GridFetcher } from './GridFetcher';
 import { Suspense } from 'react';
 
 import { categories, newCategories } from '@/data/categories';
@@ -11,27 +12,30 @@ import { IPAddress } from '@/data/IPAddress';
 import { PaginationControl } from '@/components/Pagination/PaginationControl';
 
 export default async function CategoryPage({ params, searchParams }) {
-    const fetchData = async (category, searchParams) => {
+    const fetchData = async (category) => {
         const searchParamsObject = new URLSearchParams(searchParams);
+        console.log(`server side fetching ${searchParamsObject.toString()}`)
         const response = await fetch(`${IPAddress}/search?category=${category}&${searchParamsObject.toString()}`);
         return response.json();
     };
 
-    const fetchMetadata = async (category, searchParams) => {
+    const fetchMetadata = async (category) => {
         const searchParamsObject = new URLSearchParams(searchParams);
         const metadataResponse = await fetch(`${IPAddress}/metadata?category=${category}&${searchParamsObject.toString()}`);
         return metadataResponse.json();
     };
 
-    const [data, metadata] = await Promise.all([
-        fetchData(params['category'], searchParams),
-        fetchMetadata(params['category'], searchParams)
+    let data, metadata, numberOfItems, numberOfPages, pageNumbers;
+
+    [data, metadata] = await Promise.all([
+        fetchData(params['category']),
+        fetchMetadata(params['category'])
     ]);
 
     const ITEMS_PER_PAGE = 100;
-    const numberOfItems = metadata['item_count'] || 0;
-    const numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);
-    const pageNumbers = Array.from({ length: numberOfPages }, (_, index) => index + 1);
+    numberOfItems = metadata['item_count'] || 0;
+    numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);
+    pageNumbers = Array.from({ length: numberOfPages }, (_, index) => index + 1);
 
     return <>
         <div className="category-page-header">
@@ -44,9 +48,11 @@ export default async function CategoryPage({ params, searchParams }) {
         <ColorPills metadata={metadata} />
 
         <FiltersAndCount numberOfItems={numberOfItems} metadata={metadata} />
-        
-        <GridLayout products={data} />
 
-        <PaginationControl numberOfPages={numberOfPages} pageNumbers={pageNumbers} />
+        {/* <GridLayout products={data} /> */}
+        <GridFetcher serverData={data} />
+
+        {/* <PaginationControl numberOfPages={numberOfPages} pageNumbers={pageNumbers} /> */}
     </>;
+
 }

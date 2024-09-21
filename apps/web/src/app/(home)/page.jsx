@@ -9,9 +9,6 @@ import { Brands } from './(Brands)/Brands';
 import { RecentlyViewed } from '../item/[id]/RecentlyViewed';
 import { FollowedBrands } from './FollowedBrands';
 import { BrandOfTheDay } from './BrandOfTheDay';
-import { Suspense } from 'react';
-import { HorizontalScroller } from '@/layouts/HorizontalScroller/HorizontalScroller';
-import { HScrollerPlaceholder } from '@/layouts/HorizontalScroller/HScrollerPlaceholder';
 
 export const metadata = {
     title: 'Loom Cairo: Shop 300 Local Fashion Brands in One Place',
@@ -33,18 +30,15 @@ export const metadata = {
     },
 }
 
+// why does this page take 3000ms to load
+
 export default function Home() {
     return <>
         <Hero />
-        {/* <Brands /> */}
+        <Brands />
 
-        
-        <Suspense fallback={<HScrollerPlaceholder />}>
-            <BrandScroller title={'Latest from '} brand={'brown toast'} />
-        </Suspense>
-        <Suspense fallback={<HScrollerPlaceholder />}>
-            <BrandOfTheDay brand={'juvenile'} />
-        </Suspense>
+        <BrandScroller title={'Latest from '} brand={'brown toast'} />
+        <BrandOfTheDay brand={'juvenile'} />
 
         <ShopByGender />
         <ShopByCategory />

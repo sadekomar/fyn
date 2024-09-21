@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { Button, Flex, IconButton, Link } from '@radix-ui/themes';
-import { Link as Link } from 'react-router-dom'
-import { MagnifyingGlassIcon, CaretDownIcon, MixerHorizontalIcon } from '@radix-ui/react-icons';
+// import React, { useEffect } from 'react';
+// import { useState } from 'react';
+import { IconButton } from '@radix-ui/themes';
+import Link from 'next/link';
+import { CaretDownIcon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 
-import { brandsPages } from '../../../data/brandsPages';
-import { useResolvedPath } from 'react-router-dom';
-import { extendedCategories } from '../../../data/extendedCategories';
-import { getFromLocalStorage } from '../../../utils/localStorageUtils';
+import { brandsPages } from '@/data/brandsPages';
+// import { useResolvedPath } from 'react-router-dom';
+import { extendedCategories } from '@/data/extendedCategories';
+import { getFromLocalStorage } from '@/utils/localStorageUtils';
 
 import { CustomMagnifyingGlassIcon, CartIcon, CustomHeartIcon } from '../../Icons/CustomIcons'
 
@@ -16,7 +16,7 @@ import './NavigationBar.css'
 
 
 export function NavigationBar() {
-    let currentPath = useResolvedPath();
+    // let currentPath = useResolvedPath();
 
     function highlightSearchBar() {
         window.scrollTo({
@@ -25,21 +25,21 @@ export function NavigationBar() {
         });
     }
 
-    let [cartCount, setCartCount] = useState(0);
+    // let [cartCount, setCartCount] = useState(0);
 
-    useEffect(() => {
-        const monitorCart = () => {
-            const cartItems = getFromLocalStorage('cart');
-            setCartCount(cartItems.length);
-        };
+    // useEffect(() => {
+    //     const monitorCart = () => {
+    //         const cartItems = getFromLocalStorage('cart');
+    //         setCartCount(cartItems.length);
+    //     };
 
-        monitorCart();
-        window.addEventListener('localStorageChanged', monitorCart);
+    //     monitorCart();
+    //     window.addEventListener('localStorageChanged', monitorCart);
 
-        return () => {
-            window.removeEventListener('localStorageChanged', monitorCart);
-        };
-    }, []);
+    //     return () => {
+    //         window.removeEventListener('localStorageChanged', monitorCart);
+    //     };
+    // }, []);
 
     return <>
         <div className='NavBar'>
@@ -51,14 +51,14 @@ export function NavigationBar() {
                 <NavigationMenu.List className="NavigationMenuList">
                     <NavigationMenu.Item>
                         <NavigationMenu.Link className='NavigationMenuLink' asChild>
-                            <Link className='navmenu-trigger' to={'/'}>Home</Link>
+                            <Link className='navmenu-trigger' href={'/'}>Home</Link>
                         </NavigationMenu.Link>
                     </NavigationMenu.Item>
 
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger className='NavigationMenuTrigger' asChild>
                             <span>
-                                <Link className='navmenu-trigger' to={'/categories'}>Shop</Link>
+                                <Link className='navmenu-trigger' href={'/categories'}>Shop</Link>
                                 <CaretDownIcon className="CaretDown" aria-hidden />
                             </span>
                         </NavigationMenu.Trigger>
@@ -76,7 +76,7 @@ export function NavigationBar() {
                                                     return (
                                                         <NavigationMenu.Item key={indexTwo}>
                                                             <NavigationMenu.Link>
-                                                                <Link className='navmenu-link' to={category.link}>
+                                                                <Link className='navmenu-link' href={category.link}>
                                                                     {category.term}
                                                                 </Link>
                                                             </NavigationMenu.Link>
@@ -95,7 +95,7 @@ export function NavigationBar() {
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger className='NavigationMenuTrigger' asChild>
                             <span>
-                                <Link className='navmenu-trigger' to={'/brands'}>Brands</Link>
+                                <Link className='navmenu-trigger' href={'/brands'}>Brands</Link>
                                 <CaretDownIcon className="CaretDown" aria-hidden />
                             </span>
                         </NavigationMenu.Trigger>
@@ -106,7 +106,7 @@ export function NavigationBar() {
                                         Object.keys(brandsPages).map((brandPage, index) => (
                                             <NavigationMenu.Item className='NavigationMenuItem' key={index}>
                                                 <NavigationMenu.Link>
-                                                    <Link className='navmenu-link' to={brandsPages[brandPage]['link']}>{brandPage}</Link>
+                                                    <Link className='navmenu-link' href={brandsPages[brandPage]['link']}>{brandPage}</Link>
                                                 </NavigationMenu.Link>
                                             </NavigationMenu.Item>
                                         ))
@@ -119,7 +119,7 @@ export function NavigationBar() {
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger className='NavigationMenuTrigger' asChild>
                             <span>
-                                <Link className='navmenu-trigger' to={'/likes'}>You</Link>
+                                <Link className='navmenu-trigger' href={'/likes'}>You</Link>
                                 <CaretDownIcon className="CaretDown" aria-hidden />
                             </span>
                         </NavigationMenu.Trigger>
@@ -128,22 +128,22 @@ export function NavigationBar() {
                                 <div className='mega-menu-section'>
                                     <NavigationMenu.Item>
                                         <NavigationMenu.Link>
-                                            <Link className='navmenu-link' to={'/cart'}>Cart</Link>
+                                            <Link className='navmenu-link' href={'/cart'}>Cart</Link>
                                         </NavigationMenu.Link>
                                     </NavigationMenu.Item>
                                     <NavigationMenu.Item>
                                         <NavigationMenu.Link>
-                                            <Link className='navmenu-link' to={'/likes'}>Likes</Link>
+                                            <Link className='navmenu-link' href={'/likes'}>Likes</Link>
                                         </NavigationMenu.Link>
                                     </NavigationMenu.Item>
                                     <NavigationMenu.Item>
                                         <NavigationMenu.Link>
-                                            <Link className='navmenu-link' to={'/following'}>Following</Link>
+                                            <Link className='navmenu-link' href={'/following'}>Following</Link>
                                         </NavigationMenu.Link>
                                     </NavigationMenu.Item>
                                     <NavigationMenu.Item>
                                         <NavigationMenu.Link>
-                                            <Link className='navmenu-link' to={'/history'}>History</Link>
+                                            <Link className='navmenu-link' href={'/history'}>History</Link>
                                         </NavigationMenu.Link>
                                     </NavigationMenu.Item>
                                 </div>
@@ -153,13 +153,13 @@ export function NavigationBar() {
 
                     <NavigationMenu.Item>
                         <NavigationMenu.Link className='NavigationMenuLink' asChild>
-                            <Link className='navmenu-trigger' to={'/about'}>About</Link>
+                            <Link className='navmenu-trigger' href={'/about'}>About</Link>
                         </NavigationMenu.Link>
                     </NavigationMenu.Item>
                     
                     {/* <NavigationMenu.Item>
                         <NavigationMenu.Link className='NavigationMenuLink' asChild>
-                            <Link className='navmenu-trigger' to={'/add-items'}>Add Items</Link>
+                            <Link className='navmenu-trigger' href={'/add-items'}>Add Items</Link>
                         </NavigationMenu.Link>
                     </NavigationMenu.Item> */}
 

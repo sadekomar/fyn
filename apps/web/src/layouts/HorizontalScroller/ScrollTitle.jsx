@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, IconButton, Text, Heading, Box, Link } from '@radix-ui/themes';
+import { Flex, IconButton, Text } from '@radix-ui/themes';
 import { CaretLeftIcon, CaretRightIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
@@ -24,11 +24,9 @@ export function ScrollTitle({ title, BrandInfo, children, link, linkTitle, scrol
             {
                 link &&
                 <Text as='div' size={'7'} weight={'bold'}>
-                    <Link asChild>
                         <Link href={`${link}`} >
                             {linkTitle}
                         </Link>
-                    </Link>
                 </Text>
 
             }

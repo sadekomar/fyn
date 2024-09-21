@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { Flex, button, Text } from '@radix-ui/themes';
 import { CustomHamburgerIcon, CustomMagnifyingGlassIcon, CrossIcon, CartIcon, CustomHeartIcon, InstagramIcon, TiktokIcon, LinkedinIcon } from '../../Icons/CustomIcons'
 
 import { getFromLocalStorage } from '../../../utils/localStorageUtils';
