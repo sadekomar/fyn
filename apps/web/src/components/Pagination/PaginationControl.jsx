@@ -13,6 +13,10 @@ export function PaginationControl({ numberOfPages, pageNumbers }) {
         const params = new URLSearchParams(searchParams);
         params.set('page', index);
         window.history.pushState(null, '', `?${params.toString()}`)
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     function goToNextPage() {
@@ -20,6 +24,10 @@ export function PaginationControl({ numberOfPages, pageNumbers }) {
         const params = new URLSearchParams(searchParams);
         params.set('page', nextPageNumber);
         window.history.pushState(null, '', `?${params.toString()}`)
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     function goToPrevPage() {
@@ -27,6 +35,10 @@ export function PaginationControl({ numberOfPages, pageNumbers }) {
         const params = new URLSearchParams(searchParams);
         params.set('page', previousPageNumber);
         window.history.pushState(null, '', `?${params.toString()}`)
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     function isFirstPage() {
