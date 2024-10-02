@@ -13,7 +13,7 @@ export function CartLayout({ products, removeCard, isEmpty }) {
                         <CartCard key={index} product={product} removeCard={removeCard} />
                     )) :
                     <EmptyState title='Your cart is empty'>
-                        <p>Check your <Link className='inline-link' to={'/liked-items'}>likes</Link> or <Link className='inline-link' to={'/all-categories'}>continue shopping</Link>.</p>
+                        <p>Check your <Link className='inline-link' href={'/liked-items'}>likes</Link> or <Link className='inline-link' href={'/all-categories'}>continue shopping</Link>.</p>
                     </EmptyState>
             }
         </div>

@@ -66,9 +66,7 @@ export default function Cart() {
         let cart = getFromLocalStorage(key);
         fetchData(cart);
     }
-
-
-
+    
     return <>
         <div className='cart-page-header'>
             <h2>Your Cart</h2>

@@ -77,7 +77,7 @@ export default function LikesPage() {
         return <>
             <PageTitle>Likes</PageTitle>
             <EmptyState title={'There are no likes yet'}>
-                <p>There are no liked items yet. <Link className='inline-link' to={'/all-categories'}>Continue shopping</Link> our wide range of products and click the heart icon to save your favorites here for easy access. Happy <Link className='inline-link' to={'/all-categories'}>shopping</Link>!</p>
+                <p>There are no liked items yet. <Link className='inline-link' href={'/all-categories'}>Continue shopping</Link> our wide range of products and click the heart icon to save your favorites here for easy access. Happy <Link className='inline-link' href={'/all-categories'}>shopping</Link>!</p>
             </EmptyState>
         </>;
     }
