@@ -5,7 +5,12 @@ import { CaretLeftIcon, CaretRightIcon } from '@radix-ui/react-icons';
 
 import { useSearchParams } from "next/navigation";
 
-export function PaginationControl({ numberOfPages, pageNumbers }) {
+export function PaginationControl({ metadata }) {
+    const ITEMS_PER_PAGE = 100;
+    let numberOfItems = metadata['item_count'] || 0;
+    let numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);
+    let pageNumbers = Array.from({ length: numberOfPages }, (_, index) => index + 1);
+
     const searchParams = useSearchParams();
     let currentPage = parseInt(searchParams.get('page') || 1);
 
