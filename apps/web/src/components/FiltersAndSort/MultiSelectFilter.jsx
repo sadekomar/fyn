@@ -5,7 +5,6 @@ import { Accordion } from "../Accordion/Accordion";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
-
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
@@ -37,8 +36,7 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
         }
         params.set('page', 1);
         const updatedParams = params.toString();
-
-        router.push(pathname + '?' + updatedParams, { scroll: false });
+        window.history.pushState(null, '', `?${updatedParams}`);
     }
 
     function isChecked(value) {
@@ -56,7 +54,7 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
 
     function resetFilter() {
         const updatedParams = getUpdatedSearchParams(filterKey, 'all')
-        router.push(pathname + '?' + updatedParams, { scroll: false });
+        window.history.pushState(null, '', `?${updatedParams}`);
     }
 
     function selectAll() {
@@ -65,7 +63,7 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
         ));
 
         const updatedParams = getUpdatedSearchParams(filterKey, allFilters.join(','));
-        router.push(pathname + '?' + updatedParams, { scroll: false });
+        window.history.pushState(null, '', `?${updatedParams}`);
     }
 
     return <>

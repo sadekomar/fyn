@@ -16,13 +16,11 @@ export function ColorPills({ metadata }) {
 
         if (currentColor == color) {
             params.set('color', 'all');
-            router.push(pathname + '?' + params.toString(), { shallow: true });
-            // window.history.pushState(null, '', `?${params.toString()}`)
+            window.history.pushState(null, '', `?${params.toString()}`)
         }
         else {
-            params.set('color', color)
-            // window.history.pushState(null, '', `?${params.toString()}`)
-            router.push(pathname + '?' + params.toString(), { shallow: true });
+            params.set('color', color);
+            window.history.pushState(null, '', `?${params.toString()}`)
         }
     }, [searchParams, currentColor, router, pathname]);
 
