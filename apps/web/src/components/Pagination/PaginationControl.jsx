@@ -3,33 +3,30 @@
 import './Pagination.css'
 import { CaretLeftIcon, CaretRightIcon } from '@radix-ui/react-icons';
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export function PaginationControl({ numberOfPages, pageNumbers }) {
     const searchParams = useSearchParams();
-    const router = useRouter();
-    const pathname = usePathname();
-    
     let currentPage = parseInt(searchParams.get('page') || 1);
 
     function goToPage(index) {
         const params = new URLSearchParams(searchParams);
         params.set('page', index);
-        router.push(pathname + '?' + params.toString());
+        window.history.pushState(null, '', `?${params.toString()}`)
     }
 
     function goToNextPage() {
         const nextPageNumber = parseInt(searchParams.get('page') || '1') + 1;
         const params = new URLSearchParams(searchParams);
         params.set('page', nextPageNumber);
-        router.push(pathname + '?' + params.toString());
+        window.history.pushState(null, '', `?${params.toString()}`)
     }
 
     function goToPrevPage() {
         const previousPageNumber = parseInt(searchParams.get('page') || '1') - 1;
         const params = new URLSearchParams(searchParams);
         params.set('page', previousPageNumber);
-        router.push(pathname + '?' + params.toString());
+        window.history.pushState(null, '', `?${params.toString()}`)
     }
 
     function isFirstPage() {

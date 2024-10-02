@@ -1,33 +1,38 @@
 "use client"
 
 import { IPAddress } from "@/data/IPAddress";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { GridPlaceholder } from "@/layouts/GridLayout/GridPlaceholder";
+import useSWRMutation from 'swr/mutation'
 
-export function GridFetcher({ serverData }) {
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+export function GridFetcher({ serverData, revalidateServerData }) {
     const params = useParams();
-    const initialMount = useRef(true);
+    const isFirstMount = useRef(true);
     const searchParams = useSearchParams();
-    const [data, setData] = useState(serverData);
-    const router = useRouter()
+
+    const [displayData, setDisplayData] = useState(serverData);
+
+    const endpoint = `${IPAddress}/search?category=${params.category}&${searchParams.toString()}`;
+    const { data, trigger, isMutating } = useSWRMutation(endpoint, fetcher);
 
     useEffect(() => {
-        if (!initialMount.current) {
-            setData(null);
-            fetch(`${IPAddress}/search?category=${params.category}&${searchParams.toString()}`)
-                .then((response) => response.json())
-                .then((responseData) => {
-                    console.log(responseData);
-                    setData(responseData);
-                })
+        if (!isFirstMount.current) {
+            console.log('filters changed: fetched through client')
+            trigger().then(newData => {
+                setDisplayData(newData);
+            });
+            revalidateServerData();
         }
         else {
-            initialMount.current = false;
+            isFirstMount.current = false;
         }
     }, [searchParams]);
 
-    return (<GridLayout products={data} />
-    );
+    if (isMutating) return <GridPlaceholder />
+
+    return (<GridLayout products={displayData} />);
 }

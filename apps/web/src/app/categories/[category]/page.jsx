@@ -10,11 +10,18 @@ import { FiltersAndCount } from '@/components/FiltersAndCount/FiltersAndCount';
 import { Pagination } from '@/components/Pagination/Pagination';
 import { IPAddress } from '@/data/IPAddress';
 import { PaginationControl } from '@/components/Pagination/PaginationControl';
+import { revalidatePath } from 'next/cache';
+
 
 export default async function CategoryPage({ params, searchParams }) {
+    
+    async function revalidateServerData() {
+        'use server';
+        revalidatePath(`${IPAddress}/search?category=${params.category}`)
+    }
+
     const fetchData = async (category) => {
         const searchParamsObject = new URLSearchParams(searchParams);
-        console.log(`server side fetching ${searchParamsObject.toString()}`)
         const response = await fetch(`${IPAddress}/search?category=${category}&${searchParamsObject.toString()}`);
         return response.json();
     };
@@ -49,10 +56,9 @@ export default async function CategoryPage({ params, searchParams }) {
 
         <FiltersAndCount numberOfItems={numberOfItems} metadata={metadata} />
 
-        {/* <GridLayout products={data} /> */}
-        <GridFetcher serverData={data} />
+        <GridFetcher serverData={data} revalidateServerData={revalidateServerData} />
 
-        {/* <PaginationControl numberOfPages={numberOfPages} pageNumbers={pageNumbers} /> */}
+        <PaginationControl numberOfPages={numberOfPages} pageNumbers={pageNumbers} />
     </>;
 
 }

@@ -7,18 +7,16 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 
 import { SortingComponent } from './SortingComponent';
-import { Accordion } from '../Accordion/Accordion'
 
 import './Filters.css';
 import { MultiSelectFilter } from './MultiSelectFilter';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 export function Filters({ metadata }) {
-    const router = useRouter();
     const pathname = usePathname();
 
     function resetAllFilters() {
-        router.push(pathname)
+        window.history.pushState(null, '', pathname)
     }
 
     return <>
