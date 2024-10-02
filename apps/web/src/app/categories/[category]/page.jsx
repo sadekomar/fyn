@@ -17,7 +17,7 @@ export default async function CategoryPage({ params, searchParams }) {
     
     async function revalidateServerData() {
         'use server';
-        revalidatePath(`${IPAddress}/search?category=${params.category}`)
+        revalidatePath(`/categories/${params.category}`);
     }
 
     const fetchData = async (category) => {
