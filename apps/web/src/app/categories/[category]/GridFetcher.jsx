@@ -9,14 +9,14 @@ import useSWRMutation from 'swr/mutation'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-export function GridFetcher({ serverData, revalidateServerData }) {
+export function GridFetcher({ serverData, revalidateServerData, page }) {
     const params = useParams();
     const isFirstMount = useRef(true);
     const searchParams = useSearchParams();
 
     const [displayData, setDisplayData] = useState(serverData);
 
-    const endpoint = `${IPAddress}/search?category=${params.category}&${searchParams.toString()}`;
+    const endpoint = `${IPAddress}/search?${page}=${params[page]}&${searchParams.toString()}`;
     const { data, trigger, isMutating } = useSWRMutation(endpoint, fetcher);
 
     useEffect(() => {

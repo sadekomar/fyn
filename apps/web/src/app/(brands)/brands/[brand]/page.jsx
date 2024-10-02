@@ -4,10 +4,12 @@ import { Suspense } from 'react';
 
 import { heroImages } from "@/data/heroImages";
 import { IPAddress } from '@/data/IPAddress';
+import { revalidatePath } from 'next/cache';
 
-import { CategorySelectorFetch } from './CategorySelectorFetch';
-import { FiltersAndCountFetch } from './FiltersAndContFetch';
+import { FiltersAndCount } from '@/components/FiltersAndCount/FiltersAndCount';
 import { CategorySelector } from '@/components/CategorySelector/CategorySelector';
+import { GridFetcher } from '@/app/categories/[category]/GridFetcher';
+import { PaginationControl } from '@/components/Pagination/PaginationControl';
 
 
 import './BrandPage.css'
@@ -47,6 +49,30 @@ export default async function BrandPage({ params, searchParams }) {
     const response = await fetch(`${IPAddress}/brands-list`);
     const brandsList = await response.json();
 
+    async function revalidateServerData() {
+        'use server';
+        revalidatePath(`/brands/${params.brand}`)
+    }
+
+    const fetchData = async (brand) => {
+        const searchParamsObject = new URLSearchParams(searchParams);
+        const response = await fetch(`${IPAddress}/search?brand=${brand}&${searchParamsObject.toString()}`);
+        return response.json();
+    };
+
+    const fetchMetadata = async (brand) => {
+        const searchParamsObject = new URLSearchParams(searchParams);
+        const metadataResponse = await fetch(`${IPAddress}/metadata?brand=${brand}&${searchParamsObject.toString()}`);
+        return metadataResponse.json();
+    };
+
+    let data, metadata;
+
+    [data, metadata] = await Promise.all([
+        fetchData(params['brand']),
+        fetchMetadata(params['brand'])
+    ]);
+
     function getHeroImage() {
         if (heroImages[params.brand]) {
             let displayImage = heroImages[params.brand];
@@ -75,21 +101,10 @@ export default async function BrandPage({ params, searchParams }) {
                 </div>
             </div >
 
-            <Suspense fallback={<CategorySelectorPlaceholder />}>
-                <CategorySelectorFetch params={params} searchParams={searchParams} />
-            </Suspense>
-
-            <Suspense fallback={<div>Loading...</div>}>
-                <FiltersAndCountFetch params={params} searchParams={searchParams} />
-            </Suspense>
-
-            <Suspense fallback={<GridPlaceholder />}>
-                <BrandProducts params={params} searchParams={searchParams} />
-            </Suspense>
-
-            <Suspense fallback={<div>Loading...</div>}>
-                <Pagination params={params} searchParams={searchParams} />
-            </Suspense>
+            <CategorySelector metadata={metadata} />
+            <FiltersAndCount metadata={metadata} />
+            <GridFetcher serverData={data} revalidateServerData={revalidateServerData} page={'brand'} />
+            <PaginationControl metadata={metadata} />
         </div>
     </>;
 }
