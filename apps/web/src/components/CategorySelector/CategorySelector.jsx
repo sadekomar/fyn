@@ -2,14 +2,12 @@
 
 import './CategorySelector.css'
 
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
 export function CategorySelector({ metadata }) {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const searchParams = useSearchParams();
-    const router = useRouter();
-    const pathname = usePathname();
     const currentCategory = searchParams.get('category');
 
     const createQueryString = useCallback(
