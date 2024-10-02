@@ -7,14 +7,12 @@ import { Suspense } from 'react';
 
 import { categories, newCategories } from '@/data/categories';
 import { FiltersAndCount } from '@/components/FiltersAndCount/FiltersAndCount';
-import { Pagination } from '@/components/Pagination/Pagination';
 import { IPAddress } from '@/data/IPAddress';
 import { PaginationControl } from '@/components/Pagination/PaginationControl';
 import { revalidatePath } from 'next/cache';
 
 
 export default async function CategoryPage({ params, searchParams }) {
-    
     async function revalidateServerData() {
         'use server';
         revalidatePath(`/categories/${params.category}`);
@@ -32,17 +30,12 @@ export default async function CategoryPage({ params, searchParams }) {
         return metadataResponse.json();
     };
 
-    let data, metadata, numberOfItems, numberOfPages, pageNumbers;
+    let data, metadata;
 
     [data, metadata] = await Promise.all([
         fetchData(params['category']),
         fetchMetadata(params['category'])
     ]);
-
-    const ITEMS_PER_PAGE = 100;
-    numberOfItems = metadata['item_count'] || 0;
-    numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);
-    pageNumbers = Array.from({ length: numberOfPages }, (_, index) => index + 1);
 
     return <>
         <div className="category-page-header">
@@ -53,12 +46,9 @@ export default async function CategoryPage({ params, searchParams }) {
         </div>
 
         <ColorPills metadata={metadata} />
-
-        <FiltersAndCount numberOfItems={numberOfItems} metadata={metadata} />
-
-        <GridFetcher serverData={data} revalidateServerData={revalidateServerData} />
-
-        <PaginationControl numberOfPages={numberOfPages} pageNumbers={pageNumbers} />
+        <FiltersAndCount metadata={metadata} />
+        <GridFetcher serverData={data} revalidateServerData={revalidateServerData} page={'category'} />
+        <PaginationControl metadata={metadata} />
     </>;
 
 }
