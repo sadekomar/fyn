@@ -4,13 +4,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FixedSizeList as List } from 'react-window';
 
-import { IPAddress } from '../data/IPAddress';
+import { IPAddress } from '@/data/IPAddress';
 
 import { BrandScroller } from '@/components/BrandScroller';
-import { HorizontalScroller } from '../layouts/HorizontalScroller/HorizontalScroller';
+import { HorizontalScroller } from '@/layouts/HorizontalScroller/HorizontalScroller';
 import { BrandInfo } from '@/components/BrandInfo';
 
-export function InfiniteScroller() {
+export default function InfiniteScroller() {
     const [brandsList, setBrandsList] = useState([]);
     const listRef = useRef();
 
