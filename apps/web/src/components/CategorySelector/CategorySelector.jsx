@@ -24,11 +24,11 @@ export function CategorySelector({ metadata }) {
     function toggleCategory(category) {
         if (currentCategory == category) {
             setSelectedCategory('all')
-            router.push(pathname + '?' + createQueryString('category', 'all'), { scroll: false })
+            window.history.pushState(null, '', `?${createQueryString('category', 'all')}`);
         }
         else {
             setSelectedCategory(category)
-            router.push(pathname + '?' + createQueryString('category', category), { scroll: false })
+            window.history.pushState(null, '', `?${createQueryString('category', category)}`);
         }
     }
 
