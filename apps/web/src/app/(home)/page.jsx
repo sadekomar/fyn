@@ -51,12 +51,12 @@ function ShopByGender() {
     return <div className='gender-wrapper'>
         <h3 className='genders-title'>Shop by Gender</h3>
         <div className='genders'>
-            <Link href='/all-categories?gender=women,unisex' className='gender'>
+            <Link href='/categories?gender=women,unisex' className='gender'>
                 <img src="https://res.cloudinary.com/dffgye7z3/image/upload/v1725840213/women_lpshuo.webp" alt="Men categories" />
 
                 <div className='button-container'><button className='gender-button'>Women</button></div>
             </Link>
-            <Link href='/all-categories?gender=men,unisex' className='gender'>
+            <Link href='/categories?gender=men,unisex' className='gender'>
                 <img src="https://res.cloudinary.com/dffgye7z3/image/upload/v1725840214/men_ysf6jd.webp" alt="Men categories" />
                 <div className='button-container'><button className='gender-button'>Men</button></div>
             </Link>

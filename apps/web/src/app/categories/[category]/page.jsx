@@ -11,6 +11,21 @@ import { IPAddress } from '@/data/IPAddress';
 import { PaginationControl } from '@/components/Pagination/PaginationControl';
 import { revalidatePath } from 'next/cache';
 
+export async function generateMetadata({ params }) {
+
+    function capitalizeWords(string) {
+        const parsedWords = string.split(" ");
+        for (let i = 0; i < parsedWords.length; i++) {
+            parsedWords[i] = parsedWords[i].charAt(0).toUpperCase() + parsedWords[i].slice(1);
+        }
+        return parsedWords.join(" ");
+    }
+
+    return {
+        title: capitalizeWords(params.category),
+    }
+}
+
 
 export default async function CategoryPage({ params, searchParams }) {
     async function revalidateServerData() {

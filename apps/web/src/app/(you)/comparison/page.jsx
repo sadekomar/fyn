@@ -9,7 +9,7 @@ import { IPAddress } from "@/data/IPAddress";
 import { getFromLocalStorage } from "@/utils/localStorageUtils";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { SimilarItems } from "@/app/item/[id]/SimilarItems";
-import ItemDataPlaceholder from "@/app/item/[id]/loading";
+import { ItemDataPlaceholder } from "@/app/item/[id]/ItemDataPlaceholder";
 import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
 
 import './ComparisonPage.css'

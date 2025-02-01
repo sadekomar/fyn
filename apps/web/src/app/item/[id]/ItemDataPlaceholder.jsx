@@ -1,7 +1,7 @@
 import { LikeButton } from "@/components/ItemCard/LikeButton";
 import { ShareButton } from "@/components/ShareButton";
 
-export default function ItemDataPlaceholder() {
+export function ItemDataPlaceholder() {
     return <>
         <div style={{ height: '440px', backgroundColor: 'rgb(224, 224, 224)' }}></div>
         <div className='ItemGrid'>

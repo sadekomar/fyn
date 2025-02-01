@@ -116,12 +116,16 @@
 .hamburgermenu-topright-buttons * {
     padding: 0px;
 }
+
 .hamburgermenu-button {
     height: 40px;
     width: 40px;
     background-color: var(--clr-gray-background);
     color: black;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

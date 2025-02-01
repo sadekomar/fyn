@@ -73,7 +73,7 @@ export function SideBar() {
                                 </NavigationMenu.Item>
 
                                 <NavigationMenu.Item>
-                                    <NavLink href={'/liked-items'}>
+                                    <NavLink href={'/likes'}>
                                         <button className='hamburgermenu-button'>
                                             <CustomHeartIcon fill='black' />
                                         </button>

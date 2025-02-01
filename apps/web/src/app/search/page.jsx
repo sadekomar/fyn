@@ -12,7 +12,7 @@ import { GridLayout } from '../../layouts/GridLayout/GridLayout';
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import './SearchPage.css'
-import { Pagination } from '../../components/Pagination/Pagination';
+import { PaginationControl } from '@/components/Pagination/PaginationControl';
 
 import { FiltersAndCount } from '../../components/FiltersAndCount/FiltersAndCount';
 // import AllCategoriesPage from '../all-categories/page';
@@ -208,7 +208,7 @@ export default function SearchPage() {
                                     generateAutofillSuggestions();
                                 }}
                                 onFocus={() => {
-                                    autofillRef.current?.classList.remove('search-blurred')
+                                    autofillRef.current?.classList.remove('search-blurred');
                                 }}
                                 onBlur={() => {
                                     const isTouchDevice = () => {
@@ -217,7 +217,7 @@ export default function SearchPage() {
                                     let delayTime = isTouchDevice() ? 1 : 200;
 
                                     setTimeout(() => {
-                                        autofillRef.current?.classList.add('search-blurred')
+                                        autofillRef.current?.classList.add('search-blurred');
                                     }, delayTime);
                                 }}
                             />
@@ -241,14 +241,14 @@ export default function SearchPage() {
                                         searchFieldRef.current.value = suggestion;
                                         router.push(pathname + `?query=${suggestion}`);
 
-                                        search(suggestion)
-                                        generateAutofillSuggestions()
+                                        search(suggestion);
+                                        generateAutofillSuggestions();
                                     }}
                                     className='suggestion-button'>
                                     <ClockIcon /> {suggestion}
                                 </button>
                                 <button onClick={() => {
-                                    removeFromSearchHistory(suggestion)
+                                    removeFromSearchHistory(suggestion);
                                 }} className='remove-from-search-history-button'>
                                     <Cross1Icon />
                                 </button>
@@ -264,8 +264,8 @@ export default function SearchPage() {
                                     searchFieldRef.current.value = suggestion;
                                     router.push(pathname + `?query=${suggestion}`);
 
-                                    search(suggestion)
-                                    generateAutofillSuggestions()
+                                    search(suggestion);
+                                    generateAutofillSuggestions();
                                 }}
                                 className='suggestion-button'>
                                 <MagnifyingGlassIcon /> {suggestion}
@@ -278,10 +278,10 @@ export default function SearchPage() {
             {
                 searchParams.get('query') &&
                 <>
-                    {/* <ColorPills searchParams={searchParams} setSearchParams={setSearchParams} metadata={metadata} /> */}
+                    <ColorPills metadata={metadata} />
                     <FiltersAndCount numberOfItems={numberOfItems} metadata={metadata} />
                     <GridLayout products={products} emptyState={isEmpty} />
-                    {/* <Pagination numberOfItems={numberOfItems} /> */}
+                    <PaginationControl metadata={metadata} />
                 </>
             }
 

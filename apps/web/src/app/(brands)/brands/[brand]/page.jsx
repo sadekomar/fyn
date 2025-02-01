@@ -92,11 +92,13 @@ export default async function BrandPage({ params, searchParams }) {
             <div className="BrandImageContainer">
                 <LoomImage src={getHeroImage()} />
                 <div className="BrandContainer">
-                    <div className="brand-info-wrapper">
-                        <h2 className="brand-name">{params.brand.replaceAll('%20', ' ')}</h2>
-                        <FollowButton className={'follow-button-white'} brand={params.brand} />
+                    <div>
+                        <div className="brand-info-wrapper">
+                            <h2 className="brand-name">{params.brand.replaceAll('%20', ' ')}</h2>
+                            <FollowButton className={'follow-button-white'} brand={params.brand} />
+                        </div>
+                        <BrandDescription brand={brand} />
                     </div>
-                    <BrandDescription brand={brand} />
                     <NextPrevButtons brandsList={brandsList} params={params} searchParams={searchParams} />
                 </div>
             </div >

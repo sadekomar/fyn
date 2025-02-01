@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 
-import './ItemPage.css'
-import './ItemPagePlaceholder.css'
+import './ItemPage.css';
+import './ItemPagePlaceholder.css';
 
 import { IPAddress } from '@/data/IPAddress';
 import { SnapScroller } from '@/components/SnapScroller/SnapScroller';
@@ -57,22 +57,18 @@ export default async function ItemPage({ params }) {
             <ItemData data={data} />
         </div >
 
-        <SimilarItems category={category} color={color} gender={gender} />
-        <BrandScroller brand={data['brand']} title={'More from '} BrandInfo={<BrandInfo brand={data['brand']} />} />
-        {/* <Suspense fallback={<div className='gray-section-wrapper'><HScrollerPlaceholder /></div>}>
+        <Suspense fallback={<div className='gray-section-wrapper'><HScrollerPlaceholder /></div>}>
+            <SimilarItems category={category} color={color} gender={gender} />
         </Suspense>
 
         <Suspense fallback={<HScrollerPlaceholder />}>
-        </Suspense> */}
+            <BrandScroller brand={data['brand']} title={'More from '} BrandInfo={<BrandInfo brand={data['brand']} />} />
+        </Suspense>
 
         <RecentlyViewed />
         <AddToRecentlyViewed />
-    </>
+    </>;
 }
-
-
-
-
 
 // export function PhoneImages({ data, height = '440px' }) {
 //     return <div className='ItemImagePhoneDisplay'>
