@@ -20,7 +20,7 @@ export function GridLayout({ products, emptyState }) {
                 description={product["description"]}
                 link={product["link"]}
                 src={product["src"]}
-                srcSet={product["srcSet"]}
+                srcSet={product["srcset"]}
                 sizes={product["sizes"]}
                 gender={product["gender"]}
                 material={product["material"]}
