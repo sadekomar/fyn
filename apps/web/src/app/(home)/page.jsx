@@ -42,7 +42,7 @@ export default function Home() {
       <Hero />
       <Brands />
 
-      <BrandScroller title={"Latest from "} brand={"brown toast"} />
+      <BrandScroller title={"Latest from "} brand={"ausetia"} />
       <BrandOfTheDay brand={"juvenile"} />
 
       <ShopByGender />
