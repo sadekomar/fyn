@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNISEX
+  KIDS
+}
+
+model Item {
+  id          String     @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  latestPrice Int
+  link        String
+  brand       Brand      @relation(fields: [brandId], references: [id])
+  brandId     String
+  material    Material   @relation(fields: [materialId], references: [id])
+  materialId  String
+  gender      Gender
+  categories  Category[]
+  colors      Color[]
+  images      Image[]
+  sizes       Size[]
+  prices      Price[]
+}
+
+model Price {
+  id        String   @id @default(uuid())
+  price     Int
+  createdAt DateTime @default(now())
+  item      Item     @relation(fields: [itemId], references: [id])
+  itemId    String
+}
+
+model Brand {
+  id       String     @id @default(uuid())
+  name     String
+  showroom Showroom[]
+  Item     Item[]
+}
+
+model Showroom {
+  id    String  @id @default(uuid())
+  name  String
+  brand Brand[]
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String
+  Item Item[]
+}
+
+model Color {
+  id   String @id @default(uuid())
+  name String
+  Item Item[]
+}
+
+model Image {
+  id     String @id @default(uuid())
+  url    String
+  Item   Item   @relation(fields: [itemId], references: [id])
+  itemId String
+}
+
+model Size {
+  id   String @id @default(uuid())
+  name String
+  Item Item[]
+}
+
+model Material {
+  id   String @id @default(uuid())
+  name String
+  Item Item[]
+}
+
+model Applicant {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  createdAt DateTime @default(now())
+}
