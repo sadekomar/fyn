@@ -1,12 +1,14 @@
 import express, { Request, Response } from "express";
 import { prisma } from "./lib/prisma";
+import cors from "cors";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
@@ -15,19 +17,18 @@ app.get("/", (req: Request, res: Response) => {
 
 app.post("/apply", async (req: Request, res: Response) => {
   const { name, email, phone, message } = req.body;
-  const applicant = await prisma.applicant.create({
-    data: { name, email, phone, message },
-  });
-  res.json(applicant);
-});
-
-// Example route using Prisma
-app.get("/users", async (req: Request, res: Response) => {
+  console.log("--------------------------");
+  console.log(req.body);
+  console.log(name, email, phone, message);
+  console.log("--------------------------");
   try {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    const applicant = await prisma.applicant.create({
+      data: { name, email, phone, message },
+    });
+    res.json(applicant);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch users" });
+    console.error(error);
+    res.status(500).json({ error: "Failed to create applicant" });
   }
 });
 

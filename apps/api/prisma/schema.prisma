@@ -81,9 +81,10 @@ model Image {
 }
 
 model Size {
-  id   String @id @default(uuid())
-  name String
-  Item Item[]
+  id     String @id @default(uuid())
+  name   String
+  Item   Item   @relation(fields: [itemId], references: [id])
+  itemId String
 }
 
 model Material {
