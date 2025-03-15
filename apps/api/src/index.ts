@@ -3,7 +3,7 @@ import { prisma } from "./lib/prisma";
 import cors from "cors";
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = parseInt(process.env.PORT as string) || 3000;
 
 // Middleware
 app.use(express.json());
@@ -33,7 +33,7 @@ app.post("/apply", async (req: Request, res: Response) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, "::", () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
