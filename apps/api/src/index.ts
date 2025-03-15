@@ -6,15 +6,9 @@ const app = express();
 const PORT = process.env.PORT;
 
 // Middleware
-const corsOptions = {
-  origin: "*", // This already allows any origin
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
