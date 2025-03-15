@@ -30,9 +30,9 @@ model Item {
   link        String
   brand       Brand      @relation(fields: [brandId], references: [id])
   brandId     String
-  material    Material   @relation(fields: [materialId], references: [id])
-  materialId  String
-  gender      Gender
+  material    Material?  @relation(fields: [materialId], references: [id])
+  materialId  String?
+  gender      Gender?
   categories  Category[]
   colors      Color[]
   images      Image[]
@@ -81,10 +81,11 @@ model Image {
 }
 
 model Size {
-  id     String @id @default(uuid())
-  name   String
-  Item   Item   @relation(fields: [itemId], references: [id])
-  itemId String
+  id        String  @id @default(uuid())
+  name      String
+  available Boolean @default(true)
+  Item      Item    @relation(fields: [itemId], references: [id])
+  itemId    String
 }
 
 model Material {
