@@ -11,6 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Routes
+app.get("/health", (req: Request, res: Response) => {
+  res.status(200).send("OK");
+});
+
 app.get("/", (req: Request, res: Response) => {
   res.json({ message: "Welcome to the Node.js application!" });
 });
