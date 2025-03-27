@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma_client"
 }
 
 datasource db {
@@ -102,4 +101,16 @@ model Applicant {
   phone     String
   message   String
   createdAt DateTime @default(now())
+}
+
+enum NewsletterType {
+  CAREERS
+  NEWSLETTER
+}
+
+model Newsletter {
+  id        String         @id @default(uuid())
+  email     String
+  type      NewsletterType @default(NEWSLETTER)
+  createdAt DateTime       @default(now())
 }

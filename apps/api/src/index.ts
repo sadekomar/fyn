@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { prisma } from "./lib/prisma";
+import prisma from "./lib/prisma";
 import cors from "cors";
 
 const app = express();
@@ -36,9 +36,23 @@ app.post("/apply", async (req: Request, res: Response) => {
   }
 });
 
+app.post("/newsletter", async (req: Request, res: Response) => {
+  const { email, type } = req.body;
+
+  try {
+    const newsletter = await prisma.newsletter.create({
+      data: { email, type },
+    });
+    res.json(newsletter);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to create newsletter submission" });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
+  console.log(`Server is running on port http://localhost:${PORT} and more`);
 });
 
 // Graceful shutdown
