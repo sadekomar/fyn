@@ -20,14 +20,10 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/apply", async (req: Request, res: Response) => {
-  const { name, email, phone, message } = req.body;
-  console.log("--------------------------");
-  console.log(req.body);
-  console.log(name, email, phone, message);
-  console.log("--------------------------");
+  const { name, email, phone, whyYou, whyLoom } = req.body;
   try {
     const applicant = await prisma.applicant.create({
-      data: { name, email, phone, message },
+      data: { name, email, phone, whyYou, whyLoom },
     });
     res.json(applicant);
   } catch (error) {

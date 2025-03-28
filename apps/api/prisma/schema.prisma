@@ -99,7 +99,8 @@ model Applicant {
   name      String
   email     String
   phone     String
-  message   String
+  whyYou    String
+  whyLoom   String
   createdAt DateTime @default(now())
 }
 
