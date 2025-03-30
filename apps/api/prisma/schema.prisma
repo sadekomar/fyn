@@ -115,3 +115,8 @@ model Newsletter {
   type      NewsletterType @default(NEWSLETTER)
   createdAt DateTime       @default(now())
 }
+
+model Trash {
+  id   String @id @default(uuid())
+  link String
+}
