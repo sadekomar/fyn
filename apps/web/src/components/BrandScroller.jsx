@@ -8,7 +8,7 @@ import "../layouts/HorizontalScroller/HorizontalScroll.css";
 
 export async function BrandScroller({ brand, title }) {
   let response = await fetch(
-    `${IPAddress}/search?brand=${brand}&limit=20&sort_by=date-descending`
+    `${IPAddress}/search?brand=${brand}&limit=20&sort_by=date-descending`,
   );
 
   let data = await response.json();

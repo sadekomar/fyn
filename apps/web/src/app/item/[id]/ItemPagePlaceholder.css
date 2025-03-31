@@ -1,80 +1,82 @@
 .itempage-placeholder-wrapper {
-    /* border: 1px solid red; */
-    display: grid;
-    gap: 0.5rem;
+  /* border: 1px solid red; */
+  display: grid;
+  gap: 0.5rem;
 }
 
 .itempage-placeholder-wrapper * {
-    border-radius: 4px;
-    background-color: var(--clr-gray-background);
+  border-radius: 4px;
+  background-color: var(--clr-gray-background);
 }
 
 .image-pills-wrapper {
-    background: none;
+  background: none;
 }
 
 .image-pill {
-    width: 16px;
-    height: 4px;
-    background-color: var(--clr-gray-background);
-    margin-inline: 4px;
-    margin-block: 1rem;
-    border-radius: 8px;
-    transition: width 100ms ease-in, background-color 100ms ease-in;
+  width: 16px;
+  height: 4px;
+  background-color: var(--clr-gray-background);
+  margin-inline: 4px;
+  margin-block: 1rem;
+  border-radius: 8px;
+  transition:
+    width 100ms ease-in,
+    background-color 100ms ease-in;
 }
 
 .image-pill-selected {
-    width: 30px;
-    background-color: var(--clr-loom-lilac);
+  width: 30px;
+  background-color: var(--clr-loom-lilac);
 }
 
 .name-placeholder {
-    height: 40px;
+  height: 40px;
 }
 
 .brand-placeholder {
-    height: 24px;
-    width: 40%;
+  height: 24px;
+  width: 40%;
 }
 
 .price-placeholder {
-    height: 24px;
-    width: 26.2%;
+  height: 24px;
+  width: 26.2%;
 }
 
 .share-like-placeholder-wrapper {
-    background: none;
-    display: flex;
-    gap: 0.25rem;
+  background: none;
+  display: flex;
+  gap: 0.25rem;
 }
 
 .sizes-title-placeholder {
-    width: 33.5%;
-    height: 20px;
+  width: 33.5%;
+  height: 20px;
 }
 
 .sizes-placeholders-wrapper {
-    display: flex;
-    gap: 0.5rem;
-    /* resetting the cascade */
-    background-color: transparent;
+  display: flex;
+  gap: 0.5rem;
+  /* resetting the cascade */
+  background-color: transparent;
 }
 
 .sizes-placeholder {
-    height: 32px;
-    width: 40px;
-    background-color: var(--clr-loom-lilac-900);
+  height: 32px;
+  width: 40px;
+  background-color: var(--clr-loom-lilac-900);
 }
 
 .cart-button-placeholder {
-    border-radius: 0;
-    height: 40px;
-    background-color: var(--clr-loom-lilac);
+  border-radius: 0;
+  height: 40px;
+  background-color: var(--clr-loom-lilac);
 }
 
 .buy-button-placeholder {
-    border-radius: 0;
-    height: 40px;
-    background-color: transparent;
-    border: 2px solid black;
+  border-radius: 0;
+  height: 40px;
+  background-color: transparent;
+  border: 2px solid black;
 }

@@ -36,7 +36,7 @@ export default function HistoryPage() {
             `${IPAddress}/ids?ids=${recentlyViewedString}`,
             {
               signal: abortControllerRef.current?.signal,
-            }
+            },
           );
           const data = await response.json();
           setProducts(data);
@@ -57,7 +57,7 @@ export default function HistoryPage() {
     const updateRecentlyViewed = (event) => {
       if (event.key === "recentlyViewed") {
         const recentlyViewed = JSON.parse(
-          localStorage.getItem("recentlyViewed") || "[]"
+          localStorage.getItem("recentlyViewed") || "[]",
         );
         recentlyViewed.reverse();
         let recentlyViewedString = recentlyViewed.join(",");

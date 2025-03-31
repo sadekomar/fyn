@@ -1,9 +1,9 @@
 @media screen and (display-mode: standalone) {
-    .MobileNavBar.MobileNavBar {
-        padding-top: 50px;
-        height: auto;
-    }
-    .hamburger-container {
-        padding-top: 50px;
-    }
+  .MobileNavBar.MobileNavBar {
+    padding-top: 50px;
+    height: auto;
+  }
+  .hamburger-container {
+    padding-top: 50px;
+  }
 }

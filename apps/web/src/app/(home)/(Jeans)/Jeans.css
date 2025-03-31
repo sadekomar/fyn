@@ -4,24 +4,24 @@
 } */
 
 .JeansButton {
-    background-color: black;
+  background-color: black;
 }
 
 .JeansContainer {
-    position: absolute;
-    /* top: 50%;
+  position: absolute;
+  /* top: 50%;
     left: 50%;
     transform: translate(-50%,-50%); */
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 
-    width: fit-content;
-    height: fit-content;
-    margin: auto;
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
 }
 
 .AspectRatio {
-    position: relative;
+  position: relative;
 }

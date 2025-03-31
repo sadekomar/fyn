@@ -1,151 +1,150 @@
 .brand-page-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .brands-nav-wrapper {
-    display: flex;
-    width: 100%;
-    overflow: scroll;
-    position: fixed;
-    top: var(--navbar-height);
-    z-index: 2;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  width: 100%;
+  overflow: scroll;
+  position: fixed;
+  top: var(--navbar-height);
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .brands-nav {
-    background-color: var(--clr-transparent-lilac);
-    text-transform: capitalize;
-    color: var(--clr-neutral-100);
-    flex-shrink: 0;
-    text-decoration: none;
-    padding-inline: 0.5rem;
-    padding-block: 0.5rem;
+  background-color: var(--clr-transparent-lilac);
+  text-transform: capitalize;
+  color: var(--clr-neutral-100);
+  flex-shrink: 0;
+  text-decoration: none;
+  padding-inline: 0.5rem;
+  padding-block: 0.5rem;
 }
 
 .brands-nav:hover {
-    background-color: rgba(106, 103, 140, 0.6);
+  background-color: rgba(106, 103, 140, 0.6);
 }
 
 /* brand-info */
 
 .BrandImageContainer {
-    --container-height: 488px;
-    width: 100%; 
-    height: var(--container-height);
-    position: relative;
+  --container-height: 488px;
+  width: 100%;
+  height: var(--container-height);
+  position: relative;
 }
 
 .BrandContainer {
-    position: absolute;
-    width: 100%;
-    overflow: hidden;
-    background-color: var(--clr-transparent-lilac);
-    backdrop-filter: blur(8px);
-    --webkit-backdrop-filter: blur(8px);
-    bottom: 0px;
-    text-align: center;
-    color: white;
-    padding-inline: var(--margin-inline);
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--clr-transparent-lilac);
+  backdrop-filter: blur(8px);
+  --webkit-backdrop-filter: blur(8px);
+  bottom: 0px;
+  text-align: center;
+  color: white;
+  padding-inline: var(--margin-inline);
 }
 
 .brand-info-wrapper {
-    margin-block: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+  margin-block: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .brand-info-wrapper .follow-button {
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .description-trigger {
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-    cursor: pointer;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .BrandImage {
-    width: 100%;
-    height: inherit;
-    object-fit: cover; 
-    object-position: center 100%;
-    opacity: 0;
-    transition: opacity 100ms ease;
+  width: 100%;
+  height: inherit;
+  object-fit: cover;
+  object-position: center 100%;
+  opacity: 0;
+  transition: opacity 100ms ease;
 }
 
 .brand-image-loaded {
-    opacity: 1;
+  opacity: 1;
 }
 
 .BrandContainer__Description {
-    margin-block: 0px;
-    max-width: min(100% - 1rem, 60ch);
-    text-align: left;
+  margin-block: 0px;
+  max-width: min(100% - 1rem, 60ch);
+  text-align: left;
 }
 
 .brand-name {
-    color: white;
-    text-transform: capitalize;
-    font-size: var(--fs-900);
-    text-align: left;
-    font-style: normal;
+  color: white;
+  text-transform: capitalize;
+  font-size: var(--fs-900);
+  text-align: left;
+  font-style: normal;
 }
 
-
 .follow-button-white {
-    background-color: var(--clr-neutral-100);
-    color: var(--clr-neutral-900);
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
 }
 
 .follow-button-white.followed {
-    border: none;
+  border: none;
 }
 
 .brand-nav-buttons-wrapper {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .brand-nav-button {
-    flex-basis: 1;
-    flex-grow: 1;
-    
-    display: flex;
-    gap: 4px;
-    border-radius: 8px;
-    height: 40px;
-    background-color: white;
-    color: black;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: var(--fs-300);
-    font-weight: var(--fw-regular);
-    padding-inline: 1rem;
-    margin-block: 1rem;
-    transition: scale 200ms ease-in-out;
+  flex-basis: 1;
+  flex-grow: 1;
+
+  display: flex;
+  gap: 4px;
+  border-radius: 8px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: var(--fs-300);
+  font-weight: var(--fw-regular);
+  padding-inline: 1rem;
+  margin-block: 1rem;
+  transition: scale 200ms ease-in-out;
 }
 
 .brand-nav-button:active {
-    scale: 1.1;
-    background-color: none;
-} 
+  scale: 1.1;
+  background-color: none;
+}
 
 @media (min-width: 768px) {
-    .BrandImageContainer {
-        height: 350px;
-    }
-    .BrandContainer {
-        right: 0;
-        top: 0;
-        padding-top: 40px;
-        width: 400px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-inline: 2rem;
-    }
+  .BrandImageContainer {
+    height: 350px;
+  }
+  .BrandContainer {
+    right: 0;
+    top: 0;
+    padding-top: 40px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-inline: 2rem;
+  }
 }

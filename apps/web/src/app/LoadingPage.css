@@ -1,28 +1,28 @@
 .loader {
-    width: 100%;
-    height: 4.8px;
-    display: block;
-    position: relative;
-    background: rgba(152, 152, 152, 0.15);
-    overflow: hidden;
-  }
-  .loader::after {
-    content: '';  
-    box-sizing: border-box;
+  width: 100%;
+  height: 4.8px;
+  display: block;
+  position: relative;
+  background: rgba(152, 152, 152, 0.15);
+  overflow: hidden;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  width: 0;
+  height: 4.8px;
+  background: var(--clr-loom-lilac);
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  animation: animFw 10s linear infinite;
+}
+
+@keyframes animFw {
+  0% {
     width: 0;
-    height: 4.8px;
-    background: var(--clr-loom-lilac);
-    position: fixed;
-    top: var(--navbar-height);
-    left: 0;
-    animation: animFw 10s linear infinite;
   }
-  
-  @keyframes animFw {
-    0% {
-      width: 0;
-    }
-    100% {
-      width: 100%;
-    }
+  100% {
+    width: 100%;
   }
+}

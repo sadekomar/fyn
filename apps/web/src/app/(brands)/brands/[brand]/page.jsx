@@ -57,7 +57,7 @@ export default async function BrandPage({ params, searchParams }) {
   const fetchData = async (brand) => {
     const searchParamsObject = new URLSearchParams(searchParams);
     const response = await fetch(
-      `${IPAddress}/search?brand=${brand}&${searchParamsObject.toString()}`
+      `${IPAddress}/search?brand=${brand}&${searchParamsObject.toString()}`,
     );
     return response.json();
   };
@@ -65,7 +65,7 @@ export default async function BrandPage({ params, searchParams }) {
   const fetchMetadata = async (brand) => {
     const searchParamsObject = new URLSearchParams(searchParams);
     const metadataResponse = await fetch(
-      `${IPAddress}/metadata?brand=${brand}&${searchParamsObject.toString()}`
+      `${IPAddress}/metadata?brand=${brand}&${searchParamsObject.toString()}`,
     );
     return metadataResponse.json();
   };

@@ -1,29 +1,30 @@
 .about-page-wrapper {
-    width: min(100% - 2rem, 60ch);
-    margin-inline: auto;
-    margin-block: 2rem;
+  width: min(100% - 2rem, 60ch);
+  margin-inline: auto;
+  margin-block: 2rem;
 }
 
 .about-section-wrapper {
-    padding-block: 1rem;
+  padding-block: 1rem;
 }
 
 .about-title {
-    font-size: var(--fs-800);
-    margin-bottom: 2rem;
+  font-size: var(--fs-800);
+  margin-bottom: 2rem;
 }
 
 .about-section-title {
-    font-size: var(--fs-700);
-    padding-bottom: 0.5rem;
-    letter-spacing: -0.04em;
-    line-height: 1.2;
+  font-size: var(--fs-700);
+  padding-bottom: 0.5rem;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
 }
 
 .about-page-image {
-    width: 100%;
+  width: 100%;
 }
 
-.about-section-wrapper p, .about-section-wrapper ul {
-    color: rgb(64, 64, 64);
+.about-section-wrapper p,
+.about-section-wrapper ul {
+  color: rgb(64, 64, 64);
 }

@@ -1,28 +1,27 @@
 .hero-wrapper {
-    margin-block: 3rem;
-    margin-inline: var(--margin-inline);
+  margin-block: 3rem;
+  margin-inline: var(--margin-inline);
 }
 
 .hero-text {
-    font-size: var(--fs-900);
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    font-style: italic;
-    font-weight: 800;
+  font-size: var(--fs-900);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 800;
 }
 
 .hero-text-highlight {
-    color: var(--clr-loom-lilac);
+  color: var(--clr-loom-lilac);
 }
 
 .stylized-g {
-    font-family: 'LibreBodoni';
-    font-size: calc(var(--fs-900) - 3px);
+  font-family: "LibreBodoni";
+  font-size: calc(var(--fs-900) - 3px);
 }
 
 @media (min-width: 768px) {
-    .hero-wrapper {
-        margin-block: 9rem;
-
-    }
+  .hero-wrapper {
+    margin-block: 9rem;
+  }
 }

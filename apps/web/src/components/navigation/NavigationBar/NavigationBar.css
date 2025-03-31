@@ -1,40 +1,40 @@
-@import '@radix-ui/colors/black-alpha.css';
-@import '@radix-ui/colors/indigo.css';
-@import '@radix-ui/colors/mauve.css';
-@import '@radix-ui/colors/purple.css';
-@import '@radix-ui/colors/violet.css';
+@import "@radix-ui/colors/black-alpha.css";
+@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/purple.css";
+@import "@radix-ui/colors/violet.css";
 
 .NavBar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--navbar-height);
-    z-index: 99;
-    padding-inline: var(--margin-inline);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--navbar-height);
+  z-index: 99;
+  padding-inline: var(--margin-inline);
 
-    display: flex;
-    align-items: center;
-    background-color: var(--clr-loom-lilac);
-    background: rgba(166, 162, 222, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  background-color: var(--clr-loom-lilac);
+  background: rgba(166, 162, 222, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .scroll-down {
-    transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
 }
 
 .navmenu-button {
-    color: white;
-    position: relative;
+  color: white;
+  position: relative;
 }
 
 .cart-count-desktop.cart-count-desktop {
-    height: 18px;
-    width: 18px;
-    top: -2px;
-    right: -2px;
+  height: 18px;
+  width: 18px;
+  top: -2px;
+  right: -2px;
 }
 
 /* .SideBar {
@@ -49,338 +49,341 @@
     -webkit-backdrop-filter: blur(8px);
 } */
 
-
 /* Styles by radix primitives */
 
 .NavigationMenuRoot {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    z-index: 9;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  z-index: 9;
 }
 
 .NavigationMenuList {
-    display: flex;
-    justify-content: center;
-    padding: 4px;
-    border-radius: 6px;
-    list-style: none;
-    /* box-shadow: 0 2px 10px var(--black-a7); */
-    margin: 0;
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  list-style: none;
+  /* box-shadow: 0 2px 10px var(--black-a7); */
+  margin: 0;
 }
 
 .NavigationMenuTrigger,
 .NavigationMenuLink {
-    padding: 8px 12px;
-    outline: none;
-    user-select: none;
-    font-weight: 500;
-    line-height: 1;
-    border-radius: 4px;
-    font-size: 15px;
-    border: 0px;
-    text-decoration: none;
+  padding: 8px 12px;
+  outline: none;
+  user-select: none;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: 4px;
+  font-size: 15px;
+  border: 0px;
+  text-decoration: none;
 }
 
 .Link {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .NavigationMenuTrigger:focus,
 .NavigationMenuLink:focus {
-    box-shadow: 0 0 0 2px var(--gray-11);
+  box-shadow: 0 0 0 2px var(--gray-11);
 }
 
 .NavigationMenuTrigger:hover,
 .NavigationMenuLink:hover {
-    background-color: var(--gray-11);
+  background-color: var(--gray-11);
 }
 
 .NavigationMenuTrigger {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
 }
 
 .NavigationMenuLink {
-    display: block;
-    text-decoration: none;
-    font-size: 15px;
-    line-height: 1;
+  display: block;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1;
 }
 
 .NavigationMenuContent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 200px;
-    animation-duration: 250ms;
-    animation-timing-function: ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 200px;
+  animation-duration: 250ms;
+  animation-timing-function: ease;
 }
 
-.NavigationMenuContent[data-motion='from-start'] {
-    animation-name: enterFromLeft;
+.NavigationMenuContent[data-motion="from-start"] {
+  animation-name: enterFromLeft;
 }
 
-.NavigationMenuContent[data-motion='from-end'] {
-    animation-name: enterFromRight;
+.NavigationMenuContent[data-motion="from-end"] {
+  animation-name: enterFromRight;
 }
 
-.NavigationMenuContent[data-motion='to-start'] {
-    animation-name: exitToLeft;
+.NavigationMenuContent[data-motion="to-start"] {
+  animation-name: exitToLeft;
 }
 
-.NavigationMenuContent[data-motion='to-end'] {
-    animation-name: exitToRight;
+.NavigationMenuContent[data-motion="to-end"] {
+  animation-name: exitToRight;
 }
-
 
 .NavigationMenuIndicator {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    height: 10px;
-    top: 100%;
-    overflow: hidden;
-    z-index: 1;
-    transition: width, transform 250ms ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 10px;
+  top: 100%;
+  overflow: hidden;
+  z-index: 1;
+  transition:
+    width,
+    transform 250ms ease;
 }
 
-.NavigationMenuIndicator[data-state='visible'] {
-    animation: fadeIn 200ms ease;
+.NavigationMenuIndicator[data-state="visible"] {
+  animation: fadeIn 200ms ease;
 }
 
-.NavigationMenuIndicator[data-state='hidden'] {
-    animation: fadeOut 200ms ease;
+.NavigationMenuIndicator[data-state="hidden"] {
+  animation: fadeOut 200ms ease;
 }
 
 .NavigationMenuViewport {
-    position: relative;
-    transform-origin: top center;
-    margin-top: 10px;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-    min-height: var(--radix-navigation-menu-viewport-height);
-    transition: width, height, 300ms ease;
-    min-width: 200px;
-    background-color: var(--clr-neutral-100);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  transform-origin: top center;
+  margin-top: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  min-height: var(--radix-navigation-menu-viewport-height);
+  transition:
+    width,
+    height,
+    300ms ease;
+  min-width: 200px;
+  background-color: var(--clr-neutral-100);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
-    width: 105vw;
+  width: 105vw;
 }
 
-.NavigationMenuViewport[data-state='open'] {
-    animation: scaleIn 200ms ease;
+.NavigationMenuViewport[data-state="open"] {
+  animation: scaleIn 200ms ease;
 }
 
-.NavigationMenuViewport[data-state='closed'] {
-    animation: scaleOut 200ms ease;
+.NavigationMenuViewport[data-state="closed"] {
+  animation: scaleOut 200ms ease;
 }
 
 .NavigationMenuItem {
-    text-decoration: none;
+  text-decoration: none;
 }
 .NavigationMenuItem * {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-
 .ListItemLink {
-    display: block;
-    outline: none;
-    text-decoration: none;
-    user-select: none;
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 15px;
-    line-height: 1;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  user-select: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  line-height: 1;
 }
 
 .ListItemLink:focus {
-    box-shadow: 0 0 0 2px var(--violet-7);
+  box-shadow: 0 0 0 2px var(--violet-7);
 }
 
 .ListItemLink:hover {
-    background-color: var(--mauve-3);
+  background-color: var(--mauve-3);
 }
 
 .ListItemHeading {
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 5px;
-    color: var(--violet-12);
-    color: black;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 5px;
+  color: var(--violet-12);
+  color: black;
 }
 
 .ListItemText {
-    color: var(--mauve-11);
-    line-height: 1.4;
-    font-weight: initial;
+  color: var(--mauve-11);
+  line-height: 1.4;
+  font-weight: initial;
 }
 
 .ViewportPosition {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    top: 100%;
-    margin: auto;
-    perspective: 2000px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 100%;
+  margin: auto;
+  perspective: 2000px;
 }
 
 .CaretDown {
-    position: relative;
-    color: white;
-    top: 1px;
-    transition: transform 250ms ease;
+  position: relative;
+  color: white;
+  top: 1px;
+  transition: transform 250ms ease;
 }
 
-[data-state='open']>.CaretDown {
-    transform: rotate(-180deg);
+[data-state="open"] > .CaretDown {
+  transform: rotate(-180deg);
 }
 
 .Arrow {
-    position: relative;
-    top: 70%;
-    background-color: black;
-    opacity: 0.6;
-    width: 10px;
-    height: 10px;
-    transform: rotate(45deg);
-    border-top-left-radius: 2px;
+  position: relative;
+  top: 70%;
+  background-color: black;
+  opacity: 0.6;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-top-left-radius: 2px;
 }
 
 @keyframes enterFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(200px);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes enterFromLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-200px);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes exitToRight {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
-    to {
-        opacity: 0;
-        transform: translateX(200px);
-    }
+  to {
+    opacity: 0;
+    transform: translateX(200px);
+  }
 }
 
 @keyframes exitToLeft {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
-    to {
-        opacity: 0;
-        transform: translateX(-200px);
-    }
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
 }
 
 @keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: rotateX(-30deg) scale(0.9);
-    }
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg) scale(0.9);
+  }
 
-    to {
-        opacity: 1;
-        transform: rotateX(0deg) scale(1);
-    }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
 }
 
 @keyframes scaleOut {
-    from {
-        opacity: 1;
-        transform: rotateX(0deg) scale(1);
-    }
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
 
-    to {
-        opacity: 0;
-        transform: rotateX(-10deg) scale(0.95);
-    }
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
+  from {
+    opacity: 1;
+  }
 
-    to {
-        opacity: 0;
-    }
+  to {
+    opacity: 0;
+  }
 }
-
 
 /* my own styles */
 .mega-menu-content {
-    text-decoration: none;
-    display: flex;
-    gap: 2rem;
-    padding: 2rem;
-    text-transform: capitalize;
-    line-height: 2;
-    justify-content: center;
+  text-decoration: none;
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  text-transform: capitalize;
+  line-height: 2;
+  justify-content: center;
 }
 
 .mega-menu-section {
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    text-wrap: nowrap;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  text-wrap: nowrap;
 }
 
 .mega-menu-section-title {
-    font-weight: 800;
+  font-weight: 800;
 }
 
 .navmenu-trigger {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .navmenu-link {
-    color: black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 
 .navmenu-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

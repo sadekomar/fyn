@@ -1,484 +1,482 @@
 export const categories = {
-    'All Categories': {
-        image: '/categories/all-categories.webp',
-        description: 'The sets',
-        link: '/all-categories',
-        display_item: "Daddy's Set By Blameworthy",
-        display_item_link: "/item/17104"
-    },
-    't-shirts': {
-        image: '/categories/t-shirts.webp',
-        description: 'The T-shirts',
-        link: '/categories/t-shirts',
-        display_item: "Core Basics Green Tee By Core",
-        display_item_link: "/item/18871"
-    },
-    'tops': {
-        'image': '/categories/tops.webp',
-        'description': 'The top',
-        'link': '/categories/tops',
-        'display_item': "ROUND NECK VEST IN WHITE By Fehe Concept",
-        'display_item_link': "/item/18929"
-    },
-    'jeans': {
-        image: '/categories/jeans.webp',
-        description: 'The jeans',
-        link: '/categories/jeans',
-        display_item: "BLACK WASHED STRAIGHT LEG DENIM By Blanksandco",
-        display_item_link: "/item/18636"
-    },
-    'cargos': {
-        image: '/categories/cargos.webp',
-        description: 'The cargos',
-        link: '/categories/cargos',
-        display_item: "WHITE X PINK CARGOS By Stps",
-        display_item_link: "/item/2086"
-    },
-    'shirts': {
-        image: '/categories/shirts.webp',
-        description: 'The Shirts',
-        link: '/categories/shirts',
-        display_item: "Eugenia Shirt By Odd",
-        display_item_link: "/item/16022"
-    },
-    'pants': {
-        image: '/categories/pants.webp',
-        description: 'The Pants',
-        link: '/categories/pants',
-        display_item: 'Grey Tailored Pants By Kncpt',
-        display_item_link: "/item/14000"
-    },
-    'linen Pants': {
-        image: '/categories/linen-pants.webp',
-        description: 'The linen Pants',
-        link: '/categories/pants?material=linen',
-        display_item: "301 Beige Oversized Linen Pants By Navy",
-        display_item_link: "/item/13853"
-    },
-    'hoodies': {
-        image: '/categories/hoodies.webp',
-        description: 'The Hoodies',
-        link: '/categories/hoodies',
-        display_item: "HOODIE (HEATHER GREY) by Aesthete",
-        display_item_link: "/item/1887"
-    },
-    'crewnecks': {
-        image: '/categories/crewnecks.webp',
-        description: 'The crewneck',
-        link: '/categories/crewnecks',
-        display_item: "BRIO V1 Crewneck by Juvénile",
-        display_item_link: "/item/1760"
-    },
-    'jackets': {
-        image: '/categories/jackets.webp',
-        description: 'The jackets',
-        link: '/categories/jackets',
-        display_item: "Black Jacket By Finepicks",
-        display_item_link: "/item/18712"
-    },
-    'shorts': {
-        image: '/categories/shorts.webp',
-        description: 'The shorts',
-        link: '/categories/shorts',
-        display_item: "Light blue denim short By Abstract",
-        display_item_link: "/item/20663"
-    },
-}
-
+  "All Categories": {
+    image: "/categories/all-categories.webp",
+    description: "The sets",
+    link: "/all-categories",
+    display_item: "Daddy's Set By Blameworthy",
+    display_item_link: "/item/17104",
+  },
+  "t-shirts": {
+    image: "/categories/t-shirts.webp",
+    description: "The T-shirts",
+    link: "/categories/t-shirts",
+    display_item: "Core Basics Green Tee By Core",
+    display_item_link: "/item/18871",
+  },
+  tops: {
+    image: "/categories/tops.webp",
+    description: "The top",
+    link: "/categories/tops",
+    display_item: "ROUND NECK VEST IN WHITE By Fehe Concept",
+    display_item_link: "/item/18929",
+  },
+  jeans: {
+    image: "/categories/jeans.webp",
+    description: "The jeans",
+    link: "/categories/jeans",
+    display_item: "BLACK WASHED STRAIGHT LEG DENIM By Blanksandco",
+    display_item_link: "/item/18636",
+  },
+  cargos: {
+    image: "/categories/cargos.webp",
+    description: "The cargos",
+    link: "/categories/cargos",
+    display_item: "WHITE X PINK CARGOS By Stps",
+    display_item_link: "/item/2086",
+  },
+  shirts: {
+    image: "/categories/shirts.webp",
+    description: "The Shirts",
+    link: "/categories/shirts",
+    display_item: "Eugenia Shirt By Odd",
+    display_item_link: "/item/16022",
+  },
+  pants: {
+    image: "/categories/pants.webp",
+    description: "The Pants",
+    link: "/categories/pants",
+    display_item: "Grey Tailored Pants By Kncpt",
+    display_item_link: "/item/14000",
+  },
+  "linen Pants": {
+    image: "/categories/linen-pants.webp",
+    description: "The linen Pants",
+    link: "/categories/pants?material=linen",
+    display_item: "301 Beige Oversized Linen Pants By Navy",
+    display_item_link: "/item/13853",
+  },
+  hoodies: {
+    image: "/categories/hoodies.webp",
+    description: "The Hoodies",
+    link: "/categories/hoodies",
+    display_item: "HOODIE (HEATHER GREY) by Aesthete",
+    display_item_link: "/item/1887",
+  },
+  crewnecks: {
+    image: "/categories/crewnecks.webp",
+    description: "The crewneck",
+    link: "/categories/crewnecks",
+    display_item: "BRIO V1 Crewneck by Juvénile",
+    display_item_link: "/item/1760",
+  },
+  jackets: {
+    image: "/categories/jackets.webp",
+    description: "The jackets",
+    link: "/categories/jackets",
+    display_item: "Black Jacket By Finepicks",
+    display_item_link: "/item/18712",
+  },
+  shorts: {
+    image: "/categories/shorts.webp",
+    description: "The shorts",
+    link: "/categories/shorts",
+    display_item: "Light blue denim short By Abstract",
+    display_item_link: "/item/20663",
+  },
+};
 
 export const newCategories = {
-    // Tops
-    't-shirts': {
-        image: '/categories/t-shirts.webp',
-        description: 'The T-shirts',
-        term: 't-shirts',
-        link: '/categories/t-shirts',
-        display_item: "Basic Over sized T-shirt by Black Edition",
-        display_item_link: "/item/692",
-        parent_category: 'tops'
-    },
-    'tops': {
-        image: '/categories/tops.webp',
-        description: 'The top',
-        link: '/categories/tops',
-        term: 'tops',
-        display_item: "Leather Biker Jacket by Rebel",
-        display_item_link: "/item/1189",
-        parent_category: 'tops'
-    },
-    'shirts': {
-        image: '/categories/shirts.webp',
-        description: 'The dress shirts',
-        link: '/categories/shirts',
-        term: 'shirts',
-        display_item: "Formal Dress Shirt by TailorMade",
-        display_item_link: "/item/2856",
-        parent_category: 'tops'
-    },
-    'linen shirts': {
-        image: '/categories/linen-shirts.webp',
-        description: 'The linen shirts',
-        link: '/categories/shirts?material=linen',
-        term: 'linen shirts',
-        display_item: "Formal Dress Shirt by TailorMade",
-        display_item_link: "/item/2856",
-        parent_category: 'tops'
-    },
-    'polos': {
-        image: '/categories/polos.webp',
-        description: 'The polo shirts',
-        link: '/categories/polos',
-        term: 'polos',
-        display_item: "Classic Polo Shirt by PoloStyle",
-        display_item_link: "/item/210",
-        parent_category: 'tops'
-    },
-    'hoodies': {
-        image: '/categories/hoodies.webp',
-        description: 'The Hoodies',
-        term: 'hoodies',
-        link: '/categories/hoodies',
-        display_item: "HOODIE (HEATHER GREY) by Aesthete",
-        display_item_link: "/item/1887",
-        parent_category: 'tops'
-    },
-    'crewnecks': {
-        image: '/categories/crewnecks.webp',
-        description: 'The crewneck',
-        term: 'crewnecks',
-        link: '/categories/crewnecks',
-        display_item: "BRIO V1 Crewneck by Juvénile",
-        display_item_link: "/item/1760",
-        parent_category: 'tops'
-    },
-    'sweaters': {
-        image: '/categories/sweaters.webp',
-        description: 'The sweaters',
-        link: '/categories/sweaters',
-        term: 'sweaters',
-        display_item: "Cozy Knit Sweater by Cosy",
-        display_item_link: "/item/2021",
-        parent_category: 'tops'
-    },
-    'sweatshirts': {
-        image: '/categories/sweatshirts.webp',
-        description: 'The Sweatshirt',
-        link: '/categories/sweatshirts',
-        term: 'sweatshirts',
-        display_item: "Comfy Sweatshirt by LoungeLife",
-        display_item_link: "/item/1267",
-        parent_category: 'tops'
-    },
+  // Tops
+  "t-shirts": {
+    image: "/categories/t-shirts.webp",
+    description: "The T-shirts",
+    term: "t-shirts",
+    link: "/categories/t-shirts",
+    display_item: "Basic Over sized T-shirt by Black Edition",
+    display_item_link: "/item/692",
+    parent_category: "tops",
+  },
+  tops: {
+    image: "/categories/tops.webp",
+    description: "The top",
+    link: "/categories/tops",
+    term: "tops",
+    display_item: "Leather Biker Jacket by Rebel",
+    display_item_link: "/item/1189",
+    parent_category: "tops",
+  },
+  shirts: {
+    image: "/categories/shirts.webp",
+    description: "The dress shirts",
+    link: "/categories/shirts",
+    term: "shirts",
+    display_item: "Formal Dress Shirt by TailorMade",
+    display_item_link: "/item/2856",
+    parent_category: "tops",
+  },
+  "linen shirts": {
+    image: "/categories/linen-shirts.webp",
+    description: "The linen shirts",
+    link: "/categories/shirts?material=linen",
+    term: "linen shirts",
+    display_item: "Formal Dress Shirt by TailorMade",
+    display_item_link: "/item/2856",
+    parent_category: "tops",
+  },
+  polos: {
+    image: "/categories/polos.webp",
+    description: "The polo shirts",
+    link: "/categories/polos",
+    term: "polos",
+    display_item: "Classic Polo Shirt by PoloStyle",
+    display_item_link: "/item/210",
+    parent_category: "tops",
+  },
+  hoodies: {
+    image: "/categories/hoodies.webp",
+    description: "The Hoodies",
+    term: "hoodies",
+    link: "/categories/hoodies",
+    display_item: "HOODIE (HEATHER GREY) by Aesthete",
+    display_item_link: "/item/1887",
+    parent_category: "tops",
+  },
+  crewnecks: {
+    image: "/categories/crewnecks.webp",
+    description: "The crewneck",
+    term: "crewnecks",
+    link: "/categories/crewnecks",
+    display_item: "BRIO V1 Crewneck by Juvénile",
+    display_item_link: "/item/1760",
+    parent_category: "tops",
+  },
+  sweaters: {
+    image: "/categories/sweaters.webp",
+    description: "The sweaters",
+    link: "/categories/sweaters",
+    term: "sweaters",
+    display_item: "Cozy Knit Sweater by Cosy",
+    display_item_link: "/item/2021",
+    parent_category: "tops",
+  },
+  sweatshirts: {
+    image: "/categories/sweatshirts.webp",
+    description: "The Sweatshirt",
+    link: "/categories/sweatshirts",
+    term: "sweatshirts",
+    display_item: "Comfy Sweatshirt by LoungeLife",
+    display_item_link: "/item/1267",
+    parent_category: "tops",
+  },
 
-    // Bottoms
-    'jeans': {
-        image: '/categories/jeans.webp',
-        description: 'The jeans',
-        link: '/categories/jeans',
-        term: 'jeans',
-        display_item: "Black Washed Men's Jeans By Cielo",
-        display_item_link: "/item/1484",
-        parent_category: 'bottoms'
-    },
-    'pants': {
-        image: '/categories/pants.webp',
-        description: 'The Pants',
-        term: 'pants',
-        link: '/categories/pants',
-        display_item: 'Pearl Linen Pants by Ordinary Product',
-        display_item_link: "/item/637",
-        parent_category: 'bottoms'
-    },
-    'cargos': {
-        image: '/categories/cargos.webp',
-        description: 'The cargos',
-        link: '/categories/cargos',
-        term: 'cargos',
-        display_item: "OVERSIZED CARGO PANTS by Ppanther",
-        display_item_link: "/item/1484",
-        parent_category: 'bottoms'
-    },
-    'linen pants': {
-        image: '/categories/linen-pants.webp',
-        description: 'The linen Pants',
-        link: '/categories/pants?material=linen',
-        term: 'Linen Pants',
-        display_item: "OVERSIZED CARGO PANTS by Ppanther",
-        display_item_link: "/item/1484",
-        parent_category: 'bottoms'
-    },
-    'shorts': {
-        image: '/categories/shorts.webp',
-        description: 'The shorts',
-        link: '/categories/shorts',
-        term: 'shorts',
-        display_item: "Casual Denim Shorts by Denim Co.",
-        display_item_link: "/item/872",
-        parent_category: 'bottoms'
-    },
-    'skirts': {
-        image: '/categories/skirts.webp',
-        description: 'The skirts',
-        link: '/categories/skirts',
-        term: 'skirts',
-        display_item: "Pleated Midi Skirt by Chic",
-        display_item_link: "/item/702",
-        parent_category: 'bottoms',
-        women_only: true
-    },
-    'sweatpants': {
-        image: '/categories/sweatpants.webp',
-        description: 'The sweatpants',
-        link: '/categories/sweatpants',
-        term: 'sweatpants',
-        display_item: "Comfy Sweatpants by LoungeLife",
-        display_item_link: "/item/1267",
-        parent_category: 'bottoms'
-    },
-    'leggings': {
-        image: '/categories/leggings.webp',
-        description: 'The leggings',
-        link: '/categories/leggings',
-        term: 'leggings',
-        display_item: "Athletic Leggings by FitFlex",
-        display_item_link: "/item/1496",
-        parent_category: 'bottoms'
-    },
+  // Bottoms
+  jeans: {
+    image: "/categories/jeans.webp",
+    description: "The jeans",
+    link: "/categories/jeans",
+    term: "jeans",
+    display_item: "Black Washed Men's Jeans By Cielo",
+    display_item_link: "/item/1484",
+    parent_category: "bottoms",
+  },
+  pants: {
+    image: "/categories/pants.webp",
+    description: "The Pants",
+    term: "pants",
+    link: "/categories/pants",
+    display_item: "Pearl Linen Pants by Ordinary Product",
+    display_item_link: "/item/637",
+    parent_category: "bottoms",
+  },
+  cargos: {
+    image: "/categories/cargos.webp",
+    description: "The cargos",
+    link: "/categories/cargos",
+    term: "cargos",
+    display_item: "OVERSIZED CARGO PANTS by Ppanther",
+    display_item_link: "/item/1484",
+    parent_category: "bottoms",
+  },
+  "linen pants": {
+    image: "/categories/linen-pants.webp",
+    description: "The linen Pants",
+    link: "/categories/pants?material=linen",
+    term: "Linen Pants",
+    display_item: "OVERSIZED CARGO PANTS by Ppanther",
+    display_item_link: "/item/1484",
+    parent_category: "bottoms",
+  },
+  shorts: {
+    image: "/categories/shorts.webp",
+    description: "The shorts",
+    link: "/categories/shorts",
+    term: "shorts",
+    display_item: "Casual Denim Shorts by Denim Co.",
+    display_item_link: "/item/872",
+    parent_category: "bottoms",
+  },
+  skirts: {
+    image: "/categories/skirts.webp",
+    description: "The skirts",
+    link: "/categories/skirts",
+    term: "skirts",
+    display_item: "Pleated Midi Skirt by Chic",
+    display_item_link: "/item/702",
+    parent_category: "bottoms",
+    women_only: true,
+  },
+  sweatpants: {
+    image: "/categories/sweatpants.webp",
+    description: "The sweatpants",
+    link: "/categories/sweatpants",
+    term: "sweatpants",
+    display_item: "Comfy Sweatpants by LoungeLife",
+    display_item_link: "/item/1267",
+    parent_category: "bottoms",
+  },
+  leggings: {
+    image: "/categories/leggings.webp",
+    description: "The leggings",
+    link: "/categories/leggings",
+    term: "leggings",
+    display_item: "Athletic Leggings by FitFlex",
+    display_item_link: "/item/1496",
+    parent_category: "bottoms",
+  },
 
-    // Outerwear
-    'jackets': {
-        image: '/categories/jackets.webp',
-        description: 'The jackets',
-        link: '/categories/jackets',
-        term: 'jackets',
-        display_item: "Leather Biker Jacket by Rebel",
-        display_item_link: "/item/1189",
-        parent_category: 'outerwear'
-    },
-    'vests': {
-        image: '/categories/vests.webp',
-        description: 'The vests',
-        link: '/categories/vests',
-        term: 'vests',
-        display_item: "Leather Biker Jacket by Rebel",
-        display_item_link: "/item/1189",
-        parent_category: 'outerwear'
-    },
-    'kimonos': {
-        image: '/categories/kimonos.webp',
-        description: 'The kimono',
-        link: '/categories/kimonos',
-        term: 'kimonos',
-        display_item: "Leather Biker Jacket by Rebel",
-        display_item_link: "/item/1189",
-        parent_category: 'outerwear'
-    },
-    'cardigans': {
-        image: '/categories/cardigans.webp',
-        description: 'The cardigan',
-        link: '/categories/cardigans',
-        term: 'cardigans',
-        display_item: "Leather Biker Jacket by Rebel",
-        display_item_link: "/item/1189",
-        parent_category: 'outerwear'
-    },
-    'blazers': {
-        image: '/categories/blazers.webp',
-        description: 'The blazers',
-        link: '/categories/blazers',
-        term: 'blazers',
-        display_item: "Formal Blazer by Executive",
-        display_item_link: "/item/2198",
-        parent_category: 'outerwear'
-    },
+  // Outerwear
+  jackets: {
+    image: "/categories/jackets.webp",
+    description: "The jackets",
+    link: "/categories/jackets",
+    term: "jackets",
+    display_item: "Leather Biker Jacket by Rebel",
+    display_item_link: "/item/1189",
+    parent_category: "outerwear",
+  },
+  vests: {
+    image: "/categories/vests.webp",
+    description: "The vests",
+    link: "/categories/vests",
+    term: "vests",
+    display_item: "Leather Biker Jacket by Rebel",
+    display_item_link: "/item/1189",
+    parent_category: "outerwear",
+  },
+  kimonos: {
+    image: "/categories/kimonos.webp",
+    description: "The kimono",
+    link: "/categories/kimonos",
+    term: "kimonos",
+    display_item: "Leather Biker Jacket by Rebel",
+    display_item_link: "/item/1189",
+    parent_category: "outerwear",
+  },
+  cardigans: {
+    image: "/categories/cardigans.webp",
+    description: "The cardigan",
+    link: "/categories/cardigans",
+    term: "cardigans",
+    display_item: "Leather Biker Jacket by Rebel",
+    display_item_link: "/item/1189",
+    parent_category: "outerwear",
+  },
+  blazers: {
+    image: "/categories/blazers.webp",
+    description: "The blazers",
+    link: "/categories/blazers",
+    term: "blazers",
+    display_item: "Formal Blazer by Executive",
+    display_item_link: "/item/2198",
+    parent_category: "outerwear",
+  },
 
-    'shoes': {
-        image: '/categories/shoes.webp',
-        description: 'The shoes',
-        link: '/categories/shoes',
-        term: 'shoes',
-        display_item: "Leather Biker Shoe by Rebel",
-        display_item_link: "/item/1189",
-        parent_category: 'shoes'
-    },
-    'boots': {
-        image: '/categories/boots.webp',
-        description: 'The boots',
-        link: '/categories/boots',
-        term: 'boots',
-        display_item: "Leather Boots by Outback",
-        display_item_link: "/item/821",
-        parent_category: 'shoes'
-    },
+  shoes: {
+    image: "/categories/shoes.webp",
+    description: "The shoes",
+    link: "/categories/shoes",
+    term: "shoes",
+    display_item: "Leather Biker Shoe by Rebel",
+    display_item_link: "/item/1189",
+    parent_category: "shoes",
+  },
+  boots: {
+    image: "/categories/boots.webp",
+    description: "The boots",
+    link: "/categories/boots",
+    term: "boots",
+    display_item: "Leather Boots by Outback",
+    display_item_link: "/item/821",
+    parent_category: "shoes",
+  },
 
-    // Accessories
-    'hats': {
-        image: '/categories/hats.webp',
-        description: 'The hats',
-        link: '/categories/hats',
-        term: 'hats',
-        display_item: "Beanie Hat by UrbanStyle",
-        display_item_link: "/item/903",
-        parent_category: 'accessories'
-    },
-    'scarves': {
-        image: '/categories/scarves.webp',
-        description: 'The scarves',
-        link: '/categories/scarves',
-        term: 'scarves',
-        display_item: "Cashmere Scarf by WinterWarmth",
-        display_item_link: "/item/571",
-        parent_category: 'accessories'
-    },
-    'sunglasses': {
-        image: '/categories/sunglasses.webp',
-        description: 'The sunglasses',
-        link: '/categories/sunglasses',
-        term: 'sunglasses',
-        display_item: "Aviator Sunglasses by SunShade",
-        display_item_link: "/item/437",
-        parent_category: 'accessories'
-    },
-    'wallets': {
-        image: '/categories/wallets.webp',
-        description: 'The wallets',
-        link: '/categories/wallets',
-        term: 'wallets',
-        display_item: "Leather Wallet by LuxeStyle",
-        display_item_link: "/item/1229",
-        parent_category: 'accessories'
-    },
-    'earrings': {
-        image: '/categories/earrings.jpg',
-        description: 'The earrings',
-        link: '/categories/earrings',
-        term: 'earrings',
-        display_item: "Gold Hoop Earrings by ChicStyle",
-        display_item_link: "/item/750",
-        parent_category: 'accessories'
-    },
-    'headbands': {
-        image: '/categories/headbands.webp',
-        description: 'The headbands',
-        link: '/categories/headbands',
-        term: 'headbands',
-        display_item: "Sports Headband by FitFlex",
-        display_item_link: "/item/1397",
-        parent_category: 'accessories'
-    },
-    'perfumes': {
-        image: '/categories/perfumes.webp',
-        description: 'The perfume',
-        link: '/categories/perfumes',
-        term: 'perfumes',
-        display_item: "Sports Headband by FitFlex",
-        display_item_link: "/item/1397",
-        parent_category: 'accessories'
-    },
+  // Accessories
+  hats: {
+    image: "/categories/hats.webp",
+    description: "The hats",
+    link: "/categories/hats",
+    term: "hats",
+    display_item: "Beanie Hat by UrbanStyle",
+    display_item_link: "/item/903",
+    parent_category: "accessories",
+  },
+  scarves: {
+    image: "/categories/scarves.webp",
+    description: "The scarves",
+    link: "/categories/scarves",
+    term: "scarves",
+    display_item: "Cashmere Scarf by WinterWarmth",
+    display_item_link: "/item/571",
+    parent_category: "accessories",
+  },
+  sunglasses: {
+    image: "/categories/sunglasses.webp",
+    description: "The sunglasses",
+    link: "/categories/sunglasses",
+    term: "sunglasses",
+    display_item: "Aviator Sunglasses by SunShade",
+    display_item_link: "/item/437",
+    parent_category: "accessories",
+  },
+  wallets: {
+    image: "/categories/wallets.webp",
+    description: "The wallets",
+    link: "/categories/wallets",
+    term: "wallets",
+    display_item: "Leather Wallet by LuxeStyle",
+    display_item_link: "/item/1229",
+    parent_category: "accessories",
+  },
+  earrings: {
+    image: "/categories/earrings.jpg",
+    description: "The earrings",
+    link: "/categories/earrings",
+    term: "earrings",
+    display_item: "Gold Hoop Earrings by ChicStyle",
+    display_item_link: "/item/750",
+    parent_category: "accessories",
+  },
+  headbands: {
+    image: "/categories/headbands.webp",
+    description: "The headbands",
+    link: "/categories/headbands",
+    term: "headbands",
+    display_item: "Sports Headband by FitFlex",
+    display_item_link: "/item/1397",
+    parent_category: "accessories",
+  },
+  perfumes: {
+    image: "/categories/perfumes.webp",
+    description: "The perfume",
+    link: "/categories/perfumes",
+    term: "perfumes",
+    display_item: "Sports Headband by FitFlex",
+    display_item_link: "/item/1397",
+    parent_category: "accessories",
+  },
 
-    'necklaces': {
-        image: '/categories/necklaces.webp',
-        description: 'The necklaces',
-        link: '/categories/necklaces',
-        term: 'necklaces',
-        display_item: "Leather Briefcase by Executive",
-        display_item_link: "/item/190",
-        parent_category: 'accessories'
-    },
+  necklaces: {
+    image: "/categories/necklaces.webp",
+    description: "The necklaces",
+    link: "/categories/necklaces",
+    term: "necklaces",
+    display_item: "Leather Briefcase by Executive",
+    display_item_link: "/item/190",
+    parent_category: "accessories",
+  },
 
-    // Bags
-    'backpacks': {
-        image: '/categories/backpacks.webp',
-        description: 'The backpacks',
-        link: '/categories/backpacks',
-        term: 'backpacks',
-        display_item: "Canvas Backpack by UrbanTrend",
-        display_item_link: "/item/184",
-        parent_category: 'bags'
-    },
-    'bags': {
-        image: '/categories/bags.webp',
-        description: 'The bags',
-        link: '/categories/bags',
-        term: 'bags',
-        display_item: "Leather Handbag by LuxeStyle",
-        display_item_link: "/item/226",
-        parent_category: 'bags'
-    },
-    'laptop sleeves': {
-        image: '/categories/laptop-sleeves.jpeg',
-        description: 'The laptop sleeves',
-        link: '/categories/laptop sleeves',
-        term: 'laptop sleeves',
-        display_item: "Leather Handbag by LuxeStyle",
-        display_item_link: "/item/226",
-        parent_category: 'bags'
-    },
+  // Bags
+  backpacks: {
+    image: "/categories/backpacks.webp",
+    description: "The backpacks",
+    link: "/categories/backpacks",
+    term: "backpacks",
+    display_item: "Canvas Backpack by UrbanTrend",
+    display_item_link: "/item/184",
+    parent_category: "bags",
+  },
+  bags: {
+    image: "/categories/bags.webp",
+    description: "The bags",
+    link: "/categories/bags",
+    term: "bags",
+    display_item: "Leather Handbag by LuxeStyle",
+    display_item_link: "/item/226",
+    parent_category: "bags",
+  },
+  "laptop sleeves": {
+    image: "/categories/laptop-sleeves.jpeg",
+    description: "The laptop sleeves",
+    link: "/categories/laptop sleeves",
+    term: "laptop sleeves",
+    display_item: "Leather Handbag by LuxeStyle",
+    display_item_link: "/item/226",
+    parent_category: "bags",
+  },
 
+  // More
+  sets: {
+    image: "/categories/sets.webp",
+    description: "The sets",
+    term: "sets",
+    link: "/categories/sets",
+    display_item: "Crossed-Top Set By Jen",
+    display_item_link: "/item/3317",
+    parent_category: "more",
+  },
+  dresses: {
+    image: "/categories/dresses.webp",
+    description: "The dresses",
+    link: "/categories/dresses",
+    term: "dresses",
+    display_item: "Floral Maxi Dress by Bloom",
+    display_item_link: "/item/449",
+    parent_category: "more",
+  },
 
-    // More
-    'sets': {
-        image: '/categories/sets.webp',
-        description: 'The sets',
-        term: 'sets',
-        link: '/categories/sets',
-        display_item: "Crossed-Top Set By Jen",
-        display_item_link: "/item/3317",
-        parent_category: 'more'
-    },
-    'dresses': {
-        image: '/categories/dresses.webp',
-        description: 'The dresses',
-        link: '/categories/dresses',
-        term: 'dresses',
-        display_item: "Floral Maxi Dress by Bloom",
-        display_item_link: "/item/449",
-        parent_category: 'more'
-    },
-
-    'jumpsuits': {
-        image: '/categories/jumpsuits.webp',
-        description: 'The jumpsuit',
-        link: '/categories/jumpsuits',
-        term: 'jumpsuits',
-        display_item: "Leather Biker Jacket by Rebel",
-        display_item_link: "/item/1189",
-        parent_category: 'more'
-    },
-    'sportswear': {
-        image: '/categories/sportswear.webp',
-        description: 'The Sportswear',
-        link: '/categories/sportswear',
-        term: 'sportswear',
-        display_item: "Sporty Leggings by FitLife",
-        display_item_link: "/item/1523",
-        parent_category: 'more'
-    },
-    'tracksuits': {
-        image: '/categories/tracksuits.webp',
-        description: 'The tracksuits',
-        link: '/categories/tracksuits',
-        term: 'tracksuits',
-        display_item: "Two-Piece Suit by TailorMade",
-        display_item_link: "/item/3065",
-        parent_category: 'more'
-    },
-    'swimwear': {
-        image: '/categories/swimwear.webp',
-        description: 'The swimwear',
-        link: '/categories/swimwear',
-        term: 'swimwear',
-        display_item: "Printed Swim Shorts by BeachWear",
-        display_item_link: "/item/187",
-        parent_category: 'more'
-    },
-    'pajamas': {
-        image: '/categories/pajamas.webp',
-        description: 'The pajama',
-        link: '/categories/pajamas',
-        term: 'pajamas',
-        display_item: "Cozy Lounge Set by RelaxCo",
-        display_item_link: "/item/2123",
-        parent_category: 'more'
-    }
-}
+  jumpsuits: {
+    image: "/categories/jumpsuits.webp",
+    description: "The jumpsuit",
+    link: "/categories/jumpsuits",
+    term: "jumpsuits",
+    display_item: "Leather Biker Jacket by Rebel",
+    display_item_link: "/item/1189",
+    parent_category: "more",
+  },
+  sportswear: {
+    image: "/categories/sportswear.webp",
+    description: "The Sportswear",
+    link: "/categories/sportswear",
+    term: "sportswear",
+    display_item: "Sporty Leggings by FitLife",
+    display_item_link: "/item/1523",
+    parent_category: "more",
+  },
+  tracksuits: {
+    image: "/categories/tracksuits.webp",
+    description: "The tracksuits",
+    link: "/categories/tracksuits",
+    term: "tracksuits",
+    display_item: "Two-Piece Suit by TailorMade",
+    display_item_link: "/item/3065",
+    parent_category: "more",
+  },
+  swimwear: {
+    image: "/categories/swimwear.webp",
+    description: "The swimwear",
+    link: "/categories/swimwear",
+    term: "swimwear",
+    display_item: "Printed Swim Shorts by BeachWear",
+    display_item_link: "/item/187",
+    parent_category: "more",
+  },
+  pajamas: {
+    image: "/categories/pajamas.webp",
+    description: "The pajama",
+    link: "/categories/pajamas",
+    term: "pajamas",
+    display_item: "Cozy Lounge Set by RelaxCo",
+    display_item_link: "/item/2123",
+    parent_category: "more",
+  },
+};

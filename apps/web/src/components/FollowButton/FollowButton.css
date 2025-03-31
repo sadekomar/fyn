@@ -1,22 +1,26 @@
 .follow-button {
-    background-color: var(--clr-loom-lilac);
-    color: var(--clr-neutral-100);
+  background-color: var(--clr-loom-lilac);
+  color: var(--clr-neutral-100);
 
-    border-radius: 30px;
-    
-    height: var(--button-height);
-    transition: background-color 0.3s ease, color 300ms ease, margin 0.3s ease, width 300ms ease;
-    width: 98.11px;
-    margin-left: 24px;
+  border-radius: 30px;
+
+  height: var(--button-height);
+  transition:
+    background-color 0.3s ease,
+    color 300ms ease,
+    margin 0.3s ease,
+    width 300ms ease;
+  width: 98.11px;
+  margin-left: 24px;
 }
 
 .followed {
-    margin-left: 0;
-    background-color: var(--clr-neutral-100);
-    color: var(--clr-neutral-900);
-    outline: 1px solid var(--clr-neutral-900);
-    width: 121.5px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  margin-left: 0;
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
+  outline: 1px solid var(--clr-neutral-900);
+  width: 121.5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

@@ -1,17 +1,17 @@
 /* CartLayout */
 .inline-link {
-    color: var(--clr-loom-lilac);
+  color: var(--clr-loom-lilac);
 }
 
 .empty-cart {
-    padding-block: 4rem;
+  padding-block: 4rem;
 }
 
 .empty-cart-title {
-    line-height: 2.5;
+  line-height: 2.5;
 }
 
 .empty-state-wrapper {
-    margin-inline: var(--margin-inline);
-    margin-block-end: 20rem;
+  margin-inline: var(--margin-inline);
+  margin-block-end: 20rem;
 }
