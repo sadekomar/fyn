@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import prisma from "./lib/prisma";
 import cors from "cors";
-
+import { getAllItems } from "./handlers";
 const app = express();
 const PORT = process.env.PORT;
 
@@ -18,6 +18,8 @@ app.get("/health", (req: Request, res: Response) => {
 app.get("/", (req: Request, res: Response) => {
   res.json({ message: "Welcome to the Node.js application!" });
 });
+
+app.get("/items", getAllItems);
 
 app.post("/apply", async (req: Request, res: Response) => {
   const { name, email, phone, whyYou, whyLoom } = req.body;
