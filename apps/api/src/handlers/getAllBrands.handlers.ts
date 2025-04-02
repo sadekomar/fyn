@@ -1,5 +1,5 @@
-import prisma from "./lib/prisma";
-import { handleExceptions } from "./lib/utils";
+import prisma from "../lib/prisma";
+import { handleExceptions } from "../lib/utils";
 import { Request, Response } from "express";
 
 export const getAllBrands = handleExceptions(

@@ -1,10 +1,11 @@
 import express, { Request, Response } from "express";
 import prisma from "./lib/prisma";
 import cors from "cors";
-import { getAllItems } from "./getAllItems.handlers";
-import { getAllBrands } from "./getAllBrands.handlers";
-import { getItemById } from "./getItem.handler";
-import { testLatency } from "./testLatency.handler";
+import { getAllItems } from "./handlers/getAllItems.handlers";
+import { getAllBrands } from "./handlers/getAllBrands.handlers";
+import { getItemById } from "./handlers/getItem.handler";
+import { testLatency } from "./handlers/testLatency.handler";
+import { getItemsById } from "./handlers/getItemsById.handler";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -27,6 +28,7 @@ app.get("/items", getAllItems);
 app.get("/item/:id", getItemById);
 app.get("/brands", getAllBrands);
 app.get("/latency", testLatency);
+app.post("/items", getItemsById);
 
 app.post("/apply", async (req: Request, res: Response) => {
   const { name, email, phone, whyYou, whyLoom } = req.body;

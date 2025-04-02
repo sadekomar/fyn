@@ -1,15 +1,9 @@
-import prisma from "./lib/prisma";
+import prisma from "../lib/prisma";
 import { Request, Response } from "express";
-import { handleExceptions } from "./lib/utils";
+import { handleExceptions } from "../lib/utils";
 import { z } from "zod";
-
-type ItemCardsData = {
-  id: string;
-  name: string;
-  price: number;
-  brand: string;
-  image: string;
-};
+import { ImageSizes, ItemCardsData } from "../types";
+import { equal } from "assert";
 
 const QuerySchema = z.object({
   search: z.string().optional(),
@@ -17,10 +11,7 @@ const QuerySchema = z.object({
     .union([z.string(), z.array(z.string())])
     .optional()
     .transform((val) => (Array.isArray(val) ? val : val ? [val] : [])),
-  genders: z
-    .union([z.string(), z.array(z.string())])
-    .optional()
-    .transform((val) => (Array.isArray(val) ? val : val ? [val] : [])),
+  gender: z.string().optional(),
   categories: z
     .union([z.string(), z.array(z.string())])
     .optional()
@@ -53,6 +44,8 @@ export const getAllItems = handleExceptions(
   async (req: Request, res: Response) => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
+    console.log("Running getAllItems");
+
     if (!parsedQuery.success) {
       return res.status(400).json({
         error: "Invalid query parameters",
@@ -63,7 +56,7 @@ export const getAllItems = handleExceptions(
     const {
       search,
       brands,
-      genders,
+      gender,
       categories,
       colors,
       materials,
@@ -93,14 +86,14 @@ export const getAllItems = handleExceptions(
     if (hasValidValue(brands)) {
       where.brand = { name: { in: brands } };
     }
-    if (hasValidValue(genders)) {
-      where.gender = { in: genders };
+    if (hasValidValue(gender)) {
+      where.gender = gender;
     }
     if (hasValidValue(categories)) {
-      where.category = { name: { in: categories } };
+      where.categories = { some: { name: { in: categories } } };
     }
     if (hasValidValue(colors)) {
-      where.colors = { name: { in: colors } };
+      where.colors = { some: { name: { in: colors } } };
     }
     if (hasValidValue(materials)) {
       where.material = { name: { in: materials } };
@@ -141,12 +134,46 @@ export const getAllItems = handleExceptions(
       },
     });
 
+    // Get available colors with counts
+    const colorsMetadata = await prisma.item.aggregate({
+      where,
+      _count: {
+        _all: true,
+      },
+    });
+
+    console.log("colorsMetadata:", colorsMetadata);
+
+    type MetadataI = {
+      count: number;
+      genders: {
+        name: string;
+        count: number;
+      }[];
+      categories: {
+        name: string;
+        count: number;
+      }[];
+      colors: {
+        name: string;
+        count: number;
+      }[];
+      brands: {
+        name: string;
+        count: number;
+      }[];
+      materials: {
+        name: string;
+        count: number;
+      }[];
+    };
+
     const formattedItems: ItemCardsData[] = items.map((item) => ({
       id: item.id,
       name: item.name,
       price: item.latestPrice,
       brand: item.brand.name,
-      image: item.images[0]?.url.replace("loom-image-dimensions", "460"),
+      image: item.images[0]?.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL),
     }));
 
     return res.json(formattedItems);

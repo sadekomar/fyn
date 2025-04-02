@@ -1,11 +1,12 @@
-import { handleExceptions } from "./lib/utils";
+import { handleExceptions } from "../lib/utils";
 import { Request, Response } from "express";
-import prisma from "./lib/prisma";
+import prisma from "../lib/prisma";
+import { Genders, ImageSizes, ItemPageI } from "../types";
 
 export const getItemById = handleExceptions(
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    console.log(id);
+
     const item = await prisma.item.findUnique({
       where: { id },
       select: {
@@ -54,6 +55,28 @@ export const getItemById = handleExceptions(
         },
       },
     });
-    return res.json(item);
+    if (!item) {
+      return res.json([]);
+    }
+
+    const formattedItem: ItemPageI = {
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      price: item.prices[0].price,
+      brand: item.brand.name,
+      images: item.images.map((image) =>
+        image.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL)
+      ),
+      categories: item.categories.map((category) => category.name),
+      colors: item.colors.map((color) => color.name),
+      gender: item.gender || Genders.UNISEX,
+      material: item?.material?.name || "Other",
+      sizes: item.sizes.map((size) => ({
+        name: size.name,
+        available: size.available,
+      })),
+    };
+    return res.json(formattedItem);
   }
 );
