@@ -4,6 +4,8 @@ import cors from "cors";
 import { getAllItems } from "./getAllItems.handlers";
 import { getAllBrands } from "./getAllBrands.handlers";
 import { getItemById } from "./getItem.handler";
+import { testLatency } from "./testLatency.handler";
+
 const app = express();
 const PORT = process.env.PORT;
 
@@ -24,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/items", getAllItems);
 app.get("/item/:id", getItemById);
 app.get("/brands", getAllBrands);
+app.get("/latency", testLatency);
 
 app.post("/apply", async (req: Request, res: Response) => {
   const { name, email, phone, whyYou, whyLoom } = req.body;
