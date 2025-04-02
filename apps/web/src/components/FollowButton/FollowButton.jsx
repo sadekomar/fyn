@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import "./FollowButton.css";
 
-export function FollowButton({ brand, className }) {
+export function FollowButton({ brand, className = "" }) {
   const [isFollowing, setIsFollowing] = useState(false);
   let followButtonRef = useRef(null);
 

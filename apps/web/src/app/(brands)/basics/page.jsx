@@ -4,7 +4,7 @@ import { BrandScroller } from "@/components/BrandScroller";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 
 export default function BackToBasics() {
-  let backToBasics = ["the basic look", "organdy", "terre"];
+  const backToBasics = ["the basic look", "organdy", "terre"];
 
   return (
     <>

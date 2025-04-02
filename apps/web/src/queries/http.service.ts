@@ -23,7 +23,7 @@ export async function httpService(
   if (isJson && method !== HttpMethods.GET)
     headers["Content-Type"] = "application/json";
 
-  const res = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
+  const res = await fetch(`${process.env.API_URL}${url}`, {
     signal: method !== HttpMethods.GET ? undefined : signal,
     method: method,
     headers,

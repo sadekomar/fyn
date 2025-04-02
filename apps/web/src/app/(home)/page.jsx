@@ -34,8 +34,6 @@ export const metadata = {
   },
 };
 
-// why does this page take 3000ms to load
-
 export default function Home() {
   return (
     <>

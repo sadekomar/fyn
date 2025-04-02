@@ -3,15 +3,34 @@ import Link from "next/link";
 import { IPAddress } from "../data/IPAddress";
 import { FollowButton } from "./FollowButton/FollowButton";
 import { HorizontalScroller } from "../layouts/HorizontalScroller/HorizontalScroller";
+import { httpService, HttpMethods } from "@/queries/http.service";
 
 import "../layouts/HorizontalScroller/HorizontalScroll.css";
 
-export async function BrandScroller({ brand, title }) {
-  let response = await fetch(
-    `${IPAddress}/search?brand=${brand}&limit=20&sort_by=date-descending`,
-  );
+export type ItemCardsData = {
+  id: string;
+  name: string;
+  price: number;
+  brand: string;
+  image: string;
+};
 
-  let data = await response.json();
+export async function BrandScroller({
+  brand,
+  title,
+}: {
+  brand: string;
+  title: string;
+}) {
+  // const response = await fetch(
+  //   `${IPAddress}/search?brand=${brand}&limit=20&sort_by=date-descending`,
+  // );
+
+  const data: ItemCardsData[] = await httpService(
+    HttpMethods.GET,
+    `/items?brands=asili&limit=20&sort_by=date-descending`,
+  );
+  console.log("brand", brand);
   console.log(data);
 
   return (
@@ -33,7 +52,7 @@ export async function BrandScroller({ brand, title }) {
   );
 }
 
-function ViewBrandCard({ brand }) {
+function ViewBrandCard({ brand }: { brand: string }) {
   return (
     <Link
       href={`/brands/${brand}`}
