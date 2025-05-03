@@ -1,7 +1,4 @@
-import { IconButton } from "@radix-ui/themes";
-import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
 import "./LikeTextButton.css";
 
