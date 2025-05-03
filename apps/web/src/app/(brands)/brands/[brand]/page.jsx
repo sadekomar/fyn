@@ -77,8 +77,6 @@ export default async function BrandPage({ params, searchParams }) {
     fetchMetadata(params["brand"]),
   ]);
 
-  console.log(data);
-
   function getHeroImage() {
     if (heroImages[params.brand]) {
       let displayImage = heroImages[params.brand];

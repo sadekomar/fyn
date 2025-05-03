@@ -95,7 +95,7 @@ export default function LikesPage() {
   return (
     <>
       <PageTitle>Likes</PageTitle>
-      <GridLayout products={products} />
+      <GridLayout items={products} />
     </>
   );
 }

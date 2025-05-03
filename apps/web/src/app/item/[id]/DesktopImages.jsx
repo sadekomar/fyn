@@ -13,8 +13,8 @@ export function DesktopImages({ data }) {
               <img
                 key={index}
                 style={{ width: "100%" }}
-                src={image["src"]}
-                srcSet={image["srcset"]}
+                src={image}
+                srcSet={image}
                 sizes="410px"
                 alt=""
               />
@@ -48,8 +48,8 @@ export function DesktopImages({ data }) {
               <img
                 key={index}
                 style={{ width: "100%" }}
-                src={image["src"]}
-                srcSet={image["srcset"]}
+                src={image}
+                srcSet={image}
                 sizes="1080px"
                 alt=""
               />

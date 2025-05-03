@@ -1,12 +1,26 @@
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { IPAddress } from "@/data/IPAddress";
 import Link from "next/link";
+import { ItemCardsI } from "@/types";
+import { httpService, HttpMethods } from "@/queries/http.service";
 
-export async function SimilarItems({ category, color, gender }) {
-  const response = await fetch(
-    `${IPAddress}/search?category=${category}&color=${color}&limit=20&gender=${gender}`,
+export async function SimilarItems({
+  category,
+  color,
+  gender,
+}: {
+  category: string;
+  color: string;
+  gender: string;
+}) {
+  console.log(category, color, gender);
+  const data: ItemCardsI[] = await httpService(
+    HttpMethods.GET,
+    `/items?categories=${category}&colors=${color}&limit=20&gender=${gender}`,
   );
-  const similarItems = await response.json();
+  if (data.length === 0) {
+    return null;
+  }
 
   return (
     <div className="gray-section-wrapper">
@@ -21,7 +35,7 @@ export async function SimilarItems({ category, color, gender }) {
           </Link>
         </h2>
       </div>
-      <HorizontalScroller items={similarItems}></HorizontalScroller>
+      <HorizontalScroller items={data}></HorizontalScroller>
     </div>
   );
 }

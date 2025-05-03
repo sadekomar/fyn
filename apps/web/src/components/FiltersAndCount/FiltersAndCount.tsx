@@ -1,13 +1,13 @@
 import { Filters } from "../FiltersAndSort/Filters";
-
 import "./FiltersAndCount.css";
+import { MetadataI } from "@/types";
 
-export function FiltersAndCount({ metadata }) {
+export function FiltersAndCount({ metadata }: { metadata: MetadataI }) {
   return (
     <>
       <Filters metadata={metadata} />
       <p className="item-count">
-        {metadata.item_count} {metadata.item_count === 1 ? "Item" : "Items"}
+        {metadata?.count} {metadata?.count === 1 ? "Item" : "Items"}
       </p>
     </>
   );

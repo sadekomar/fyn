@@ -54,8 +54,8 @@ export function SnapScroller({ images, height = "440px" }) {
       <div className="snap-scroller-wrapper ItemImagePhoneDisplay">
         {/* placeholder img */}
         <img
-          src={images[0].src}
-          srcSet={images[0].srcSet}
+          src={images[0]}
+          srcSet={images[0]}
           sizes="(max-width: 768px) 170px, 285px"
           style={{
             position: "absolute",
@@ -84,8 +84,7 @@ export function SnapScroller({ images, height = "440px" }) {
                 >
                   <img
                     className="SnapScroller__Image"
-                    src={image["src"]}
-                    srcSet={image["srcset"]}
+                    src={image}
                     sizes="300px"
                     onLoad={(e) => {
                       stopPulse(e);

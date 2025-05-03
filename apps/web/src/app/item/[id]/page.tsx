@@ -1,10 +1,8 @@
 import { Suspense } from "react";
-import Link from "next/link";
 
 import "./ItemPage.css";
 import "./ItemPagePlaceholder.css";
 
-import { IPAddress } from "@/data/IPAddress";
 import { SnapScroller } from "@/components/SnapScroller/SnapScroller";
 import { BrandInfo } from "@/components/BrandInfo";
 import { RecentlyViewed } from "./RecentlyViewed";
@@ -13,8 +11,11 @@ import { SimilarItems } from "./SimilarItems";
 import { BrandScroller } from "@/components/BrandScroller";
 import { ItemData } from "./ItemData";
 import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
-import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import { DesktopImages } from "./DesktopImages";
+import { httpService, HttpMethods } from "@/queries/http.service";
+import { ItemPageI } from "@/types";
+import { setValueInCookie } from "@/utils/cookies.utils";
+import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 
 // export async function generateMetadata({ params }) {
 //     let response = await fetch(`${IPAddress}/id?id=${params.id}`)
@@ -42,17 +43,19 @@ import { DesktopImages } from "./DesktopImages";
 //     }
 // }
 
-export default async function ItemPage({ params }) {
-  let response = await fetch(`${IPAddress}/id?id=${params.id}`);
-  let data = await response.json();
+export default async function ItemPage({ params }: { params: { id: string } }) {
+  const data: ItemPageI = await httpService(
+    HttpMethods.GET,
+    `/item/${params.id}`,
+  );
 
-  const category = data["categories"][0];
-  const color = data["colors"][0];
-  const gender = data["gender"];
+  const category = data.categories[0];
+  const color = data.colors[0];
+  const gender = data.gender;
   return (
     <>
       {/* <PhoneImages data={data} /> */}
-      <SnapScroller images={data["images"]} />
+      <SnapScroller images={data.images} />
       <div className="ItemGrid">
         <DesktopImages data={data} />
         <ItemData data={data} />
@@ -77,7 +80,7 @@ export default async function ItemPage({ params }) {
       </Suspense>
 
       <RecentlyViewed />
-      <AddToRecentlyViewed />
+      <AddToRecentlyViewed id={params.id} />
     </>
   );
 }

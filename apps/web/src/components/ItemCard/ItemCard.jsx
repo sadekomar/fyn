@@ -25,7 +25,7 @@ export function ItemCard({
         <LikeButton id={id} className="LikeButton" />
         <CompareButton id={id} className="CompareButton" />
         <Link href={`/item/${id}`}>
-          <Image
+          <img
             loading={imgLoading}
             src={image}
             width={260}

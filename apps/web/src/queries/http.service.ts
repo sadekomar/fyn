@@ -13,29 +13,34 @@ export async function httpService(
   signal?: AbortSignal,
   isJson: boolean = true,
   isResponseJson = true,
-) {
-  let requestBody;
-  if (isJson && method !== HttpMethods.GET) requestBody = JSON.stringify(data);
-  else requestBody = undefined;
+): Promise<any> {
+  try {
+    let requestBody;
+    if (isJson && method !== HttpMethods.GET)
+      requestBody = JSON.stringify(data);
+    else requestBody = undefined;
 
-  // constructing the content type header of the request
-  const headers: any = {};
-  if (isJson && method !== HttpMethods.GET)
-    headers["Content-Type"] = "application/json";
+    const headers: any = {};
+    if (isJson && method !== HttpMethods.GET)
+      headers["Content-Type"] = "application/json";
 
-  const res = await fetch(`${process.env.API_URL}${url}`, {
-    signal: method !== HttpMethods.GET ? undefined : signal,
-    method: method,
-    headers,
-    body: requestBody,
-  });
+    const res = await fetch(`${process.env.API_URL}${url}`, {
+      signal: method !== HttpMethods.GET ? undefined : signal,
+      method: method,
+      headers,
+      body: requestBody,
+    });
 
-  if (method === HttpMethods.DELETE) return;
+    if (method === HttpMethods.DELETE) return;
 
-  let parsedResponse;
-  if (isResponseJson) parsedResponse = await res.json();
-  else parsedResponse = await res.text();
-  if (!res.ok) throw parsedResponse;
+    let parsedResponse;
+    if (isResponseJson) parsedResponse = await res.json();
+    else parsedResponse = await res.text();
+    if (!res.ok) throw parsedResponse;
 
-  return parsedResponse;
+    return parsedResponse;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }

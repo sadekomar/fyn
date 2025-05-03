@@ -6,32 +6,21 @@ import { HorizontalScroller } from "../layouts/HorizontalScroller/HorizontalScro
 import { httpService, HttpMethods } from "@/queries/http.service";
 
 import "../layouts/HorizontalScroller/HorizontalScroll.css";
-
-export type ItemCardsData = {
-  id: string;
-  name: string;
-  price: number;
-  brand: string;
-  image: string;
-};
+import { ItemCardsI } from "@/types";
 
 export async function BrandScroller({
   brand,
   title,
+  BrandInfo,
 }: {
   brand: string;
   title: string;
+  BrandInfo: React.ReactNode;
 }) {
-  // const response = await fetch(
-  //   `${IPAddress}/search?brand=${brand}&limit=20&sort_by=date-descending`,
-  // );
-
-  const data: ItemCardsData[] = await httpService(
+  const data: ItemCardsI[] = await httpService(
     HttpMethods.GET,
-    `/items?brands=asili&limit=20&sort_by=date-descending`,
+    `/items?brands=${brand}&limit=20&sort_by=date-descending`,
   );
-  console.log("brand", brand);
-  console.log(data);
 
   return (
     <>

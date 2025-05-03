@@ -1,4 +1,3 @@
-import { HorizontalScroller } from "./HorizontalScroller";
 import { ItemCardPlaceholder } from "@/components/ItemCard/ItemCardPlaceholder";
 
 export function HScrollerPlaceholder() {

@@ -129,7 +129,7 @@ export default function HistoryPage() {
         <ClearHistoryButton setProducts={setProducts} setIsEmpty={setIsEmpty} />
       </div>
 
-      <GridLayout products={products} />
+      <GridLayout items={products} />
     </>
   );
 }

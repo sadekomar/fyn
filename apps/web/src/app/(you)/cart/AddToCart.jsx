@@ -7,7 +7,7 @@ import * as Toast from "@radix-ui/react-toast";
 
 import "./AddToCart.css";
 
-export function AddToCart({ id, className }) {
+export function AddToCart({ id, className = "" }) {
   const [isFilled, setIsFilled] = useState(false);
 
   const [open, setOpen] = React.useState(false);

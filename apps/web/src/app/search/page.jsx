@@ -310,7 +310,7 @@ export default function SearchPage() {
               numberOfItems={numberOfItems}
               metadata={metadata}
             />
-            <GridLayout products={products} emptyState={isEmpty} />
+            <GridLayout items={products} emptyState={isEmpty} />
             <PaginationControl metadata={metadata} />
           </>
         )}

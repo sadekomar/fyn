@@ -1,6 +1,6 @@
 import { ItemCardPlaceholder } from "@/components/ItemCard/ItemCardPlaceholder";
 import { ItemCard } from "../../components/ItemCard/ItemCard";
-import { ItemCardsData } from "@/components/BrandScroller";
+import { ItemCardsI } from "@/types";
 
 import "./HorizontalScroll.css";
 import { ReactElement } from "react";
@@ -9,8 +9,8 @@ export function HorizontalScroller({
   items,
   children,
 }: {
-  items: ItemCardsData[];
-  children: ReactElement;
+  items: ItemCardsI[];
+  children?: ReactElement;
 }) {
   return (
     <div className="horizontalScroller">

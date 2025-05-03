@@ -6,13 +6,24 @@ import { useEffect, useState, useRef } from "react";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { GridPlaceholder } from "@/layouts/GridLayout/GridPlaceholder";
 import useSWRMutation from "swr/mutation";
+import { ItemCardsI } from "@/types";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (...args: any[]) => fetch(...args).then((res) => res.json());
 
-export function GridFetcher({ serverData, revalidateServerData, page }) {
+export function GridFetcher({
+  serverData,
+  revalidateServerData,
+  page,
+}: {
+  serverData: ItemCardsI[];
+  revalidateServerData: (params: {}) => void;
+  page: string;
+}) {
   const params = useParams();
   const isFirstMount = useRef(true);
-  const searchParams = useSearchParams();
+  const searchParams: URLSearchParams = useSearchParams();
+
+  console.log("GridFetcher server data: ", serverData);
 
   const [displayData, setDisplayData] = useState(serverData);
 
@@ -25,7 +36,7 @@ export function GridFetcher({ serverData, revalidateServerData, page }) {
       trigger().then((newData) => {
         setDisplayData(newData);
       });
-      revalidateServerData();
+      revalidateServerData(params);
     } else {
       isFirstMount.current = false;
     }
@@ -33,5 +44,5 @@ export function GridFetcher({ serverData, revalidateServerData, page }) {
 
   if (isMutating) return <GridPlaceholder />;
 
-  return <GridLayout products={displayData} />;
+  return <GridLayout items={displayData} />;
 }

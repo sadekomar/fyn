@@ -3,23 +3,50 @@
 import React, { useEffect } from "react";
 import { Accordion } from "../Accordion/Accordion";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { MetadataI } from "@/types";
 
-export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
+const METADATA_FILTER_TYPES = {
+  categories: "categories",
+  colors: "colors",
+  brands: "brands",
+  materials: "materials",
+  genders: "genders",
+} as const;
+
+type MetadataKeys = keyof typeof METADATA_FILTER_TYPES;
+
+export function MultiSelectFilter({
+  metadata,
+  filterType,
+}: {
+  metadata: MetadataI;
+  filterType: MetadataKeys;
+}) {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
 
-  function getUpdatedSearchParams(key, value) {
+  function getUpdatedSearchParams(key: string, value: string) {
     // updates key-value and page while persisting other searchParams.
     const params = new URLSearchParams(searchParams);
     params.set(key, value);
-    params.set("page", 1);
+    params.set("page", "1");
     return params.toString();
   }
 
-  function setFilterValue(value) {
+  function isChecked(value: string) {
+    const currentParam = searchParams.get(filterType);
+    if (currentParam) {
+      const checkedValues = currentParam.split(",");
+      if (checkedValues.includes(value)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  function setFilterValue(value: string) {
     const params = new URLSearchParams(searchParams);
-    let checkedFiltersString = params.get(filterKey);
+    let checkedFiltersString = params.get(filterType);
     let checkedFilters = checkedFiltersString
       ? checkedFiltersString.split(",")
       : [];
@@ -36,47 +63,35 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
     }
 
     if (checkedFilters.length > 0) {
-      params.set(filterKey, checkedFilters.join(","));
+      params.set(filterType, checkedFilters.join(","));
     } else {
-      params.set(filterKey, "all");
+      params.set(filterType, "all");
     }
-    params.set("page", 1);
+    params.set("page", "1");
     const updatedParams = params.toString();
     window.history.pushState(null, "", `?${updatedParams}`);
   }
 
-  function isChecked(value) {
-    const currentParam = searchParams.get(filterKey);
-    if (currentParam) {
-      const checkedValues = currentParam.split(",");
-      if (checkedValues.includes(value)) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
-
-  function resetFilter() {
-    const updatedParams = getUpdatedSearchParams(filterKey, "all");
-    window.history.pushState(null, "", `?${updatedParams}`);
-  }
-
   function selectAll() {
-    const allFilters = metadata[metadataKey].map(
-      (filterObject, index) => filterObject[filterKey],
+    const allFilters = metadata?.[filterType].map(
+      (filter, index) => filter.name,
     );
 
     const updatedParams = getUpdatedSearchParams(
-      filterKey,
+      filterType,
       allFilters.join(","),
     );
     window.history.pushState(null, "", `?${updatedParams}`);
   }
 
+  function resetFilter() {
+    const updatedParams = getUpdatedSearchParams(filterType, "all");
+    window.history.pushState(null, "", `?${updatedParams}`);
+  }
+
   return (
     <>
-      <Accordion trigger={metadataKey}>
+      <Accordion trigger={filterType}>
         <div className="filters-buttons-wrapper">
           <button className="filters-button" onClick={resetFilter}>
             Clear
@@ -88,24 +103,22 @@ export function MultiSelectFilter({ metadata, metadataKey, filterKey }) {
             Select All
           </button>
         </div>
-        {metadata[metadataKey].map((filterObject, index) => (
+
+        {metadata?.[filterType].map((filter, index) => (
           <div key={index} className="filters-checkbox-wrapper">
             <input
               className="filters-checkbox"
               type="checkbox"
-              name={filterObject[filterKey]}
-              id={filterObject[filterKey]}
-              checked={isChecked(filterObject[filterKey])}
+              name={filter.name}
+              id={filter.name}
+              checked={isChecked(filter.name)}
               onChange={() => {
-                setFilterValue(filterObject[filterKey], event);
+                setFilterValue(filter.name);
               }}
             />
 
-            <label
-              className="filters-checkbox-label"
-              htmlFor={filterObject[filterKey]}
-            >
-              {filterObject[filterKey]} ({filterObject.count})
+            <label className="filters-checkbox-label" htmlFor={filter.name}>
+              {filter.name} ({filter.count})
             </label>
           </div>
         ))}

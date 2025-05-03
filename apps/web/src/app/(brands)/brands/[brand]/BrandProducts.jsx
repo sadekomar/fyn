@@ -9,5 +9,5 @@ export async function BrandProducts({ params, searchParams }) {
   const productsData = await productsResponse.json();
   const products = productsData || null;
 
-  return <GridLayout products={products} />;
+  return <GridLayout items={products} />;
 }

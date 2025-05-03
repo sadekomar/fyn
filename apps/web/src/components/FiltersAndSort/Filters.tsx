@@ -10,8 +10,9 @@ import { SortingComponent } from "./SortingComponent";
 import "./Filters.css";
 import { MultiSelectFilter } from "./MultiSelectFilter";
 import { usePathname } from "next/navigation";
+import { MetadataI } from "@/types";
 
-export function Filters({ metadata }) {
+export function Filters({ metadata }: { metadata: MetadataI }) {
   const pathname = usePathname();
 
   function resetAllFilters() {
@@ -32,31 +33,14 @@ export function Filters({ metadata }) {
                 Clear All
               </button>
               <InStockFilter />
+              <MultiSelectFilter metadata={metadata} filterType={"genders"} />
               <MultiSelectFilter
                 metadata={metadata}
-                metadataKey={"genders"}
-                filterKey={"gender"}
+                filterType={"categories"}
               />
-              <MultiSelectFilter
-                metadata={metadata}
-                metadataKey={"categories"}
-                filterKey={"category"}
-              />
-              <MultiSelectFilter
-                metadata={metadata}
-                metadataKey={"colors"}
-                filterKey={"color"}
-              />
-              <MultiSelectFilter
-                metadata={metadata}
-                metadataKey={"brands"}
-                filterKey={"brand"}
-              />
-              <MultiSelectFilter
-                metadata={metadata}
-                metadataKey={"materials"}
-                filterKey={"material"}
-              />
+              <MultiSelectFilter metadata={metadata} filterType={"colors"} />
+              <MultiSelectFilter metadata={metadata} filterType={"brands"} />
+              <MultiSelectFilter metadata={metadata} filterType={"materials"} />
               <Dialog.Close className="filters-button">
                 <button className="filters-button">Apply</button>
               </Dialog.Close>
