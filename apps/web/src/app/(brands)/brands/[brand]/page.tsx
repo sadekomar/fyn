@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache";
 
 import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { CategorySelector } from "@/components/CategorySelector/CategorySelector";
-import { GridFetcher } from "@/app/categories/[category]/GridFetcher";
+import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
 
 import "./BrandPage.css";
@@ -20,13 +20,7 @@ import { BrandDescription } from "./BrandDescription";
 import { BrandProducts } from "./BrandProducts";
 import { NextPrevButtons } from "./NextPrevButtons";
 
-import { GridPlaceholder } from "@/layouts/GridLayout/GridPlaceholder";
-
 import { FollowButton } from "@/components/FollowButton/FollowButton";
-import { BrandMetadata } from "./CategorySelectorFetch";
-import { Pagination } from "@/components/Pagination/Pagination";
-import { CategorySelectorPlaceholder } from "./CategorySelectorPlaceholder";
-import { metadata } from "../page";
 
 export async function generateMetadata({ params, searchParams }) {
   const brand = params.brand.replaceAll("%20", " ");
@@ -119,11 +113,7 @@ export default async function BrandPage({ params, searchParams }) {
 
         <CategorySelector metadata={metadata} />
         <FiltersAndCount metadata={metadata} />
-        <GridFetcher
-          serverData={data}
-          revalidateServerData={revalidateServerData}
-          page={"brand"}
-        />
+        <GridLayout items={data} />
         <PaginationControl metadata={metadata} />
       </div>
     </>

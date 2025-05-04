@@ -1,26 +1,14 @@
-"use client";
-
 import Link from "next/link";
-import { useState, useEffect } from "react";
-
+import { getCookie } from "@/utils/cookies.utils";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { BrandScrollerClient } from "@/components/BrandScrollerClient";
 import { BrandInfo } from "@/components/BrandInfo";
 
-export function FollowedBrands() {
-  let localFollowing;
-  let [following, setFollowing] = useState([]);
+export async function FollowedBrands() {
+  const followingArray = await getCookie("following");
 
-  useEffect(() => {
-    localFollowing = JSON.parse(localStorage.getItem("following") || "[]");
-    localFollowing.reverse().slice(3);
-    let followingList = localFollowing.join(",");
-
-    setFollowing(localFollowing);
-  }, []);
-
-  if (localFollowing == 0) {
+  if (followingArray.length == 0) {
     return (
       <>
         <PageTitle>
@@ -55,7 +43,8 @@ export function FollowedBrands() {
           Follow
         </Link>
       </PageTitle>
-      {following.map((brand, index) => (
+
+      {followingArray.map((brand, index) => (
         <BrandScrollerClient
           key={index}
           BrandInfo={<BrandInfo brand={brand} />}

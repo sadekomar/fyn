@@ -9,6 +9,10 @@ import { Brands } from "./(Brands)/Brands";
 import { RecentlyViewed } from "../item/[id]/RecentlyViewed";
 import { FollowedBrands } from "./FollowedBrands";
 import { BrandOfTheDay } from "./BrandOfTheDay";
+import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
+import { httpService, HttpMethods } from "@/queries/http.service";
+import { ItemCardsI } from "@/types";
+import { getCookie } from "@/utils/cookies.utils";
 
 export const metadata = {
   title: "Loom Cairo: Shop 300 Local Fashion Brands in One Place",
@@ -34,19 +38,42 @@ export const metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const conifg = {
+    latestFromBrand: "asili",
+    brandOfTheDay: "antikka",
+  };
+  const recentlyViewed = (await getCookie("recently-viewed")).reverse();
+
+  const [latestBrandData, brandOfTheDayData, recentlyViewedData] =
+    await Promise.all([
+      httpService<ItemCardsI[]>(
+        HttpMethods.GET,
+        `/items?brands=${conifg.latestFromBrand}&limit=20&sort_by=date-descending`,
+      ),
+      httpService<ItemCardsI[]>(
+        HttpMethods.GET,
+        `/items?brands=${conifg.brandOfTheDay}&limit=20&sort_by=date-descending`,
+      ),
+      httpService<ItemCardsI[]>(HttpMethods.POST, "/items-by-ids", {
+        ids: recentlyViewed,
+      }),
+    ]);
+
   return (
     <>
       <Hero />
       <Brands />
 
-      <BrandScroller title={"Latest from "} brand={"asili"} />
-      <BrandOfTheDay brand={"juvenile"} />
+      <HorizontalScroller items={latestBrandData} />
+      <HorizontalScroller items={brandOfTheDayData} />
+      {/* <BrandScroller title={"Latest from "} brand={conifg.latestFromBrand} /> */}
+      {/* <BrandOfTheDay brand={conifg.brandOfTheDay} /> */}
 
-      <ShopByGender />
-      <ShopByCategory />
-      <FollowedBrands />
-      <RecentlyViewed />
+      {/* <ShopByGender />
+      <ShopByCategory /> */}
+      {/* <FollowedBrands /> */}
+      <RecentlyViewed data={recentlyViewedData} />
     </>
   );
 }

@@ -6,14 +6,14 @@ export enum HttpMethods {
   DELETE = "DELETE",
 }
 
-export async function httpService(
+export async function httpService<T>(
   method: HttpMethods,
   url: string,
   data?: any,
   signal?: AbortSignal,
   isJson: boolean = true,
   isResponseJson = true,
-): Promise<any> {
+): Promise<T> {
   try {
     let requestBody;
     if (isJson && method !== HttpMethods.GET)
@@ -31,7 +31,7 @@ export async function httpService(
       body: requestBody,
     });
 
-    if (method === HttpMethods.DELETE) return;
+    if (method === HttpMethods.DELETE) return undefined as T;
 
     let parsedResponse;
     if (isResponseJson) parsedResponse = await res.json();
@@ -41,6 +41,6 @@ export async function httpService(
     return parsedResponse;
   } catch (error) {
     console.error(error);
-    return null;
+    return undefined as T;
   }
 }

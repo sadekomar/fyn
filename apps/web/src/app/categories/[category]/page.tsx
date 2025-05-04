@@ -2,12 +2,9 @@ import "./CategoryPage.css";
 
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { ColorPills } from "@/app/(home)/(ColorPills)/ColorPills";
-import { GridFetcher } from "./GridFetcher";
-import { Suspense } from "react";
 
-import { categories, newCategories } from "@/data/categories";
+import { newCategories } from "@/data/categories";
 import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
-import { PaginationControl } from "@/components/Pagination/PaginationControl";
 import { revalidatePath } from "next/cache";
 import { HttpMethods, httpService } from "@/queries/http.service";
 import { MetadataI } from "@/types";
@@ -75,11 +72,7 @@ export default async function CategoryPage({
 
       <ColorPills metadata={metadata} />
       <FiltersAndCount metadata={metadata} />
-      <GridFetcher
-        serverData={data}
-        revalidateServerData={revalidateServerData}
-        page={"category"}
-      />
+      <GridLayout items={data} />
       {/* <PaginationControl metadata={metadata} /> */}
     </>
   );

@@ -11,11 +11,9 @@ import { ItemCardsI } from "@/types";
 export async function BrandScroller({
   brand,
   title,
-  BrandInfo,
 }: {
   brand: string;
   title: string;
-  BrandInfo: React.ReactNode;
 }) {
   const data: ItemCardsI[] = await httpService(
     HttpMethods.GET,

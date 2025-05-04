@@ -4,12 +4,7 @@ import { HttpMethods, httpService } from "@/queries/http.service";
 import { ItemCardsI } from "@/types";
 import { getCookie } from "@/utils/cookies.utils";
 
-export async function RecentlyViewed() {
-  const recentlyViewed = await getCookie("recently-viewed");
-  const data: ItemCardsI[] = await httpService(HttpMethods.POST, "/items", {
-    ids: recentlyViewed,
-  });
-
+export async function RecentlyViewed({ data }: { data: ItemCardsI[] }) {
   if (data.length === 0) {
     return null;
   }

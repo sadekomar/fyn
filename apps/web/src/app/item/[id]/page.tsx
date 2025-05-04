@@ -72,11 +72,7 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
       </Suspense>
 
       <Suspense fallback={<HScrollerPlaceholder />}>
-        <BrandScroller
-          brand={data["brand"]}
-          title={"More from "}
-          BrandInfo={<BrandInfo brand={data["brand"]} />}
-        />
+        <BrandScroller brand={data["brand"]} title={"More from "} />
       </Suspense>
 
       <RecentlyViewed />
