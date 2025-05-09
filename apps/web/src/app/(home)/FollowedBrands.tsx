@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCookie } from "@/utils/cookies.utils";
+import { getCookie } from "@/app/(utils)/cookies.utils";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { BrandScrollerClient } from "@/components/BrandScrollerClient";

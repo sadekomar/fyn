@@ -24,7 +24,8 @@ export const metadata = {
   },
 };
 
-export default function AllCategoriesPage({ searchParams }) {
+export default async function AllCategoriesPage(props) {
+  const searchParams = await props.searchParams;
   if (searchParams) {
     console.log(searchParams.gender);
   } else {

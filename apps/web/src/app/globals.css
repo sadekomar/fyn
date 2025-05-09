@@ -2,6 +2,7 @@
 /* @import '@radix-ui/themes/styles.css' layer(radix_themes); */
 
 @import url("../css/supreme.css");
+@import "tailwindcss";
 
 :root {
   --ff-main: "Supreme", Arial, sans-serif;

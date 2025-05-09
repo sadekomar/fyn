@@ -2,17 +2,18 @@
 
 import React from "react";
 import { InStockFilter } from "./InStockFilter";
-import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { SortingComponent } from "./SortingComponent";
 
 import "./Filters.css";
 import { MultiSelectFilter } from "./MultiSelectFilter";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { MetadataI } from "@/types";
 
-export function Filters({ metadata }: { metadata: MetadataI }) {
+export function Filters({ metadata }: { metadata: MetadataI | undefined }) {
+  const searchParams = useSearchParams();
+
   const pathname = usePathname();
 
   function resetAllFilters() {
@@ -22,12 +23,14 @@ export function Filters({ metadata }: { metadata: MetadataI }) {
   return (
     <>
       <div className="filters-and-sort">
-        <Dialog.Root className="filters-root">
-          <Dialog.Trigger className="filters-trigger">
-            <MixerHorizontalIcon />
-            Filters
-          </Dialog.Trigger>
+        <Dialog.Root>
+          <Dialog.Trigger className="filters-trigger">Filters</Dialog.Trigger>
           <Dialog.Content className="dialog-content">
+            <Dialog.Title>Filters</Dialog.Title>
+            <Dialog.Description className="sr-only">
+              Multiselect filters for gender, category, color, brand, and
+              material
+            </Dialog.Description>
             <div className="filters-wrapper">
               <button className="filters-button" onClick={resetAllFilters}>
                 Clear All
@@ -41,7 +44,7 @@ export function Filters({ metadata }: { metadata: MetadataI }) {
               <MultiSelectFilter metadata={metadata} filterType={"colors"} />
               <MultiSelectFilter metadata={metadata} filterType={"brands"} />
               <MultiSelectFilter metadata={metadata} filterType={"materials"} />
-              <Dialog.Close className="filters-button">
+              <Dialog.Close asChild>
                 <button className="filters-button">Apply</button>
               </Dialog.Close>
             </div>

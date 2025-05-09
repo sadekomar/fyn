@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   getFromLocalStorage,
   removeFromLocalStorage,
-} from "../../utils/localStorageUtils";
+} from "../../app/(utils)/localStorageUtils";
 import { LikeTextButton } from "../../components/LikeButton/LikeTextButton";
 import { CrossIcon } from "../../components/Icons/CustomIcons";
 

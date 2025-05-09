@@ -1,7 +1,7 @@
 "use client";
 
 import "./Pagination.css";
-import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { useSearchParams } from "next/navigation";
 
@@ -65,7 +65,7 @@ export function PaginationControl({ metadata }) {
         onClick={goToPrevPage}
         disabled={isFirstPage()}
       >
-        <CaretLeftIcon />
+        <ChevronLeft />
         Previous
       </button>
       {pageNumbers.map((number, index) => (
@@ -84,7 +84,7 @@ export function PaginationControl({ metadata }) {
         onClick={goToNextPage}
         disabled={isLastPage(numberOfPages)}
       >
-        Next <CaretRightIcon />
+        Next <ChevronRight />
       </button>
     </div>
   );

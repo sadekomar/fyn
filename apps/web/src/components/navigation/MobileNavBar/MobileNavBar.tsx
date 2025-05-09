@@ -13,7 +13,7 @@ export function MobileNavBar() {
         <SideBar />
 
         <Link href={"/"} className="loom-nav-icon">
-          <img height={"22px"} src="/branding/loom.webp" alt="Loom logo" />
+          <img width={"80px"} src="/branding/loom.webp" alt="Loom logo" />
         </Link>
         <Link href={"/search"} className="search-icon">
           <CustomMagnifyingGlassIcon />

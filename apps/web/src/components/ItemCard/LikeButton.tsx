@@ -1,7 +1,6 @@
 "use client";
 
 import { IconButton } from "@radix-ui/themes";
-import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import React, { useEffect, useState } from "react";
 
 export function LikeButton({ id, className }) {
@@ -33,13 +32,14 @@ export function LikeButton({ id, className }) {
         name="like button"
         className={className}
         variant="soft"
-        radius=""
         onClick={toggleIcon}
       >
         {isFilled ? (
-          <HeartFilledIcon style={{ color: "red" }} />
+          // <HeartFilledIcon style={{ color: "red" }} />
+          <div>like</div>
         ) : (
-          <HeartIcon />
+          // <HeartIcon />
+          <div>like</div>
         )}
       </IconButton>
     </>

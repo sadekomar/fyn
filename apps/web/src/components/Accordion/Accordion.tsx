@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CaretDownIcon } from "@radix-ui/react-icons";
+// import { CaretDownIcon } from "@radix-ui/react-icons";
 
 import "./Accordion.css";
 
@@ -16,9 +16,10 @@ export function Accordion({ trigger, children }) {
     <div className="accordion">
       <div onClick={toggleAccordion} className="accordion-trigger">
         {trigger}
-        <CaretDownIcon
+        {/* <CaretDownIcon
           className={`accordion-caret ${accordionOpened ? "accordion-caret-open" : ""}`}
-        />
+        /> */}
+        <div>caret</div>
       </div>
       <div
         className={`accordion-content ${accordionOpened ? "accordion-opened" : ""}`}

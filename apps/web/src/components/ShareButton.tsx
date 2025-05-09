@@ -1,7 +1,7 @@
 "use client";
 
 import { IconButton } from "@radix-ui/themes";
-import { Share2Icon } from "@radix-ui/react-icons";
+// import { Share2Icon } from "@radix-ui/react-icons";
 
 export function ShareButton({ id, name, description, className }) {
   const shareProduct = () => {
@@ -21,7 +21,8 @@ export function ShareButton({ id, name, description, className }) {
 
   return (
     <IconButton variant="soft" onClick={shareProduct} className={className}>
-      <Share2Icon />
+      {/* <Share2Icon /> */}
+      <div>share</div>
     </IconButton>
   );
 }

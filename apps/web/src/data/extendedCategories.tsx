@@ -1,4 +1,18 @@
-export const extendedCategories = {
+export const extendedCategories: Record<
+  string,
+  Record<
+    string,
+    {
+      image: string;
+      description: string;
+      term: string;
+      link: string;
+      display_item: string;
+      display_item_link: string;
+      women_only?: boolean;
+    }
+  >
+> = {
   Tops: {
     "T-shirts": {
       image: "/categories/t-shirts.webp",

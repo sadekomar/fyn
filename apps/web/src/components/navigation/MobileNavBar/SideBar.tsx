@@ -15,7 +15,7 @@ import {
   LinkedinIcon,
 } from "../../Icons/CustomIcons";
 
-import { getFromLocalStorage } from "../../../utils/localStorageUtils";
+import { getFromLocalStorage } from "../../../app/(utils)/localStorageUtils";
 
 import "./SideBar.css";
 import { brandsPages } from "../../../data/brandsPages";
@@ -28,7 +28,13 @@ export function SideBar() {
     setOpen(false);
   };
 
-  const NavLink = ({ href, children }) => {
+  const NavLink = ({
+    href,
+    children,
+  }: {
+    href: string;
+    children: React.ReactNode;
+  }) => {
     return (
       <NavigationMenu.Link
         className="hamburger-link"
@@ -131,55 +137,60 @@ export function SideBar() {
                   </NavigationMenu.Trigger>
                   <NavigationMenu.Content className="hamburger-level-two">
                     <NavigationMenu.Sub>
-                      <NavigationMenu.Item>
-                        <NavLink href={"/categories"}>All Categories</NavLink>
-                      </NavigationMenu.Item>
-                      {Object.keys(extendedCategories).map(
-                        (parentCategory, index) => (
-                          <NavigationMenu.Item key={index}>
-                            <NavigationMenu.Trigger
-                              className="hamburger-link"
-                              asChild
-                            >
-                              <span>
-                                {parentCategory}
-                                <svg
-                                  width="12"
-                                  height="12"
-                                  viewBox="0 0 12 12"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    className="vertical-plus-stroke"
-                                    d="M4.56 0H7.44V12H4.56V0Z"
-                                    fill="black"
-                                  />
-                                  <path
-                                    d="M0 7.44V4.56H12V7.44H0Z"
-                                    fill="black"
-                                  />
-                                </svg>
-                              </span>
-                            </NavigationMenu.Trigger>
-                            <NavigationMenu.Content className="hamburger-level-three">
-                              {Object.keys(
-                                extendedCategories[parentCategory],
-                              ).map((categoryKey, indexTwo) => {
-                                const category =
-                                  extendedCategories[parentCategory][
-                                    categoryKey
-                                  ];
-                                return (
-                                  <NavLink href={category.link} key={indexTwo}>
-                                    {category.term}
-                                  </NavLink>
-                                );
-                              })}
-                            </NavigationMenu.Content>
-                          </NavigationMenu.Item>
-                        ),
-                      )}
+                      <NavigationMenu.List>
+                        <NavigationMenu.Item>
+                          <NavLink href={"/categories"}>All Categories</NavLink>
+                        </NavigationMenu.Item>
+                        {Object.keys(extendedCategories).map(
+                          (parentCategory, index) => (
+                            <NavigationMenu.Item key={index}>
+                              <NavigationMenu.Trigger
+                                className="hamburger-link"
+                                asChild
+                              >
+                                <span>
+                                  {parentCategory}
+                                  <svg
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      className="vertical-plus-stroke"
+                                      d="M4.56 0H7.44V12H4.56V0Z"
+                                      fill="black"
+                                    />
+                                    <path
+                                      d="M0 7.44V4.56H12V7.44H0Z"
+                                      fill="black"
+                                    />
+                                  </svg>
+                                </span>
+                              </NavigationMenu.Trigger>
+                              <NavigationMenu.Content className="hamburger-level-three">
+                                {Object.keys(
+                                  extendedCategories[parentCategory],
+                                ).map((categoryKey, indexTwo) => {
+                                  const category =
+                                    extendedCategories[parentCategory][
+                                      categoryKey
+                                    ];
+                                  return (
+                                    <NavLink
+                                      href={category.link}
+                                      key={indexTwo}
+                                    >
+                                      {category.term}
+                                    </NavLink>
+                                  );
+                                })}
+                              </NavigationMenu.Content>
+                            </NavigationMenu.Item>
+                          ),
+                        )}
+                      </NavigationMenu.List>
                     </NavigationMenu.Sub>
                   </NavigationMenu.Content>
                 </NavigationMenu.Item>

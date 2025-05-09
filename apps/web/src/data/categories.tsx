@@ -85,7 +85,19 @@ export const categories = {
   },
 };
 
-export const newCategories = {
+export const newCategories: Record<
+  string,
+  {
+    image: string;
+    description: string;
+    term: string;
+    link: string;
+    display_item: string;
+    display_item_link: string;
+    parent_category: string;
+    women_only?: boolean;
+  }
+> = {
   // Tops
   "t-shirts": {
     image: "/categories/t-shirts.webp",

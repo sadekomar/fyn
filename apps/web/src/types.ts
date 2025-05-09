@@ -24,25 +24,36 @@ export type ItemPageI = {
 };
 
 export type MetadataI = {
-  count: number;
-  genders: {
+  items: {
     name: string;
     count: number;
-  }[];
-  categories: {
-    name: string;
-    count: number;
-  }[];
+  };
+  genders:
+    | {
+        name: string;
+        count: number;
+      }[]
+    | [];
+  categories:
+    | {
+        name: string;
+        count: number;
+      }[]
+    | [];
   colors: {
     name: string;
     count: number;
   }[];
-  brands: {
-    name: string;
-    count: number;
-  }[];
-  materials: {
-    name: string;
-    count: number;
-  }[];
+  brands:
+    | {
+        name: string;
+        count: number;
+      }[]
+    | [];
+  materials:
+    | {
+        name: string;
+        count: number;
+      }[]
+    | [];
 };

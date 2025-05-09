@@ -1,4 +1,4 @@
-export const heroImages = {
+export const heroImages: Record<string, string> = {
   cielo:
     "https://cielodenim.com/cdn/shop/files/WhatsApp_Image_2024-07-13_at_3.43.18_PM.jpg?v=1720874648&width=loom-image-dimensions",
   taysa:
@@ -225,3 +225,6 @@ export const heroImages = {
     "https://littleladseg.com/cdn/shop/files/20230621alahrammodels-72.jpg?v=1693220997&width=loom-image-dimensions",
   vee: "https://res.cloudinary.com/dffgye7z3/image/upload/w_1080/v1724092224/vee-cover-image_znjsj9.webp",
 };
+
+type HeroImagesKeys = keyof typeof heroImages;
+type HeroImages = (typeof heroImages)[HeroImagesKeys];

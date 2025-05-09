@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { Accordion } from "../Accordion/Accordion";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { MetadataI } from "@/types";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import debounce from "lodash/debounce";
 
 const METADATA_FILTER_TYPES = {
   categories: "categories",
@@ -19,74 +20,93 @@ export function MultiSelectFilter({
   metadata,
   filterType,
 }: {
-  metadata: MetadataI;
+  metadata: MetadataI | undefined;
   filterType: MetadataKeys;
 }) {
+  const [checkedFilters, setCheckedFilters] = useState<{
+    [key: string]: boolean;
+  }>({});
   const searchParams = useSearchParams();
 
-  function getUpdatedSearchParams(key: string, value: string) {
-    // updates key-value and page while persisting other searchParams.
-    const params = new URLSearchParams(searchParams);
-    params.set(key, value);
-    params.set("page", "1");
-    return params.toString();
-  }
+  useEffect(() => {
+    const filters = searchParams.getAll(filterType);
 
-  function isChecked(value: string) {
-    const currentParam = searchParams.get(filterType);
-    if (currentParam) {
-      const checkedValues = currentParam.split(",");
-      if (checkedValues.includes(value)) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
+    let filtersObject: { [key: string]: boolean } = {};
+    metadata?.[filterType].map((filter, index) => {
+      filtersObject[filter.name] = filters.includes(filter.name);
+    });
+    filtersObject = filters.reduce(
+      (acc, filter) => {
+        acc[filter] = true;
+        return acc;
+      },
+      {} as { [key: string]: boolean },
+    );
+
+    setCheckedFilters(filtersObject);
+  }, [searchParams, filterType, metadata]);
+
+  const updateUrl = useCallback(
+    (newFilters: { [key: string]: boolean }) => {
+      let updatableSearchParams = new URLSearchParams(searchParams);
+      updatableSearchParams.delete(filterType);
+      Object.entries(newFilters).forEach(([key, value]) => {
+        if (value) {
+          updatableSearchParams.append(filterType, key);
+        }
+      });
+      updatableSearchParams.set("page", "1");
+      window.history.pushState(
+        null,
+        "",
+        `?${updatableSearchParams.toString()}`,
+      );
+    },
+    [searchParams, filterType],
+  );
+
+  const debouncedUpdateUrl = useMemo(
+    () => debounce(updateUrl, 600),
+    [updateUrl],
+  );
 
   function setFilterValue(value: string) {
-    const params = new URLSearchParams(searchParams);
-    let checkedFiltersString = params.get(filterType);
-    let checkedFilters = checkedFiltersString
-      ? checkedFiltersString.split(",")
-      : [];
-
-    if (checkedFilters.includes(value)) {
-      checkedFilters = checkedFilters.filter(
-        (currentFilter) => currentFilter !== value,
-      );
-    } else {
-      checkedFilters = checkedFilters.filter(
-        (currentFilter) => currentFilter !== "all",
-      );
-      checkedFilters.push(value);
-    }
-
-    if (checkedFilters.length > 0) {
-      params.set(filterType, checkedFilters.join(","));
-    } else {
-      params.set(filterType, "all");
-    }
-    params.set("page", "1");
-    const updatedParams = params.toString();
-    window.history.pushState(null, "", `?${updatedParams}`);
+    setCheckedFilters((prev) => {
+      const newState = {
+        ...prev,
+        [value]: !prev[value],
+      };
+      debouncedUpdateUrl(newState);
+      return newState;
+    });
   }
 
   function selectAll() {
-    const allFilters = metadata?.[filterType].map(
-      (filter, index) => filter.name,
+    const allFilters = metadata?.[filterType].reduce(
+      (acc, filter) => ({
+        ...acc,
+        [filter.name]: true,
+      }),
+      {} as { [key: string]: boolean },
     );
-
-    const updatedParams = getUpdatedSearchParams(
-      filterType,
-      allFilters.join(","),
-    );
-    window.history.pushState(null, "", `?${updatedParams}`);
+    if (allFilters) {
+      setCheckedFilters(allFilters);
+      debouncedUpdateUrl(allFilters);
+    }
   }
 
   function resetFilter() {
-    const updatedParams = getUpdatedSearchParams(filterType, "all");
-    window.history.pushState(null, "", `?${updatedParams}`);
+    const emptyFilters = metadata?.[filterType].reduce(
+      (acc, filter) => ({
+        ...acc,
+        [filter.name]: false,
+      }),
+      {} as { [key: string]: boolean },
+    );
+    if (emptyFilters) {
+      setCheckedFilters(emptyFilters);
+      debouncedUpdateUrl(emptyFilters);
+    }
   }
 
   return (
@@ -104,20 +124,26 @@ export function MultiSelectFilter({
           </button>
         </div>
 
-        {metadata?.[filterType].map((filter, index) => (
-          <div key={index} className="filters-checkbox-wrapper">
+        {metadata?.[filterType]?.map((filter, index) => (
+          <div
+            key={index}
+            className="filters-checkbox-wrapper active:scale-98 transition-transform duration-100"
+          >
             <input
               className="filters-checkbox"
               type="checkbox"
               name={filter.name}
               id={filter.name}
-              checked={isChecked(filter.name)}
+              checked={checkedFilters[filter.name] || false}
               onChange={() => {
                 setFilterValue(filter.name);
               }}
             />
 
-            <label className="filters-checkbox-label" htmlFor={filter.name}>
+            <label
+              className="filters-checkbox-label select-none"
+              htmlFor={filter.name}
+            >
               {filter.name} ({filter.count})
             </label>
           </div>

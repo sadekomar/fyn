@@ -10,7 +10,7 @@ export function HorizontalScroller({
   children,
 }: {
   items: ItemCardsI[];
-  children?: ReactElement;
+  children?: ReactElement<any>;
 }) {
   return (
     <div className="horizontalScroller">

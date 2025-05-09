@@ -47,7 +47,7 @@ export function PpantherLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2495)">
+      <g clipPath="url(#clip0_397_2495)">
         <rect
           width="120"
           height="64"
@@ -126,7 +126,7 @@ export function JuvenileLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2475)">
+      <g clipPath="url(#clip0_397_2475)">
         <rect
           width="120"
           height="64"
@@ -196,7 +196,7 @@ export function KijaqoLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2420)">
+      <g clipPath="url(#clip0_397_2420)">
         <rect
           width="120"
           height="64"
@@ -254,7 +254,7 @@ export function KongaLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2574)">
+      <g clipPath="url(#clip0_397_2574)">
         <rect
           width="120"
           height="64"
@@ -316,7 +316,7 @@ export function LeonLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2463)">
+      <g clipPath="url(#clip0_397_2463)">
         <rect
           width="120"
           height="64"
@@ -370,7 +370,7 @@ export function LockenLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2518)">
+      <g clipPath="url(#clip0_397_2518)">
         <rect
           width="120"
           height="64"
@@ -427,7 +427,7 @@ export function OrgandyLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2411)">
+      <g clipPath="url(#clip0_397_2411)">
         <rect
           width="120"
           height="64"
@@ -488,7 +488,7 @@ export function PsychLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2543)">
+      <g clipPath="url(#clip0_397_2543)">
         <rect
           width="120"
           height="64"
@@ -545,7 +545,7 @@ export function QuwaLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2526)">
+      <g clipPath="url(#clip0_397_2526)">
         <rect
           width="120"
           height="64"
@@ -594,7 +594,7 @@ export function RakinLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_397_2551)">
+      <g clipPath="url(#clip0_397_2551)">
         <rect
           width="120"
           height="64"

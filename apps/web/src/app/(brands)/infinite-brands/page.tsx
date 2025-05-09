@@ -12,7 +12,7 @@ import { BrandInfo } from "@/components/BrandInfo";
 
 export default function InfiniteScroller() {
   const [brandsList, setBrandsList] = useState([]);
-  const listRef = useRef();
+  const listRef = useRef(undefined);
 
   useEffect(() => {
     fetch(`${IPAddress}/brands-list`)

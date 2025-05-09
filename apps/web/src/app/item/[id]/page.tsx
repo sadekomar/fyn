@@ -4,7 +4,6 @@ import "./ItemPage.css";
 import "./ItemPagePlaceholder.css";
 
 import { SnapScroller } from "@/components/SnapScroller/SnapScroller";
-import { BrandInfo } from "@/components/BrandInfo";
 import { RecentlyViewed } from "./RecentlyViewed";
 import { SimilarItems } from "./SimilarItems";
 
@@ -14,8 +13,8 @@ import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlac
 import { DesktopImages } from "./DesktopImages";
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemPageI } from "@/types";
-import { setValueInCookie } from "@/utils/cookies.utils";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
+import { getRecentlyViewed } from "@/app/(home)/page";
 
 // export async function generateMetadata({ params }) {
 //     let response = await fetch(`${IPAddress}/id?id=${params.id}`)
@@ -43,15 +42,18 @@ import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 //     }
 // }
 
-export default async function ItemPage({ params }: { params: { id: string } }) {
-  const data: ItemPageI = await httpService(
-    HttpMethods.GET,
-    `/item/${params.id}`,
-  );
+export default async function ItemPage(props: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await props.params;
+
+  const data = await httpService<ItemPageI>(HttpMethods.GET, `/item/${id}`);
+  const recentlyViewedData = await getRecentlyViewed();
 
   const category = data.categories[0];
   const color = data.colors[0];
   const gender = data.gender;
+
   return (
     <>
       {/* <PhoneImages data={data} /> */}
@@ -75,8 +77,8 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
         <BrandScroller brand={data["brand"]} title={"More from "} />
       </Suspense>
 
-      <RecentlyViewed />
-      <AddToRecentlyViewed id={params.id} />
+      <RecentlyViewed data={recentlyViewedData} />
+      <AddToRecentlyViewed id={id} />
     </>
   );
 }

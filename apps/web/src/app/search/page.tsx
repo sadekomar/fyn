@@ -2,12 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Flex } from "@radix-ui/themes";
-import {
-  ClockIcon,
-  Cross1Icon,
-  MagnifyingGlassIcon,
-} from "@radix-ui/react-icons";
-import { Helmet } from "react-helmet";
+import { ClockIcon, X, Search } from "lucide-react";
 
 import { IPAddress } from "../../data/IPAddress";
 import { autofillSuggestionsList } from "../../data/autofillSuggestions";
@@ -19,15 +14,15 @@ import "./SearchPage.css";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
 
 import { FiltersAndCount } from "../../components/FiltersAndCount/FiltersAndCount";
-// import AllCategoriesPage from '../all-categories/page';
 import { ColorPills } from "../(home)/(ColorPills)/ColorPills";
+import { ItemCardsI } from "@/types";
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
-  let [products, setProducts] = useState(null);
-  let [searchHistory, setSearchHistory] = useState(null);
-  let [autofill, setAutofill] = useState(null);
-  let [numberOfItems, setNumberOfItems] = useState(null);
+  let [products, setProducts] = useState<ItemCardsI[]>([]);
+  let [searchHistory, setSearchHistory] = useState<string[]>([]);
+  let [autofill, setAutofill] = useState<string[]>([]);
+  let [numberOfItems, setNumberOfItems] = useState<number | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -40,11 +35,13 @@ export default function SearchPage() {
     materials: [],
   });
 
-  let searchFieldRef = useRef();
-  let autofillRef = useRef();
+  let searchFieldRef = useRef<HTMLInputElement>(null);
+  let autofillRef = useRef<HTMLDivElement>(null);
+
+  // okay how does search work?
 
   // Fetching data
-  function search(query) {
+  function search(query: string) {
     if (query != "" && query != " ") {
       setProducts(null);
 
@@ -192,9 +189,6 @@ export default function SearchPage() {
 
   return (
     <>
-      <Helmet>
-        <title>{searchParams.get("query")}</title>
-      </Helmet>
       <Flex direction={"column"}>
         <div className="search-and-autofill">
           <div
@@ -202,7 +196,7 @@ export default function SearchPage() {
           >
             <div className="searchbar">
               <div className="magnifying-glass">
-                <MagnifyingGlassIcon />
+                <Search />
               </div>
 
               <form
@@ -250,7 +244,7 @@ export default function SearchPage() {
                 onClick={clearSearchField}
                 onTouchEnd={clearSearchField}
               >
-                <Cross1Icon className="cross-icon" />
+                <X className="cross-icon" />
               </button>
             </div>
           </div>
@@ -280,7 +274,7 @@ export default function SearchPage() {
                     }}
                     className="remove-from-search-history-button"
                   >
-                    <Cross1Icon />
+                    <X />
                   </button>
                 </div>
               ))}
@@ -297,7 +291,7 @@ export default function SearchPage() {
                   }}
                   className="suggestion-button"
                 >
-                  <MagnifyingGlassIcon /> {suggestion}
+                  <Search /> {suggestion}
                 </button>
               ))}
           </div>

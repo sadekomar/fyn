@@ -7,7 +7,7 @@ import {
   addToLocalStorage,
   removeFromLocalStorage,
   getFromLocalStorage,
-} from "../utils/localStorageUtils";
+} from "../app/(utils)/localStorageUtils";
 
 import { CompareIcon } from "./Icons/CustomIcons";
 

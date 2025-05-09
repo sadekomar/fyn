@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, IconButton } from "@radix-ui/themes";
-import { Cross1Icon } from "@radix-ui/react-icons";
+// import { Cross1Icon } from "@radix-ui/react-icons";
 
 export function DesktopImages({ data }) {
   return (
@@ -40,7 +40,8 @@ export function DesktopImages({ data }) {
               radius="full"
               style={{ right: "25px", top: "25px", position: "fixed" }}
             >
-              <Cross1Icon />
+              {/* <Cross1Icon /> */}
+              <div>close</div>
             </IconButton>
           </Dialog.Close>
           {data &&

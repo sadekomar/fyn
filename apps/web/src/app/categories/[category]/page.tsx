@@ -1,79 +1,40 @@
-import "./CategoryPage.css";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
+import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
+import { CategoryPageClient } from "./CategoryPage";
 
-import { GridLayout } from "@/layouts/GridLayout/GridLayout";
-import { ColorPills } from "@/app/(home)/(ColorPills)/ColorPills";
-
-import { newCategories } from "@/data/categories";
-import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
-import { revalidatePath } from "next/cache";
-import { HttpMethods, httpService } from "@/queries/http.service";
-import { MetadataI } from "@/types";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { category: string };
+export default async function CategoryPage(props: {
+  params: Promise<{ category: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  function capitalizeWords(string: string) {
-    const parsedWords = string.split(" ");
-    parsedWords.forEach((word) => {
-      word = word.charAt(0).toUpperCase() + word.slice(1);
-    });
-    return parsedWords.join(" ");
-  }
+  const queryClient = new QueryClient();
+  const { category } = await props.params;
+  const searchParams = await props.searchParams;
 
-  return {
-    title: capitalizeWords(params.category),
-  };
-}
+  const queryString = getQueryString(searchParams);
+  const queryStringArray = getQueryStringArray(searchParams);
 
-async function revalidateServerData(params: { category: string }) {
-  "use server";
-  revalidatePath(`/categories/${params.category}`);
-}
+  await queryClient.prefetchQuery({
+    queryKey: ["/category", category, ...queryStringArray],
+    queryFn: () => getCategoryItems(category, queryString),
+  });
 
-export default async function CategoryPage({
-  params,
-  searchParams,
-}: {
-  params: { category: string };
-  searchParams: URLSearchParams;
-}) {
-  // const fetchMetadata = async (category) => {
-  //   const searchParamsObject = new URLSearchParams(searchParams);
-  //   const metadataResponse = await fetch(
-  //     `${IPAddress}/metadata?category=${category}&${searchParamsObject.toString()}`,
-  //   );
-  //   return metadataResponse.json();
-  // };
-
-  const searchParamsObject: URLSearchParams = new URLSearchParams(searchParams);
-
-  let data, metadata: MetadataI;
-  [data, metadata] = await Promise.all([
-    httpService(
-      HttpMethods.GET,
-      `/items?categories=${params.category}&${searchParamsObject.toString()}&limit=50`,
-    ),
-    httpService(
-      HttpMethods.GET,
-      `/metadata?categories=${params.category}&${searchParamsObject.toString()}&limit=50`,
-    ),
-  ]);
+  await queryClient.prefetchQuery({
+    queryKey: [
+      "/category-metadata",
+      category,
+      ...queryStringArray.filter(([key]) => key !== "page"),
+    ],
+    queryFn: () => getCategoryMetadata(category, queryString),
+  });
 
   return (
-    <>
-      <div className="category-page-header">
-        <img src={newCategories[params["category"]]?.["image"] || ""} alt="" />
-        <div className="category-page-title-wrapper">
-          <h2 className="category-page-title">{params["category"]}</h2>
-        </div>
-      </div>
-
-      <ColorPills metadata={metadata} />
-      <FiltersAndCount metadata={metadata} />
-      <GridLayout items={data} />
-      {/* <PaginationControl metadata={metadata} /> */}
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <CategoryPageClient />
+    </HydrationBoundary>
   );
 }

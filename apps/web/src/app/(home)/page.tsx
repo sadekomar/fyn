@@ -12,7 +12,8 @@ import { BrandOfTheDay } from "./BrandOfTheDay";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemCardsI } from "@/types";
-import { getCookie } from "@/utils/cookies.utils";
+import { getCookie } from "@/app/(utils)/cookies.utils";
+import { brandsList } from "@/data/brands-list";
 
 export const metadata = {
   title: "Loom Cairo: Shop 300 Local Fashion Brands in One Place",
@@ -40,33 +41,50 @@ export const metadata = {
 
 export default async function Home() {
   const conifg = {
-    latestFromBrand: "asili",
-    brandOfTheDay: "antikka",
+    latestFromBrand: {
+      label: "Asili",
+      value: "asili",
+    },
+    brandOfTheDay: {
+      label: getBrandofTheDay().toUpperCase(),
+      value: getBrandofTheDay(),
+    },
   };
-  const recentlyViewed = (await getCookie("recently-viewed")).reverse();
 
-  const [latestBrandData, brandOfTheDayData, recentlyViewedData] =
-    await Promise.all([
-      httpService<ItemCardsI[]>(
-        HttpMethods.GET,
-        `/items?brands=${conifg.latestFromBrand}&limit=20&sort_by=date-descending`,
-      ),
-      httpService<ItemCardsI[]>(
-        HttpMethods.GET,
-        `/items?brands=${conifg.brandOfTheDay}&limit=20&sort_by=date-descending`,
-      ),
-      httpService<ItemCardsI[]>(HttpMethods.POST, "/items-by-ids", {
-        ids: recentlyViewed,
-      }),
-    ]);
+  const [latestBrandData, brandOfTheDayData] = await Promise.all([
+    httpService<ItemCardsI[] | []>(
+      HttpMethods.GET,
+      `/items?brands=${conifg.latestFromBrand.value}&limit=20&sort_by=date-descending`,
+    ),
+    httpService<ItemCardsI[] | []>(
+      HttpMethods.GET,
+      `/items?brands=${conifg.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
+    ),
+  ]);
+
+  console.log("brandoftheDay", brandOfTheDayData);
+  const recentlyViewedData = await getRecentlyViewed();
 
   return (
     <>
       <Hero />
       <Brands />
 
+      <Link href={`/brands/${conifg.latestFromBrand.value}`}>
+        <h1 className="h-scroller-title">
+          Latest from {conifg.latestFromBrand.label}
+        </h1>
+      </Link>
       <HorizontalScroller items={latestBrandData} />
-      <HorizontalScroller items={brandOfTheDayData} />
+
+      {brandOfTheDayData.length > 0 && (
+        <>
+          <h1 className="h-scroller-title">
+            Brand of the Day: {conifg.brandOfTheDay.label}
+          </h1>
+          <HorizontalScroller items={brandOfTheDayData} />
+        </>
+      )}
       {/* <BrandScroller title={"Latest from "} brand={conifg.latestFromBrand} /> */}
       {/* <BrandOfTheDay brand={conifg.brandOfTheDay} /> */}
 
@@ -76,6 +94,29 @@ export default async function Home() {
       <RecentlyViewed data={recentlyViewedData} />
     </>
   );
+}
+
+function getBrandofTheDay(): string {
+  const brands = brandsList;
+  const startingDate = new Date(2025, 4, 5);
+  const today = new Date();
+
+  const timeDiff = today.getTime() - startingDate.getTime();
+  const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const brandIndex = daysDiff % brands.length;
+  return brands[brandIndex];
+}
+
+export async function getRecentlyViewed() {
+  const recentlyViewed = (await getCookie("recently-viewed")).reverse();
+  return await httpService<ItemCardsI[]>(HttpMethods.POST, "/items-by-ids", {
+    data: {
+      ids: recentlyViewed,
+    },
+    isResponseJson: true,
+    isDataJson: true,
+    isServer: true,
+  });
 }
 
 function ShopByGender() {
@@ -107,7 +148,7 @@ function ShopByGender() {
             />
             <img
               src="https://res.cloudinary.com/dffgye7z3/image/upload/w_1080/v1725840213/women_lpshuo.webp"
-              srcset="
+              srcSet="
                 https://res.cloudinary.com/dffgye7z3/image/upload/w_480/v1725840213/women_lpshuo.webp  480w,
                 https://res.cloudinary.com/dffgye7z3/image/upload/w_720/v1725840213/women_lpshuo.webp  720w,
                 https://res.cloudinary.com/dffgye7z3/image/upload/w_1080/v1725840213/women_lpshuo.webp 1080w,
