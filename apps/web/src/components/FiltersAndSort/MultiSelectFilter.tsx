@@ -112,42 +112,44 @@ export function MultiSelectFilter({
   return (
     <>
       <Accordion trigger={filterType}>
-        <div className="filters-buttons-wrapper">
-          <button className="filters-button" onClick={resetFilter}>
-            Clear
-          </button>
-          <button
-            className="filters-button filters-button-secondary"
-            onClick={selectAll}
-          >
-            Select All
-          </button>
-        </div>
-
-        {metadata?.[filterType]?.map((filter, index) => (
-          <div
-            key={index}
-            className="filters-checkbox-wrapper active:scale-98 transition-transform duration-100"
-          >
-            <input
-              className="filters-checkbox"
-              type="checkbox"
-              name={filter.name}
-              id={filter.name}
-              checked={checkedFilters[filter.name] || false}
-              onChange={() => {
-                setFilterValue(filter.name);
-              }}
-            />
-
-            <label
-              className="filters-checkbox-label select-none"
-              htmlFor={filter.name}
+        <>
+          <div className="filters-buttons-wrapper">
+            <button className="filters-button" onClick={resetFilter}>
+              Clear
+            </button>
+            <button
+              className="filters-button filters-button-secondary"
+              onClick={selectAll}
             >
-              {filter.name} ({filter.count})
-            </label>
+              Select All
+            </button>
           </div>
-        ))}
+
+          {metadata?.[filterType]?.map((filter, index) => (
+            <div
+              key={index}
+              className="filters-checkbox-wrapper active:scale-98 transition-transform duration-100"
+            >
+              <input
+                className="filters-checkbox"
+                type="checkbox"
+                name={filter.name}
+                id={filter.name}
+                checked={checkedFilters[filter.name] || false}
+                onChange={() => {
+                  setFilterValue(filter.name);
+                }}
+              />
+
+              <label
+                className="filters-checkbox-label select-none"
+                htmlFor={filter.name}
+              >
+                {filter.name} ({filter.count})
+              </label>
+            </div>
+          ))}
+        </>
       </Accordion>
     </>
   );

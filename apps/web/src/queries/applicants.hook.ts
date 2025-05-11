@@ -21,8 +21,8 @@ export type PostNewsletter = {
 
 export const usePostApplicant = () => {
   return useMutation({
-    mutationFn: async (event: PostApplicant) =>
-      await httpService(HttpMethods.POST, "/apply", event),
+    mutationFn: async (data: PostApplicant) =>
+      await httpService(HttpMethods.POST, "/apply", { data: data }),
     onError: (error) => {
       console.error("Error submitting application:", error);
     },
@@ -31,7 +31,7 @@ export const usePostApplicant = () => {
 
 export const usePostNewsletter = () => {
   return useMutation({
-    mutationFn: (event: PostNewsletter) =>
-      httpService(HttpMethods.POST, "/newsletter", event),
+    mutationFn: (data: PostNewsletter) =>
+      httpService(HttpMethods.POST, "/newsletter", { data: data }),
   });
 };

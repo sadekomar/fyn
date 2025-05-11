@@ -25,7 +25,10 @@ export function Footer() {
         <div className="FooterShopNav">
           <div className="footer-title">Shop</div>
           {Object.keys(categories).map((category, index) => (
-            <Link href={categories[category]["link"]} key={index}>
+            <Link
+              href={categories[category as keyof typeof categories].link}
+              key={index}
+            >
               {category}
             </Link>
           ))}

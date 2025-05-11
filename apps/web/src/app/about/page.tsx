@@ -1,3 +1,4 @@
+import { LoomImage } from "@/components/LoomImage";
 import "./About.css";
 
 export const metadata = {
@@ -56,7 +57,7 @@ export default function About() {
           </ul>
         </div>
       </div>
-      <img
+      <LoomImage
         className="about-page-image"
         src="/branding/loom-threads.webp"
         alt="Loom machine weaving threads to gether."

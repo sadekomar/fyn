@@ -10,8 +10,8 @@ import { PaginationControl } from "@/components/Pagination/PaginationControl";
 import "./(components)/BrandPage.css";
 
 import { BrandsNavigator } from "./(components)/BrandsNavigator";
-import { LoomImage } from "./(components)/LoomImage";
-import { BrandDescription } from "./(components)/BrandDescription";
+import { LoomImage } from "@/components/LoomImage";
+import { BrandDescription, brandKey } from "./(components)/BrandDescription";
 import { BrandProducts } from "./(components)/BrandProducts";
 import { NextPrevButtons } from "./(components)/NextPrevButtons";
 
@@ -38,7 +38,7 @@ export async function generateMetadata(props: { params: { brand: string } }) {
 }
 
 export function BrandPageClient() {
-  const { brand } = useParams<{ brand: string }>();
+  const { brand } = useParams<{ brand: brandKey }>();
   const searchParams = useSearchParams();
 
   const queryString = searchParams.toString();

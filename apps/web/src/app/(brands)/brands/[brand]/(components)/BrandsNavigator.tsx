@@ -3,7 +3,13 @@
 import { useEffect } from "react";
 import Link from "next/link";
 
-export function BrandsNavigator({ params, brandsList }) {
+export function BrandsNavigator({
+  params,
+  brandsList,
+}: {
+  params: { brand: string };
+  brandsList: string[];
+}) {
   let currentBrand = params.brand.replaceAll("%20", " ");
 
   useEffect(() => {

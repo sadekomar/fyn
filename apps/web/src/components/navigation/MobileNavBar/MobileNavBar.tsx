@@ -5,6 +5,7 @@ import { SideBar } from "./SideBar";
 
 import "./MobileNavBar.css";
 import "../../PWA.css";
+import { LoomImage } from "@/components/LoomImage";
 
 export function MobileNavBar() {
   return (
@@ -13,7 +14,7 @@ export function MobileNavBar() {
         <SideBar />
 
         <Link href={"/"} className="loom-nav-icon">
-          <img width={"80px"} src="/branding/loom.webp" alt="Loom logo" />
+          <LoomImage width={"80px"} src="/branding/loom.webp" alt="Loom logo" />
         </Link>
         <Link href={"/search"} className="search-icon">
           <CustomMagnifyingGlassIcon />

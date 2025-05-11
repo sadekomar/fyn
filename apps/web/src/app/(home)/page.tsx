@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import "./home.css";
+import { getRecentlyViewed } from "../(utils)/utils";
 
 import { Hero } from "./(Hero)/Hero";
 import { BrandScroller } from "@/components/BrandScroller";
@@ -105,18 +106,6 @@ function getBrandofTheDay(): string {
   const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
   const brandIndex = daysDiff % brands.length;
   return brands[brandIndex];
-}
-
-export async function getRecentlyViewed() {
-  const recentlyViewed = (await getCookie("recently-viewed")).reverse();
-  return await httpService<ItemCardsI[]>(HttpMethods.POST, "/items-by-ids", {
-    data: {
-      ids: recentlyViewed,
-    },
-    isResponseJson: true,
-    isDataJson: true,
-    isServer: true,
-  });
 }
 
 function ShopByGender() {

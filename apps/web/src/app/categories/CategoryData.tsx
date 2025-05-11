@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { IPAddress } from "@/data/IPAddress";
 

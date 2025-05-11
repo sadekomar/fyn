@@ -46,11 +46,7 @@ export default function FollowingBrands() {
     <>
       <PageTitle>Following</PageTitle>
       {following.map((brand, index) => (
-        <BrandScroller
-          key={index}
-          BrandInfo={<BrandInfo brand={brand} />}
-          brand={brand}
-        />
+        <BrandScroller key={index} title={brand} brand={brand} />
       ))}
     </>
   );

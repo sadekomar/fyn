@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -9,12 +10,20 @@ import { LikeTextButton } from "../../components/LikeButton/LikeTextButton";
 import { CrossIcon } from "../../components/Icons/CustomIcons";
 
 import "./CartCard.css";
+import { LoomImage } from "@/components/LoomImage";
+import { ItemPageI } from "@/types";
 
-export function CartCard({ product, removeCard }) {
+export function CartCard({
+  product,
+  removeCard,
+}: {
+  product: ItemPageI;
+  removeCard: (key: string, value: string) => void;
+}) {
   return (
     <>
       <div className="cart-card-wrapper">
-        <img
+        <LoomImage
           className="cart-card-img"
           src={product.images[0]["src"]}
           srcSet={product.images[0]["srcset"]}

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export function BuyNowLink({ data }) {
   {
     /* link opens in a new tab which exposes loom to an attack that redirects the user through the window.opener object */

@@ -10,6 +10,7 @@ import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { useParams, useSearchParams } from "next/navigation";
+import { LoomImage } from "@/components/LoomImage";
 
 export function CategoryPageClient() {
   const { category } = useParams<{ category: string }>();
@@ -35,7 +36,7 @@ export function CategoryPageClient() {
   return (
     <>
       <div className="category-page-header">
-        <img
+        <LoomImage
           src={newCategories[category]?.["image"] || ""}
           alt={newCategories[category]?.["description"] || ""}
         />

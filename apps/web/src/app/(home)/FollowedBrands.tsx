@@ -4,6 +4,7 @@ import { PageTitle } from "@/components/PageTitle/PageTitle";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { BrandScrollerClient } from "@/components/BrandScrollerClient";
 import { BrandInfo } from "@/components/BrandInfo";
+import { brandKey } from "../(brands)/brands/[brand]/(components)/BrandDescription";
 
 export async function FollowedBrands() {
   const followingArray = await getCookie("following");
@@ -12,12 +13,14 @@ export async function FollowedBrands() {
     return (
       <>
         <PageTitle>
-          Brands You{" "}
-          <Link href={"/following"} className="inline-link">
-            Follow
-          </Link>
+          <>
+            Brands You{" "}
+            <Link href="/following" className="inline-link">
+              Follow
+            </Link>
+          </>
         </PageTitle>
-        <EmptyState title={"You haven't followed any Brands yet."}>
+        <EmptyState title="You haven't followed any Brands yet.">
           <p>
             Go to{" "}
             <Link className="inline-link" href={"/brands"}>
@@ -38,18 +41,16 @@ export async function FollowedBrands() {
   return (
     <>
       <PageTitle>
-        Brands You{" "}
-        <Link href={"/following"} className="inline-link">
-          Follow
-        </Link>
+        <>
+          Brands You{" "}
+          <Link href={"/following"} className="inline-link">
+            Follow
+          </Link>
+        </>
       </PageTitle>
 
       {followingArray.map((brand, index) => (
-        <BrandScrollerClient
-          key={index}
-          BrandInfo={<BrandInfo brand={brand} />}
-          brand={brand}
-        />
+        <BrandScrollerClient title={brand} key={index} brand={brand} />
       ))}
     </>
   );

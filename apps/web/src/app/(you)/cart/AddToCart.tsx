@@ -7,20 +7,26 @@ import * as Toast from "@radix-ui/react-toast";
 
 import "./AddToCart.css";
 
-export function AddToCart({ id, className = "" }) {
+export function AddToCart({
+  id,
+  className = "",
+}: {
+  id: string;
+  className?: string;
+}) {
   const [isFilled, setIsFilled] = useState(false);
 
   const [open, setOpen] = React.useState(false);
   const eventDateRef = React.useRef(new Date());
   const timerRef = React.useRef(0);
 
-  function oneWeekAway(date) {
+  function oneWeekAway() {
     const now = new Date();
     const inOneWeek = now.setDate(now.getDate() + 7);
     return new Date(inOneWeek);
   }
 
-  function prettyDate(date) {
+  function prettyDate(date: number | Date | undefined) {
     return new Intl.DateTimeFormat("en-US", {
       dateStyle: "full",
       timeStyle: "short",
@@ -33,22 +39,25 @@ export function AddToCart({ id, className = "" }) {
     setIsFilled(inCart);
   }, [id]);
 
-  const toggleIcon = (e) => {
+  const toggleIcon = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     setIsFilled((prevIsFilled) => !prevIsFilled);
 
     let cart = JSON.parse(localStorage.getItem("cart") || "[]");
     if (isFilled) {
-      cart = cart.filter((likedId) => likedId !== id);
+      cart = cart.filter((likedId: string) => likedId !== id);
     } else {
       cart.push(id);
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-
-    const event = new Event("localStorageChanged");
-    event.key = "cart";
-    event.value = JSON.stringify(cart);
+    // Use CustomEvent instead of Event to pass data
+    const event = new CustomEvent("localStorageChanged", {
+      detail: {
+        key: "cart",
+        value: JSON.stringify(cart),
+      },
+    });
     window.dispatchEvent(event);
   };
 
@@ -58,14 +67,14 @@ export function AddToCart({ id, className = "" }) {
         <Toast.Viewport className="ToastViewport" />
         <button
           className={`cart-button ${isFilled ? "cart-button-added" : ""}`}
-          onClick={() => {
+          onClick={(e) => {
             setOpen((currentOpenState) => !currentOpenState);
             window.clearTimeout(timerRef.current);
             timerRef.current = window.setTimeout(() => {
               eventDateRef.current = oneWeekAway();
               setOpen(true);
             }, 100);
-            toggleIcon(event);
+            toggleIcon(e);
           }}
         >
           {isFilled ? "Added" : "Add to Cart"}

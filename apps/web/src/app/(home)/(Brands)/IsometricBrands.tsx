@@ -159,7 +159,7 @@ function AmpmLogo() {
       <g clip-path="url(#clip0_1206_2123)">
         <mask
           id="mask0_1206_2123"
-          style="mask-type:luminance"
+          style={{ maskType: "luminance" }}
           maskUnits="userSpaceOnUse"
           x="0"
           y="0"
@@ -174,7 +174,7 @@ function AmpmLogo() {
         <g mask="url(#mask0_1206_2123)">
           <mask
             id="mask1_1206_2123"
-            style="mask-type:luminance"
+            style={{ maskType: "luminance" }}
             maskUnits="userSpaceOnUse"
             x="0"
             y="0"

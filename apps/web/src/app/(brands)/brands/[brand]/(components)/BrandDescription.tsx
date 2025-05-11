@@ -3,7 +3,8 @@
 import { Dialog } from "@radix-ui/themes";
 import { descriptionsAndLogos } from "@/data/descriptionsAndLogos";
 
-export function BrandDescription({ brand }) {
+export type brandKey = keyof typeof descriptionsAndLogos;
+export function BrandDescription({ brand }: { brand: brandKey }) {
   return (
     <div className="BrandContainer__Description">
       {descriptionsAndLogos[brand]?.description.length >= 110 ? (

@@ -1,17 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
-export function NextPrevButtons({ brandsList }) {
+export function NextPrevButtons({ brandsList }: { brandsList: string[] }) {
   const params = useParams();
   const router = useRouter();
 
   function goToPrevBrand() {
-    const currentBrandIndex = brandsList.indexOf(
-      params.brand.replaceAll("%20", " "),
-    );
+    const brandParam =
+      typeof params.brand === "string"
+        ? params.brand.replace(/%20/g, " ")
+        : Array.isArray(params.brand)
+          ? params.brand[0].replace(/%20/g, " ")
+          : "";
+
+    const currentBrandIndex = brandsList.indexOf(brandParam);
     const prevBrand =
       brandsList[
         (currentBrandIndex - 1 + brandsList.length) % brandsList.length
@@ -21,9 +26,14 @@ export function NextPrevButtons({ brandsList }) {
   }
 
   function goToNextBrand() {
-    let currentBrandIndex = brandsList.indexOf(
-      params.brand.replaceAll("%20", " "),
-    );
+    const brandParam =
+      typeof params.brand === "string"
+        ? params.brand.replace(/%20/g, " ")
+        : Array.isArray(params.brand)
+          ? params.brand[0].replace(/%20/g, " ")
+          : "";
+
+    const currentBrandIndex = brandsList.indexOf(brandParam);
     const nextBrand =
       brandsList[
         (currentBrandIndex + 1 + brandsList.length) % brandsList.length
@@ -35,28 +45,11 @@ export function NextPrevButtons({ brandsList }) {
   return (
     <div className="brand-nav-buttons-wrapper">
       <button className="brand-nav-button" onClick={goToPrevBrand}>
-        <CaretLeftIcon width="25px" height="25px" /> Previous Brand
+        <ChevronLeft width="25px" height="25px" /> Previous Brand
       </button>
       <button className="brand-nav-button" onClick={goToNextBrand}>
-        Next Brand <CaretRightIcon width="25px" height="25px" />
+        Next Brand <ChevronRight width="25px" height="25px" />
       </button>
-    </div>
-  );
-  return (
-    <div className="brand-nav-buttons-wrapper">
-      <Link
-        className="brand-nav-button"
-        href={`/brands/${brandsList[(brandsList.indexOf(params.brand) - 1 + brandsList.length) % brandsList.length]}`}
-      >
-        <CaretLeftIcon width="25px" height="25px" /> Previous Brand
-      </Link>
-      <Link
-        className="brand-nav-button"
-        href={`/brands/${brandsList[(brandsList.indexOf(params.brand) + 1 + brandsList.length) % brandsList.length]}`}
-      >
-        Next Brand
-        <CaretRightIcon width="25px" height="25px" />
-      </Link>
     </div>
   );
 }

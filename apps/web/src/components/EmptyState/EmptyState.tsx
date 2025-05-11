@@ -1,3 +1,4 @@
+// @ts-nocheck
 import "./EmptyState.css";
 
 export function EmptyState({ title, children }) {

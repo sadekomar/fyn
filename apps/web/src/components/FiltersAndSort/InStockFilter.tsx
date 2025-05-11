@@ -14,7 +14,7 @@ export function InStockFilter() {
       "availability",
       currentAvailability === "in-stock" ? "all" : "in-stock",
     );
-    params.set("page", 1);
+    params.set("page", "1");
     router.push(pathname + "?" + params.toString(), { scroll: false });
   }
 

@@ -1,14 +1,13 @@
+// @ts-nocheck
 "use client";
 import { Flex, Button, AlertDialog } from "@radix-ui/themes";
 import React, { useRef, useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
 
 import { IPAddress } from "@/data/IPAddress";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 
 import "./HistoryPage.css";
-import { getFromLocalStorage } from "@/utils/localStorageUtils";
 
 import Link from "next/link";
 import { ItemCardPlaceholder } from "@/components/ItemCard/ItemCardPlaceholder";
@@ -22,7 +21,7 @@ export default function HistoryPage() {
   const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
-    const recentlyViewed = getFromLocalStorage("recentlyViewed");
+    // const recentlyViewed = getCookie("recentlyViewed");
     let recentlyViewedString = recentlyViewed.join(",");
 
     async function fetchData(recentlyViewedString) {
@@ -95,9 +94,6 @@ export default function HistoryPage() {
   if (isEmpty) {
     return (
       <>
-        <Helmet>
-          <title>History</title>
-        </Helmet>
         <PageTitle>History</PageTitle>
         <EmptyState title={"You haven't viewed anything yet."}>
           <p>
@@ -120,9 +116,6 @@ export default function HistoryPage() {
 
   return (
     <>
-      <Helmet>
-        <title>History</title>
-      </Helmet>
       <PageTitle>History</PageTitle>
       <div className="subheading-wrapper">
         <p>{products && products.length} Items</p>

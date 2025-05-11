@@ -5,6 +5,8 @@ import "./ItemCard.css";
 import "./Feather.css";
 import { LikeButton } from "./LikeButton";
 import { CompareButton } from "../CompareButton";
+import { LoomImage } from "../LoomImage";
+import { ItemCardsI } from "@/types";
 
 export function ItemCard({
   id,
@@ -14,7 +16,7 @@ export function ItemCard({
   image,
   imgLoading = "lazy",
   className = "",
-}) {
+}: ItemCardsI & { imgLoading?: "lazy" | "eager"; className?: string }) {
   if (!image) {
     return null;
   }
@@ -25,7 +27,7 @@ export function ItemCard({
         <LikeButton id={id} className="LikeButton" />
         <CompareButton id={id} className="CompareButton" />
         <Link href={`/item/${id}`}>
-          <img
+          <LoomImage
             loading={imgLoading}
             src={image}
             width={260}

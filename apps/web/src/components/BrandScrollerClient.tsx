@@ -1,7 +1,6 @@
 "use client";
 
 import { Flex, ScrollArea, IconButton, Text, Card } from "@radix-ui/themes";
-import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
 import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -12,7 +11,13 @@ import { FollowButton } from "./FollowButton/FollowButton";
 
 import { HorizontalScroller } from "../layouts/HorizontalScroller/HorizontalScroller";
 
-export function BrandScrollerClient({ brand, title, BrandInfo }) {
+export function BrandScrollerClient({
+  brand,
+  title,
+}: {
+  brand: string;
+  title: string;
+}) {
   let [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -25,7 +30,7 @@ export function BrandScrollerClient({ brand, title, BrandInfo }) {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }, []);
+  }, [brand]);
 
   return (
     <>
@@ -46,7 +51,7 @@ export function BrandScrollerClient({ brand, title, BrandInfo }) {
   );
 }
 
-function ViewBrandCard({ brand }) {
+function ViewBrandCard({ brand }: { brand: string }) {
   return (
     <Link
       href={`/brands/${brand}`}
@@ -58,7 +63,6 @@ function ViewBrandCard({ brand }) {
           height: "auto",
           textDecoration: "none",
         }}
-        size="0"
         variant="ghost"
       >
         <div

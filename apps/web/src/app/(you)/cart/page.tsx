@@ -4,10 +4,6 @@ import React, { useEffect, useState, useRef } from "react";
 
 import { IPAddress } from "@/data/IPAddress";
 import { CartLayout } from "@/layouts/CartLayout/CartLayout";
-import {
-  removeFromLocalStorage,
-  getFromLocalStorage,
-} from "@/utils/localStorageUtils";
 
 import "./CartPage.css";
 
@@ -19,18 +15,13 @@ export default function Cart() {
   const [isLoading, setIsLoading] = useState(true);
   const [isEmpty, setIsEmpty] = useState(false);
 
-  async function fetchData(cart) {
-    abortControllerRef.current?.abort();
-    abortControllerRef.current = new AbortController();
+  async function fetchData(cart: string[]) {
     setIsLoading(true);
 
     let cartString = cart.join(",");
-
     try {
-      if (cart != 0) {
-        const response = await fetch(`${IPAddress}/ids?ids=${cartString}`, {
-          signal: abortControllerRef.current?.signal,
-        });
+      if (cart.length !== 0) {
+        const response = await fetch(`${IPAddress}/ids?ids=${cartString}`);
         const data = await response.json();
         setProducts(data);
         let total = 0;
@@ -43,27 +34,29 @@ export default function Cart() {
         setSubtotal(0);
         setIsEmpty(true);
       }
-    } catch (e) {
-      if (e.name == "AbortError") {
+    } catch (e: unknown) {
+      if (e instanceof Error && e.name === "AbortError") {
         return;
       }
-      setError(e);
+      setError(e as React.SetStateAction<undefined>);
     }
     setIsLoading(false);
   }
 
   useEffect(() => {
-    const cart = getFromLocalStorage("cart");
+    // const cart = getCookie("cart");
+    const cart: string[] = []; // Initialize with empty array as a temporary fix
     fetchData(cart);
   }, []);
 
   if (error) {
-    return <div>An error ocurred</div>;
+    return <div>An error occurred</div>;
   }
 
-  function removeCard(key, value) {
-    removeFromLocalStorage(key, value);
-    let cart = getFromLocalStorage(key);
+  function removeCard(key: string, value: string) {
+    // removeValueFromCookie(key, value);
+    // let cart = getCookie(key);
+    const cart: string[] = [];
     fetchData(cart);
   }
 

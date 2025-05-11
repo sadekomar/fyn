@@ -1,8 +1,7 @@
-import { IconButton, Button } from "@radix-ui/themes";
-import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import React, { useEffect, useState } from "react";
+import { Heart } from "lucide-react";
 
-export function CartRemoveButton({ id }) {
+export function CartRemoveButton({ id }: { id: string }) {
   const [isFilled, setIsFilled] = useState(false);
 
   useEffect(() => {
@@ -11,13 +10,13 @@ export function CartRemoveButton({ id }) {
     setIsFilled(inCart);
   }, [id]);
 
-  const toggleIcon = (e) => {
+  const toggleIcon = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     setIsFilled((prevIsFilled) => !prevIsFilled);
 
     let cart = JSON.parse(localStorage.getItem("cart") || "[]");
     if (isFilled) {
-      cart = cart.filter((likedId) => likedId !== id);
+      cart = cart.filter((likedId: string) => likedId !== id);
     } else {
       cart.push(id);
     }
@@ -32,7 +31,7 @@ export function CartRemoveButton({ id }) {
           className={`cart-button ${isFilled ? "cart-button-added" : ""}`}
           onClick={toggleIcon}
         >
-          <HeartFilledIcon />
+          <Heart />
         </button>
       }
     </>

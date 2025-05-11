@@ -2,8 +2,9 @@ import { Flex, Text, Heading, HoverCard, Box, Avatar } from "@radix-ui/themes";
 import Link from "next/link";
 
 import { descriptionsAndLogos } from "../data/descriptionsAndLogos";
+import { brandKey } from "@/app/(brands)/brands/[brand]/(components)/BrandDescription";
 
-export function BrandInfo({ brand }) {
+export function BrandInfo({ brand }: { brand: brandKey }) {
   return (
     <>
       <Text>
@@ -18,6 +19,7 @@ export function BrandInfo({ brand }) {
                   size="3"
                   radius="full"
                   src={descriptionsAndLogos[brand]["logo"]}
+                  fallback={""}
                 />
               }
               <Box>

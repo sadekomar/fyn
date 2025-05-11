@@ -1,3 +1,7 @@
+import { HttpMethods, httpService } from "@/queries/http.service";
+import { ItemCardsI } from "@/types";
+import { getCookie } from "./cookies.utils";
+
 export function getQueryString(searchParams: {
   [key: string]: string | string[] | undefined;
 }) {
@@ -29,4 +33,16 @@ export function getQueryStringArray(searchParams: {
   });
   const queryString = Array.from(queryParams.entries());
   return queryString;
+}
+
+export async function getRecentlyViewed() {
+  const recentlyViewed = (await getCookie("recently-viewed")).reverse();
+  return await httpService<ItemCardsI[]>(HttpMethods.POST, "/items-by-ids", {
+    data: {
+      ids: recentlyViewed,
+    },
+    isResponseJson: true,
+    isDataJson: true,
+    isServer: true,
+  });
 }

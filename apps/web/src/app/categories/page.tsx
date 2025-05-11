@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { extendedCategories } from "../../data/extendedCategories";
 import "./AllCategories.css";
+import { LoomImage } from "@/components/LoomImage";
 
 export const metadata = {
   title: "All Categories - Loom",
@@ -24,7 +25,7 @@ export const metadata = {
   },
 };
 
-export default async function AllCategoriesPage(props) {
+export default async function AllCategoriesPage(props: { searchParams: any }) {
   const searchParams = await props.searchParams;
   if (searchParams) {
     console.log(searchParams.gender);
@@ -32,7 +33,7 @@ export default async function AllCategoriesPage(props) {
     console.log("not available");
   }
 
-  function generateCategoryLink(categoryLink) {
+  function generateCategoryLink(categoryLink: string) {
     let genderParam;
     const noGenderSpecified = !searchParams.gender;
     if (noGenderSpecified) {
@@ -46,7 +47,15 @@ export default async function AllCategoriesPage(props) {
     return categoryLink + genderParam;
   }
 
-  function generateCategoryImage(category) {
+  function generateCategoryImage(category: {
+    image: any;
+    description?: string;
+    term: any;
+    link?: string;
+    display_item?: string;
+    display_item_link?: string;
+    women_only?: boolean | undefined;
+  }) {
     let genderParam;
     const noGenderSpecified = !searchParams.gender;
     if (noGenderSpecified) {
@@ -60,7 +69,15 @@ export default async function AllCategoriesPage(props) {
     }
   }
 
-  function isCategoryCompatibleWithGender(category) {
+  function isCategoryCompatibleWithGender(category: {
+    image: string;
+    description: string;
+    term: string;
+    link: string;
+    display_item: string;
+    display_item_link: string;
+    women_only?: boolean;
+  }) {
     const userInMenCategories = searchParams.gender == "men,unisex";
 
     if ("women_only" in category && userInMenCategories) {
@@ -85,7 +102,7 @@ export default async function AllCategoriesPage(props) {
                       key={indexTwo}
                       href={generateCategoryLink(category.link)}
                     >
-                      <img src={generateCategoryImage(category)} alt="" />
+                      <LoomImage src={generateCategoryImage(category)} alt="" />
                       <button className="category-slider-label">
                         {category.term}
                         <ArrowIcon />

@@ -4,7 +4,13 @@ import React, { useEffect, useRef, useState } from "react";
 
 import "./FollowButton.css";
 
-export function FollowButton({ brand, className = "" }) {
+export function FollowButton({
+  brand,
+  className = "",
+}: {
+  brand: string;
+  className?: string;
+}) {
   const [isFollowing, setIsFollowing] = useState(false);
   let followButtonRef = useRef(null);
 
@@ -14,13 +20,13 @@ export function FollowButton({ brand, className = "" }) {
     setIsFollowing(isFollowing);
   }, [brand]);
 
-  const toggleIcon = (e) => {
+  const toggleIcon = (e: any) => {
     setIsFollowing((currentlyFollowing) => !currentlyFollowing);
 
     let following = JSON.parse(localStorage.getItem("following") || "[]");
     if (isFollowing) {
       following = following.filter(
-        (followingBrand) => followingBrand !== brand,
+        (followingBrand: string) => followingBrand !== brand,
       );
     } else {
       following.push(brand);

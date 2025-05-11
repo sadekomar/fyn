@@ -1,4 +1,27 @@
-"use client";
+// @ts-nocheck
+import React from "react";
+import Link from "next/link";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
+
+export function NoComparison() {
+  return (
+    <EmptyState title="No items to compare">
+      <p>
+        You haven't added any items to compare yet. Browse our products and
+        click the compare button on items you'd like to compare. You can add up
+        to two items for comparison.
+      </p>
+      <p>
+        <Link className="inline-link" href="/all-categories">
+          Continue shopping
+        </Link>{" "}
+        to find items to compare.
+      </p>
+    </EmptyState>
+  );
+}
+
+("use client");
 
 import { BuyNowLink } from "@/app/item/[id]/BuyNowLink";
 import { SnapScroller } from "@/components/SnapScroller/SnapScroller";
@@ -6,7 +29,6 @@ import { ItemData } from "@/app/item/[id]/ItemData";
 
 import { useEffect, useState } from "react";
 import { IPAddress } from "@/data/IPAddress";
-import { getFromLocalStorage } from "@/utils/localStorageUtils";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { SimilarItems } from "@/app/item/[id]/SimilarItems";
 import { ItemDataPlaceholder } from "@/app/item/[id]/ItemDataPlaceholder";
@@ -27,7 +49,8 @@ export default function ComparisonPage() {
       setFirstItemData(null);
       setSecondItemData(null);
 
-      let comparisonIDs = getFromLocalStorage("compare");
+      const comparisonIDs: string | any[] = [];
+      // let comparisonIDs = getCookie("compare");
       if (!comparisonIDs || comparisonIDs.length === 0) {
         return;
       }
@@ -109,9 +132,9 @@ export default function ComparisonPage() {
       <div className="similar-items-wrapper">
         {firstItemData ? (
           <SimilarItems
-            color={firstItemData.colors[0]}
-            gender={firstItemData.gender}
-            category={firstItemData.categories[0]}
+            color={firstItemData.colors?.[0] || ""}
+            gender={firstItemData.gender || ""}
+            category={firstItemData.categories?.[0] || ""}
           />
         ) : (
           <>

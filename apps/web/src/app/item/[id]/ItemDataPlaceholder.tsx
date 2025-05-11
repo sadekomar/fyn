@@ -19,8 +19,13 @@ export function ItemDataPlaceholder() {
           <div className="brand-placeholder"></div>
           <div className="price-placeholder"></div>
           <div className="share-like-placeholder-wrapper">
-            <LikeButton className={"ItemPage_Button"} />
-            <ShareButton className={"ItemPage_Button"} />
+            <LikeButton className={"ItemPage_Button"} id={"undefined"} />
+            <ShareButton
+              className={"ItemPage_Button"}
+              id={"undefined"}
+              name={"undefined"}
+              description={"undefined"}
+            />
           </div>
           <div className="sizes-title-placeholder"></div>
           <div className="sizes-placeholders-wrapper">

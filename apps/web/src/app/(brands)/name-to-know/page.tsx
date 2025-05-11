@@ -32,11 +32,7 @@ export default function NamesToKnow() {
     <>
       <PageTitle>Names to Know</PageTitle>
       {namesToKnow.map((brand, index) => (
-        <BrandScroller
-          key={index}
-          BrandInfo={<BrandInfo brand={brand} />}
-          brand={brand}
-        />
+        <BrandScroller key={index} brand={brand} title={brand} />
       ))}
     </>
   );

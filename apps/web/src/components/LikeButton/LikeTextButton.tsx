@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "./LikeTextButton.css";
 
-export function LikeTextButton({ id }) {
+export function LikeTextButton({ id }: { id: string }) {
   const [isFilled, setIsFilled] = useState(false);
 
   useEffect(() => {
@@ -11,13 +11,13 @@ export function LikeTextButton({ id }) {
     setIsFilled(isLiked);
   }, [id]);
 
-  const toggleIcon = (e) => {
+  const toggleIcon = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     setIsFilled((prevIsFilled) => !prevIsFilled);
 
     let likes = JSON.parse(localStorage.getItem("likes") || "[]");
     if (isFilled) {
-      likes = likes.filter((likedId) => likedId !== id);
+      likes = likes.filter((likedId: string) => likedId !== id);
     } else {
       likes.push(id);
     }

@@ -22,12 +22,8 @@ export default async function BoutiqueBrands() {
         offerings showcase the essence of craftsmanship and individuality,
         providing you with truly special pieces.
       </p>
-      {brandsList.slice(0, endIndex).map((brand, index) => (
-        <BrandScroller
-          key={index}
-          BrandInfo={<BrandInfo brand={brand} />}
-          brand={brand}
-        />
+      {brandsList.slice(0, endIndex).map((brand: string, index: number) => (
+        <BrandScroller key={index} title={brand} brand={brand} />
       ))}
     </>
   );

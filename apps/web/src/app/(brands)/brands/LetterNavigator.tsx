@@ -1,13 +1,17 @@
 "use client";
 
-export function LetterNavigator({ brands }) {
-  let scrollToLetter = (letterClicked) => {
+import { ReactElement } from "react";
+
+export function LetterNavigator({ brands }: { brands: Record<string, any> }) {
+  let scrollToLetter = (letterClicked: string) => {
     let section = document.querySelector(`a[href='#${letterClicked}'`);
-    section.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "start",
-    });
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "start",
+      });
+    }
   };
 
   return (

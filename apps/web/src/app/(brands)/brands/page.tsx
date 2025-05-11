@@ -48,7 +48,7 @@ export default async function AllBrands() {
               {initialLetter}
             </a>
             <ul className="brands-container">
-              {brands[initialLetter].map((brand, index) => (
+              {brands[initialLetter].map((brand: string, index: number) => (
                 <li key={index} className="brandLink--li">
                   <Link href={`/brands/${brand}`} className="brandLink">
                     {brand}

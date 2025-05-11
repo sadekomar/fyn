@@ -11,11 +11,7 @@ export default function BackToBasics() {
       <PageTitle>Basics</PageTitle>
 
       {backToBasics.map((brand, index) => (
-        <BrandScroller
-          key={index}
-          BrandInfo={<BrandInfo brand={brand} />}
-          brand={brand}
-        />
+        <BrandScroller key={index} brand={brand} title={brand} />
       ))}
     </>
   );

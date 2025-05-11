@@ -14,7 +14,7 @@ import { DesktopImages } from "./DesktopImages";
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemPageI } from "@/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
-import { getRecentlyViewed } from "@/app/(home)/page";
+import { getRecentlyViewed } from "@/app/(utils)/utils";
 
 // export async function generateMetadata({ params }) {
 //     let response = await fetch(`${IPAddress}/id?id=${params.id}`)

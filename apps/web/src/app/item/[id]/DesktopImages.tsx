@@ -1,16 +1,21 @@
 "use client";
 
+import { LoomImage } from "@/components/LoomImage";
 import { Dialog, IconButton } from "@radix-ui/themes";
 // import { Cross1Icon } from "@radix-ui/react-icons";
 
-export function DesktopImages({ data }) {
+export function DesktopImages({
+  data,
+}: {
+  data: { images: string[]; name: string };
+}) {
   return (
     <div className="ItemImage ItemImageComputerDisplay">
       <Dialog.Root>
         {data &&
           data["images"].map((image, index) => (
             <Dialog.Trigger key={index}>
-              <img
+              <LoomImage
                 key={index}
                 style={{ width: "100%" }}
                 src={image}
@@ -46,6 +51,7 @@ export function DesktopImages({ data }) {
           </Dialog.Close>
           {data &&
             data["images"].map((image, index) => (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={index}
                 style={{ width: "100%" }}

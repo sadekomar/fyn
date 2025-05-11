@@ -37,7 +37,7 @@ export function ArrayNumberOfBrands() {
   );
 }
 
-export function PpantherLogo({ className }) {
+export function PpantherLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -83,7 +83,7 @@ export function PpantherLogo({ className }) {
   );
 }
 
-export function FoolsLogo({ className }) {
+export function FoolsLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -116,7 +116,7 @@ export function FoolsLogo({ className }) {
   );
 }
 
-export function JuvenileLogo({ className }) {
+export function JuvenileLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -186,7 +186,7 @@ export function JuvenileLogo({ className }) {
   );
 }
 
-export function KijaqoLogo({ className }) {
+export function KijaqoLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -244,7 +244,7 @@ export function KijaqoLogo({ className }) {
   );
 }
 
-export function KongaLogo({ className }) {
+export function KongaLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -306,7 +306,7 @@ export function KongaLogo({ className }) {
   );
 }
 
-export function LeonLogo({ className }) {
+export function LeonLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -360,7 +360,7 @@ export function LeonLogo({ className }) {
   );
 }
 
-export function LockenLogo({ className }) {
+export function LockenLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -417,7 +417,7 @@ export function LockenLogo({ className }) {
     </svg>
   );
 }
-export function OrgandyLogo({ className }) {
+export function OrgandyLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -478,7 +478,7 @@ export function OrgandyLogo({ className }) {
     </svg>
   );
 }
-export function PsychLogo({ className }) {
+export function PsychLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -535,7 +535,7 @@ export function PsychLogo({ className }) {
     </svg>
   );
 }
-export function QuwaLogo({ className }) {
+export function QuwaLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}
@@ -584,7 +584,7 @@ export function QuwaLogo({ className }) {
     </svg>
   );
 }
-export function RakinLogo({ className }) {
+export function RakinLogo({ className }: { className: string }) {
   return (
     <svg
       className={className}

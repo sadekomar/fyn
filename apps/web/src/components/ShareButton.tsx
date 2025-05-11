@@ -3,7 +3,17 @@
 import { IconButton } from "@radix-ui/themes";
 // import { Share2Icon } from "@radix-ui/react-icons";
 
-export function ShareButton({ id, name, description, className }) {
+export function ShareButton({
+  id,
+  name,
+  description,
+  className,
+}: {
+  id: string;
+  name: string;
+  description: string;
+  className: string;
+}) {
   const shareProduct = () => {
     try {
       if (navigator.share) {

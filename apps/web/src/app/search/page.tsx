@@ -15,114 +15,139 @@ import { PaginationControl } from "@/components/Pagination/PaginationControl";
 
 import { FiltersAndCount } from "../../components/FiltersAndCount/FiltersAndCount";
 import { ColorPills } from "../(home)/(ColorPills)/ColorPills";
-import { ItemCardsI } from "@/types";
+import { ItemCardsI, MetadataI } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import { HttpMethods, httpService } from "@/queries/http.service";
+import { ControlledSearchComponent } from "./SearchComponent";
 
 export default function SearchPage() {
-  const searchParams = useSearchParams();
-  let [products, setProducts] = useState<ItemCardsI[]>([]);
-  let [searchHistory, setSearchHistory] = useState<string[]>([]);
-  let [autofill, setAutofill] = useState<string[]>([]);
-  let [numberOfItems, setNumberOfItems] = useState<number | null>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  let isEmpty;
-  let [metadata, setMetadata] = useState({
-    brands: [],
-    colors: [],
-    genders: [],
-    categories: [],
-    materials: [],
+  const queryString = searchParams.toString();
+  const queryStringArray = Array.from(searchParams.entries());
+
+  const { data: products } = useQuery({
+    queryKey: ["/search", ...queryStringArray],
+    queryFn: () =>
+      httpService<ItemCardsI[]>(HttpMethods.GET, `/items?${queryString}`, {
+        isServer: false,
+        isResponseJson: true,
+      }),
   });
 
+  const { data: metadata } = useQuery({
+    queryKey: ["/metadata", ...queryStringArray],
+    queryFn: () =>
+      httpService<MetadataI>(
+        HttpMethods.GET,
+        `/items-metadata?${queryString}`,
+        {
+          isServer: false,
+          isResponseJson: true,
+        },
+      ),
+  });
+
+  // let [products, setProducts] = useState<ItemCardsI[]>([]);
+  // let [metadata, setMetadata] = useState<MetadataI>();
   let searchFieldRef = useRef<HTMLInputElement>(null);
   let autofillRef = useRef<HTMLDivElement>(null);
+  const [searchField, setSearchField] = useState<string>("");
+  let [searchHistory, setSearchHistory] = useState<string[]>([]);
+  let [autofill, setAutofill] = useState<string[]>([]);
+
+  // useEffect(() => {
+  //   if (
+  //     searchParams.toString() != "" &&
+  //     searchParams.get("query") != "" &&
+  //     searchParams.get("query") != " "
+  //   ) {
+  //     setProducts(null);
+  //     searchFieldRef.current.value = searchParams.get("query");
+  //     fetch(`${IPAddress}/search?${searchParams.toString()}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setProducts(data || null);
+  //       })
+  //       .catch((reason) => console.log(reason));
+
+  //     fetch(`${IPAddress}/metadata?${searchParams.toString()}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setMetadata(data);
+  //         setNumberOfItems(data["item_count"] || 0);
+  //       })
+  //       .catch((reason) => console.log(reason));
+  //   } else {
+  //     searchFieldRef.current.focus();
+  //   }
+  // }, [
+  //   searchParams.get("brand"),
+  //   searchParams.get("gender"),
+  //   searchParams.get("color"),
+  //   searchParams.get("category"),
+  //   searchParams.get("material"),
+  //   searchParams.get("sort_by"),
+  //   searchParams.get("availability"),
+  //   searchParams.get("page"),
+  // ]);
 
   // okay how does search work?
+  // just like filters i want search to do that as well
+  // on mount if a search param exists then fetch the data
+  //
 
   // Fetching data
   function search(query: string) {
     if (query != "" && query != " ") {
-      setProducts(null);
+      // fetch(`${IPAddress}/search?query=${query}`)
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     setProducts(data || null);
+      //   })
+      //   .catch((reason) => console.log(reason));
 
-      fetch(`${IPAddress}/search?query=${query}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setProducts(data || null);
-        })
-        .catch((reason) => console.log(reason));
-
-      fetch(`${IPAddress}/metadata?query=${query}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setMetadata(data);
-          setNumberOfItems(data["item_count"] || 0);
-        })
-        .catch((reason) => console.log(reason));
+      // fetch(`${IPAddress}/metadata?query=${query}`)
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     setMetadata(data);
+      //     setNumberOfItems(data["item_count"] || 0);
+      //   })
+      //   .catch((reason) => console.log(reason));
 
       addToSearchHistory(query);
+      router.push(pathname + `?query=${query}`);
     }
   }
 
-  useEffect(() => {
-    if (
-      searchParams.toString() != "" &&
-      searchParams.get("query") != "" &&
-      searchParams.get("query") != " "
-    ) {
-      setProducts(null);
-      searchFieldRef.current.value = searchParams.get("query");
-      fetch(`${IPAddress}/search?${searchParams.toString()}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setProducts(data || null);
-        })
-        .catch((reason) => console.log(reason));
-
-      fetch(`${IPAddress}/metadata?${searchParams.toString()}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setMetadata(data);
-          setNumberOfItems(data["item_count"] || 0);
-        })
-        .catch((reason) => console.log(reason));
-    } else {
-      searchFieldRef.current.focus();
-    }
-  }, [
-    searchParams.get("brand"),
-    searchParams.get("gender"),
-    searchParams.get("color"),
-    searchParams.get("category"),
-    searchParams.get("material"),
-    searchParams.get("sort_by"),
-    searchParams.get("availability"),
-    searchParams.get("page"),
-  ]);
-
   // Autofill
   function generateAutofillSuggestions() {
-    const query = searchFieldRef.current.value;
+    const query = searchFieldRef.current?.value;
 
     let recentlySearched = JSON.parse(
       localStorage.getItem("recentlySearched") || "[]",
     );
-    let filteredSearchResults = recentlySearched.filter((searchTerm) => {
-      return searchTerm.toLowerCase().includes(query.toLowerCase());
-    });
+    let filteredSearchResults = recentlySearched.filter(
+      (searchTerm: string) => {
+        return searchTerm.toLowerCase().includes(query?.toLowerCase() || "");
+      },
+    );
     setSearchHistory(filteredSearchResults);
 
     if (query == "" || query == " ") {
-      setAutofill(null);
+      setAutofill([]);
     } else {
-      let filteredResults = autofillSuggestionsList.filter((autofillTerm) =>
-        autofillTerm.toLowerCase().includes(query.toLowerCase()),
+      let filteredResults = autofillSuggestionsList.filter(
+        (autofillTerm: string) =>
+          autofillTerm.toLowerCase().includes(query?.toLowerCase() || ""),
       );
 
       filteredResults = filteredResults.filter(
-        (autofillTerm) =>
+        (autofillTerm: string) =>
           !recentlySearched.some(
-            (searchTerm) =>
+            (searchTerm: string) =>
               searchTerm.toLowerCase() === autofillTerm.toLowerCase(),
           ),
       );
@@ -139,9 +164,9 @@ export default function SearchPage() {
     setSearchHistory(recentlySearched);
   }, []);
 
-  function addToSearchHistory(searchString) {
+  function addToSearchHistory(searchString: string) {
     if (searchString != "" && searchString != " ") {
-      setSearchHistory(null);
+      setSearchHistory([]);
     }
     let recentlySearched = JSON.parse(
       localStorage.getItem("recentlySearched") || "[]",
@@ -151,7 +176,7 @@ export default function SearchPage() {
     if (isRecentlySearched) {
       // Don't add it again.
       recentlySearched = recentlySearched.filter(
-        (itemSearchString) => itemSearchString !== searchString,
+        (itemSearchString: string) => itemSearchString !== searchString,
       );
       recentlySearched.push(searchString);
     } else {
@@ -166,7 +191,7 @@ export default function SearchPage() {
     setSearchHistory(recentlySearched);
   }
 
-  function removeFromSearchHistory(searchString) {
+  function removeFromSearchHistory(searchString: string) {
     const recentlySearched = JSON.parse(
       localStorage.getItem("recentlySearched") || "[]",
     );
@@ -177,19 +202,20 @@ export default function SearchPage() {
     localStorage.setItem("recentlySearched", JSON.stringify(recentlySearched));
     // removeFromLocalStorage('recentlySearched', searchString)
     setSearchHistory(recentlySearched);
-    searchFieldRef.current.focus();
+    searchFieldRef.current?.focus();
   }
 
   // Clear search field
   function clearSearchField() {
-    searchFieldRef.current.value = "";
-    setAutofill(null);
-    searchFieldRef.current.focus();
+    searchFieldRef.current!.value = "";
+    setAutofill([]);
+    searchFieldRef.current?.focus();
   }
 
   return (
     <>
       <Flex direction={"column"}>
+        <ControlledSearchComponent />
         <div className="search-and-autofill">
           <div
             className={`searchbar-wrapper ${!searchParams.get("query") ? "startup-searchbar-wrapper" : ""}`}
@@ -203,12 +229,15 @@ export default function SearchPage() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   console.log("submitted");
-                  router.push(
-                    pathname + `?query=${searchFieldRef.current.value}`,
-                  );
 
-                  search(searchFieldRef.current.value);
-                  searchFieldRef.current.blur();
+                  if (searchFieldRef.current) {
+                    router.push(
+                      pathname + `?query=${searchFieldRef.current.value}`,
+                    );
+
+                    search(searchFieldRef.current.value);
+                    searchFieldRef.current.blur();
+                  }
                 }}
                 action="."
                 style={{ width: "100%" }}
@@ -219,9 +248,11 @@ export default function SearchPage() {
                   placeholder="Search"
                   name="search"
                   ref={searchFieldRef}
+                  value={searchField}
                   type="search"
-                  onChange={() => {
-                    generateAutofillSuggestions();
+                  onChange={(e) => {
+                    setSearchField(e.target.value);
+                    // generateAutofillSuggestions();
                   }}
                   onFocus={() => {
                     autofillRef.current?.classList.remove("search-blurred");
@@ -258,7 +289,9 @@ export default function SearchPage() {
                   <button
                     key={index}
                     onClick={() => {
-                      searchFieldRef.current.value = suggestion;
+                      if (searchFieldRef.current) {
+                        searchFieldRef.current.value = suggestion;
+                      }
                       router.push(pathname + `?query=${suggestion}`);
 
                       search(suggestion);
@@ -283,7 +316,9 @@ export default function SearchPage() {
                 <button
                   key={index}
                   onClick={() => {
-                    searchFieldRef.current.value = suggestion;
+                    if (searchFieldRef.current) {
+                      searchFieldRef.current.value = suggestion;
+                    }
                     router.push(pathname + `?query=${suggestion}`);
 
                     search(suggestion);
@@ -300,12 +335,9 @@ export default function SearchPage() {
         {searchParams.get("query") && (
           <>
             <ColorPills metadata={metadata} />
-            <FiltersAndCount
-              numberOfItems={numberOfItems}
-              metadata={metadata}
-            />
-            <GridLayout items={products} emptyState={isEmpty} />
-            <PaginationControl metadata={metadata} />
+            <FiltersAndCount metadata={metadata} />
+            <GridLayout items={products} />
+            {/* <PaginationControl metadata={metadata} /> */}
           </>
         )}
 

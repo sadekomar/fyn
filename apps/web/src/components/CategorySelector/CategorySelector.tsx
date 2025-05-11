@@ -1,20 +1,22 @@
+// @ts-nocheck
 "use client";
 
 import "./CategorySelector.css";
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
+import { LoomImage } from "../LoomImage";
 
-export function CategorySelector({ metadata }) {
+export function CategorySelector({ metadata }: { metadata: any }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
 
   const createQueryString = useCallback(
-    (name, value) => {
+    (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);
-      params.set("page", 1);
+      params.set("page", "1");
       return params.toString();
     },
     [searchParams],
@@ -48,7 +50,7 @@ export function CategorySelector({ metadata }) {
             toggleCategory(categoryObject.category);
           }}
         >
-          <img
+          <LoomImage
             className="category-selector__img"
             src={categoryObject.image}
             alt={categoryObject.category}

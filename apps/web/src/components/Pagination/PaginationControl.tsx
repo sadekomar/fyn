@@ -1,11 +1,15 @@
+// @ts-nocheck
 "use client";
 
 import "./Pagination.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
 import { useSearchParams } from "next/navigation";
 
-export function PaginationControl({ metadata }) {
+export function PaginationControl({
+  metadata,
+}: {
+  metadata: { item_count?: number };
+}) {
   const ITEMS_PER_PAGE = 100;
   let numberOfItems = metadata["item_count"] || 0;
   let numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);

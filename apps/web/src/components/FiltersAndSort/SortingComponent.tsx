@@ -7,10 +7,10 @@ export function SortingComponent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  function setSortBy(value) {
+  function setSortBy(value: string) {
     const params = new URLSearchParams(searchParams);
     params.set("sort_by", value);
-    params.set("page", 1);
+    params.set("page", "1");
 
     router.push(pathname + "?" + params.toString(), { scroll: false });
   }

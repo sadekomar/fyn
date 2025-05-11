@@ -2,11 +2,12 @@ import React from "react";
 import { Button, AspectRatio } from "@radix-ui/themes";
 
 import "./Jeans.css";
+import { LoomImage } from "@/components/LoomImage";
 
 export function Jeans() {
   return (
     <AspectRatio ratio={18 / 5} className="AspectRatio">
-      <img
+      <LoomImage
         src="juvenile.webp"
         style={{
           objectFit: "cover",

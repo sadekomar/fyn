@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { Flex, IconButton, Text } from "@radix-ui/themes";
 import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";

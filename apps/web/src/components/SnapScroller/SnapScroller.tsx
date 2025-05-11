@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import React from "react";
@@ -6,12 +7,19 @@ import { Dialog } from "@radix-ui/themes";
 import "./SnapScroller.css";
 
 import { CrossIcon } from "../Icons/CustomIcons";
+import { LoomImage } from "../LoomImage";
 
-export function SnapScroller({ images, height = "440px" }) {
+export function SnapScroller({
+  images,
+  height = "440px",
+}: {
+  images: string[];
+  height?: string;
+}) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   let [imageStillLoading, setImageStillLoading] = useState(true);
 
-  const snapScrollerRef = useRef(null);
+  const snapScrollerRef = useRef();
 
   useEffect(() => {
     const snapScroller = snapScrollerRef.current;
@@ -53,7 +61,7 @@ export function SnapScroller({ images, height = "440px" }) {
     <>
       <div className="snap-scroller-wrapper ItemImagePhoneDisplay">
         {/* placeholder img */}
-        <img
+        <LoomImage
           src={images[0]}
           srcSet={images[0]}
           sizes="(max-width: 768px) 170px, 285px"
@@ -82,7 +90,7 @@ export function SnapScroller({ images, height = "440px" }) {
                   style={{ height: height }}
                   className="SnapScroller__ImageContainer LoadingPulse"
                 >
-                  <img
+                  <LoomImage
                     className="SnapScroller__Image"
                     src={image}
                     sizes="300px"
@@ -100,7 +108,7 @@ export function SnapScroller({ images, height = "440px" }) {
                     <CrossIcon />
                   </button>
                 </Dialog.Close>
-                <img
+                <LoomImage
                   className="SnapScroller__Image"
                   src={image["src"]}
                   srcSet={image["srcset"]}

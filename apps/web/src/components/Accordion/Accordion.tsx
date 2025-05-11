@@ -1,11 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { JSX, ReactElement, useState } from "react";
 // import { CaretDownIcon } from "@radix-ui/react-icons";
 
 import "./Accordion.css";
+import { ChevronDown } from "lucide-react";
 
-export function Accordion({ trigger, children }) {
+export function Accordion({
+  trigger,
+  children,
+}: {
+  trigger: string;
+  children: string | ReactElement;
+}) {
   let [accordionOpened, setAccordionOpened] = useState(false);
 
   function toggleAccordion() {
@@ -16,10 +23,9 @@ export function Accordion({ trigger, children }) {
     <div className="accordion">
       <div onClick={toggleAccordion} className="accordion-trigger">
         {trigger}
-        {/* <CaretDownIcon
+        <ChevronDown
           className={`accordion-caret ${accordionOpened ? "accordion-caret-open" : ""}`}
-        /> */}
-        <div>caret</div>
+        />
       </div>
       <div
         className={`accordion-content ${accordionOpened ? "accordion-opened" : ""}`}

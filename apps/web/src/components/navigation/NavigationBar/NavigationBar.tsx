@@ -1,14 +1,10 @@
-// import React, { useEffect } from 'react';
-// import { useState } from 'react';
+import { useState } from "react";
 import { IconButton } from "@radix-ui/themes";
 import Link from "next/link";
-import { CaretDownIcon } from "@radix-ui/react-icons";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 
 import { brandsPages } from "@/data/brandsPages";
-// import { useResolvedPath } from 'react-router-dom';
 import { extendedCategories } from "@/data/extendedCategories";
-import { getFromLocalStorage } from "@/utils/localStorageUtils";
 
 import {
   CustomMagnifyingGlassIcon,
@@ -17,9 +13,12 @@ import {
 } from "../../Icons/CustomIcons";
 
 import "./NavigationBar.css";
+import { LoomImage } from "@/components/LoomImage";
+import { ChevronDown } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function NavigationBar() {
-  // let currentPath = useResolvedPath();
+  const currentPath = usePathname();
 
   function highlightSearchBar() {
     window.scrollTo({
@@ -28,7 +27,7 @@ export function NavigationBar() {
     });
   }
 
-  // let [cartCount, setCartCount] = useState(0);
+  let [cartCount, setCartCount] = useState(0);
 
   // useEffect(() => {
   //     const monitorCart = () => {
@@ -48,7 +47,7 @@ export function NavigationBar() {
     <>
       <div className="NavBar">
         <Link href={"/"}>
-          <img
+          <LoomImage
             style={{ height: "22px", maxWidth: "none" }}
             src="/branding/loom.png"
             alt=""
@@ -71,7 +70,7 @@ export function NavigationBar() {
                   <Link className="navmenu-trigger" href={"/categories"}>
                     Shop
                   </Link>
-                  <CaretDownIcon className="CaretDown" aria-hidden />
+                  <ChevronDown className="CaretDown" aria-hidden />
                 </span>
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className="NavigationMenuContent">
@@ -113,7 +112,7 @@ export function NavigationBar() {
                   <Link className="navmenu-trigger" href={"/brands"}>
                     Brands
                   </Link>
-                  <CaretDownIcon className="CaretDown" aria-hidden />
+                  <ChevronDown className="CaretDown" aria-hidden />
                 </span>
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className="NavigationMenuContent">
@@ -145,7 +144,7 @@ export function NavigationBar() {
                   <Link className="navmenu-trigger" href={"/likes"}>
                     You
                   </Link>
-                  <CaretDownIcon className="CaretDown" aria-hidden />
+                  <ChevronDown className="CaretDown" aria-hidden />
                 </span>
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className="NavigationMenuContent">
@@ -222,7 +221,7 @@ export function NavigationBar() {
           </Link>
         </IconButton>
 
-        {currentPath.pathname == "/search" ? (
+        {currentPath === "/search" ? (
           <IconButton
             ml={"6"}
             className="navmenu-button"
