@@ -16,9 +16,6 @@ import { ItemCardsI } from "@/types";
 import { getCookie } from "@/app/(utils)/cookies.utils";
 import { brandsList } from "@/data/brands-list";
 
-// revalidate the page every 60 seconds
-export const revalidate = 60;
-
 export const metadata = {
   title: "Loom Cairo: Shop 300 Local Fashion Brands in One Place",
   description:
