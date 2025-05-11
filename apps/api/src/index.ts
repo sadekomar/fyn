@@ -1,11 +1,14 @@
 import express, { Request, Response } from "express";
 import prisma from "./lib/prisma";
 import cors from "cors";
-import { getAllItems } from "./handlers/getAllItems.handlers";
-import { getAllBrands } from "./handlers/getAllBrands.handlers";
-import { getItemById } from "./handlers/getItem.handler";
-import { testLatency } from "./handlers/testLatency.handler";
-import { getItemsById } from "./handlers/getItemsById.handler";
+import {
+  getAllItems,
+  getItemsMetadata,
+} from "./handlers/get-all-items.handler";
+import { getAllBrands } from "./handlers/get-all-brands.handler";
+import { getItemById } from "./handlers/get-item.handler";
+import { testLatency } from "./handlers/test-latency.handler";
+import { getItemsById } from "./handlers/get-items-by-id.handler";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -25,10 +28,11 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/items", getAllItems);
+app.get("/items-metadata", getItemsMetadata);
 app.get("/item/:id", getItemById);
 app.get("/brands", getAllBrands);
 app.get("/latency", testLatency);
-app.post("/items", getItemsById);
+app.post("/items-by-ids", getItemsById);
 
 app.post("/apply", async (req: Request, res: Response) => {
   const { name, email, phone, whyYou, whyLoom } = req.body;

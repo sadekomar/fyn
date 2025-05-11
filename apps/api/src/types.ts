@@ -1,4 +1,17 @@
-export type ItemCardsData = {
+export enum Genders {
+  UNISEX = "Unisex",
+  MALE = "Male",
+  FEMALE = "Female",
+}
+
+export enum ImageSizes {
+  PATTERN = "loom-image-dimensions",
+  LARGE = "1080",
+  MEDIUM = "600",
+  SMALL = "460",
+}
+
+export type ItemCardsDataI = {
   id: string;
   name: string;
   price: number;
@@ -23,15 +36,40 @@ export type ItemPageI = {
   }[];
 };
 
-export enum Genders {
-  UNISEX = "Unisex",
-  MALE = "Male",
-  FEMALE = "Female",
-}
+export type MetadataI = {
+  items: {
+    name: string;
+    count: number;
+  };
+  genders: {
+    name: string;
+    count: number;
+  }[];
+  categories: {
+    name: string;
+    count: number;
+  }[];
+  colors: {
+    name: string;
+    count: number;
+  }[];
+  brands: {
+    name: string;
+    count: number;
+  }[];
+  materials: {
+    name: string;
+    count: number;
+  }[];
+};
 
-export enum ImageSizes {
-  PATTERN = "loom-image-dimensions",
-  LARGE = "1080",
-  MEDIUM = "600",
-  SMALL = "460",
-}
+export type SearchParamsI = {
+  search?: string;
+  brands?: string[];
+  gender?: string;
+  categories?: string[];
+  colors?: string[];
+  materials?: string[];
+  showrooms?: string[];
+  in_stock?: boolean;
+};

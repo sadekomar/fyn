@@ -55,6 +55,7 @@ export const getItemById = handleExceptions(
         },
       },
     });
+    console.log(item);
     if (!item) {
       return res.json([]);
     }
