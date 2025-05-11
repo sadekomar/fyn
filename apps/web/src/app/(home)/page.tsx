@@ -47,8 +47,8 @@ export default async function Home() {
       value: "asili",
     },
     brandOfTheDay: {
-      label: getBrandofTheDay().toUpperCase(),
-      value: getBrandofTheDay(),
+      label: "Ausetia",
+      value: "ausetia",
     },
   };
 

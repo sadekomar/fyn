@@ -1,8 +1,9 @@
 "use client";
 
 import { ReactElement } from "react";
+import { BrandsAPI } from "./page";
 
-export function LetterNavigator({ brands }: { brands: Record<string, any> }) {
+export function LetterNavigator({ brands }: { brands: BrandsAPI }) {
   let scrollToLetter = (letterClicked: string) => {
     let section = document.querySelector(`a[href='#${letterClicked}'`);
     if (section) {
@@ -16,16 +17,16 @@ export function LetterNavigator({ brands }: { brands: Record<string, any> }) {
 
   return (
     <div className="alpha-index-container">
-      {Object.keys(brands).map((initialLetter, index) => (
+      {Object.keys(brands).map((letter, index) => (
         <p
           className="alpha-index"
           key={index}
           style={{ cursor: "pointer" }}
           onClick={() => {
-            scrollToLetter(initialLetter);
+            scrollToLetter(letter);
           }}
         >
-          {initialLetter}
+          {letter}
         </p>
       ))}
     </div>

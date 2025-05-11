@@ -4,6 +4,7 @@ import { LetterNavigator } from "./LetterNavigator";
 import { IPAddress } from "@/data/IPAddress";
 import { IsometricBrands } from "@/app/(home)/(Brands)/IsometricBrands";
 import "./AllBrands.css";
+import { HttpMethods, httpService } from "@/queries/http.service";
 
 export const metadata = {
   title: "All Brands",
@@ -26,11 +27,17 @@ export const metadata = {
   },
 };
 
+export type BrandsAPI = {
+  [key: string]: { id: string; name: string }[];
+};
+
 export default async function AllBrands() {
-  const response = await fetch(
-    `${IPAddress}/brands-list?group-alphabetically=1`,
-  );
-  const brands = await response.json();
+  const brands = await httpService<BrandsAPI>(HttpMethods.GET, "/brands", {
+    isServer: true,
+    isResponseJson: true,
+  });
+
+  console.log("brands", brands);
 
   return (
     <>
@@ -42,25 +49,29 @@ export default async function AllBrands() {
           <IsometricBrands />
         </div>
 
-        {Object.keys(brands).map((initialLetter, index) => (
-          <div key={index}>
-            <a className="letter-label" href={`#${initialLetter}`}>
-              {initialLetter}
-            </a>
-            <ul className="brands-container">
-              {brands[initialLetter].map((brand: string, index: number) => (
-                <li key={index} className="brandLink--li">
-                  <Link href={`/brands/${brand}`} className="brandLink">
-                    {brand}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        <br />
-        <br />
-        <br />
+        {Object.keys(brands).map((letter, index) => {
+          return (
+            <div key={index}>
+              <a className="letter-label" href={`#${letter}`}>
+                {letter}
+              </a>
+              <ul className="brands-container">
+                {brands[letter].map(
+                  (brand: { id: string; name: string }, index: number) => (
+                    <li key={index} className="brandLink--li">
+                      <Link
+                        href={`/brands/${brand.name}`}
+                        className="brandLink"
+                      >
+                        {brand.name}
+                      </Link>
+                    </li>
+                  ),
+                )}
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </>
   );
