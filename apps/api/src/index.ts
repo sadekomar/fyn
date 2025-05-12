@@ -5,7 +5,10 @@ import {
   getAllItems,
   getItemsMetadata,
 } from "./handlers/get-all-items.handler";
-import { getAllBrands } from "./handlers/get-all-brands.handler";
+import {
+  getAllBrands,
+  getAllBrandsByLetterHandler,
+} from "./handlers/get-all-brands.handler";
 import { getItemById } from "./handlers/get-item.handler";
 import { testLatency } from "./handlers/test-latency.handler";
 import { getItemsById } from "./handlers/get-items-by-id.handler";
@@ -31,6 +34,7 @@ app.get("/items", getAllItems);
 app.get("/items-metadata", getItemsMetadata);
 app.get("/item/:id", getItemById);
 app.get("/brands", getAllBrands);
+app.get("/brands-alphabetical", getAllBrandsByLetterHandler);
 app.get("/latency", testLatency);
 app.post("/items-by-ids", getItemsById);
 

@@ -10,6 +10,17 @@ export const getAllBrands = handleExceptions(
         name: "asc",
       },
     });
+    return res.json(brands);
+  }
+);
+
+export const getAllBrandsByLetterHandler = handleExceptions(
+  async (req: Request, res: Response) => {
+    const brands = await prisma.brand.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
 
     const brandsByLetter = brands.reduce((acc, brand) => {
       const letter = brand.name[0].toUpperCase();
