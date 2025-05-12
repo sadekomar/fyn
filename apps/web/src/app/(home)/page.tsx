@@ -4,16 +4,11 @@ import "./home.css";
 import { getRecentlyViewed } from "../(utils)/utils";
 
 import { Hero } from "./(Hero)/Hero";
-import { BrandScroller } from "@/components/BrandScroller";
-import { ShopByCategory } from "./(Categories)/ShopByCategory";
 import { Brands } from "./(Brands)/Brands";
-import { RecentlyViewed } from "../item/[id]/RecentlyViewed";
-import { FollowedBrands } from "./FollowedBrands";
-import { BrandOfTheDay } from "./BrandOfTheDay";
+// import { RecentlyViewed } from "../item/[id]/RecentlyViewed";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemCardsI } from "@/types";
-import { getCookie } from "@/app/(utils)/cookies.utils";
 import { brandsList } from "@/data/brands-list";
 
 export const revalidate = 86400; // 24 hours in seconds
@@ -49,24 +44,29 @@ export default async function Home() {
       value: "asili",
     },
     brandOfTheDay: {
-      label: "Ausetia",
-      value: "ausetia",
+      label: getBrandofTheDay().toUpperCase(),
+      value: getBrandofTheDay(),
     },
   };
 
   const [latestBrandData, brandOfTheDayData] = await Promise.all([
-    httpService<ItemCardsI[] | []>(
+    httpService<ItemCardsI[]>(
       HttpMethods.GET,
       `/items?brands=${conifg.latestFromBrand.value}&limit=20&sort_by=date-descending`,
+      {
+        isServer: true,
+        isResponseJson: true,
+      },
     ),
-    httpService<ItemCardsI[] | []>(
+    httpService<ItemCardsI[]>(
       HttpMethods.GET,
       `/items?brands=${conifg.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
+      {
+        isServer: true,
+        isResponseJson: true,
+      },
     ),
   ]);
-
-  console.log("why is this revalidating every time?", brandOfTheDayData);
-  const recentlyViewedData = await getRecentlyViewed();
 
   return (
     <>
@@ -94,7 +94,7 @@ export default async function Home() {
       {/* <ShopByGender />
       <ShopByCategory /> */}
       {/* <FollowedBrands /> */}
-      <RecentlyViewed data={recentlyViewedData} />
+      {/* <RecentlyViewed /> */}
     </>
   );
 }

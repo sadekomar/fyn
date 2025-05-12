@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { LetterNavigator } from "./LetterNavigator";
-import { IPAddress } from "@/data/IPAddress";
 import { IsometricBrands } from "@/app/(home)/(Brands)/IsometricBrands";
 import "./AllBrands.css";
 import { HttpMethods, httpService } from "@/queries/http.service";
@@ -40,8 +39,6 @@ export default async function AllBrands() {
       isResponseJson: true,
     },
   );
-
-  console.log("brands", brands);
 
   return (
     <>

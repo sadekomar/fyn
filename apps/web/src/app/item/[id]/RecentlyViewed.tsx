@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
-import { ItemCardsI } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import { getRecentlyViewed } from "@/app/(utils)/utils";
 
-export async function RecentlyViewed({ data }: { data: ItemCardsI[] }) {
-  if (data.length === 0) {
+export function RecentlyViewed() {
+  const { data } = useQuery({
+    queryKey: ["recently-viewed"],
+    queryFn: getRecentlyViewed,
+  });
+
+  if (!data || data.length === 0) {
     return null;
   }
 
