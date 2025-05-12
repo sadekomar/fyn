@@ -48,7 +48,6 @@ export default async function ItemPage(props: {
   const { id } = await props.params;
 
   const data = await httpService<ItemPageI>(HttpMethods.GET, `/item/${id}`);
-  const recentlyViewedData = await getRecentlyViewed();
 
   const category = data.categories[0];
   const color = data.colors[0];
@@ -77,7 +76,9 @@ export default async function ItemPage(props: {
         <BrandScroller brand={data["brand"]} title={"More from "} />
       </Suspense>
 
-      <RecentlyViewed data={recentlyViewedData} />
+      <Suspense fallback={<HScrollerPlaceholder />}>
+        <RecentlyViewed />
+      </Suspense>
       <AddToRecentlyViewed id={id} />
     </>
   );

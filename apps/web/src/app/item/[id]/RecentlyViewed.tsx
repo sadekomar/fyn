@@ -3,11 +3,8 @@ import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScrol
 import { useQuery } from "@tanstack/react-query";
 import { getRecentlyViewed } from "@/app/(utils)/utils";
 
-export function RecentlyViewed() {
-  const { data } = useQuery({
-    queryKey: ["recently-viewed"],
-    queryFn: getRecentlyViewed,
-  });
+export async function RecentlyViewed() {
+  const data = await getRecentlyViewed();
 
   if (!data || data.length === 0) {
     return null;

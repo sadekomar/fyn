@@ -10,6 +10,8 @@ import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScrol
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemCardsI } from "@/types";
 import { brandsList } from "@/data/brands-list";
+import { Suspense } from "react";
+import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
 
 export const revalidate = 86400; // 24 hours in seconds
 
@@ -94,7 +96,9 @@ export default async function Home() {
       {/* <ShopByGender />
       <ShopByCategory /> */}
       {/* <FollowedBrands /> */}
-      {/* <RecentlyViewed /> */}
+      {/* <Suspense fallback={<HScrollerPlaceholder />}>
+        <RecentlyViewed />
+      </Suspense> */}
     </>
   );
 }
