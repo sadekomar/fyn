@@ -2,13 +2,14 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { BrandsList } from "@/types";
 
 export function BrandsNavigator({
   params,
   brandsList,
 }: {
   params: { brand: string };
-  brandsList: string[];
+  brandsList: BrandsList | undefined;
 }) {
   let currentBrand = params.brand.replaceAll("%20", " ");
 
@@ -24,15 +25,15 @@ export function BrandsNavigator({
 
   return (
     <div className="brands-nav-wrapper">
-      {brandsList.map((brand, index) => (
-        <Link className="brands-nav" href={`/brands/${brand}`} key={index}>
-          {currentBrand === brand ? (
+      {brandsList?.map((brand, index) => (
+        <Link className="brands-nav" href={`/brands/${brand.name}`} key={index}>
+          {currentBrand === brand.name ? (
             <b style={{ fontWeight: "900" }} className="active">
               {" "}
-              {brand}{" "}
+              {brand.name}{" "}
             </b>
           ) : (
-            brand
+            brand.name
           )}
         </Link>
       ))}

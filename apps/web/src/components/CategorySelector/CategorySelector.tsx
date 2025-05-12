@@ -6,11 +6,16 @@ import "./CategorySelector.css";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { LoomImage } from "../LoomImage";
+import { MetadataI } from "@/types";
 
-export function CategorySelector({ metadata }: { metadata: any }) {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+export function CategorySelector({
+  metadata,
+}: {
+  metadata: MetadataI | undefined;
+}) {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  const currentCategory = searchParams.get("category");
+  const currentCategory = searchParams.get("categories");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -22,43 +27,58 @@ export function CategorySelector({ metadata }: { metadata: any }) {
     [searchParams],
   );
 
+  const deleteCategory = (name: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(name);
+    return params.toString();
+  };
+
   function toggleCategory(category) {
     if (currentCategory == category) {
-      setSelectedCategory("all");
-      window.history.pushState(
-        null,
-        "",
-        `?${createQueryString("category", "all")}`,
-      );
+      setSelectedCategory(null);
+      const newParams = deleteCategory("categories");
+      window.history.pushState(null, "", `?${newParams}`);
     } else {
       setSelectedCategory(category);
       window.history.pushState(
         null,
         "",
-        `?${createQueryString("category", category)}`,
+        `?${createQueryString("categories", category)}`,
       );
     }
   }
 
+  if (!metadata)
+    return (
+      <div className="category-selector-scroller">
+        {[...Array(6)].map((_, index) => (
+          <div key={index} className="category-selector-wrapper animate-pulse">
+            <div className="w-16 h-16 rounded-full bg-gray-200" />
+            <div className="h-6 w-24 bg-gray-200 rounded mt-2" />
+          </div>
+        ))}
+      </div>
+    );
+
   return (
     <div className="category-selector-scroller">
-      {metadata["categories"].map((categoryObject, index) => (
+      {metadata.categories.map((categoryObject, index) => (
         <div
           className="category-selector-wrapper"
           key={index}
           onClick={() => {
-            toggleCategory(categoryObject.category);
+            toggleCategory(categoryObject.name);
           }}
         >
           <LoomImage
             className="category-selector__img"
             src={categoryObject.image}
-            alt={categoryObject.category}
+            alt={categoryObject.name}
           />
           <button
-            className={`category-selector__button ${categoryObject.category === selectedCategory ? "category-selector__button-selected" : ""}`}
+            className={`category-selector__button ${categoryObject.name === selectedCategory ? "category-selector__button-selected" : ""}`}
           >
-            {categoryObject.category} ({categoryObject.count})
+            {categoryObject.name} ({categoryObject.count})
           </button>
         </div>
       ))}

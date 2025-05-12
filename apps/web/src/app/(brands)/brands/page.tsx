@@ -32,10 +32,14 @@ export type BrandsAPI = {
 };
 
 export default async function AllBrands() {
-  const brands = await httpService<BrandsAPI>(HttpMethods.GET, "/brands", {
-    isServer: true,
-    isResponseJson: true,
-  });
+  const brands = await httpService<BrandsAPI>(
+    HttpMethods.GET,
+    "/brands-alphabetical",
+    {
+      isServer: true,
+      isResponseJson: true,
+    },
+  );
 
   console.log("brands", brands);
 

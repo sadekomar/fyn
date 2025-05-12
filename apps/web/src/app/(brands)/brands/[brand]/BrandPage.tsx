@@ -18,9 +18,10 @@ import { NextPrevButtons } from "./(components)/NextPrevButtons";
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { HttpMethods } from "@/queries/http.service";
-import { ItemCardsI, MetadataI } from "@/types";
+import { HttpMethods, httpService } from "@/queries/http.service";
+import { BrandsList, ItemCardsI, MetadataI } from "@/types";
 import { getBrandItems, getBrandMetadata } from "./(utils)/read-brand";
+import { useState } from "react";
 
 export async function generateMetadata(props: { params: { brand: string } }) {
   const params = await props.params;
@@ -44,10 +45,10 @@ export function BrandPageClient() {
   const queryString = searchParams.toString();
   const queryStringArray = Array.from(searchParams.entries());
 
-  // const { data: brandsList } = useQuery({
-  //   queryKey: ["brands-list"],
-  //   queryFn: () => httpService(HttpMethods.GET, "/brands-list"),
-  // });
+  const { data: brandsList } = useQuery({
+    queryKey: ["brands-list"],
+    queryFn: () => httpService<BrandsList>(HttpMethods.GET, "/brands"),
+  });
 
   const { data } = useQuery({
     queryKey: ["/brand", brand, ...queryStringArray],
@@ -82,10 +83,10 @@ export function BrandPageClient() {
   return (
     <>
       <div className="brand-page-wrapper">
-        {/* <BrandsNavigator params={params} brandsList={brandsList} /> */}
+        <BrandsNavigator params={{ brand }} brandsList={brandsList} />
 
         <div className="BrandImageContainer">
-          <LoomImage src={getHeroImage()} />
+          <LoomImage src={getHeroImage()} className={`BrandImage`} />
           <div className="BrandContainer">
             <div>
               <div className="brand-info-wrapper">
@@ -94,18 +95,14 @@ export function BrandPageClient() {
               </div>
               <BrandDescription brand={brand} />
             </div>
-            {/* <NextPrevButtons
-              brandsList={brandsList}
-              params={params}
-              searchParams={searchParams}
-            /> */}
+            <NextPrevButtons brandsList={brandsList} />
           </div>
         </div>
 
-        {/* <CategorySelector metadata={data?.metadata} /> */}
+        <CategorySelector metadata={metadata} />
         <FiltersAndCount metadata={metadata} />
         <GridLayout items={data} />
-        {/* <PaginationControl metadata={metadata} /> */}
+        <PaginationControl metadata={metadata} />
       </div>
     </>
   );

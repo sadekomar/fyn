@@ -33,6 +33,8 @@
   --container-height: 488px;
   width: 100%;
   height: var(--container-height);
+  height: 488px;
+  overflow: hidden;
   position: relative;
 }
 
@@ -72,7 +74,7 @@
   height: inherit;
   object-fit: cover;
   object-position: center 100%;
-  opacity: 0;
+  /* opacity: 0; */
   transition: opacity 100ms ease;
 }
 

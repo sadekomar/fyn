@@ -1,3 +1,5 @@
+export type BrandsList = { name: string; id: string }[];
+
 export type ItemCardsI = {
   id: string;
   name: string;

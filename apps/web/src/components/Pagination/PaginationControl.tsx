@@ -4,14 +4,15 @@
 import "./Pagination.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { MetadataI } from "@/types";
 
 export function PaginationControl({
   metadata,
 }: {
-  metadata: { item_count?: number };
+  metadata: MetadataI | undefined;
 }) {
   const ITEMS_PER_PAGE = 100;
-  let numberOfItems = metadata["item_count"] || 0;
+  let numberOfItems = metadata?.items.count || 0;
   let numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);
   let pageNumbers = Array.from(
     { length: numberOfPages },

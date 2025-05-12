@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { BrandPageClient } from "./BrandPage";
 import { HttpMethods, httpService } from "@/queries/http.service";
-import { ItemCardsI } from "@/types";
+import { BrandsList } from "@/types";
 import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
 import { getBrandItems, getBrandMetadata } from "./(utils)/read-brand";
 
@@ -20,10 +20,10 @@ export default async function BrandPage(props: {
   const queryString = getQueryString(searchParams);
   const queryStringArray = getQueryStringArray(searchParams);
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: ["brands-list"],
-  //   queryFn: () => httpService(HttpMethods.GET, "/brands-list"),
-  // });
+  await queryClient.prefetchQuery({
+    queryKey: ["brands-list"],
+    queryFn: () => httpService<BrandsList>(HttpMethods.GET, "/brands"),
+  });
 
   await queryClient.prefetchQuery({
     queryKey: ["/brand", brand, ...queryStringArray],

@@ -3,8 +3,13 @@
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { BrandsList } from "@/types";
 
-export function NextPrevButtons({ brandsList }: { brandsList: string[] }) {
+export function NextPrevButtons({
+  brandsList,
+}: {
+  brandsList: BrandsList | undefined;
+}) {
   const params = useParams();
   const router = useRouter();
 
@@ -16,13 +21,18 @@ export function NextPrevButtons({ brandsList }: { brandsList: string[] }) {
           ? params.brand[0].replace(/%20/g, " ")
           : "";
 
-    const currentBrandIndex = brandsList.indexOf(brandParam);
+    const currentBrandIndex = brandsList?.findIndex(
+      (brand) => brand.name === brandParam,
+    );
+
+    if (!currentBrandIndex) return;
+
     const prevBrand =
-      brandsList[
+      brandsList?.[
         (currentBrandIndex - 1 + brandsList.length) % brandsList.length
       ];
 
-    router.push("/brands/" + prevBrand);
+    router.push("/brands/" + prevBrand?.name);
   }
 
   function goToNextBrand() {
@@ -33,13 +43,18 @@ export function NextPrevButtons({ brandsList }: { brandsList: string[] }) {
           ? params.brand[0].replace(/%20/g, " ")
           : "";
 
-    const currentBrandIndex = brandsList.indexOf(brandParam);
+    const currentBrandIndex = brandsList?.findIndex(
+      (brand) => brand.name === brandParam,
+    );
+
+    if (!currentBrandIndex) return;
+
     const nextBrand =
-      brandsList[
+      brandsList?.[
         (currentBrandIndex + 1 + brandsList.length) % brandsList.length
       ];
 
-    router.push("/brands/" + nextBrand);
+    router.push("/brands/" + nextBrand?.name);
   }
 
   return (
