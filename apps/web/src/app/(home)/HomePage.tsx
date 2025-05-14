@@ -1,16 +1,16 @@
+"use client";
+
 import Link from "next/link";
 
 import "./home.css";
 
+import { Hero } from "./(Hero)/Hero";
+import { Brands } from "./(Brands)/Brands";
+import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemCardsI } from "@/types";
 import { brandsList } from "@/data/brands-list";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import ClientHomePage from "./HomePage";
+import { useQuery } from "@tanstack/react-query";
 
 export const revalidate = 86400; // 24 hours in seconds
 
@@ -38,9 +38,7 @@ export const metadata = {
   },
 };
 
-export default async function Home() {
-  const queryClient = new QueryClient();
-
+export default function ClientHomePage() {
   const conifg = {
     latestFromBrand: {
       label: "Asili",
@@ -52,36 +50,54 @@ export default async function Home() {
     },
   };
 
-  await queryClient.prefetchQuery({
+  const { data: latestBrandData } = useQuery({
     queryKey: ["latest-brand", conifg.latestFromBrand.value],
     queryFn: () =>
       httpService<ItemCardsI[]>(
         HttpMethods.GET,
         `/items?brands=${conifg.latestFromBrand.value}&limit=20&sort_by=date-descending`,
-        {
-          isServer: true,
-          isResponseJson: true,
-        },
       ),
   });
 
-  await queryClient.prefetchQuery({
+  const { data: brandOfTheDayData } = useQuery({
     queryKey: ["brand-of-the-day", conifg.brandOfTheDay.value],
     queryFn: () =>
       httpService<ItemCardsI[]>(
         HttpMethods.GET,
         `/items?brands=${conifg.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
-        {
-          isServer: true,
-          isResponseJson: true,
-        },
       ),
   });
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientHomePage />
-    </HydrationBoundary>
+    <>
+      <Hero />
+      <Brands />
+
+      <Link href={`/brands/${conifg.latestFromBrand.value}`}>
+        <h1 className="h-scroller-title">
+          Latest from {conifg.latestFromBrand.label}
+        </h1>
+      </Link>
+      <HorizontalScroller items={latestBrandData || []} />
+
+      {brandOfTheDayData && brandOfTheDayData.length > 0 && (
+        <>
+          <h1 className="h-scroller-title">
+            Brand of the Day: {conifg.brandOfTheDay.label}
+          </h1>
+          <HorizontalScroller items={brandOfTheDayData} />
+        </>
+      )}
+      {/* <BrandScroller title={"Latest from "} brand={conifg.latestFromBrand} /> */}
+      {/* <BrandOfTheDay brand={conifg.brandOfTheDay} /> */}
+
+      {/* <ShopByGender />
+      <ShopByCategory /> */}
+      {/* <FollowedBrands /> */}
+      {/* <Suspense fallback={<HScrollerPlaceholder />}>
+        <RecentlyViewed />
+      </Suspense> */}
+    </>
   );
 }
 
