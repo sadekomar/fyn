@@ -14,6 +14,7 @@ import { DesktopImages } from "./DesktopImages";
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemPageI } from "@/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
+import type { Metadata } from "next";
 
 export async function generateMetadata({
   params,
@@ -25,12 +26,14 @@ export async function generateMetadata({
 
   return {
     title: data.name,
+    images: data.images[0],
     description: data.description.slice(0, 60),
     robots:
       "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
     keywords: "Loom Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
     openGraph: {
       title: data.name,
+      images: data.images[0],
       description: data.description.slice(0, 60),
       type: "website",
       url: `https://loomcairo.com/item/${id}`,
@@ -38,12 +41,13 @@ export async function generateMetadata({
     twitter: {
       card: "summary",
       title: data.name,
+      images: data.images[0],
       description: data.description.slice(0, 60),
     },
     alternates: {
       canonical: `https://loomcairo.com/item/${id}`,
     },
-  };
+  } as Metadata;
 }
 
 export default async function ItemPage(props: {
