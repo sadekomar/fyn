@@ -56,6 +56,10 @@ export default function ClientHomePage() {
       httpService<ItemCardsI[]>(
         HttpMethods.GET,
         `/items?brands=${conifg.latestFromBrand.value}&limit=20&sort_by=date-descending`,
+        {
+          isServer: false,
+          isResponseJson: true,
+        },
       ),
   });
 
@@ -65,6 +69,10 @@ export default function ClientHomePage() {
       httpService<ItemCardsI[]>(
         HttpMethods.GET,
         `/items?brands=${conifg.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
+        {
+          isServer: false,
+          isResponseJson: true,
+        },
       ),
   });
 
