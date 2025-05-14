@@ -16,7 +16,7 @@ export async function CategorySelectorFetch({
 
   return (
     <>
-      <CategorySelector metadata={metadata} />
+      <CategorySelector brandCategories={metadata} />
     </>
   );
 }

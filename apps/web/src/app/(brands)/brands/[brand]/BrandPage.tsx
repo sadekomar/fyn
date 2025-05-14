@@ -19,7 +19,12 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { HttpMethods, httpService } from "@/queries/http.service";
 import { BrandsList } from "@/types";
-import { getBrandItems, getBrandMetadata } from "./(utils)/read-brand";
+import {
+  getBrandCategories,
+  getBrandItems,
+  getBrandMetadata,
+} from "./(utils)/read-brand";
+import { getCategoryMetadata } from "@/app/categories/[category]/(utils)/read-category";
 
 export async function generateMetadata(props: { params: { brand: string } }) {
   const params = await props.params;
@@ -62,6 +67,11 @@ export function BrandPageClient() {
     queryFn: () => getBrandMetadata(brand, queryString, false),
   });
 
+  const { data: brandCategories } = useQuery({
+    queryKey: ["/brand-categories", brand],
+    queryFn: () => getBrandCategories(brand, false),
+  });
+
   const coverImage = "";
 
   function getHeroImage() {
@@ -95,7 +105,7 @@ export function BrandPageClient() {
           </div>
         </div>
 
-        <CategorySelector metadata={metadata} />
+        <CategorySelector brandCategories={brandCategories} />
         <FiltersAndCount metadata={metadata} />
         <GridLayout items={data} />
         <PaginationControl metadata={metadata} />

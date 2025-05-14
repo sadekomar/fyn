@@ -6,12 +6,12 @@ import "./CategorySelector.css";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { LoomImage } from "../LoomImage";
-import { MetadataI } from "@/types";
+import { CategoriesI } from "@/types";
 
 export function CategorySelector({
-  metadata,
+  brandCategories,
 }: {
-  metadata: MetadataI | undefined;
+  brandCategories: CategoriesI[] | undefined;
 }) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const searchParams = useSearchParams();
@@ -48,7 +48,7 @@ export function CategorySelector({
     }
   }
 
-  if (!metadata)
+  if (!brandCategories)
     return (
       <div className="category-selector-scroller">
         {[...Array(6)].map((_, index) => (
@@ -62,7 +62,7 @@ export function CategorySelector({
 
   return (
     <div className="category-selector-scroller">
-      {metadata.categories.map((categoryObject, index) => (
+      {brandCategories.map((categoryObject, index) => (
         <div
           className="category-selector-wrapper"
           key={index}

@@ -7,7 +7,11 @@ import { BrandPageClient } from "./BrandPage";
 import { HttpMethods, httpService } from "@/queries/http.service";
 import { BrandsList } from "@/types";
 import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
-import { getBrandItems, getBrandMetadata } from "./(utils)/read-brand";
+import {
+  getBrandCategories,
+  getBrandItems,
+  getBrandMetadata,
+} from "./(utils)/read-brand";
 
 export default async function BrandPage(props: {
   params: Promise<{ brand: string }>;
@@ -36,6 +40,10 @@ export default async function BrandPage(props: {
       ...queryStringArray.filter(([key]) => key !== "page"),
     ],
     queryFn: () => getBrandMetadata(brand, queryString),
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["/brand-categories", brand],
+    queryFn: () => getBrandCategories(brand),
   });
 
   return (

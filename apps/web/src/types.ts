@@ -59,3 +59,9 @@ export type MetadataI = {
       }[]
     | [];
 };
+
+export type CategoriesI = {
+  name: string;
+  count: number;
+  image: string;
+};

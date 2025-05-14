@@ -9,8 +9,8 @@ import { Brands } from "./(Brands)/Brands";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { httpService, HttpMethods } from "@/queries/http.service";
 import { ItemCardsI } from "@/types";
-import { brandsList } from "@/data/brands-list";
 import { useQuery } from "@tanstack/react-query";
+import { conifg } from "./utils";
 
 export const revalidate = 86400; // 24 hours in seconds
 
@@ -39,17 +39,6 @@ export const metadata = {
 };
 
 export default function ClientHomePage() {
-  const conifg = {
-    latestFromBrand: {
-      label: "Asili",
-      value: "asili",
-    },
-    brandOfTheDay: {
-      label: getBrandofTheDay().toUpperCase(),
-      value: getBrandofTheDay(),
-    },
-  };
-
   const { data: latestBrandData } = useQuery({
     queryKey: ["latest-brand", conifg.latestFromBrand.value],
     queryFn: () =>
@@ -107,17 +96,6 @@ export default function ClientHomePage() {
       </Suspense> */}
     </>
   );
-}
-
-function getBrandofTheDay(): string {
-  const brands = brandsList;
-  const startingDate = new Date(2025, 4, 5);
-  const today = new Date();
-
-  const timeDiff = today.getTime() - startingDate.getTime();
-  const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-  const brandIndex = daysDiff % brands.length;
-  return brands[brandIndex];
 }
 
 function ShopByGender() {
