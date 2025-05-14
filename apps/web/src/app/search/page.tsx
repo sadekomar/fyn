@@ -24,7 +24,6 @@ export default function SearchPage() {
 
   const queryString = searchParams.toString();
   const queryStringArray = Array.from(searchParams.entries());
-  console.log(queryStringArray);
 
   const { data: products } = useQuery({
     queryKey: ["/search", ...queryStringArray],
@@ -34,8 +33,6 @@ export default function SearchPage() {
         isResponseJson: true,
       }),
   });
-
-  console.log(products);
 
   const { data: metadata } = useQuery({
     queryKey: ["/metadata", ...queryStringArray],
@@ -169,7 +166,6 @@ export default function SearchPage() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log("submitted");
 
                   if (searchFieldRef.current) {
                     window.history.pushState(

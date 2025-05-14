@@ -1,4 +1,3 @@
-import { LoomImage } from "@/components/LoomImage";
 import "./About.css";
 
 export const metadata = {
@@ -57,11 +56,6 @@ export default function About() {
           </ul>
         </div>
       </div>
-      <LoomImage
-        className="about-page-image"
-        src="/branding/loom-threads.webp"
-        alt="Loom machine weaving threads to gether."
-      />
       <div className="about-page-wrapper">
         <div className="about-section-wrapper">
           <h2 className="about-section-title">Behind The Name</h2>
