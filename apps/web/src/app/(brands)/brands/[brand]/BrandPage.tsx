@@ -16,7 +16,7 @@ import { NextPrevButtons } from "./(components)/NextPrevButtons";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { HttpMethods, httpService } from "@/queries/http.service";
 import { BrandsList } from "@/types";
 import {
@@ -24,7 +24,6 @@ import {
   getBrandItems,
   getBrandMetadata,
 } from "./(utils)/read-brand";
-import { getCategoryMetadata } from "@/app/categories/[category]/(utils)/read-category";
 
 export async function generateMetadata(props: { params: { brand: string } }) {
   const params = await props.params;
@@ -48,17 +47,15 @@ export function BrandPageClient() {
   const queryString = searchParams.toString();
   const queryStringArray = Array.from(searchParams.entries());
 
-  const { data: brandsList } = useQuery({
+  const { data: brandsList, isFetching: isFetchingBrandsList } = useQuery({
     queryKey: ["brands-list"],
     queryFn: () => httpService<BrandsList>(HttpMethods.GET, "/brands"),
   });
-
-  const { data } = useQuery({
+  const { data, isFetching: isFetchingBrandItems } = useQuery({
     queryKey: ["/brand", brand, ...queryStringArray],
     queryFn: () => getBrandItems(brand, queryString, false),
   });
-
-  const { data: metadata } = useQuery({
+  const { data: metadata, isFetching: isFetchingMetadata } = useQuery({
     queryKey: [
       "/brand-metadata",
       brand,
@@ -66,11 +63,50 @@ export function BrandPageClient() {
     ],
     queryFn: () => getBrandMetadata(brand, queryString, false),
   });
+  const { data: brandCategories, isFetching: isFetchingBrandCategories } =
+    useQuery({
+      queryKey: ["/brand-categories", brand],
+      queryFn: () => getBrandCategories(brand, false),
+    });
 
-  const { data: brandCategories } = useQuery({
-    queryKey: ["/brand-categories", brand],
-    queryFn: () => getBrandCategories(brand, false),
-  });
+  const isFetching =
+    isFetchingBrandsList ||
+    isFetchingBrandItems ||
+    isFetchingMetadata ||
+    isFetchingBrandCategories;
+
+  const queryClient = useQueryClient();
+
+  // prefetch next and previous brands
+  if (!isFetching) {
+    const currentBrand = brand.replace(/%20/g, " ");
+    const currentBrandIndex = brandsList?.findIndex(
+      (brand) => brand.name === currentBrand,
+    );
+    if (!currentBrandIndex) return;
+    const nextBrand =
+      brandsList?.[
+        (currentBrandIndex + 1 + brandsList.length) % brandsList.length
+      ];
+    const prevBrand =
+      brandsList?.[
+        (currentBrandIndex - 1 + brandsList.length) % brandsList.length
+      ];
+    if (!nextBrand || !prevBrand) return;
+
+    const prefetchSecondaryData = async () => {
+      await queryClient.prefetchQuery({
+        queryKey: ["/brand", nextBrand.name, ...queryStringArray],
+        queryFn: () => getBrandItems(nextBrand.name, queryString, false),
+      });
+      await queryClient.prefetchQuery({
+        queryKey: ["/brand", prevBrand.name, ...queryStringArray],
+        queryFn: () => getBrandItems(prevBrand.name, queryString, false),
+      });
+    };
+
+    prefetchSecondaryData();
+  }
 
   const coverImage = "";
 
