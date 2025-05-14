@@ -12,11 +12,10 @@ import "./(components)/BrandPage.css";
 import { BrandsNavigator } from "./(components)/BrandsNavigator";
 import { LoomImage } from "@/components/LoomImage";
 import { BrandDescription, brandKey } from "./(components)/BrandDescription";
-import { NextPrevButtons } from "./(components)/NextPrevButtons";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { HttpMethods, httpService } from "@/queries/http.service";
 import { BrandsList } from "@/types";
 import {
@@ -24,6 +23,8 @@ import {
   getBrandItems,
   getBrandMetadata,
 } from "./(utils)/read-brand";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export async function generateMetadata(props: { params: { brand: string } }) {
   const params = await props.params;
@@ -51,11 +52,11 @@ export function BrandPageClient() {
     queryKey: ["brands-list"],
     queryFn: () => httpService<BrandsList>(HttpMethods.GET, "/brands"),
   });
-  const { data, isFetching: isFetchingBrandItems } = useQuery({
+  const { data } = useQuery({
     queryKey: ["/brand", brand, ...queryStringArray],
     queryFn: () => getBrandItems(brand, queryString, false),
   });
-  const { data: metadata, isFetching: isFetchingMetadata } = useQuery({
+  const { data: metadata } = useQuery({
     queryKey: [
       "/brand-metadata",
       brand,
@@ -63,50 +64,12 @@ export function BrandPageClient() {
     ],
     queryFn: () => getBrandMetadata(brand, queryString, false),
   });
-  const { data: brandCategories, isFetching: isFetchingBrandCategories } =
-    useQuery({
-      queryKey: ["/brand-categories", brand],
-      queryFn: () => getBrandCategories(brand, false),
-    });
+  const { data: brandCategories } = useQuery({
+    queryKey: ["/brand-categories", brand],
+    queryFn: () => getBrandCategories(brand, false),
+  });
 
-  const isFetching =
-    isFetchingBrandsList ||
-    isFetchingBrandItems ||
-    isFetchingMetadata ||
-    isFetchingBrandCategories;
-
-  const queryClient = useQueryClient();
-
-  // prefetch next and previous brands
-  if (!isFetching) {
-    const currentBrand = brand.replace(/%20/g, " ");
-    const currentBrandIndex = brandsList?.findIndex(
-      (brand) => brand.name === currentBrand,
-    );
-    if (!currentBrandIndex) return;
-    const nextBrand =
-      brandsList?.[
-        (currentBrandIndex + 1 + brandsList.length) % brandsList.length
-      ];
-    const prevBrand =
-      brandsList?.[
-        (currentBrandIndex - 1 + brandsList.length) % brandsList.length
-      ];
-    if (!nextBrand || !prevBrand) return;
-
-    const prefetchSecondaryData = async () => {
-      await queryClient.prefetchQuery({
-        queryKey: ["/brand", nextBrand.name, ...queryStringArray],
-        queryFn: () => getBrandItems(nextBrand.name, queryString, false),
-      });
-      await queryClient.prefetchQuery({
-        queryKey: ["/brand", prevBrand.name, ...queryStringArray],
-        queryFn: () => getBrandItems(prevBrand.name, queryString, false),
-      });
-    };
-
-    prefetchSecondaryData();
-  }
+  const { previousBrand, nextBrand } = getPreviousNextBrands(brand, brandsList);
 
   const coverImage = "";
 
@@ -137,7 +100,22 @@ export function BrandPageClient() {
               </div>
               <BrandDescription brand={brand} />
             </div>
-            <NextPrevButtons brandsList={brandsList} />
+            <div className="flex gap-4">
+              <Link
+                className="brand-nav-button"
+                href={`/brands/${previousBrand?.name}`}
+                prefetch={true}
+              >
+                <ChevronLeft width="25px" height="25px" /> Previous Brand
+              </Link>
+              <Link
+                className="brand-nav-button"
+                href={`/brands/${nextBrand?.name}`}
+                prefetch={true}
+              >
+                Next Brand <ChevronRight width="25px" height="25px" />
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -148,4 +126,25 @@ export function BrandPageClient() {
       </div>
     </>
   );
+}
+
+function getPreviousNextBrands(
+  brand: string,
+  brandsList: BrandsList | undefined,
+) {
+  const currentBrand = brand.replace(/%20/g, " ");
+  const currentBrandIndex = brandsList?.findIndex(
+    (brand) => brand.name === currentBrand,
+  );
+  if (!currentBrandIndex) return { previousBrand: null, nextBrand: null };
+  const nextBrand =
+    brandsList?.[
+      (currentBrandIndex + 1 + brandsList.length) % brandsList.length
+    ];
+  const previousBrand =
+    brandsList?.[
+      (currentBrandIndex - 1 + brandsList.length) % brandsList.length
+    ];
+
+  return { previousBrand, nextBrand };
 }
