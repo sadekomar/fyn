@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import { BrandScroller } from "@/components/BrandScroller";
+import { BrandScroller } from "@/app/item/[id]/(components)/BrandScroller";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 

@@ -1,11 +1,10 @@
 import Link from "next/link";
 
-import { IPAddress } from "../data/IPAddress";
-import { FollowButton } from "./FollowButton/FollowButton";
-import { HorizontalScroller } from "../layouts/HorizontalScroller/HorizontalScroller";
+import { FollowButton } from "@/components/FollowButton/FollowButton";
+import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { httpService, HttpMethods } from "@/queries/http.service";
 
-import "../layouts/HorizontalScroller/HorizontalScroll.css";
+import "@/layouts/HorizontalScroller/HorizontalScroll.css";
 import { ItemCardsI } from "@/types";
 
 export async function BrandScroller({

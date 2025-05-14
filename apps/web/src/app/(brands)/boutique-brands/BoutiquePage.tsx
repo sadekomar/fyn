@@ -1,6 +1,6 @@
 import { IPAddress } from "@/data/IPAddress";
 
-import { BrandScroller } from "@/components/BrandScroller";
+import { BrandScroller } from "@/app/item/[id]/(components)/BrandScroller";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 
 export default async function BoutiqueBrands() {

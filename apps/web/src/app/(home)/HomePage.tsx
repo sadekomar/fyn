@@ -85,7 +85,7 @@ export default function ClientHomePage() {
           <HorizontalScroller items={brandOfTheDayData} />
         </>
       )}
-      {/* <BrandScroller title={"Latest from "} brand={conifg.latestFromBrand} /> */}
+
       {/* <BrandOfTheDay brand={conifg.brandOfTheDay} /> */}
 
       {/* <ShopByGender />

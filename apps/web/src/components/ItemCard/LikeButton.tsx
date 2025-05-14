@@ -1,6 +1,7 @@
 "use client";
 
 import { IconButton } from "@radix-ui/themes";
+import { HeartIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 export function LikeButton({
@@ -40,13 +41,7 @@ export function LikeButton({
         variant="soft"
         onClick={toggleIcon}
       >
-        {isFilled ? (
-          // <HeartFilledIcon style={{ color: "red" }} />
-          <div>like</div>
-        ) : (
-          // <HeartIcon />
-          <div>like</div>
-        )}
+        {isFilled ? <HeartIcon style={{ fill: "red" }} /> : <HeartIcon />}
       </IconButton>
     </>
   );

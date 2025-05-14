@@ -25,7 +25,7 @@ export function ItemCard({
     <>
       <div className={`ItemCard ${className}`}>
         <LikeButton id={id} className="LikeButton" />
-        <CompareButton id={id} className="CompareButton" />
+        {/* <CompareButton id={id} className="CompareButton" /> */}
         <Link href={`/item/${id}`}>
           <LoomImage
             loading={imgLoading}
