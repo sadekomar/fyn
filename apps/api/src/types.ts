@@ -73,3 +73,9 @@ export type SearchParamsI = {
   showrooms?: string[];
   in_stock?: boolean;
 };
+
+export type CategoriesI = {
+  name: string;
+  count: number;
+  image: string;
+};

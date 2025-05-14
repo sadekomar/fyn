@@ -3,6 +3,7 @@ import prisma from "./lib/prisma";
 import cors from "cors";
 import {
   getAllItems,
+  getItemsBrandCategoriesMetadata,
   getItemsMetadata,
 } from "./handlers/get-all-items.handler";
 import {
@@ -32,6 +33,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.get("/items", getAllItems);
 app.get("/items-metadata", getItemsMetadata);
+app.get("/brand-categories", getItemsBrandCategoriesMetadata);
 app.get("/item/:id", getItemById);
 app.get("/brands", getAllBrands);
 app.get("/brands-alphabetical", getAllBrandsByLetterHandler);

@@ -2,7 +2,7 @@ import prisma from "../lib/prisma";
 import { Request, Response } from "express";
 import { handleExceptions } from "../lib/utils";
 import { z } from "zod";
-import { ImageSizes, ItemCardsDataI, MetadataI } from "../types";
+import { CategoriesI, ImageSizes, ItemCardsDataI, MetadataI } from "../types";
 import { equal } from "assert";
 import { constructWhere } from "../helpers/construct-where";
 import { getOrderBy } from "../helpers/get-order-by";
@@ -138,6 +138,55 @@ export const getAllItems = handleExceptions(
     }));
 
     return res.json(formattedItems);
+  }
+);
+
+export const getItemsBrandCategoriesMetadata = handleExceptions(
+  async (req: Request, res: Response) => {
+    const parsedQuery = QuerySchema.safeParse(req.query);
+
+    if (!parsedQuery.success) {
+      return res.status(400).json({
+        error: "Invalid query parameters",
+        details: parsedQuery.error.format(),
+      });
+    }
+
+    const where: any = constructWhere(parsedQuery.data);
+
+    const items = await prisma.item.findMany({
+      where,
+      select: {
+        categories: true,
+        images: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const categoryCount = items.reduce((acc, item) => {
+      item.categories.forEach((category) => {
+        if (!acc[category.name]) {
+          acc[category.name] = 0;
+        }
+        acc[category.name]++;
+      });
+      return acc;
+    }, {} as Record<string, number>);
+
+    const formattedCategories: CategoriesI[] = Object.entries(
+      categoryCount
+    ).map(([name, count]) => ({
+      name,
+      count,
+      image:
+        items
+          .find((item) => item.categories.some((c) => c.name === name))
+          ?.images[0]?.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL) || "",
+    }));
+
+    return res.json(formattedCategories);
   }
 );
 
