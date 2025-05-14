@@ -88,7 +88,7 @@ export default async function ItemPage(props: {
   );
 }
 
-export function PhoneImages({
+function PhoneImages({
   data,
   height = "440px",
 }: {

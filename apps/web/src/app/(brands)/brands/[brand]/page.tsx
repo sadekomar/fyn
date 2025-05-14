@@ -13,6 +13,14 @@ import {
   getBrandMetadata,
 } from "./(utils)/read-brand";
 
+export async function generateStaticParams() {
+  const brands = await httpService<BrandsList>(HttpMethods.GET, "/brands");
+
+  return brands.map((brand) => ({ brand: brand.name }));
+}
+
+export const revalidate = 43200; // 12 hours in seconds
+
 export default async function BrandPage(props: {
   params: Promise<{ brand: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
