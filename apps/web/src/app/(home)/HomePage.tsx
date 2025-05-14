@@ -12,7 +12,7 @@ import { ItemCardsI } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { conifg } from "./utils";
 
-export const revalidate = 86400; // 24 hours in seconds
+export const revalidate = 43200; // 12 hours in seconds
 
 export const metadata = {
   title: "Loom Cairo: Shop 300 Local Fashion Brands in One Place",

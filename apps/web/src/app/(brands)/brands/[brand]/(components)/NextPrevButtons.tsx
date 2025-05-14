@@ -4,25 +4,21 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { BrandsList } from "@/types";
+import { brandKey } from "./BrandDescription";
 
 export function NextPrevButtons({
   brandsList,
 }: {
   brandsList: BrandsList | undefined;
 }) {
-  const params = useParams();
+  const params = useParams<{ brand: brandKey }>();
   const router = useRouter();
 
   function goToPrevBrand() {
-    const brandParam =
-      typeof params.brand === "string"
-        ? params.brand.replace(/%20/g, " ")
-        : Array.isArray(params.brand)
-          ? params.brand[0].replace(/%20/g, " ")
-          : "";
+    const currentBrand = params.brand.replace(/%20/g, " ");
 
     const currentBrandIndex = brandsList?.findIndex(
-      (brand) => brand.name === brandParam,
+      (brand) => brand.name === currentBrand,
     );
 
     if (!currentBrandIndex) return;
@@ -36,15 +32,9 @@ export function NextPrevButtons({
   }
 
   function goToNextBrand() {
-    const brandParam =
-      typeof params.brand === "string"
-        ? params.brand.replace(/%20/g, " ")
-        : Array.isArray(params.brand)
-          ? params.brand[0].replace(/%20/g, " ")
-          : "";
-
+    const currentBrand = params.brand.replace(/%20/g, " ");
     const currentBrandIndex = brandsList?.findIndex(
-      (brand) => brand.name === brandParam,
+      (brand) => brand.name === currentBrand,
     );
 
     if (!currentBrandIndex) return;
