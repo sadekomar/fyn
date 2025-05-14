@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Flex } from "@radix-ui/themes";
 import { ClockIcon, X, Search } from "lucide-react";
 
 import { autofillSuggestionsList } from "../../data/autofillSuggestions";
@@ -153,7 +152,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <Flex direction={"column"}>
+      <div className="flex flex-col">
         <div className="search-and-autofill">
           <div
             className={`searchbar-wrapper ${!searchParams.get("search") ? "startup-searchbar-wrapper" : ""}`}
@@ -292,7 +291,7 @@ export default function SearchPage() {
                     :
                     <div></div>
             } */}
-      </Flex>
+      </div>
     </>
   );
 }

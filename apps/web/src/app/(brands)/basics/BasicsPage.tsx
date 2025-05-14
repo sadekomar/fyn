@@ -1,4 +1,3 @@
-import { BrandInfo } from "@/components/BrandInfo";
 import { BrandScroller } from "@/components/BrandScroller";
 
 import { PageTitle } from "@/components/PageTitle/PageTitle";

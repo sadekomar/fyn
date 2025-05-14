@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { BrandScroller } from "@/components/BrandScroller";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
-import { BrandInfo } from "@/components/BrandInfo";
 
 import Link from "next/link";
 

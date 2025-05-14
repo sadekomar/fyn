@@ -3,7 +3,6 @@ import { getCookie } from "@/app/(utils)/cookies.utils";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { BrandScrollerClient } from "@/components/BrandScrollerClient";
-import { BrandInfo } from "@/components/BrandInfo";
 import { brandKey } from "../(brands)/brands/[brand]/(components)/BrandDescription";
 
 export async function FollowedBrands() {
