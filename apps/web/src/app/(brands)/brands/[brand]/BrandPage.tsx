@@ -12,16 +12,14 @@ import "./(components)/BrandPage.css";
 import { BrandsNavigator } from "./(components)/BrandsNavigator";
 import { LoomImage } from "@/components/LoomImage";
 import { BrandDescription, brandKey } from "./(components)/BrandDescription";
-import { BrandProducts } from "./(components)/BrandProducts";
 import { NextPrevButtons } from "./(components)/NextPrevButtons";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { HttpMethods, httpService } from "@/queries/http.service";
-import { BrandsList, ItemCardsI, MetadataI } from "@/types";
+import { BrandsList } from "@/types";
 import { getBrandItems, getBrandMetadata } from "./(utils)/read-brand";
-import { useState } from "react";
 
 export async function generateMetadata(props: { params: { brand: string } }) {
   const params = await props.params;
@@ -63,8 +61,6 @@ export function BrandPageClient() {
     ],
     queryFn: () => getBrandMetadata(brand, queryString, false),
   });
-
-  console.log("data", data);
 
   const coverImage = "";
 

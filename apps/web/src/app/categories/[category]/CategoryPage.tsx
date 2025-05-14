@@ -11,6 +11,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { useParams, useSearchParams } from "next/navigation";
 import { LoomImage } from "@/components/LoomImage";
+import { PaginationControl } from "@/components/Pagination/PaginationControl";
 
 export function CategoryPageClient() {
   const { category } = useParams<{ category: string }>();
@@ -48,7 +49,7 @@ export function CategoryPageClient() {
       <ColorPills metadata={metadata} />
       <FiltersAndCount metadata={metadata} />
       <GridLayout items={data} />
-      {/* <PaginationControl metadata={metadata} /> */}
+      <PaginationControl metadata={metadata} />
     </>
   );
 }

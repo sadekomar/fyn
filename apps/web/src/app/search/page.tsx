@@ -280,7 +280,7 @@ export default function SearchPage() {
             <ColorPills metadata={metadata} />
             <FiltersAndCount metadata={metadata} />
             <GridLayout items={products} />
-            {/* <PaginationControl metadata={metadata} /> */}
+            <PaginationControl metadata={metadata} />
           </>
         )}
 
