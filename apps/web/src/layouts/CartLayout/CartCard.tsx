@@ -15,10 +15,10 @@ import { ItemPageI } from "@/types";
 
 export function CartCard({
   product,
-  removeCard,
+  removeItem,
 }: {
   product: ItemPageI;
-  removeCard: (key: string, value: string) => void;
+  removeItem: (key: string, value: string) => void;
 }) {
   return (
     <>
@@ -55,7 +55,7 @@ export function CartCard({
         <button
           className="cart-card-remove-button"
           onClick={() => {
-            removeCard("cart", product.id);
+            removeItem("cart", product.id);
           }}
         >
           <CrossIcon width="13" />

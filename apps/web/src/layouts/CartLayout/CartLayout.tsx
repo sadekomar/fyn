@@ -5,14 +5,22 @@ import { useEffect, useState } from "react";
 import { CartCard } from "./CartCard";
 import Link from "next/link";
 import { EmptyState } from "../../components/EmptyState/EmptyState";
-
-export function CartLayout({ products, removeCard, isEmpty }) {
+import { ItemCardsI } from "@/types";
+export function CartLayout({
+  products,
+  removeItem,
+  isEmpty,
+}: {
+  products: ItemCardsI[] | undefined;
+  removeItem: (key: string, value: string) => void;
+  isEmpty: boolean;
+}) {
   return (
     <>
       <div className="cart-cards-wrapper">
-        {products.length != 0 || !isEmpty ? (
-          products.map((product, index) => (
-            <CartCard key={index} product={product} removeCard={removeCard} />
+        {products?.length != 0 || !isEmpty ? (
+          products?.map((product, index) => (
+            <CartCard key={index} product={product} removeItem={removeItem} />
           ))
         ) : (
           <EmptyState title="Your cart is empty">
