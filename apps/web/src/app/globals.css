@@ -2,7 +2,6 @@
 /* @import '@radix-ui/themes/styles.css' layer(radix_themes); */
 
 @import url("../css/supreme.css");
-@import "tailwindcss";
 
 :root {
   --ff-main: "Supreme", Arial, sans-serif;
@@ -71,83 +70,85 @@
 }
 
 /* --reset-- */
+@layer reset {
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+    margin: 0px;
+  }
 
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-  margin: 0px;
+  html {
+    background-color: var(--clr-neutral-100);
+    /* color-scheme: dark light; */
+
+    font-family: var(--ff-main);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-thin);
+    line-height: 1.6;
+    color: var(--clr-neutral-400);
+    --webkit-font-smoothing: antialiased;
+  }
+
+  input,
+  label,
+  button,
+  textarea,
+  select {
+    /* font: inherit; */
+    /* done to override the radix UI specificity issues */
+    font-family: var(--ff-main);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-regular);
+  }
+
+  button {
+    cursor: pointer;
+    border: 0px;
+    /* padding reset for --webkit */
+    padding: 0px;
+    transition: transform 300ms ease-out;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1;
+    overflow-wrap: break-word;
+    font-weight: var(--fw-bold);
+    font-family: var(--ff-secondary);
+    color: var(--clr-neutral-900);
+    letter-spacing: -0.04em;
+  }
+
+  body {
+    font-family: var(--ff-main);
+  }
+
+  p,
+  div {
+    font-family: var(--ff-main);
+    font-weight: var(--fw-regular);
+  }
 }
-
-html {
-  background-color: var(--clr-neutral-100);
-  /* color-scheme: dark light; */
-
-  font-family: var(--ff-main);
-  font-size: var(--fs-400);
-  font-weight: var(--fw-thin);
-  line-height: 1.6;
-  color: var(--clr-neutral-400);
-  --webkit-font-smoothing: antialiased;
-}
-
-input,
-label,
-button,
-textarea,
-select {
-  /* font: inherit; */
-  /* done to override the radix UI specificity issues */
-  font-family: var(--ff-main);
-  font-size: var(--fs-400);
-  font-weight: var(--fw-regular);
-}
-
-button {
-  cursor: pointer;
-  border: 0px;
-  /* padding reset for --webkit */
-  padding: 0px;
-  transition: transform 300ms ease-out;
-}
-
-a {
-  color: black;
-  text-decoration: none;
-}
-
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-  object-fit: cover;
-}
-
-h1,
-h2,
-h3 {
-  line-height: 1;
-  overflow-wrap: break-word;
-  font-weight: var(--fw-bold);
-  font-family: var(--ff-secondary);
-  color: var(--clr-neutral-900);
-  letter-spacing: -0.04em;
-}
-
-body {
-  font-family: var(--ff-main);
-}
-
-p,
-div {
-  font-family: var(--ff-main);
-  font-weight: var(--fw-regular);
-}
-
 /* -- endreset -- */
+
+@import "tailwindcss";
 
 .MobileNavBarDisplay,
 .NavigationBarDisplay {
