@@ -7,9 +7,9 @@ import { CartLayout } from "@/layouts/CartLayout/CartLayout";
 import "./CartPage.css";
 import { getCookie, removeValueFromCookie } from "@/app/(utils)/cookies.utils";
 import { useQuery } from "@tanstack/react-query";
-import { HttpMethods, httpService } from "@/queries/http.service";
-import { ItemCardsI } from "@/types";
-import queryClient from "@/queries/queryClient";
+import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { ItemCardsI } from "@/lib/types";
+import queryClient from "@/lib/queries/queryClient";
 
 export default function Cart() {
   let [subtotal, setSubtotal] = useState(0);

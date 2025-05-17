@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ItemPageI } from "@/types";
+import { ItemPageI } from "@/lib/types";
 
 export function SizesPicker({ data }: { data: ItemPageI }) {
   const [selectedColor, setSelectedColor] = useState<string>("black");

@@ -2,7 +2,7 @@
 
 import { Accordion } from "../Accordion/Accordion";
 import { useSearchParams } from "next/navigation";
-import { MetadataI } from "@/types";
+import { MetadataI } from "@/lib/types";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import debounce from "lodash/debounce";
 

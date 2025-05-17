@@ -2,10 +2,10 @@ import Link from "next/link";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
-import { httpService, HttpMethods } from "@/queries/http.service";
+import { httpService, HttpMethods } from "@/lib/queries/http.service";
 
 import "@/layouts/HorizontalScroller/HorizontalScroll.css";
-import { ItemCardsI } from "@/types";
+import { ItemCardsI } from "@/lib/types";
 
 export async function BrandScroller({
   brand,

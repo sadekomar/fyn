@@ -4,8 +4,8 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { BrandPageClient } from "./BrandPage";
-import { HttpMethods, httpService } from "@/queries/http.service";
-import { BrandsList } from "@/types";
+import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { BrandsList } from "@/lib/types";
 import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
 import {
   getBrandCategories,

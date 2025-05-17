@@ -11,8 +11,8 @@ import { BrandScroller } from "@/app/item/[id]/(components)/BrandScroller";
 import { ItemData } from "./ItemData";
 import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
 import { DesktopImages } from "./DesktopImages";
-import { httpService, HttpMethods } from "@/queries/http.service";
-import { ItemPageI } from "@/types";
+import { httpService, HttpMethods } from "@/lib/queries/http.service";
+import { ItemPageI } from "@/lib/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
 

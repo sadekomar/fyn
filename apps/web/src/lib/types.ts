@@ -65,3 +65,21 @@ export type CategoriesI = {
   count: number;
   image: string;
 };
+
+type LoginSuccessResponse = {
+  status: "success";
+  message: string;
+  data: {
+    userId: string;
+    isEmailConfirmed: boolean;
+  };
+};
+
+type LoginErrorResponse = {
+  status: "error";
+  error: {
+    [key: string]: string[];
+  };
+};
+
+export type AuthResponse = LoginSuccessResponse | LoginErrorResponse;

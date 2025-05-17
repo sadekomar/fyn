@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import "./ColorPills.css";
-import { MetadataI } from "@/types";
+import { MetadataI } from "@/lib/types";
 
 export function ColorPills({ metadata }: { metadata: MetadataI | undefined }) {
   const searchParams = useSearchParams();

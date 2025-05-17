@@ -4,7 +4,7 @@
 import "./Pagination.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { MetadataI } from "@/types";
+import { MetadataI } from "@/lib/types";
 
 export function PaginationControl({
   metadata,

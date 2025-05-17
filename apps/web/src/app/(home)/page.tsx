@@ -1,7 +1,7 @@
 import "./home.css";
 
-import { httpService, HttpMethods } from "@/queries/http.service";
-import { ItemCardsI } from "@/types";
+import { httpService, HttpMethods } from "@/lib/queries/http.service";
+import { ItemCardsI } from "@/lib/types";
 import {
   dehydrate,
   HydrationBoundary,

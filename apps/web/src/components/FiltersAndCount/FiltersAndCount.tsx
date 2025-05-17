@@ -1,6 +1,6 @@
 import { Filters } from "../FiltersAndSort/Filters";
 import "./FiltersAndCount.css";
-import { MetadataI } from "@/types";
+import { MetadataI } from "@/lib/types";
 
 export function FiltersAndCount({
   metadata,

@@ -20,6 +20,7 @@ import { getFromLocalStorage } from "../../../app/(utils)/localStorageUtils";
 import "./SideBar.css";
 import { brandsPages } from "../../../data/brandsPages";
 import { extendedCategories } from "../../../data/extendedCategories";
+import { logout } from "@/lib/auth";
 
 export function SideBar() {
   let [open, setOpen] = useState(false);
@@ -255,6 +256,11 @@ export function SideBar() {
 
                 <NavigationMenu.Item>
                   <NavLink href={"/about"}>About</NavLink>
+                  <NavLink href={"/logout"}>Logout</NavLink>
+                  <button className="hamburger-button" onClick={logout}>
+                    Logout
+                  </button>
+                  <NavLink href={"/login"}>Login</NavLink>
                 </NavigationMenu.Item>
               </NavigationMenu.List>
             </NavigationMenu.Root>

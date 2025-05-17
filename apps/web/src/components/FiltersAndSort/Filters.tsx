@@ -9,7 +9,7 @@ import { SortingComponent } from "./SortingComponent";
 import "./Filters.css";
 import { MultiSelectFilter } from "./MultiSelectFilter";
 import { usePathname, useSearchParams } from "next/navigation";
-import { MetadataI } from "@/types";
+import { MetadataI } from "@/lib/types";
 
 export function Filters({ metadata }: { metadata: MetadataI | undefined }) {
   const searchParams = useSearchParams();

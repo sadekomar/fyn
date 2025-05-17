@@ -6,7 +6,7 @@ import "./CategorySelector.css";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { LoomImage } from "../LoomImage";
-import { CategoriesI } from "@/types";
+import { CategoriesI } from "@/lib/types";
 
 export function CategorySelector({
   brandCategories,

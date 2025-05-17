@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { CartCard } from "./CartCard";
 import Link from "next/link";
 import { EmptyState } from "../../components/EmptyState/EmptyState";
-import { ItemCardsI } from "@/types";
+import { ItemCardsI } from "@/lib/types";
 export function CartLayout({
   products,
   removeItem,

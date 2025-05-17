@@ -13,9 +13,9 @@ import { PaginationControl } from "@/components/Pagination/PaginationControl";
 
 import { FiltersAndCount } from "../../components/FiltersAndCount/FiltersAndCount";
 import { ColorPills } from "../(home)/(ColorPills)/ColorPills";
-import { ItemCardsI, MetadataI } from "@/types";
+import { ItemCardsI, MetadataI } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import { HttpMethods, httpService } from "@/queries/http.service";
+import { HttpMethods, httpService } from "@/lib/queries/http.service";
 
 export default function SearchPage() {
   const pathname = usePathname();

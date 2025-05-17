@@ -16,8 +16,8 @@ import { BrandDescription, brandKey } from "./(components)/BrandDescription";
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { HttpMethods, httpService } from "@/queries/http.service";
-import { BrandsList } from "@/types";
+import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { BrandsList } from "@/lib/types";
 import {
   getBrandCategories,
   getBrandItems,

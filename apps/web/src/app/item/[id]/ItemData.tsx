@@ -7,7 +7,7 @@ import { LikeButton } from "@/components/ItemCard/LikeButton";
 import { ShareButton } from "@/components/ShareButton";
 import { CompareButton } from "@/components/CompareButton";
 import { SizesPicker } from "./SizesPicker";
-import { ItemPageI } from "@/types";
+import { ItemPageI } from "@/lib/types";
 
 export function ItemData({ data }: { data: ItemPageI }) {
   return (

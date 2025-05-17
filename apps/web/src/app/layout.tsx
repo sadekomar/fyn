@@ -4,7 +4,7 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { MobileNavBar } from "@/components/navigation/MobileNavBar/MobileNavBar";
 import { Footer } from "@/components/navigation/Footer/Footer";
-import QueryProvider from "@/app/provider";
+import QueryProvider from "@/lib/provider";
 
 export const metadata = {
   title: "Loom",

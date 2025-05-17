@@ -1,0 +1,20 @@
+export enum Endpoints {
+  Welcome = "/",
+  Health = "/health",
+  Items = "/items",
+  ItemsMetadata = "/items-metadata",
+  BrandCategories = "/brand-categories",
+  ItemById = "/item/:id",
+  ItemsByIds = "/items-by-ids",
+  Brands = "/brands",
+  BrandsAlphabetical = "/brands-alphabetical",
+  Latency = "/latency",
+  Login = "/login",
+  Register = "/register",
+  ConfirmEmail = "/confirm-email",
+  // TBD
+  ForgotPassword = "/forgot-password",
+  ResetPassword = "/reset-password",
+  ResendVerificationEmail = "/resend-verification-email",
+  ResendPasswordResetEmail = "/resend-password-reset-email",
+}

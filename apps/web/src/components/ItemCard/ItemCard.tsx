@@ -6,7 +6,7 @@ import "./Feather.css";
 import { LikeButton } from "./LikeButton";
 import { CompareButton } from "../CompareButton";
 import { LoomImage } from "../LoomImage";
-import { ItemCardsI } from "@/types";
+import { ItemCardsI } from "@/lib/types";
 
 export function ItemCard({
   id,

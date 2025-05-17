@@ -1,5 +1,5 @@
-import { HttpMethods, httpService } from "@/queries/http.service";
-import { ItemCardsI, MetadataI } from "@/types";
+import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { ItemCardsI, MetadataI } from "@/lib/types";
 
 export function getCategoryItems(
   category: string,

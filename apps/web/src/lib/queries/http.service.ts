@@ -51,7 +51,7 @@ export async function httpService<T>(
 
     return parsedResponse as T;
   } catch (error) {
-    console.error(error);
-    return undefined as T;
+    console.error("error in httpService", error);
+    return error as T;
   }
 }

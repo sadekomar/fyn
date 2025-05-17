@@ -11,7 +11,7 @@ import { CrossIcon } from "../../components/Icons/CustomIcons";
 
 import "./CartCard.css";
 import { LoomImage } from "@/components/LoomImage";
-import { ItemPageI } from "@/types";
+import { ItemPageI } from "@/lib/types";
 
 export function CartCard({
   product,

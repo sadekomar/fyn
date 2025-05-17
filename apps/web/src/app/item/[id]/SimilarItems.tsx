@@ -1,8 +1,8 @@
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { IPAddress } from "@/data/IPAddress";
 import Link from "next/link";
-import { ItemCardsI } from "@/types";
-import { httpService, HttpMethods } from "@/queries/http.service";
+import { ItemCardsI } from "@/lib/types";
+import { httpService, HttpMethods } from "@/lib/queries/http.service";
 
 export async function SimilarItems({
   category,

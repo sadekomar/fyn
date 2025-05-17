@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LetterNavigator } from "./LetterNavigator";
 import { IsometricBrands } from "@/app/(home)/(Brands)/IsometricBrands";
 import "./AllBrands.css";
-import { HttpMethods, httpService } from "@/queries/http.service";
+import { HttpMethods, httpService } from "@/lib/queries/http.service";
 
 export const metadata = {
   title: "All Brands",

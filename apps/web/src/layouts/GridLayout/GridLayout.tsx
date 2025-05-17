@@ -2,7 +2,7 @@ import "./GridLayout.css";
 
 import { ItemCard } from "../../components/ItemCard/ItemCard";
 import { GridPlaceholder } from "./GridPlaceholder";
-import { ItemCardsI } from "@/types";
+import { ItemCardsI } from "@/lib/types";
 
 export function GridLayout({ items }: { items: ItemCardsI[] | undefined }) {
   return (

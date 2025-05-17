@@ -7,8 +7,8 @@ import "./home.css";
 import { Hero } from "./(Hero)/Hero";
 import { Brands } from "./(Brands)/Brands";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
-import { httpService, HttpMethods } from "@/queries/http.service";
-import { ItemCardsI } from "@/types";
+import { httpService, HttpMethods } from "@/lib/queries/http.service";
+import { ItemCardsI } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { conifg } from "./utils";
 

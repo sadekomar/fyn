@@ -1,5 +1,5 @@
-import { HttpMethods, httpService } from "@/queries/http.service";
-import { ItemCardsI } from "@/types";
+import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { ItemCardsI } from "@/lib/types";
 import { getCookie } from "./cookies.utils";
 
 export function getQueryString(searchParams: {

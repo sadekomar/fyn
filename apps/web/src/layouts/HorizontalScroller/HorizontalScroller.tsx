@@ -1,6 +1,6 @@
 import { ItemCardPlaceholder } from "@/components/ItemCard/ItemCardPlaceholder";
 import { ItemCard } from "../../components/ItemCard/ItemCard";
-import { ItemCardsI } from "@/types";
+import { ItemCardsI } from "@/lib/types";
 
 import "./HorizontalScroll.css";
 import { ReactElement } from "react";

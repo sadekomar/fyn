@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { BrandsList } from "@/types";
+import { BrandsList } from "@/lib/types";
 
 export function BrandsNavigator({
   params,
