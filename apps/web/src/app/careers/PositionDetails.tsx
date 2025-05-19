@@ -1,19 +1,33 @@
 import React from "react";
 import { PositionSidebar } from "./PositionSidebar";
 
+export interface PositionData {
+  title: string;
+  tags: string[];
+  details: {
+    stipend: string;
+    workingHours: string;
+    duration: string;
+  };
+  responsibilities: string[];
+  requirements: string[];
+}
+
 export function PositionDetails({
   setShowForm,
+  positionData,
 }: {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  positionData: PositionData;
 }) {
   return (
     <section className="mb-10 bg-[#f1f1f1]" id="fashion-marketing-intern">
-      <div className="mx-auto flex max-w-[100ch] flex-col justify-between py-10 sm:flex-row">
+      <div className="mx-4 md:mx-auto flex max-w-[100ch] flex-col justify-between py-10 sm:flex-row">
         <div className="space-y-4 md:col-span-2">
-          <h3 className="text-[31.25px] font-bold">Fashion Marketing Intern</h3>
+          <h3 className="text-[31.25px] font-bold">{positionData.title}</h3>
 
           <div className="flex flex-wrap gap-2">
-            {["Cairo, EG", "Part-time", "Posted 1 day ago"].map((tag, i) => (
+            {positionData.tags.map((tag, i) => (
               <span
                 key={i}
                 className="rounded-full bg-[#E9E9F6] px-3 py-1 text-sm"
@@ -24,33 +38,26 @@ export function PositionDetails({
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="font-medium">Stipend provided (paid)</p>
-            <p className="font-medium">
-              Working hours: 3-4 days a week / 20 hours a week.
-            </p>
-            <p className="font-medium">Duration: 3 months</p>
+            <p className="font-medium">{positionData.details.stipend}</p>
+            <p className="font-medium">{positionData.details.workingHours}</p>
+            <p className="font-medium">{positionData.details.duration}</p>
           </div>
 
           <div>
             <h4 className="font-semibold">Responsibilities</h4>
             <ul className="ml-6 list-inside list-disc text-[#3F3F3F]">
-              <li>Assist in partnership outreach with local fashion brands.</li>
-              <li>
-                Help in content creation (social media posts, videos, blogs).
-              </li>
-              <li>Assist in activations and campaigns execution.</li>
-              <li>Willing to model for content when needed.</li>
-              <li>Manage basic team coordination and administrative tasks.</li>
+              {positionData.responsibilities.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold">Requirements</h4>
             <ul className="ml-6 list-inside list-disc text-[#3F3F3F]">
-              <li>Passion for fashion & digital marketing</li>
-              <li>Strong communication & creative skills</li>
-              <li>Comfortable with being in front of the camera</li>
-              <li>Graphic design background is a plus</li>
+              {positionData.requirements.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </div>
         </div>

@@ -1,15 +1,17 @@
 /* using layers to circumvent selector specificity problems caused by radix themes */
 /* @import '@radix-ui/themes/styles.css' layer(radix_themes); */
 
-@import url("../css/supreme.css");
+/* @import url("../css/supreme.css"); */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 :root {
-  --ff-main: "Supreme", Arial, sans-serif;
-  --ff-secondary: "Supreme", Arial, sans-serif;
+  --ff-main: "Inter", Arial, sans-serif;
+  --ff-secondary: "Inter", Arial, sans-serif;
 
   --fw-thin: 400;
   --fw-regular: 500;
-  --fw-bold: 800;
+  --fw-bold: 700;
 
   --fs-200: clamp(0.64rem, 0.7134rem + -0.0947vi, 0.6944rem);
   --fs-300: clamp(0.8rem, 0.8449rem + -0.058vi, 0.8333rem);
@@ -148,7 +150,7 @@
 
     font-family: var(--ff-main);
     font-size: var(--fs-400);
-    font-weight: var(--fw-thin);
+    font-weight: var(--fw-regular);
     line-height: 1.6;
     color: var(--clr-neutral-400);
     --webkit-font-smoothing: antialiased;

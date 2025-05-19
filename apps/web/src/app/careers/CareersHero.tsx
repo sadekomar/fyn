@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function CareersHero() {
   return (
-    <section className="mx-auto max-w-[100ch]">
+    <section className="mx-4 md:mx-auto max-w-[100ch]">
       <h1 className="my-10 text-[61.04px] font-bold">Careers</h1>
       <div className="mb-10 flex flex-col gap-8 text-[#4E4E4E]">
         <p className="text-center text-[25px] font-medium">Join us</p>

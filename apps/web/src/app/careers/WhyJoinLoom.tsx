@@ -3,7 +3,7 @@ import { Rocket, Users, Banknote, Sparkles } from "lucide-react";
 
 export function WhyJoinLoom(): React.JSX.Element {
   return (
-    <section className="mx-auto mb-10 max-w-[100ch]">
+    <section className="mx-4 md:mx-auto mb-10 max-w-[100ch]">
       <h2 className="mb-10 text-[39.06px] font-bold">Why Join Loom</h2>
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
         {[

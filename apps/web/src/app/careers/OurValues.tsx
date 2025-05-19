@@ -3,7 +3,7 @@ import React from "react";
 
 export function OurValues() {
   return (
-    <section className="mx-auto mb-20 max-w-[100ch]">
+    <section className="mx-4 md:mx-auto mb-20 max-w-[100ch]">
       <div className="flex flex-col gap-8 md:flex-row">
         <div className="max-w-[420px]">
           <h2 className="mt-10 mb-4 text-[39.06px] font-bold">Our values</h2>
