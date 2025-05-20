@@ -12,10 +12,40 @@ import {
 } from "./handlers/get-all-brands.handler";
 import { getItemById } from "./handlers/get-item.handler";
 import { testLatency } from "./handlers/test-latency.handler";
-import { getItemsById } from "./handlers/get-items-by-id.handler";
+import { getItemsByIds } from "./handlers/get-items-by-id.handler";
+import { Resend } from "resend";
+import {
+  confirmEmail,
+  login,
+  register,
+  resendVerificationEmail,
+} from "./handlers/auth/auth.handler";
+import { createApplicant } from "./handlers/create-applicant";
 
 const app = express();
 const PORT = process.env.PORT;
+
+export enum Endpoints {
+  Welcome = "/",
+  Health = "/health",
+  Items = "/items",
+  ItemsMetadata = "/items-metadata",
+  BrandCategories = "/brand-categories",
+  ItemById = "/item/:id",
+  ItemsByIds = "/items-by-ids",
+  Brands = "/brands",
+  BrandsAlphabetical = "/brands-alphabetical",
+  Latency = "/latency",
+  Login = "/login",
+  Register = "/register",
+  ConfirmEmail = "/confirm-email",
+  Apply = "/apply",
+  // TBD
+  ForgotPassword = "/forgot-password",
+  ResetPassword = "/reset-password",
+  ResendVerificationEmail = "/resend-verification-email",
+  ResendPasswordResetEmail = "/resend-password-reset-email",
+}
 
 // Middleware
 app.use(express.json());
@@ -23,35 +53,34 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Routes
-app.get("/health", (req: Request, res: Response) => {
+app.get(Endpoints.Health, (req: Request, res: Response) => {
   res.status(200).send("OK");
 });
 
-app.get("/", (req: Request, res: Response) => {
+app.get(Endpoints.Welcome, (req: Request, res: Response) => {
   res.json({ message: "Welcome to the Node.js application!" });
 });
 
-app.get("/items", getAllItems);
-app.get("/items-metadata", getItemsMetadata);
-app.get("/brand-categories", getItemsBrandCategoriesMetadata);
-app.get("/item/:id", getItemById);
-app.get("/brands", getAllBrands);
-app.get("/brands-alphabetical", getAllBrandsByLetterHandler);
-app.get("/latency", testLatency);
-app.post("/items-by-ids", getItemsById);
+app.get(Endpoints.Items, getAllItems);
+app.get(Endpoints.ItemsMetadata, getItemsMetadata);
+app.get(Endpoints.BrandCategories, getItemsBrandCategoriesMetadata);
+app.get(Endpoints.ItemById, getItemById);
+app.post(Endpoints.ItemsByIds, getItemsByIds);
 
-app.post("/apply", async (req: Request, res: Response) => {
-  const { name, email, phone, whyYou, whyLoom } = req.body;
-  try {
-    const applicant = await prisma.applicant.create({
-      data: { name, email, phone, whyYou, whyLoom },
-    });
-    res.json(applicant);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to create applicant" });
-  }
-});
+app.get(Endpoints.Brands, getAllBrands);
+app.get(Endpoints.BrandsAlphabetical, getAllBrandsByLetterHandler);
+
+app.get(Endpoints.Latency, testLatency);
+
+// app.post("/api/orders", createOrder);
+
+// Auth
+app.post(Endpoints.Login, login);
+app.post(Endpoints.Register, register);
+app.get(Endpoints.ConfirmEmail, confirmEmail);
+app.post(Endpoints.ResendVerificationEmail, resendVerificationEmail);
+
+app.post(Endpoints.Apply, createApplicant);
 
 app.post("/newsletter", async (req: Request, res: Response) => {
   const { email, type } = req.body;

@@ -16,7 +16,7 @@ const translateGender = (gender: string): Gender | null => {
   return genderMap[gender.toLowerCase()] || null;
 };
 
-export const getItemsById = handleExceptions(
+export const getItemsByIds = handleExceptions(
   async (req: Request, res: Response) => {
     const { ids } = req.body;
     console.log("ids", ids);

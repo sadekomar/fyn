@@ -134,19 +134,23 @@ model Trash {
 }
 
 model User {
-  id               String     @id @default(uuid())
-  email            String     @unique
-  password         String
-  username         String
-  isEmailConfirmed Boolean    @default(false)
-  phoneNumber      String?
-  history          Item[]     @relation("History")
-  likes            Item[]     @relation("Likes")
-  CartItem         CartItem[]
-  orders           Order[]
-  addresses        Address[]
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  id                String     @id @default(uuid())
+  email             String     @unique
+  password          String
+  username          String     @unique
+  isEmailConfirmed  Boolean    @default(false)
+  firstName         String?
+  lastName          String?
+  phoneNumber       String?
+  history           Item[]     @relation("History")
+  likes             Item[]     @relation("Likes")
+  CartItem          CartItem[]
+  orders            Order[]
+  addresses         Address[]
+  confirmationToken String?
+  tokenExpiresAt    DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
 
   @@index([email])
 }

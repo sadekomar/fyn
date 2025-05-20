@@ -89,7 +89,6 @@ export const getAllItems = handleExceptions(
 
     const orderBy = getOrderBy(sort_by);
 
-    console.time("get-all-metadata");
     const items = await prisma.item.findMany({
       take: limit || 300,
       orderBy,
@@ -127,7 +126,6 @@ export const getAllItems = handleExceptions(
         },
       },
     });
-    console.timeEnd("get-all-metadata");
 
     const formattedItems: ItemCardsDataI[] = items.map((item) => ({
       id: item.id,
@@ -165,15 +163,18 @@ export const getItemsBrandCategoriesMetadata = handleExceptions(
       },
     });
 
-    const categoryCount = items.reduce((acc, item) => {
-      item.categories.forEach((category) => {
-        if (!acc[category.name]) {
-          acc[category.name] = 0;
-        }
-        acc[category.name]++;
-      });
-      return acc;
-    }, {} as Record<string, number>);
+    const categoryCount = items.reduce(
+      (acc, item) => {
+        item.categories.forEach((category) => {
+          if (!acc[category.name]) {
+            acc[category.name] = 0;
+          }
+          acc[category.name]++;
+        });
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
     const formattedCategories: CategoriesI[] = Object.entries(
       categoryCount
@@ -222,56 +223,71 @@ export const getItemsMetadata = handleExceptions(
 
     const itemCount = items.length;
 
-    const genderCount = items.reduce((acc, item) => {
-      const gender = item.gender;
-      if (!gender) return acc;
-      if (!acc[gender]) {
-        acc[gender] = 0;
-      }
-      acc[gender]++;
-      return acc;
-    }, {} as Record<string, number>);
-
-    const brandCount = items.reduce((acc, item) => {
-      const brandName = item.brand.name;
-      if (!acc[brandName]) {
-        acc[brandName] = 0;
-      }
-      acc[brandName]++;
-      return acc;
-    }, {} as Record<string, number>);
-
-    const categoriesCount = items.reduce((acc, item) => {
-      const categories = item.categories;
-      categories.forEach((c) => {
-        if (!acc[c.name]) {
-          acc[c.name] = 0;
+    const genderCount = items.reduce(
+      (acc, item) => {
+        const gender = item.gender;
+        if (!gender) return acc;
+        if (!acc[gender]) {
+          acc[gender] = 0;
         }
-        acc[c.name]++;
-      });
-      return acc;
-    }, {} as Record<string, number>);
+        acc[gender]++;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
-    const colorsCount = items.reduce((acc, item) => {
-      const colors = item.colors;
-      colors.forEach((color) => {
-        if (!acc[color.name]) {
-          acc[color.name] = 0;
+    const brandCount = items.reduce(
+      (acc, item) => {
+        const brandName = item.brand.name;
+        if (!acc[brandName]) {
+          acc[brandName] = 0;
         }
-        acc[color.name]++;
-      });
-      return acc;
-    }, {} as Record<string, number>);
+        acc[brandName]++;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
-    const materialCount = items.reduce((acc, item) => {
-      const materialName = item.material?.name;
-      if (!materialName) return acc;
-      if (!acc[materialName]) {
-        acc[materialName] = 0;
-      }
-      acc[materialName]++;
-      return acc;
-    }, {} as Record<string, number>);
+    const categoriesCount = items.reduce(
+      (acc, item) => {
+        const categories = item.categories;
+        categories.forEach((c) => {
+          if (!acc[c.name]) {
+            acc[c.name] = 0;
+          }
+          acc[c.name]++;
+        });
+        return acc;
+      },
+      {} as Record<string, number>
+    );
+
+    const colorsCount = items.reduce(
+      (acc, item) => {
+        const colors = item.colors;
+        colors.forEach((color) => {
+          if (!acc[color.name]) {
+            acc[color.name] = 0;
+          }
+          acc[color.name]++;
+        });
+        return acc;
+      },
+      {} as Record<string, number>
+    );
+
+    const materialCount = items.reduce(
+      (acc, item) => {
+        const materialName = item.material?.name;
+        if (!materialName) return acc;
+        if (!acc[materialName]) {
+          acc[materialName] = 0;
+        }
+        acc[materialName]++;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
     let gendersMetadata = Object.entries(genderCount).map(([name, count]) => ({
       name,
@@ -308,15 +324,18 @@ export const getItemsMetadata = handleExceptions(
           colors: true,
         },
       });
-      const colorsCount = items.reduce((acc, item) => {
-        item.colors.forEach((color) => {
-          if (!acc[color.name]) {
-            acc[color.name] = 0;
-          }
-          acc[color.name]++;
-        });
-        return acc;
-      }, {} as Record<string, number>);
+      const colorsCount = items.reduce(
+        (acc, item) => {
+          item.colors.forEach((color) => {
+            if (!acc[color.name]) {
+              acc[color.name] = 0;
+            }
+            acc[color.name]++;
+          });
+          return acc;
+        },
+        {} as Record<string, number>
+      );
       colorsMetadata = Object.entries(colorsCount).map(([name, count]) => ({
         name,
         count,
@@ -334,15 +353,18 @@ export const getItemsMetadata = handleExceptions(
           brand: true,
         },
       });
-      const brandCount = items.reduce((acc, item) => {
-        const brandName = item.brand?.name;
-        if (!brandName) return acc;
-        if (!acc[brandName]) {
-          acc[brandName] = 0;
-        }
-        acc[brandName]++;
-        return acc;
-      }, {} as Record<string, number>);
+      const brandCount = items.reduce(
+        (acc, item) => {
+          const brandName = item.brand?.name;
+          if (!brandName) return acc;
+          if (!acc[brandName]) {
+            acc[brandName] = 0;
+          }
+          acc[brandName]++;
+          return acc;
+        },
+        {} as Record<string, number>
+      );
       brandsMetadata = Object.entries(brandCount).map(([name, count]) => ({
         name,
         count,
@@ -354,8 +376,6 @@ export const getItemsMetadata = handleExceptions(
       hasValidValue(parsedQuery.data.categories) &&
       categoriesFilteredAutomatically
     ) {
-      // remove categories from the where
-      console.log("running categories");
       delete where.categories;
       const items = await prisma.item.findMany({
         where,
@@ -363,15 +383,18 @@ export const getItemsMetadata = handleExceptions(
           categories: true,
         },
       });
-      const categoriesCount = items.reduce((acc, item) => {
-        item.categories.forEach((category) => {
-          if (!acc[category.name]) {
-            acc[category.name] = 0;
-          }
-          acc[category.name]++;
-        });
-        return acc;
-      }, {} as Record<string, number>);
+      const categoriesCount = items.reduce(
+        (acc, item) => {
+          item.categories.forEach((category) => {
+            if (!acc[category.name]) {
+              acc[category.name] = 0;
+            }
+            acc[category.name]++;
+          });
+          return acc;
+        },
+        {} as Record<string, number>
+      );
       categoriesMetadata = Object.entries(categoriesCount).map(
         ([name, count]) => ({
           name,
@@ -388,15 +411,18 @@ export const getItemsMetadata = handleExceptions(
           gender: true,
         },
       });
-      const genderCount = items.reduce((acc, item) => {
-        const gender = item.gender;
-        if (!gender) return acc;
-        if (!acc[gender]) {
-          acc[gender] = 0;
-        }
-        acc[gender]++;
-        return acc;
-      }, {} as Record<string, number>);
+      const genderCount = items.reduce(
+        (acc, item) => {
+          const gender = item.gender;
+          if (!gender) return acc;
+          if (!acc[gender]) {
+            acc[gender] = 0;
+          }
+          acc[gender]++;
+          return acc;
+        },
+        {} as Record<string, number>
+      );
       gendersMetadata = Object.entries(genderCount).map(([name, count]) => ({
         name,
         count,
@@ -411,15 +437,18 @@ export const getItemsMetadata = handleExceptions(
           material: true,
         },
       });
-      const materialCount = items.reduce((acc, item) => {
-        const materialName = item.material?.name;
-        if (!materialName) return acc;
-        if (!acc[materialName]) {
-          acc[materialName] = 0;
-        }
-        acc[materialName]++;
-        return acc;
-      }, {} as Record<string, number>);
+      const materialCount = items.reduce(
+        (acc, item) => {
+          const materialName = item.material?.name;
+          if (!materialName) return acc;
+          if (!acc[materialName]) {
+            acc[materialName] = 0;
+          }
+          acc[materialName]++;
+          return acc;
+        },
+        {} as Record<string, number>
+      );
       materialsMetadata = Object.entries(materialCount).map(
         ([name, count]) => ({
           name,
