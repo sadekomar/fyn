@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { HttpMethods, httpService } from "./http.service";
+import { HttpMethods, httpService } from "../../lib/queries/http.service";
 
 export enum NewsletterType {
   CAREERS = "CAREERS",
@@ -46,6 +46,11 @@ export const usePostApplicant = () => {
 export const usePostNewsletter = () => {
   return useMutation({
     mutationFn: (data: PostNewsletter) =>
-      httpService(HttpMethods.POST, "/newsletter", { data: data }),
+      httpService(HttpMethods.POST, "/newsletter", {
+        isServer: false,
+        isResponseJson: true,
+        isDataJson: true,
+        data: data,
+      }),
   });
 };

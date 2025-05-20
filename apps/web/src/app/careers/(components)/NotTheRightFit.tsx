@@ -5,7 +5,7 @@ import {
   usePostNewsletter,
   PostNewsletter,
   NewsletterType,
-} from "@/lib/queries/applicants.hook";
+} from "@/app/careers/use-applicant";
 
 export function NotTheRightFit() {
   const mutation = usePostNewsletter();

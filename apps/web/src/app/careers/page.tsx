@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Timeline from "./timeline";
+import Timeline from "./(components)/timeline";
 import React from "react";
 
-import { PositionData, PositionDetails } from "./PositionDetails";
-import { WhyJoinLoom } from "./WhyJoinLoom";
-import { CareersHero } from "./CareersHero";
-import { OurValues } from "./OurValues";
-import { ApplicationForm } from "./ApplicationForm";
+import { PositionData, PositionDetails } from "./(components)/PositionDetails";
+import { WhyJoinLoom } from "./(components)/WhyJoinLoom";
+import { CareersHero } from "./(components)/CareersHero";
+import { OurValues } from "./(components)/OurValues";
+import { ApplicationForm } from "./(components)/ApplicationForm";
 
 export default function Careers() {
   const [showForm, setShowForm] = useState<boolean>(false);

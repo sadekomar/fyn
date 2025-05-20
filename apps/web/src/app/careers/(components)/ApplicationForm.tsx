@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { usePostApplicant } from "@/lib/queries/applicants.hook";
+import { usePostApplicant } from "@/app/careers/use-applicant";
 import { motion } from "framer-motion";
 
 export function ApplicationForm() {

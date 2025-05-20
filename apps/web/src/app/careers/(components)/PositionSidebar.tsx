@@ -1,5 +1,8 @@
 import React from "react";
-import { TiktokIcon, InstagramIcon } from "../../components/Icons/CustomIcons";
+import {
+  TiktokIcon,
+  InstagramIcon,
+} from "../../../components/Icons/CustomIcons";
 import { NotTheRightFit } from "./NotTheRightFit";
 
 export function PositionSidebar({
