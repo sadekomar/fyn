@@ -14,6 +14,15 @@ export type PostApplicant = {
   whyYou: string;
 };
 
+type CreateApplicantResponse = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  whyYou: string;
+  whyLoom: string;
+};
+
 export type PostNewsletter = {
   email: string;
   type: NewsletterType;
@@ -22,7 +31,12 @@ export type PostNewsletter = {
 export const usePostApplicant = () => {
   return useMutation({
     mutationFn: async (data: PostApplicant) =>
-      await httpService(HttpMethods.POST, "/apply", { data: data }),
+      await httpService<CreateApplicantResponse>(HttpMethods.POST, "/apply", {
+        isServer: false,
+        isResponseJson: true,
+        isDataJson: true,
+        data: data,
+      }),
     onError: (error) => {
       console.error("Error submitting application:", error);
     },
