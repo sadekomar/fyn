@@ -10,13 +10,54 @@ import { CareersHero } from "./CareersHero";
 import { OurValues } from "./OurValues";
 import { ApplicationForm } from "./ApplicationForm";
 
+export default function Careers() {
+  const [showForm, setShowForm] = useState<boolean>(false);
+
+  const [showDetails, setShowDetails] = useState<Record<Position, boolean>>({
+    [Position.SoftwareEngineer]: false,
+    [Position.CharacterDesigner]: false,
+    [Position.ContentCreator]: true,
+  });
+
+  return (
+    <div className="careers-page">
+      <CareersHero />
+      <OurValues />
+      <WhyJoinLoom />
+      <PositionDetails
+        setShowForm={setShowForm}
+        positionData={contentCreatorData}
+      />
+      {showForm && <ApplicationForm />}
+
+      <Timeline />
+    </div>
+  );
+}
+
 enum Position {
   SoftwareEngineer = "SoftwareEngineer",
   CharacterDesigner = "CharacterDesigner",
   ContentCreator = "ContentCreator",
 }
 
-const contentCreator: PositionData = {
+const positionCardsData = [
+  {
+    title: Position.SoftwareEngineer,
+    description: "Build and maintain our fashion platform.",
+  },
+  {
+    title: Position.CharacterDesigner,
+    description: "Design characters for Loom.",
+  },
+  {
+    title: Position.ContentCreator,
+    description:
+      "Create engaging fashion content and help build our brand presence across social platforms.",
+  },
+];
+
+const contentCreatorData: PositionData = {
   title: "Content Creator",
   tags: ["Cairo, EG", "Part-time", "Posted 1 day ago"],
   details: {
@@ -38,7 +79,7 @@ const contentCreator: PositionData = {
   ],
 };
 
-const softwareEngineer: PositionData = {
+const softwareEngineerData: PositionData = {
   title: "Software Engineer",
   tags: ["Cairo, EG", "Part-time", "Posted 1 day ago"],
   details: {
@@ -62,7 +103,7 @@ const softwareEngineer: PositionData = {
   ],
 };
 
-const characterDesigner: PositionData = {
+const characterDesignerData: PositionData = {
   title: "Character Designer",
   tags: ["Cairo, EG", "Part-time", "Posted 1 day ago"],
   details: {
@@ -86,110 +127,61 @@ const characterDesigner: PositionData = {
   ],
 };
 
-export default function Careers() {
-  const [showForm, setShowForm] = useState<boolean>(false);
-
-  const [showDetails, setShowDetails] = useState<Record<Position, boolean>>({
-    [Position.SoftwareEngineer]: false,
-    [Position.CharacterDesigner]: false,
-    [Position.ContentCreator]: false,
-  });
-
+function Positions(
+  setShowDetails: React.Dispatch<
+    React.SetStateAction<Record<Position, boolean>>
+  >,
+) {
   return (
-    <div className="careers-page">
-      <CareersHero />
-      <OurValues />
-      <WhyJoinLoom />
-      <section className="mx-4 md:mx-auto grid grid-cols-1 gap-4 max-w-[100ch] mb-10 md:grid-cols-3">
-        <div className="flex flex-col gap-4 justify-between rounded-[26px] border border-[#0000001a] bg-gradient-to-b from-[#ffffff] to-[#ffffff] px-9 py-6 text-center shadow-[93px_75px_48px_rgba(166,162,222,0.02),52px_42px_40px_rgba(166,162,222,0.06),23px_19px_30px_rgba(166,162,222,0.1),6px_5px_16px_rgba(166,162,222,0.11)]">
-          <div className="flex flex-col gap-1">
-            <h5 className="text-[25px] font-semibold">Software Engineer</h5>
-            <p className="text-gray-600">
-              Build and maintain our fashion platform.
-            </p>
-          </div>
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() =>
-                setShowDetails((prev) => ({
-                  [Position.SoftwareEngineer]: !prev[Position.SoftwareEngineer],
-                  [Position.CharacterDesigner]: false,
-                  [Position.ContentCreator]: false,
-                }))
-              }
-              className="w-full rounded-full bg-[#A6A2DE] py-2 font-semibold text-white"
-            >
-              Apply Now
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 justify-between rounded-[26px] border border-[#0000001a] bg-gradient-to-b from-[#fff] to-[#fff] px-9 py-6 text-center shadow-[93px_75px_48px_rgba(166,162,222,0.02),52px_42px_40px_rgba(166,162,222,0.06),23px_19px_30px_rgba(166,162,222,0.1),6px_5px_16px_rgba(166,162,222,0.11)]">
-          <div className="flex flex-col gap-1">
-            <h5 className="text-[25px] font-semibold">Character Designer</h5>
-            <p className="text-gray-600">
-              Design and develop characters for Loom.
-            </p>
-          </div>
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() =>
-                setShowDetails((prev) => ({
-                  [Position.CharacterDesigner]:
-                    !prev[Position.CharacterDesigner],
-                  [Position.SoftwareEngineer]: false,
-                  [Position.ContentCreator]: false,
-                }))
-              }
-              className="w-full rounded-full bg-[#A6A2DE] py-2 font-semibold text-white"
-            >
-              Apply Now
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 justify-between rounded-[26px] border border-[#0000001a] bg-gradient-to-b from-[#fff] to-[#fff] px-9 py-6 text-center shadow-[93px_75px_48px_rgba(166,162,222,0.02),52px_42px_40px_rgba(166,162,222,0.06),23px_19px_30px_rgba(166,162,222,0.1),6px_5px_16px_rgba(166,162,222,0.11)]">
-          <div className="flex flex-col gap-1">
-            <h5 className="text-[25px] font-semibold">Content Creator</h5>
-            <p className="text-gray-600">
-              Create engaging fashion content and help build our brand presence
-              across social platforms.
-            </p>
-          </div>
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() =>
-                setShowDetails((prev) => ({
-                  [Position.ContentCreator]: !prev[Position.ContentCreator],
-                  [Position.SoftwareEngineer]: false,
-                  [Position.CharacterDesigner]: false,
-                }))
-              }
-              className="w-full rounded-full bg-[#A6A2DE] py-2 font-semibold text-white"
-            >
-              Apply Now
-            </button>
-          </div>
-        </div>
-      </section>
-      {(showDetails[Position.SoftwareEngineer] ||
-        showDetails[Position.CharacterDesigner] ||
-        showDetails[Position.ContentCreator]) && (
-        <PositionDetails
-          setShowForm={setShowForm}
-          positionData={
-            showDetails[Position.SoftwareEngineer]
-              ? softwareEngineer
-              : showDetails[Position.CharacterDesigner]
-                ? characterDesigner
-                : showDetails[Position.ContentCreator]
-                  ? contentCreator
-                  : softwareEngineer // Default fallback
-          }
+    <section className="mx-4 md:mx-auto grid grid-cols-1 gap-4 max-w-[100ch] mb-10 md:grid-cols-3">
+      {positionCardsData.map((position) => (
+        <PositionCard
+          key={position.title}
+          setShowDetails={setShowDetails}
+          position={position}
         />
-      )}
+      ))}
+    </section>
+  );
+}
 
-      {showForm && <ApplicationForm />}
-
-      <Timeline />
+function PositionCard({
+  setShowDetails,
+  position,
+}: {
+  setShowDetails: React.Dispatch<
+    React.SetStateAction<Record<Position, boolean>>
+  >;
+  position: {
+    title: Position;
+    description: string;
+  };
+}) {
+  return (
+    <div className="flex flex-col gap-4 justify-between rounded-[26px] border border-[#0000001a] bg-gradient-to-b from-[#ffffff] to-[#ffffff] px-9 py-6 text-center shadow-[93px_75px_48px_rgba(166,162,222,0.02),52px_42px_40px_rgba(166,162,222,0.06),23px_19px_30px_rgba(166,162,222,0.1),6px_5px_16px_rgba(166,162,222,0.11)]">
+      <div className="flex flex-col gap-1">
+        <h5 className="text-[25px] font-semibold">
+          {position.title.replace(/([a-z])([A-Z])/g, "$1 $2")}
+        </h5>
+        <p className="text-gray-600 text-left">{position.description}</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <button
+          onClick={() =>
+            setShowDetails((prev) => {
+              const newState = Object.values(Position).reduce(
+                (acc, pos) => ({ ...acc, [pos]: false }),
+                {} as Record<Position, boolean>,
+              );
+              newState[position.title] = !prev[position.title];
+              return newState;
+            })
+          }
+          className="w-full rounded-full bg-[#A6A2DE] py-2 font-semibold text-white"
+        >
+          View Details
+        </button>
+      </div>
     </div>
   );
 }
