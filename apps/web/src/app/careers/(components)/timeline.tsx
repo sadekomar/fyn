@@ -50,8 +50,8 @@ export default function Timeline() {
   }, [progress, steps]);
 
   return (
-    <section className="mx-4 md:mx-auto flex max-w-[100ch] items-center justify-between px-4 py-12">
-      <div>
+    <section className="mx-4 md:mx-auto md:flex max-w-[100ch] items-center justify-between px-4 py-12">
+      <div className="mb-10">
         <h2 className="mt-10 mb-4 text-[39.06px] font-bold">How we hire</h2>
         <p className="bg-gradient-to-r from-[#383838] to-[rgb(146,97,226)] bg-clip-text text-lg font-bold text-transparent">
           Loom's process

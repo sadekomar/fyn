@@ -23,8 +23,10 @@ export function PositionDetails({
   return (
     <section className="mb-10 bg-[#f1f1f1]" id="fashion-marketing-intern">
       <div className="mx-4 md:mx-auto flex max-w-[100ch] flex-col justify-between py-10 sm:flex-row">
-        <div className="space-y-4 md:col-span-2">
-          <h3 className="text-[31.25px] font-bold">{positionData.title}</h3>
+        <div className="space-y-4 md:col-span-2 mb-10">
+          <h3 className="text-[31.25px] font-bold">
+            Content Creator / Marketeer Internship
+          </h3>
 
           <div className="flex flex-wrap gap-2">
             {positionData.tags.map((tag, i) => (

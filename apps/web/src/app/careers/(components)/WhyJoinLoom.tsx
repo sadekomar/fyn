@@ -5,7 +5,7 @@ export function WhyJoinLoom(): React.JSX.Element {
   return (
     <section className="mx-4 md:mx-auto mb-10 max-w-[100ch]">
       <h2 className="mb-10 text-[39.06px] font-bold">Why Join Loom</h2>
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:gap-2 sm:grid-cols-2 md:grid-cols-4 place-items-center">
         {[
           {
             icon: <Rocket className="h-12 w-12" />,
@@ -26,10 +26,10 @@ export function WhyJoinLoom(): React.JSX.Element {
         ].map(({ icon, text }, i) => (
           <div
             key={i}
-            className="flex max-w-[200px] flex-col items-center gap-3"
+            className="flex max-w-[200px] flex-col items-center gap-3 text-center"
           >
-            <div>{icon}</div>
-            <p className="font-medium">{text}</p>
+            <div className="flex justify-center">{icon}</div>
+            <p className="font-medium text-center">{text}</p>
           </div>
         ))}
       </div>

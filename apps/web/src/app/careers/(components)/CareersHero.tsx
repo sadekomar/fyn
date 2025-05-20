@@ -4,14 +4,16 @@ import Link from "next/link";
 export function CareersHero() {
   return (
     <section className="mx-4 md:mx-auto max-w-[100ch]">
-      <h1 className="my-10 text-[61.04px] font-bold">Careers</h1>
-      <div className="mb-10 flex flex-col gap-8 text-[#4E4E4E]">
-        <p className="text-center text-[25px] font-medium">Join us</p>
-        <p className="text-center text-[25px] font-medium">
+      <h1 className="my-10 text-[40px] md:text-[61.04px] font-bold">Careers</h1>
+      <div className="mb-6 md:mb-10 flex flex-col gap-4 md:gap-8 text-[#4E4E4E] px-4 md:px-0">
+        <p className="text-center text-xl md:text-[25px] font-medium">
+          Join us
+        </p>
+        <p className="text-center text-xl md:text-[25px] font-medium leading-tight md:leading-normal">
           Help reshape{" "}
           <span className="font-bold text-black">fashion discovery</span>
         </p>
-        <p className="text-center text-[25px] font-medium">
+        <p className="text-center text-xl md:text-[25px] font-medium leading-tight md:leading-normal">
           & Turn <span className="font-bold text-black">Cairo</span> into the
           fifth <span className="font-bold text-black">fashion capital</span> of
           the world.

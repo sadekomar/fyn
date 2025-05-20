@@ -34,7 +34,7 @@ export function OurValues() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="relative h-[300px] w-[300px]">
+          <div className="relative h-[200px] w-[200px]">
             <motion.div
               className="absolute inset-0 rounded-full bg-[#E9E8F6]"
               animate={{
