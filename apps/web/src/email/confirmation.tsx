@@ -10,7 +10,14 @@ import {
 
 export default function ConfirmationEmail() {
   return (
-    <Section style={{ paddingTop: 16, paddingBottom: 16, textAlign: "center" }}>
+    <Section
+      style={{
+        paddingTop: 16,
+        paddingBottom: 16,
+        textAlign: "center",
+        fontFamily: "Inter, sans-serif",
+      }}
+    >
       <Heading
         as="h1"
         style={{
