@@ -132,6 +132,7 @@ model Size {
   id         String      @id @default(uuid())
   name       String
   available  Boolean     @default(true)
+  createdAt  DateTime    @default(now())
   Item       Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId     String
   itemCarts  ItemCart[]
