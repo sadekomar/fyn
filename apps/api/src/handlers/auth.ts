@@ -1,9 +1,10 @@
-import prisma from "../../lib/prisma";
-import { handleExceptions } from "../../lib/utils";
+import prisma from "../helpers/prisma";
+import { handleExceptions } from "../helpers/utils";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import { Resend } from "resend";
+import { getEmailConfirmationHtml } from "../helpers/html-emails";
 
 type LoginSuccessResponse = {
   status: "success";
@@ -235,11 +236,13 @@ export const resendVerificationEmail = handleExceptions(
     });
 
     const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const html = getEmailConfirmationHtml(user.firstName || "", token);
     await resend.emails.send({
       from: "Loom Cairo <orders@orders.loomcairo.com>",
       to: email,
       subject: "Confirm your email",
-      html: `<p>Click <a href="${process.env.FRONTEND_URL}/verify-email?token=${token}">here</a> to confirm your email</p>`,
+      html,
     });
 
     return res.status(200).json({

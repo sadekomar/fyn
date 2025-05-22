@@ -1,5 +1,5 @@
-import prisma from "../lib/prisma";
-import { handleExceptions } from "../lib/utils";
+import prisma from "../helpers/prisma";
+import { handleExceptions } from "../helpers/utils";
 import { Request, Response } from "express";
 import { ImageSizes, ItemCardsDataI } from "../types";
 import { Gender } from "@prisma/client";

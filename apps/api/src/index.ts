@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import prisma from "./lib/prisma";
+import prisma from "./helpers/prisma";
 import cors from "cors";
 import {
   getAllItems,
@@ -19,7 +19,7 @@ import {
   login,
   register,
   resendVerificationEmail,
-} from "./handlers/auth/auth.handler";
+} from "./handlers/auth";
 import { createApplicant } from "./handlers/create-applicant";
 
 const app = express();

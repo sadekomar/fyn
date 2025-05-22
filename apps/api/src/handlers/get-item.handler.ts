@@ -1,6 +1,6 @@
-import { handleExceptions } from "../lib/utils";
+import { handleExceptions } from "../helpers/utils";
 import { Request, Response } from "express";
-import prisma from "../lib/prisma";
+import prisma from "../helpers/prisma";
 import { Genders, ImageSizes, ItemPageI } from "../types";
 
 export const getItemById = handleExceptions(
@@ -16,6 +16,7 @@ export const getItemById = handleExceptions(
         createdAt: true,
         updatedAt: true,
         gender: true,
+        link: true,
         material: {
           select: {
             name: true,
@@ -66,6 +67,7 @@ export const getItemById = handleExceptions(
       description: item.description,
       price: item.prices[0].price,
       brand: item.brand.name,
+      link: item.link,
       images: item.images.map((image) =>
         image.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL)
       ),

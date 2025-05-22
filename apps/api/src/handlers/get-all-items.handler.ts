@@ -1,6 +1,6 @@
-import prisma from "../lib/prisma";
+import prisma from "../helpers/prisma";
 import { Request, Response } from "express";
-import { handleExceptions } from "../lib/utils";
+import { handleExceptions } from "../helpers/utils";
 import { z } from "zod";
 import { CategoriesI, ImageSizes, ItemCardsDataI, MetadataI } from "../types";
 import { equal } from "assert";

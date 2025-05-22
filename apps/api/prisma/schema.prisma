@@ -40,10 +40,46 @@ model Item {
   images      Image[]
   sizes       Size[]
   prices      Price[]
-  viewedBy    User[]      @relation("History")
-  likedBy     User[]      @relation("Likes")
-  CartItem    CartItem[]
-  OrderItem   OrderItem[]
+  views       ItemView[]
+  likes       Like[]
+  carts       ItemCart[]
+  orders      ItemOrder[]
+}
+
+model ItemView {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId    String
+  createdAt DateTime @default(now())
+}
+
+model CategoryView {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+  createdAt  DateTime @default(now())
+}
+
+model BrandView {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId   String
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId    String
+  createdAt DateTime @default(now())
 }
 
 model Price {
@@ -55,30 +91,32 @@ model Price {
 }
 
 model Brand {
-  id       String     @id @default(uuid())
-  name     String     @unique
-  showroom Showroom[]
-  Item     Item[]
+  id         String      @id @default(uuid())
+  name       String      @unique
+  items      Item[]
+  brandViews BrandView[]
+  showrooms  Showroom[]
 }
 
 model Showroom {
-  id    String  @id @default(uuid())
-  name  String
-  brand Brand[]
+  id     String  @id @default(uuid())
+  name   String
+  brands Brand[]
 }
 
 model Category {
-  id   String @id @default(uuid())
-  name String @unique
-  Item Item[]
+  id           String         @id @default(uuid())
+  name         String         @unique
+  Item         Item[]
+  CategoryView CategoryView[]
 }
 
 model Color {
-  id        String      @id @default(uuid())
-  name      String
-  Item      Item[]
-  OrderItem OrderItem[]
-  CartItem  CartItem[]
+  id         String      @id @default(uuid())
+  name       String
+  items      Item[]
+  itemOrders ItemOrder[]
+  itemCarts  ItemCart[]
 }
 
 // TODO
@@ -91,29 +129,41 @@ model Image {
 }
 
 model Size {
-  id        String      @id @default(uuid())
-  name      String
-  available Boolean     @default(true)
-  Item      Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  itemId    String
-  CartItem  CartItem[]
-  OrderItem OrderItem[]
+  id         String      @id @default(uuid())
+  name       String
+  available  Boolean     @default(true)
+  Item       Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId     String
+  itemCarts  ItemCart[]
+  itemOrders ItemOrder[]
 }
 
 model Material {
-  id   String @id @default(uuid())
-  name String
-  Item Item[]
+  id    String @id @default(uuid())
+  name  String
+  items Item[]
+}
+
+enum ApplicantStatus {
+  PENDING
+  EMAIL_SENT
+  ONLINE_INTERVIEW_SCHEDULED
+  ONLINE_INTERVIEW_COMPLETED
+  IN_PERSON_INTERVIEW_SCHEDULED
+  IN_PERSON_INTERVIEW_COMPLETED
+  HIRED
+  REJECTED
 }
 
 model Applicant {
-  id        String   @id @default(uuid())
+  id        String          @id @default(uuid())
   name      String
   email     String
   phone     String
   whyYou    String
   whyLoom   String
-  createdAt DateTime @default(now())
+  createdAt DateTime        @default(now())
+  status    ApplicantStatus @default(PENDING)
 }
 
 enum NewsletterType {
@@ -134,23 +184,25 @@ model Trash {
 }
 
 model User {
-  id                String     @id @default(uuid())
-  email             String     @unique
+  id                String         @id @default(uuid())
+  email             String         @unique
   password          String
-  username          String     @unique
-  isEmailConfirmed  Boolean    @default(false)
+  username          String         @unique
+  isEmailConfirmed  Boolean        @default(false)
   firstName         String?
   lastName          String?
   phoneNumber       String?
-  history           Item[]     @relation("History")
-  likes             Item[]     @relation("Likes")
-  CartItem          CartItem[]
+  itemViews         ItemView[]
+  categoryViews     CategoryView[]
+  brandViews        BrandView[]
+  likes             Like[]
+  itemCarts         ItemCart[]
   orders            Order[]
   addresses         Address[]
   confirmationToken String?
   tokenExpiresAt    DateTime?
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
 
   @@index([email])
 }
@@ -172,7 +224,7 @@ model Address {
   userId      String
 }
 
-model CartItem {
+model ItemCart {
   id        String   @id @default(uuid())
   item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId    String
@@ -191,7 +243,7 @@ model CartItem {
 model Order {
   id          String      @id @default(uuid())
   orderNumber String      @unique
-  orderItems  OrderItem[]
+  items       ItemOrder[]
   // shipping + prices
   orderTotal  Int
   status      OrderStatus @default(PENDING)
@@ -209,7 +261,7 @@ model Order {
   @@index([orderNumber, status])
 }
 
-model OrderItem {
+model ItemOrder {
   id                 String           @id @default(uuid())
   order              Order            @relation(fields: [orderId], references: [id])
   orderId            String
@@ -228,9 +280,9 @@ model OrderItem {
 }
 
 model ShippingEstimate {
-  id        String      @id @default(uuid())
-  cost      Int
-  OrderItem OrderItem[]
+  id         String      @id @default(uuid())
+  cost       Int
+  itemOrders ItemOrder[]
 }
 
 enum OrderStatus {

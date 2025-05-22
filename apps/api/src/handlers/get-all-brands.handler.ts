@@ -1,6 +1,6 @@
 import { Brand } from "@prisma/client";
-import prisma from "../lib/prisma";
-import { handleExceptions } from "../lib/utils";
+import prisma from "../helpers/prisma";
+import { handleExceptions } from "../helpers/utils";
 import { Request, Response } from "express";
 
 export const getAllBrands = handleExceptions(
@@ -22,14 +22,17 @@ export const getAllBrandsByLetterHandler = handleExceptions(
       },
     });
 
-    const brandsByLetter = brands.reduce((acc, brand) => {
-      const letter = brand.name[0].toUpperCase();
-      if (!acc[letter]) {
-        acc[letter] = [];
-      }
-      acc[letter].push(brand);
-      return acc;
-    }, {} as Record<string, Brand[]>);
+    const brandsByLetter = brands.reduce(
+      (acc, brand) => {
+        const letter = brand.name[0].toUpperCase();
+        if (!acc[letter]) {
+          acc[letter] = [];
+        }
+        acc[letter].push(brand);
+        return acc;
+      },
+      {} as Record<string, Brand[]>
+    );
 
     return res.json(brandsByLetter);
   }
