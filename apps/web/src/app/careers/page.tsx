@@ -22,13 +22,13 @@ export default function Careers() {
   return (
     <div className="careers-page">
       <CareersHero />
-      <OurValues />
-      <WhyJoinLoom />
       <PositionDetails
         setShowForm={setShowForm}
         positionData={contentCreatorData}
       />
       {showForm && <ApplicationForm />}
+      <OurValues />
+      <WhyJoinLoom />
 
       <Timeline />
     </div>
