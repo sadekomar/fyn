@@ -2,6 +2,7 @@
 
 import { IconButton } from "@radix-ui/themes";
 // import { Share2Icon } from "@radix-ui/react-icons";
+import { ShareIcon } from "lucide-react";
 
 export function ShareButton({
   id,
@@ -31,8 +32,7 @@ export function ShareButton({
 
   return (
     <IconButton variant="soft" onClick={shareProduct} className={className}>
-      {/* <Share2Icon /> */}
-      <div>share</div>
+      <ShareIcon />
     </IconButton>
   );
 }

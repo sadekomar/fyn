@@ -54,7 +54,7 @@ export default function LoomApplication({ name = "Omar" }: { name: string }) {
             {/* Main Content */}
             <Section className="bg-white rounded-lg p-8 shadow-lg">
               <Heading className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-                Loom Application Confirmation!
+                Loom application confirmation!
               </Heading>
 
               <Text className="text-gray-700 mb-4">Hi {name},</Text>

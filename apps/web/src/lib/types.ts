@@ -19,6 +19,7 @@ export type ItemPageI = {
   colors: string[];
   gender: string;
   material: string;
+  link: string;
   sizes: {
     name: string;
     available: boolean;

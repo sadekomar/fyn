@@ -42,7 +42,10 @@ export function ItemData({ data }: { data: ItemPageI }) {
           <BuyNowLink data={data} />
         </div>
 
-        <Accordion trigger={"Description"}>{data.description}</Accordion>
+        {data.description && data.description.length > 0 && (
+          <Accordion trigger={"Description"}>{data.description}</Accordion>
+        )}
+
         <div>
           <div className="sizes-title">Colors</div>
           <div className="color-circles-wrapper">

@@ -1,6 +1,6 @@
-// @ts-nocheck
+import { ItemPageI } from "@/lib/types";
 
-export function BuyNowLink({ data }) {
+export function BuyNowLink({ data }: { data: ItemPageI }) {
   {
     /* link opens in a new tab which exposes loom to an attack that redirects the user through the window.opener object */
   }
