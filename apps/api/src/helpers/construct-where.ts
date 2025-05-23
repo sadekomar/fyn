@@ -1,11 +1,12 @@
 import { hasValidValue } from "./has-valid-value";
 import { QueryI } from "../handlers/get-all-items.handler";
+import { parseSearchQuery } from "./ngram-matcher";
 
 export function constructWhere(parsedQuery: QueryI) {
   const where: any = {};
 
+  let { search } = parsedQuery;
   const {
-    search,
     brands,
     genders,
     categories,
@@ -14,6 +15,18 @@ export function constructWhere(parsedQuery: QueryI) {
     showrooms,
     in_stock,
   } = parsedQuery;
+
+  if (search?.trim()) {
+    const matchResult = parseSearchQuery(search);
+
+    categories.push(...matchResult.categories);
+    brands.push(...matchResult.brands);
+    materials.push(...matchResult.materials);
+    colors.push(...matchResult.colors);
+    genders.push(...matchResult.genders);
+
+    search = matchResult.remainingQuery;
+  }
 
   if (hasValidValue(search)) {
     where.OR = [
