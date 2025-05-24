@@ -1,6 +1,7 @@
 .follow-button {
   background-color: var(--clr-loom-lilac);
   color: var(--clr-neutral-100);
+  font-size: var(--fs-400);
 
   border-radius: 30px;
 

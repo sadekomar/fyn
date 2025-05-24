@@ -1,8 +1,11 @@
 .ItemCard {
   cursor: pointer;
   padding-bottom: 14px;
-  display: grid;
+  display: flex;
   position: relative;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
 }
 
 .LikeButton {
@@ -12,6 +15,7 @@
   padding: 8px;
   margin: 8px;
 }
+
 .ItemCard .CompareButton {
   position: absolute;
   right: 0;

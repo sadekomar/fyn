@@ -41,7 +41,7 @@ export function LikeButton({
         variant="soft"
         onClick={toggleIcon}
       >
-        {isFilled ? <HeartIcon style={{ fill: "red" }} /> : <HeartIcon />}
+        {isFilled ? <HeartIcon style={{ fill: "#FF69B4" }} /> : <HeartIcon />}
       </IconButton>
     </>
   );

@@ -21,6 +21,7 @@ export function Footer() {
           <Link href={"/shop"}>Shop</Link>
           <Link href={"/brands"}>Brands</Link>
           <Link href={"/about"}>About</Link>
+          <Link href={"/careers"}>Careers</Link>
         </div>
         <div className="FooterShopNav">
           <div className="footer-title">Shop</div>
@@ -29,7 +30,7 @@ export function Footer() {
               href={categories[category as keyof typeof categories].link}
               key={index}
             >
-              {category}
+              {category.charAt(0).toUpperCase() + category.slice(1)}
             </Link>
           ))}
         </div>
@@ -122,7 +123,7 @@ export function Footer() {
         </div>
       </div>
       <div className="CopyrightNotice">
-        <div className="CopyrightNoticeText">Copyright © 2024 Loom</div>
+        <div className="CopyrightNoticeText">Copyright © 2025 Loom</div>
         <div className="CopyrightNoticeText">
           <Link href={"/privacy"}>Privacy Policy</Link>
         </div>

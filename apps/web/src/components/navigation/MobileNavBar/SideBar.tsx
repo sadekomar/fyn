@@ -256,10 +256,6 @@ export function SideBar() {
 
                 <NavigationMenu.Item>
                   <NavLink href={"/about"}>About</NavLink>
-                  <NavLink href={"/logout"}>Logout</NavLink>
-                  <button className="hamburger-button" onClick={logout}>
-                    Logout
-                  </button>
                   <NavLink href={"/login"}>Login</NavLink>
                 </NavigationMenu.Item>
               </NavigationMenu.List>
@@ -277,7 +273,7 @@ export function SideBar() {
                   <LinkedinIcon />
                 </a>
               </div>
-              <p>loomcairo@gmail.com</p>
+              <p>contact@loomcairo.com</p>
               <p>Cairo, Egypt</p>
             </div>
           </Dialog.Content>

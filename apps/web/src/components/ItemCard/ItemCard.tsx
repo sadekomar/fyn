@@ -50,7 +50,12 @@ export function ItemCard({
         </Link>
 
         <Link href={`/item/${id}`}>{name}</Link>
-        <Link href={`/brands/${brand}`}>{brand}</Link>
+        <Link
+          href={`/brands/${brand}`}
+          className="text-gray-500 hover:text-gray-700 capitalize hover:underline underline-offset-2"
+        >
+          {brand}
+        </Link>
         <data value={price}>LE {price.toLocaleString()}</data>
       </div>
     </>
