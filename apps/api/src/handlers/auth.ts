@@ -158,12 +158,14 @@ export const register = handleExceptions(
         },
       });
 
+      const html = getEmailConfirmationHtml(firstName || "", token);
+
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
         from: "Loom Cairo <orders@orders.loomcairo.com>",
         to: email,
         subject: "Confirm your email",
-        html: `<p>Click <a href="${process.env.FRONTEND_URL}/verify-email?token=${token}">here</a> to confirm your email</p>`,
+        html,
       });
 
       return res.status(201).json({

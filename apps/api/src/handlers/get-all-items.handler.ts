@@ -2,7 +2,7 @@ import prisma from "../helpers/prisma";
 import { Request, Response } from "express";
 import { handleExceptions } from "../helpers/utils";
 import { z } from "zod";
-import { CategoriesI, ImageSizes, ItemCardsDataI, MetadataI } from "../types";
+import { CategoriesI, ImageSizes, ItemCardsI, MetadataI } from "../types";
 import { equal } from "assert";
 import { constructWhere } from "../helpers/construct-where";
 import { getOrderBy } from "../helpers/get-order-by";
@@ -127,7 +127,7 @@ export const getAllItems = handleExceptions(
       },
     });
 
-    const formattedItems: ItemCardsDataI[] = items.map((item) => ({
+    const formattedItems: ItemCardsI[] = items.map((item) => ({
       id: item.id,
       name: item.name,
       price: item.latestPrice,

@@ -91,11 +91,12 @@ model Price {
 }
 
 model Brand {
-  id         String      @id @default(uuid())
-  name       String      @unique
-  items      Item[]
-  brandViews BrandView[]
-  showrooms  Showroom[]
+  id               String             @id @default(uuid())
+  name             String             @unique
+  items            Item[]
+  brandViews       BrandView[]
+  showrooms        Showroom[]
+  ShippingEstimate ShippingEstimate[]
 }
 
 model Showroom {
@@ -208,8 +209,13 @@ model User {
   @@index([email])
 }
 
+enum AddressType {
+  NORMAL
+  BILLING
+}
+
 model Address {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   firstName   String
   lastName    String
   company     String?
@@ -217,12 +223,13 @@ model Address {
   apartment   String?
   city        String
   governorate String
-  country     String   @default("Egypt")
+  country     String      @default("Egypt")
   postalCode  String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime    @default(now())
   orders      Order[]
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+  addressType AddressType @default(NORMAL)
 }
 
 model ItemCart {
@@ -283,6 +290,8 @@ model ItemOrder {
 model ShippingEstimate {
   id         String      @id @default(uuid())
   cost       Int
+  brand      Brand       @relation(fields: [brandId], references: [id])
+  brandId    String
   itemOrders ItemOrder[]
 }
 

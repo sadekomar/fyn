@@ -29,12 +29,14 @@ export const getItemById = handleExceptions(
         },
         sizes: {
           select: {
+            id: true,
             name: true,
             available: true,
           },
         },
         colors: {
           select: {
+            id: true,
             name: true,
           },
         },
@@ -72,10 +74,14 @@ export const getItemById = handleExceptions(
         image.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL)
       ),
       categories: item.categories.map((category) => category.name),
-      colors: item.colors.map((color) => color.name),
+      colors: item.colors.map((color) => ({
+        id: color.id,
+        name: color.name,
+      })),
       gender: item.gender || Genders.UNISEX,
       material: item?.material?.name || "Other",
       sizes: item.sizes.map((size) => ({
+        id: size.id,
         name: size.name,
         available: size.available,
       })),

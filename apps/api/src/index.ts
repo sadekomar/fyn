@@ -21,6 +21,7 @@ import {
   resendVerificationEmail,
 } from "./handlers/auth";
 import { createApplicant } from "./handlers/create-applicant";
+import { createOrder } from "./handlers/create-order";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -40,6 +41,7 @@ export enum Endpoints {
   Register = "/register",
   ConfirmEmail = "/confirm-email",
   Apply = "/apply",
+  Order = "/order",
   // TBD
   ForgotPassword = "/forgot-password",
   ResetPassword = "/reset-password",
@@ -72,7 +74,7 @@ app.get(Endpoints.BrandsAlphabetical, getAllBrandsByLetterHandler);
 
 app.get(Endpoints.Latency, testLatency);
 
-// app.post("/api/orders", createOrder);
+app.post(Endpoints.Order, createOrder);
 
 // Auth
 app.post(Endpoints.Login, login);

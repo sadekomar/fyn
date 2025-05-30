@@ -1,7 +1,7 @@
 import prisma from "../helpers/prisma";
 import { handleExceptions } from "../helpers/utils";
 import { Request, Response } from "express";
-import { ImageSizes, ItemCardsDataI } from "../types";
+import { ImageSizes, ItemCardsI } from "../types";
 import { Gender } from "@prisma/client";
 
 // Function to translate gender values from request to enum values
@@ -46,7 +46,7 @@ export const getItemsByIds = handleExceptions(
     const itemsMap = new Map(items.map((item) => [item.id, item]));
 
     // Preserve original order by mapping through the input IDs array
-    const formattedItems: ItemCardsDataI[] = ids
+    const formattedItems: ItemCardsI[] = ids
       .filter((id: string) => itemsMap.has(id)) // Filter out IDs that don't have matching items
       .map((id: string) => {
         const item = itemsMap.get(id)!;
