@@ -23,6 +23,7 @@ export function HorizontalScroller({
               price={item["price"]}
               brand={item["brand"]}
               image={item["image"]}
+              imgLoading="eager"
             />
           ))
         : [...Array(20)].map((_, index) => <ItemCardPlaceholder key={index} />)}

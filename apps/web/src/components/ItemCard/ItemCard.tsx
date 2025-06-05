@@ -1,10 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import "./ItemCard.css";
 import "./Feather.css";
 import { LikeButton } from "./LikeButton";
-import { CompareButton } from "../CompareButton";
+// import { CompareButton } from "../CompareButton";
 import { LoomImage } from "../LoomImage";
 import { ItemCardsI } from "@/lib/types";
 
