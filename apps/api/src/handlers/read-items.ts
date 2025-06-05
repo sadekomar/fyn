@@ -71,19 +71,7 @@ export const readItems = handleExceptions(
       });
     }
 
-    const {
-      search,
-      brands,
-      genders,
-      categories,
-      colors,
-      materials,
-      showrooms,
-      page,
-      limit,
-      sort_by,
-      in_stock,
-    } = parsedQuery.data;
+    const { page, limit, sort_by, in_stock } = parsedQuery.data;
 
     const where: any = constructWhere(parsedQuery.data);
 
@@ -132,7 +120,10 @@ export const readItems = handleExceptions(
       name: item.name,
       price: item.latestPrice,
       brand: item.brand.name,
-      image: item.images[0]?.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL),
+      image: item.images[0]?.url.replace(
+        ImageSizes.PATTERN,
+        ImageSizes.THUMBNAIL
+      ),
     }));
 
     return res.json(formattedItems);
