@@ -37,6 +37,19 @@ export async function deleteSession() {
   cookieStore.delete("session");
 }
 
+export async function getSession(): Promise<{
+  userId: string;
+  expiresAt: Date;
+} | null> {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("session")?.value;
+  const session = cookie ? await decrypt(cookie) : null;
+  return {
+    userId: session?.userId as string,
+    expiresAt: new Date(session?.expiresAt as number),
+  };
+}
+
 type Payload = {
   userId: string;
   expiresAt: Date;

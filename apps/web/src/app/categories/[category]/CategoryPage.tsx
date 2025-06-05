@@ -3,7 +3,7 @@
 import "./CategoryPage.css";
 
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
-import { ColorPills } from "@/app/(home)/(ColorPills)/ColorPills";
+import { ColorPills } from "@/app/(home)/(components)/color-pills";
 
 import { newCategories } from "@/data/categories";
 import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";

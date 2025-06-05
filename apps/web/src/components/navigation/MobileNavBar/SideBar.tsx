@@ -197,32 +197,7 @@ export function SideBar() {
                 </NavigationMenu.Item>
 
                 <NavigationMenu.Item>
-                  <NavigationMenu.Trigger className="hamburger-link" asChild>
-                    <span>
-                      Brands
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          className="vertical-plus-stroke"
-                          d="M4.56 0H7.44V12H4.56V0Z"
-                          fill="black"
-                        />
-                        <path d="M0 7.44V4.56H12V7.44H0Z" fill="black" />
-                      </svg>
-                    </span>
-                  </NavigationMenu.Trigger>
-                  <NavigationMenu.Content className="hamburger-level-two">
-                    {Object.keys(brandsPages).map((brandsPage, index) => (
-                      <NavLink href={brandsPages[brandsPage].link} key={index}>
-                        {brandsPage}
-                      </NavLink>
-                    ))}
-                  </NavigationMenu.Content>
+                  <NavLink href={"/brands"}>Brands</NavLink>
                 </NavigationMenu.Item>
 
                 <NavigationMenu.Item>
@@ -256,7 +231,7 @@ export function SideBar() {
 
                 <NavigationMenu.Item>
                   <NavLink href={"/about"}>About</NavLink>
-                  <NavLink href={"/login"}>Login</NavLink>
+                  {/* <NavLink href={"/login"}>Login</NavLink> */}
                 </NavigationMenu.Item>
               </NavigationMenu.List>
             </NavigationMenu.Root>

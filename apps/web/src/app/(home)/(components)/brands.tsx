@@ -1,4 +1,4 @@
-import "./Brands.css";
+import "./css/Brands.css";
 import { IsometricBrands } from "./IsometricBrands";
 
 export function Brands() {

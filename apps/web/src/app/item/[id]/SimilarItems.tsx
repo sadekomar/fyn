@@ -2,7 +2,11 @@ import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScrol
 import { IPAddress } from "@/data/IPAddress";
 import Link from "next/link";
 import { ItemCardsI } from "@/lib/types";
-import { httpService, HttpMethods } from "@/lib/queries/http.service";
+import {
+  httpService,
+  HttpMethods,
+  serverHttp,
+} from "@/lib/queries/http.service";
 
 export async function SimilarItems({
   category,
@@ -14,8 +18,7 @@ export async function SimilarItems({
   gender: string;
 }) {
   console.log(category, color, gender);
-  const data: ItemCardsI[] = await httpService(
-    HttpMethods.GET,
+  const data: ItemCardsI[] = await serverHttp.get(
     `/items?categories=${category}&colors=${color}&limit=20&gender=${gender}`,
   );
   if (data.length === 0) {

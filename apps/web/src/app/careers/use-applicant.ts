@@ -1,5 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { HttpMethods, httpService } from "../../lib/queries/http.service";
+import {
+  clientHttp,
+  HttpMethods,
+  httpService,
+} from "../../lib/queries/http.service";
+import { Endpoints } from "@/lib/endpoints";
 
 export enum NewsletterType {
   CAREERS = "CAREERS",
@@ -31,12 +36,10 @@ export type PostNewsletter = {
 export const usePostApplicant = () => {
   return useMutation({
     mutationFn: async (data: PostApplicant) =>
-      await httpService<CreateApplicantResponse>(HttpMethods.POST, "/apply", {
-        isServer: false,
-        isResponseJson: true,
-        isDataJson: true,
-        data: data,
-      }),
+      await clientHttp.post<PostApplicant, CreateApplicantResponse>(
+        Endpoints.Apply,
+        data,
+      ),
     onError: (error) => {
       console.error("Error submitting application:", error);
     },
@@ -46,11 +49,9 @@ export const usePostApplicant = () => {
 export const usePostNewsletter = () => {
   return useMutation({
     mutationFn: (data: PostNewsletter) =>
-      httpService(HttpMethods.POST, "/newsletter", {
-        isServer: false,
-        isResponseJson: true,
-        isDataJson: true,
-        data: data,
-      }),
+      clientHttp.post<PostNewsletter, CreateApplicantResponse>(
+        Endpoints.Newsletter,
+        data,
+      ),
   });
 };

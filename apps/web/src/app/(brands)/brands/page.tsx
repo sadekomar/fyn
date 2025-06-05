@@ -1,9 +1,10 @@
 import Link from "next/link";
 
 import { LetterNavigator } from "./LetterNavigator";
-import { IsometricBrands } from "@/app/(home)/(Brands)/IsometricBrands";
+import { IsometricBrands } from "@/app/(home)/(components)/IsometricBrands";
 import "./AllBrands.css";
-import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { serverHttp } from "@/lib/queries/http.service";
+import { Endpoints } from "@/lib/endpoints";
 
 export const metadata = {
   title: "All Brands",
@@ -31,14 +32,7 @@ export type BrandsAPI = {
 };
 
 export default async function AllBrands() {
-  const brands = await httpService<BrandsAPI>(
-    HttpMethods.GET,
-    "/brands-alphabetical",
-    {
-      isServer: true,
-      isResponseJson: true,
-    },
-  );
+  const brands = await serverHttp.get<BrandsAPI>(Endpoints.BrandsAlphabetical);
 
   return (
     <>

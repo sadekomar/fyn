@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { BrandPageClient } from "./BrandPage";
-import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { serverHttp } from "@/lib/queries/http.service";
 import { BrandsList } from "@/lib/types";
 import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
 import {
@@ -12,9 +12,10 @@ import {
   getBrandItems,
   getBrandMetadata,
 } from "./(utils)/read-brand";
+import { Endpoints } from "@/lib/endpoints";
 
 export async function generateStaticParams() {
-  const brands = await httpService<BrandsList>(HttpMethods.GET, "/brands");
+  const brands = await serverHttp.get<BrandsList>(Endpoints.Brands);
 
   return brands.map((brand) => ({ brand: brand.name }));
 }
@@ -34,7 +35,7 @@ export default async function BrandPage(props: {
 
   await queryClient.prefetchQuery({
     queryKey: ["brands-list"],
-    queryFn: () => httpService<BrandsList>(HttpMethods.GET, "/brands"),
+    queryFn: () => serverHttp.get<BrandsList>(Endpoints.Brands),
   });
 
   await queryClient.prefetchQuery({

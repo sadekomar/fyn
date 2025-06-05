@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import "./CategorySelector.css";
@@ -33,7 +32,7 @@ export function CategorySelector({
     return params.toString();
   };
 
-  function toggleCategory(category) {
+  function toggleCategory(category: string) {
     if (currentCategory == category) {
       setSelectedCategory(null);
       const newParams = deleteCategory("categories");

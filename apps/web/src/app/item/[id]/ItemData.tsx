@@ -1,6 +1,8 @@
+"use client";
+
 import { Flex } from "@radix-ui/themes";
 import { BuyNowLink } from "./BuyNowLink";
-import { AddToCart } from "@/app/(you)/cart/AddToCart";
+import { AddToCart } from "@/app/(you)/cart/(components)/add-to-cart";
 import { Accordion } from "@/components/Accordion/Accordion";
 import Link from "next/link";
 import { LikeButton } from "@/components/ItemCard/LikeButton";
@@ -8,8 +10,16 @@ import { ShareButton } from "@/components/ShareButton";
 import { CompareButton } from "@/components/CompareButton";
 import { SizesPicker } from "./SizesPicker";
 import { ItemPageI } from "@/lib/types";
+import { useEffect, useState } from "react";
 
 export function ItemData({ data }: { data: ItemPageI }) {
+  const [selectedSize, setSelectedSize] = useState<ItemPageI["sizes"][number]>(
+    data.sizes.filter((size) => size.available)[0],
+  );
+  const [selectedColor, setSelectedColor] = useState<
+    ItemPageI["colors"][number]
+  >(data.colors[0]);
+
   return (
     <div className="ItemData">
       <div className="item-data__wrapper">
@@ -35,10 +45,18 @@ export function ItemData({ data }: { data: ItemPageI }) {
           <CompareButton id={data.id} className={"ItemPage_Button"} />
         </Flex>
 
-        <SizesPicker data={data} />
+        <SizesPicker
+          data={data}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+        />
 
         <div className="action-buttons-wrapper">
-          <AddToCart id={data.id} />
+          {/* <AddToCart
+            data={data}
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+          /> */}
           <BuyNowLink data={data} />
         </div>
 
@@ -48,13 +66,46 @@ export function ItemData({ data }: { data: ItemPageI }) {
 
         <div>
           <div className="sizes-title">Colors</div>
-          <div className="color-circles-wrapper">
+          <div className="flex flex-wrap gap-1 mt-2">
             {data.colors.map((color, index) => (
-              <div
-                className="color-circle"
-                style={{ backgroundColor: color }}
+              <label
                 key={index}
-              ></div>
+                className={`relative w-6 h-6 rounded-full cursor-pointer transition-all duration-200 ${
+                  selectedColor.id === color.id
+                    ? "ring-1 ring-offset-1 ring-black shadow-sm scale-105"
+                    : "hover:ring-1 hover:ring-offset-0.5 hover:ring-gray-400 hover:scale-102"
+                }`}
+                style={{ backgroundColor: color.name }}
+                onClick={() => setSelectedColor(color)}
+              >
+                <input
+                  type="radio"
+                  name="color"
+                  value={color.id}
+                  checked={selectedColor.id === color.id}
+                  onChange={() => setSelectedColor(color)}
+                  className="sr-only"
+                />
+                {selectedColor.id === color.id && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-3 h-3 rounded-full bg-white/20 flex items-center justify-center">
+                      <svg
+                        className="w-1.5 h-1.5 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </label>
             ))}
           </div>
         </div>

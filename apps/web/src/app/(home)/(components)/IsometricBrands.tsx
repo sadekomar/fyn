@@ -10,9 +10,9 @@ import {
   KijaqoLogo,
   LockenLogo,
   QuwaLogo,
-} from "./Brands";
+} from "./brands";
 
-import "./IsometricBrands.css";
+import "./css/IsometricBrands.css";
 
 export function IsometricBrands() {
   return (

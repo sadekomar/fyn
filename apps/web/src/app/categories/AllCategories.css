@@ -13,6 +13,7 @@
   padding-inline: var(--margin-inline);
   padding-block-start: 1rem;
   padding-block-end: 2rem;
+  justify-content: start;
 }
 
 .parent-category-slider * {

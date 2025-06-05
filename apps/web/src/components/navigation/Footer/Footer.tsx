@@ -16,7 +16,7 @@ export function Footer() {
           </p>
         </div>
         <div className="FooterBrowseNav">
-          <div className="footer-title">Browse</div>
+          <div className="footer-title hover:underline">Browse</div>
           <Link href={"/"}>Home</Link>
           <Link href={"/shop"}>Shop</Link>
           <Link href={"/brands"}>Brands</Link>

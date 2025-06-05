@@ -1,0 +1,142 @@
+import { ItemCardsI, ItemPageI } from "@/lib/types";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  addToLocalCart,
+  CartItem,
+  CartItemWithItemCard,
+  getItemsFromLocalCart,
+  removeFromCart,
+  updateCartItemQuantity,
+} from "./cart-utils";
+import { redirect } from "next/navigation";
+import { clientHttp } from "@/lib/queries/http.service";
+import { Endpoints } from "@/lib/endpoints";
+import { getSessionAction } from "@/lib/auth";
+
+type CartRequest = {
+  itemId: string;
+  sizeId: string;
+  colorId: string;
+  quantity: number;
+  userId: string;
+};
+
+type CartResponse = {
+  id: string;
+  itemId: string;
+  sizeId: string;
+  colorId: string;
+  quantity: number;
+};
+
+export function useAddToCart() {
+  const queryClient = useQueryClient();
+
+  return async (
+    data: ItemPageI,
+    selectedSize: { id: string; name: string; available: boolean },
+    selectedColor: { id: string; name: string },
+  ) => {
+    const session = await getSessionAction();
+
+    if (!session) {
+      addToLocalCart(data, selectedSize, selectedColor);
+      queryClient.refetchQueries({ queryKey: ["cart"] });
+      redirect("/cart");
+      return;
+    }
+
+    await clientHttp.post<CartRequest, CartResponse>(Endpoints.CartItem, {
+      itemId: data.id,
+      sizeId: selectedSize.id,
+      colorId: selectedColor.id,
+      quantity: 1,
+      userId: session.userId,
+    });
+    queryClient.refetchQueries({ queryKey: ["cart"] });
+    redirect("/cart");
+  };
+}
+
+export function useRemoveFromCart() {
+  const queryClient = useQueryClient();
+
+  return async (id: string) => {
+    const session = await getSessionAction();
+
+    if (!session) {
+      removeFromCart(id);
+      queryClient.refetchQueries({ queryKey: ["cart"] });
+      redirect("/cart");
+      return;
+    }
+
+    await clientHttp.delete(`${Endpoints.CartItem}/${id}`);
+    queryClient.refetchQueries({ queryKey: ["cart"] });
+    redirect("/cart");
+  };
+}
+
+export function useGetCartItems() {
+  return useQuery({
+    queryKey: ["cart"],
+    queryFn: async () => {
+      const session = await getSessionAction();
+      let cart: CartItem[] = [];
+
+      if (!session) {
+        cart = getItemsFromLocalCart();
+      } else {
+        cart = await clientHttp.get<CartItem[]>(
+          `${Endpoints.CartItems}?userId=${encodeURIComponent(session.userId)}`,
+        );
+      }
+
+      const data = await clientHttp.post<{ ids: string[] }, ItemCardsI[]>(
+        Endpoints.ItemsByIds,
+        {
+          ids: cart.map((item: CartItem) => item.itemId),
+        },
+      );
+
+      /**
+       * merge local cart data with fetched data
+       */
+      const mergedData: (CartItemWithItemCard | null)[] = cart.map(
+        (localCartItem) => {
+          const itemCard = data.find(
+            (item: ItemCardsI) => item.id === localCartItem.itemId,
+          );
+          if (itemCard) {
+            return {
+              localCartItem,
+              itemCard,
+            };
+          }
+          return null;
+        },
+      );
+
+      return mergedData.filter((item) => item !== null);
+    },
+  });
+}
+
+export function useUpdateCartItemQuantity() {
+  const queryClient = useQueryClient();
+
+  return async (id: string, newQuantity: number) => {
+    const session = await getSessionAction();
+
+    if (!session) {
+      updateCartItemQuantity(id, newQuantity);
+      queryClient.refetchQueries({ queryKey: ["cart"] });
+      return;
+    }
+
+    await clientHttp.patch(`${Endpoints.CartItemById.replace(":id", id)}`, {
+      quantity: newQuantity,
+    });
+    queryClient.refetchQueries({ queryKey: ["cart"] });
+  };
+}

@@ -2,7 +2,6 @@
 
 import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import "./ColorPills.css";
 import { MetadataI } from "@/lib/types";
 
 export function ColorPills({ metadata }: { metadata: MetadataI | undefined }) {
@@ -49,6 +48,39 @@ export function ColorPills({ metadata }: { metadata: MetadataI | undefined }) {
           {color.name} ({color.count})
         </div>
       ))}
+
+      <style jsx>{`
+        .color-pills-wrapper {
+          display: flex;
+          overflow: auto;
+          scrollbar-width: none;
+          gap: 0.5rem;
+          margin-block: 1rem;
+          padding-inline: max(
+            calc((100% - var(--grid-max-width)) / 2),
+            var(--margin-inline)
+          );
+        }
+
+        .color-pill {
+          height: 40px;
+          padding-inline: 1rem;
+          padding-block: 0.5rem;
+          flex-shrink: 0;
+          text-transform: capitalize;
+          background-color: var(--clr-gray-background);
+          color: var(--clr-neutral-900);
+          font-weight: var(--fw-regular);
+          border-radius: 10px;
+          cursor: pointer;
+          user-select: none;
+        }
+
+        .color-pill-selected {
+          background-color: var(--clr-loom-lilac);
+          color: var(--clr-neutral-100);
+        }
+      `}</style>
     </div>
   );
 }

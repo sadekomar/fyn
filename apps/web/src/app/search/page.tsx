@@ -12,10 +12,10 @@ import "./SearchPage.css";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
 
 import { FiltersAndCount } from "../../components/FiltersAndCount/FiltersAndCount";
-import { ColorPills } from "../(home)/(ColorPills)/ColorPills";
+import { ColorPills } from "../(home)/(components)/color-pills";
 import { ItemCardsI, MetadataI } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { clientHttp } from "@/lib/queries/http.service";
 
 export default function SearchPage() {
   const pathname = usePathname();
@@ -26,24 +26,12 @@ export default function SearchPage() {
 
   const { data: products } = useQuery({
     queryKey: ["/search", ...queryStringArray],
-    queryFn: () =>
-      httpService<ItemCardsI[]>(HttpMethods.GET, `/items?${queryString}`, {
-        isServer: false,
-        isResponseJson: true,
-      }),
+    queryFn: () => clientHttp.get<ItemCardsI[]>(`/items?${queryString}`),
   });
 
   const { data: metadata } = useQuery({
     queryKey: ["/metadata", ...queryStringArray],
-    queryFn: () =>
-      httpService<MetadataI>(
-        HttpMethods.GET,
-        `/items-metadata?${queryString}`,
-        {
-          isServer: false,
-          isResponseJson: true,
-        },
-      ),
+    queryFn: () => clientHttp.get<MetadataI>(`/items-metadata?${queryString}`),
   });
 
   let searchFieldRef = useRef<HTMLInputElement>(null);

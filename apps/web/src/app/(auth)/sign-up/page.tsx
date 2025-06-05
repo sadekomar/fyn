@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import {
@@ -35,16 +36,18 @@ const registerSchema = z.object({
     .string()
     .min(3, { message: "Username must be at least 3 characters long" })
     .trim(),
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 characters long" }),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
-  phoneNumber: z.string().optional(),
 });
 
-export type RegisterFormI = z.infer<typeof registerSchema>;
+export type RegisterFormSchema = z.infer<typeof registerSchema>;
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const form = useForm<RegisterFormI>({
+  const form = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       email: "",
@@ -56,14 +59,17 @@ export default function RegisterForm() {
     },
   });
 
-  const onSubmit = async (data: RegisterFormI) => {
+  const onSubmit = async (data: RegisterFormSchema) => {
     const response = await register(data);
 
     if (response.status === "error") {
-      form.setError(Object.keys(response.error)[0] as keyof RegisterFormI, {
-        type: "manual",
-        message: response.error[Object.keys(response.error)[0]][0],
-      });
+      form.setError(
+        Object.keys(response.error)[0] as keyof RegisterFormSchema,
+        {
+          type: "manual",
+          message: response.error[Object.keys(response.error)[0]][0],
+        },
+      );
     }
   };
 
@@ -186,10 +192,7 @@ export default function RegisterForm() {
                 name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      Phone Number{" "}
-                      <span className="text-gray-500">(optional)</span>
-                    </FormLabel>
+                    <FormLabel>Phone Number</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>

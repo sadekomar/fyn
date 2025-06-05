@@ -16,7 +16,7 @@ import { BrandDescription, brandKey } from "./(components)/BrandDescription";
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { clientHttp } from "@/lib/queries/http.service";
 import { BrandsList } from "@/lib/types";
 import {
   getBrandCategories,
@@ -25,6 +25,7 @@ import {
 } from "./(utils)/read-brand";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Endpoints } from "@/lib/endpoints";
 
 export async function generateMetadata(props: { params: { brand: string } }) {
   const params = await props.params;
@@ -50,7 +51,7 @@ export function BrandPageClient() {
 
   const { data: brandsList, isFetching: isFetchingBrandsList } = useQuery({
     queryKey: ["brands-list"],
-    queryFn: () => httpService<BrandsList>(HttpMethods.GET, "/brands"),
+    queryFn: () => clientHttp.get<BrandsList>(Endpoints.Brands),
   });
   const { data } = useQuery({
     queryKey: ["/brand", brand, ...queryStringArray],

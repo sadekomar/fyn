@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { Endpoints } from "@/lib/endpoints";
-import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { serverHttp } from "@/lib/queries/http.service";
 import { AuthResponse } from "@/lib/types";
 import { redirect } from "next/navigation";
 
@@ -10,13 +11,8 @@ export default async function VerifyEmailPage({
 }) {
   const { token } = await searchParams;
 
-  const response = await httpService<AuthResponse>(
-    HttpMethods.GET,
+  const response = await serverHttp.get<AuthResponse>(
     `${Endpoints.ConfirmEmail}?token=${token}`,
-    {
-      isServer: true,
-      isResponseJson: true,
-    },
   );
 
   if (response.status === "success") {

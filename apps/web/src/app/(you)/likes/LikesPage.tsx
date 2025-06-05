@@ -57,7 +57,7 @@ export default function LikesPage() {
       <>
         <PageTitle>Likes</PageTitle>
         <div className="wrapper">
-          <div className="grid">
+          <div className="loom-grid">
             {[...Array(100)].map((_, index) => (
               <ItemCardPlaceholder key={index} />
             ))}

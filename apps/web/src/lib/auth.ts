@@ -1,24 +1,22 @@
 "use server";
 
-import { createSession, deleteSession } from "@/lib/session";
+import { createSession, deleteSession, getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
-import { HttpMethods, httpService } from "./queries/http.service";
+import { serverHttp } from "./queries/http.service";
 import { Endpoints } from "./endpoints";
-import { AuthResponse } from "./types";
-import { LoginFormI } from "@/app/(auth)/login/page";
-import { RegisterFormI } from "@/app/(auth)/sign-up/page";
+import { LoginResponse } from "./types";
+import { LoginFormSchema } from "@/app/(auth)/login/page";
+import { RegisterFormSchema } from "@/app/(auth)/sign-up/page";
 
-export async function login(data: LoginFormI): Promise<AuthResponse> {
+export async function login(data: LoginFormSchema): Promise<LoginResponse> {
   const { email, password } = data;
 
-  const response = await httpService<AuthResponse>(
-    HttpMethods.POST,
+  type LoginRequest = LoginFormSchema;
+  const response = await serverHttp.post<LoginRequest, LoginResponse>(
     Endpoints.Login,
     {
-      data: { email, password },
-      isDataJson: true,
-      isResponseJson: true,
-      isServer: true,
+      email,
+      password,
     },
   );
 
@@ -37,24 +35,28 @@ export async function login(data: LoginFormI): Promise<AuthResponse> {
   await createSession(response.data.userId);
 
   if (!response.data.isEmailConfirmed) {
-    redirect("/please-confirm");
+    redirect(`/please-confirm?email=${encodeURIComponent(email)}`);
   }
 
   redirect("/");
 }
 
-export async function register(data: RegisterFormI): Promise<AuthResponse> {
-  const { email, password, username } = data;
+type RegisterRequest = RegisterFormSchema;
+type RegisterResponse = {
+  status: "success" | "error";
+  error?: {
+    root: string[];
+  };
+};
 
-  const response = await httpService<AuthResponse>(
-    HttpMethods.POST,
+export async function register(
+  data: RegisterFormSchema,
+): Promise<RegisterResponse> {
+  const { email, password, username, phoneNumber } = data;
+
+  const response = await serverHttp.post<RegisterRequest, RegisterResponse>(
     Endpoints.Register,
-    {
-      data: { email, password, username },
-      isDataJson: true,
-      isResponseJson: true,
-      isServer: true,
-    },
+    { email, password, username, phoneNumber },
   );
 
   if (!response) {
@@ -76,4 +78,9 @@ export async function register(data: RegisterFormI): Promise<AuthResponse> {
 export async function logout() {
   await deleteSession();
   redirect("/login");
+}
+
+export async function getSessionAction() {
+  const session = await getSession();
+  return session;
 }

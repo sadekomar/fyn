@@ -16,11 +16,12 @@ export type ItemPageI = {
   brand: string;
   images: string[];
   categories: string[];
-  colors: string[];
+  colors: { id: string; name: string }[];
   gender: string;
   material: string;
   link: string;
   sizes: {
+    id: string;
     name: string;
     available: boolean;
   }[];
@@ -83,4 +84,4 @@ type LoginErrorResponse = {
   };
 };
 
-export type AuthResponse = LoginSuccessResponse | LoginErrorResponse;
+export type LoginResponse = LoginSuccessResponse | LoginErrorResponse;

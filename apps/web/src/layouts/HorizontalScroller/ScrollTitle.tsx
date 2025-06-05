@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React from "react";
 import { Flex, IconButton, Text } from "@radix-ui/themes";
-import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+
 import Link from "next/link";
 
 export function ScrollTitle({
@@ -11,6 +11,13 @@ export function ScrollTitle({
   link,
   linkTitle,
   scrollAreaRef,
+}: {
+  title: string;
+  BrandInfo: string;
+  children: React.ReactNode;
+  link: string;
+  linkTitle: string;
+  scrollAreaRef: React.RefObject<HTMLDivElement>;
 }) {
   function scrollLeft() {
     scrollAreaRef.current.scrollLeft -= 250;
@@ -43,7 +50,7 @@ export function ScrollTitle({
             radius="full"
             onClick={scrollLeft}
           >
-            <CaretLeftIcon width="25px" height="25px" />
+            <ChevronLeftIcon width="25px" height="25px" />
           </IconButton>
           <IconButton
             size={{
@@ -54,7 +61,7 @@ export function ScrollTitle({
             radius="full"
             onClick={scrollRight}
           >
-            <CaretRightIcon width="25px" height="25px" />
+            <ChevronRightIcon width="25px" height="25px" />
           </IconButton>
         </Flex>
       </Flex>

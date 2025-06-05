@@ -6,6 +6,17 @@ import {
 import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
 import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { CategoryPageClient } from "./CategoryPage";
+import { serverHttp } from "@/lib/queries/http.service";
+import { Endpoints } from "@/lib/endpoints";
+import { CategoriesI } from "@/lib/types";
+
+export const revalidate = 43200; // 12 hours in seconds
+
+export async function generateStaticParams() {
+  const categories = await serverHttp.get<CategoriesI[]>(Endpoints.Categories);
+
+  return categories.map((category) => ({ category: category.name }));
+}
 
 export default async function CategoryPage(props: {
   params: Promise<{ category: string }>;

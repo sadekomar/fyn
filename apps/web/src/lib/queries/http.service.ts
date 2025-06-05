@@ -6,52 +6,107 @@ export enum HttpMethods {
   DELETE = "DELETE",
 }
 
-export async function httpService<T>(
-  method: HttpMethods,
-  url: string,
-  options: {
-    isServer?: boolean;
-    isDataJson?: boolean;
-    isResponseJson?: boolean;
-    data?: any;
-    signal?: AbortSignal;
-  } = {
-    isServer: true,
-    isDataJson: true,
-    isResponseJson: true,
-  },
-): Promise<T> {
-  try {
-    let requestBody;
-    if (options.isDataJson && method !== HttpMethods.GET)
-      requestBody = JSON.stringify(options.data);
-    else requestBody = undefined;
+interface HttpOptions {
+  isServer?: boolean;
+  isDataJson?: boolean;
+  isResponseJson?: boolean;
+  signal?: AbortSignal;
+}
 
-    const headers: any = {};
-    if (options.isDataJson && method !== HttpMethods.GET)
-      headers["Content-Type"] = "application/json";
+export class HttpService {
+  private baseURL: string;
 
-    const baseURL = options.isServer
-      ? process.env.API_URL
-      : process.env.NEXT_PUBLIC_API_URL;
+  constructor(isServer: boolean = true) {
+    this.baseURL = isServer
+      ? process.env.API_URL!
+      : process.env.NEXT_PUBLIC_API_URL!;
+  }
 
-    const res = await fetch(`${baseURL}${url}`, {
-      signal: method !== HttpMethods.GET ? undefined : options.signal,
-      method: method,
-      headers,
-      body: requestBody,
-    });
+  private async request<T>(
+    method: HttpMethods,
+    url: string,
+    data?: any,
+    options: HttpOptions = {
+      isServer: true,
+      isDataJson: true,
+      isResponseJson: true,
+    },
+  ): Promise<T> {
+    try {
+      let requestBody;
+      if (options.isDataJson && method !== HttpMethods.GET && data) {
+        requestBody = JSON.stringify(data);
+      }
 
-    if (method === HttpMethods.DELETE) return undefined as T;
+      const headers: Record<string, string> = {};
+      if (options.isDataJson && method !== HttpMethods.GET && data) {
+        headers["Content-Type"] = "application/json";
+      }
 
-    let parsedResponse;
-    if (options.isResponseJson) parsedResponse = await res.json();
-    else parsedResponse = await res.text();
-    if (!res.ok) throw parsedResponse;
+      console.log("requestBody", requestBody);
+      console.log("url", `${this.baseURL}${url}`);
 
-    return parsedResponse as T;
-  } catch (error) {
-    console.error("error in httpService", error);
-    return error as T;
+      const res = await fetch(`${this.baseURL}${url}`, {
+        signal: method !== HttpMethods.GET ? undefined : options.signal,
+        method,
+        headers,
+        body: requestBody,
+      });
+
+      if (method === HttpMethods.DELETE) return undefined as T;
+
+      let parsedResponse;
+      if (options.isResponseJson) {
+        parsedResponse = await res.json();
+      } else {
+        parsedResponse = await res.text();
+      }
+
+      if (!res.ok) throw parsedResponse;
+
+      return parsedResponse as T;
+    } catch (error) {
+      console.error("error in HttpService", error);
+      throw error;
+    }
+  }
+
+  async get<Response>(url: string, options?: HttpOptions): Promise<Response> {
+    return this.request<Response>(HttpMethods.GET, url, undefined, options);
+  }
+
+  async post<Request, Response>(
+    url: string,
+    data: Request,
+    options?: HttpOptions,
+  ): Promise<Response> {
+    return this.request<Response>(HttpMethods.POST, url, data, options);
+  }
+
+  async put<Request, Response>(
+    url: string,
+    data: Request,
+    options?: HttpOptions,
+  ): Promise<Response> {
+    return this.request<Response>(HttpMethods.PUT, url, data, options);
+  }
+
+  async patch<Request, Response>(
+    url: string,
+    data: Request,
+    options?: HttpOptions,
+  ): Promise<Response> {
+    return this.request<Response>(HttpMethods.PATCH, url, data, options);
+  }
+
+  async delete<Request>(url: string, options?: HttpOptions): Promise<Request> {
+    return this.request<Request>(HttpMethods.DELETE, url, undefined, options);
   }
 }
+
+// Create default instances for server and client
+export const serverHttp = new HttpService(true);
+export const clientHttp = new HttpService(false);
+
+// For backward compatibility
+export const httpService = serverHttp;

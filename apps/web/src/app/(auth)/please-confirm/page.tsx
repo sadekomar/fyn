@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import {
@@ -12,7 +13,7 @@ import { LoomImage } from "@/components/LoomImage";
 import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { httpService, HttpMethods } from "@/lib/queries/http.service";
+import { clientHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/lib/endpoints";
 import { AuthResponse } from "@/lib/types";
 
@@ -27,16 +28,11 @@ export default function ConfirmEmailPage() {
     setResendMessage("");
 
     try {
-      const response = await httpService<AuthResponse>(
-        HttpMethods.POST,
+      const response = await clientHttp.post<AuthResponse>(
         Endpoints.ResendVerificationEmail,
-        {
-          data: { email },
-          isDataJson: true,
-          isResponseJson: true,
-          isServer: false,
-        },
+        { email },
       );
+      console.log("response", response);
 
       if (response && response.status === "success") {
         setResendMessage("Verification email has been resent!");

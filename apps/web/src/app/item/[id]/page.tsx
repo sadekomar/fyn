@@ -11,7 +11,7 @@ import { BrandScroller } from "@/app/item/[id]/(components)/BrandScroller";
 import { ItemData } from "./ItemData";
 import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
 import { DesktopImages } from "./DesktopImages";
-import { httpService, HttpMethods } from "@/lib/queries/http.service";
+import { serverHttp } from "@/lib/queries/http.service";
 import { ItemPageI } from "@/lib/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
@@ -22,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const data = await httpService<ItemPageI>(HttpMethods.GET, `/item/${id}`);
+  const data = await serverHttp.get<ItemPageI>(`/item/${id}`);
 
   return {
     title: data.name,
@@ -55,7 +55,7 @@ export default async function ItemPage(props: {
 }) {
   const { id } = await props.params;
 
-  const data = await httpService<ItemPageI>(HttpMethods.GET, `/item/${id}`);
+  const data = await serverHttp.get<ItemPageI>(`/item/${id}`);
 
   const category = data.categories[0];
   const color = data.colors[0];
@@ -77,16 +77,16 @@ export default async function ItemPage(props: {
           </div>
         }
       >
-        <SimilarItems category={category} color={color} gender={gender} />
+        <SimilarItems category={category} color={color?.name} gender={gender} />
       </Suspense>
 
       <Suspense fallback={<HScrollerPlaceholder />}>
         <BrandScroller brand={data["brand"]} title={"More from "} />
       </Suspense>
 
-      <Suspense fallback={<HScrollerPlaceholder />}>
+      {/* <Suspense fallback={<HScrollerPlaceholder />}>
         <RecentlyViewed />
-      </Suspense>
+      </Suspense> */}
       <AddToRecentlyViewed id={id} />
     </>
   );

@@ -9,7 +9,7 @@ export function GridLayout({ items }: { items: ItemCardsI[] | undefined }) {
     <>
       {items && items.length != 0 ? (
         <div className="wrapper">
-          <div className="grid">
+          <div className="loom-grid">
             {items.map((item, index) => (
               <ItemCard
                 key={index}

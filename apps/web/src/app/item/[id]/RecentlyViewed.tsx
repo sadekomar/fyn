@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from "next/link";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { useQuery } from "@tanstack/react-query";

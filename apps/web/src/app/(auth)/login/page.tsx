@@ -34,11 +34,11 @@ const loginSchema = z.object({
     .trim(),
 });
 
-export type LoginFormI = z.infer<typeof loginSchema>;
+export type LoginFormSchema = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const form = useForm<LoginFormI>({
+  const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
@@ -46,11 +46,12 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = async (data: LoginFormI) => {
+  const onSubmit = async (data: LoginFormSchema) => {
     const response = await login(data);
+    console.log("response", response);
 
     if (response.status === "error") {
-      form.setError(Object.keys(response.error)[0] as keyof LoginFormI, {
+      form.setError(Object.keys(response.error)[0] as keyof LoginFormSchema, {
         type: "manual",
         message: response.error[Object.keys(response.error)[0]][0],
       });

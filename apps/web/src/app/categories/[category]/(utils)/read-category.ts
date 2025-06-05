@@ -1,4 +1,4 @@
-import { HttpMethods, httpService } from "@/lib/queries/http.service";
+import { HttpService } from "@/lib/queries/http.service";
 import { ItemCardsI, MetadataI } from "@/lib/types";
 
 export function getCategoryItems(
@@ -6,10 +6,10 @@ export function getCategoryItems(
   queryString: string,
   isServer = true,
 ) {
-  return httpService<ItemCardsI[]>(
-    HttpMethods.GET,
+  const httpService = new HttpService(isServer);
+
+  return httpService.get<ItemCardsI[]>(
     `/items?categories=${category}&${queryString}&limit=50`,
-    { isResponseJson: true, isServer: isServer },
   );
 }
 
@@ -18,9 +18,9 @@ export function getCategoryMetadata(
   queryString: string,
   isServer = true,
 ) {
-  return httpService<MetadataI>(
-    HttpMethods.GET,
+  const httpService = new HttpService(isServer);
+
+  return httpService.get<MetadataI>(
     `/items-metadata?categories=${category}&${queryString}`,
-    { isResponseJson: true, isServer: isServer },
   );
 }

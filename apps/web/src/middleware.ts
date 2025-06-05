@@ -9,7 +9,7 @@ const protectedRoutes = [
   "/verify-email",
 ];
 
-const publicRoutes = ["/login", "/sign-up"];
+const publicRoutes = ["/login-loom", "/sign-up-loom"];
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;

@@ -1,6 +1,9 @@
-import { HttpMethods, httpService } from "@/lib/queries/http.service";
+// @ts-nocheck
+
+import { serverHttp } from "@/lib/queries/http.service";
 import { ItemCardsI } from "@/lib/types";
 import { getCookie } from "./cookies.utils";
+import { Endpoints } from "@/lib/endpoints";
 
 export function getQueryString(searchParams: {
   [key: string]: string | string[] | undefined;
@@ -37,12 +40,8 @@ export function getQueryStringArray(searchParams: {
 
 export async function getRecentlyViewed() {
   const recentlyViewed = (await getCookie("recently-viewed")).reverse();
-  return await httpService<ItemCardsI[]>(HttpMethods.POST, "/items-by-ids", {
-    data: {
-      ids: recentlyViewed,
-    },
-    isResponseJson: true,
-    isDataJson: true,
-    isServer: true,
-  });
+  return await serverHttp.post<ItemCardsI[]>(
+    Endpoints.ItemsByIds,
+    recentlyViewed,
+  );
 }

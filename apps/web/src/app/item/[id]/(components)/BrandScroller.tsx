@@ -2,7 +2,11 @@ import Link from "next/link";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
-import { httpService, HttpMethods } from "@/lib/queries/http.service";
+import {
+  httpService,
+  HttpMethods,
+  serverHttp,
+} from "@/lib/queries/http.service";
 
 import "@/layouts/HorizontalScroller/HorizontalScroll.css";
 import { ItemCardsI } from "@/lib/types";
@@ -14,8 +18,7 @@ export async function BrandScroller({
   brand: string;
   title: string;
 }) {
-  const data: ItemCardsI[] = await httpService(
-    HttpMethods.GET,
+  const data: ItemCardsI[] = await serverHttp.get(
     `/items?brands=${brand}&limit=20&sort_by=date-descending`,
   );
 
