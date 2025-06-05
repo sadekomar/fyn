@@ -6,6 +6,7 @@ import { LikeButton } from "./LikeButton";
 // import { CompareButton } from "../CompareButton";
 import { LoomImage } from "../LoomImage";
 import { ItemCardsI } from "@/lib/types";
+import { useState } from "react";
 
 export function ItemCard({
   id,
@@ -16,7 +17,9 @@ export function ItemCard({
   imgLoading = "lazy",
   className = "",
 }: ItemCardsI & { imgLoading?: "lazy" | "eager"; className?: string }) {
-  if (!image) {
+  const [imageError, setImageError] = useState(false);
+
+  if (!image || imageError) {
     return null;
   }
 
@@ -32,6 +35,7 @@ export function ItemCard({
             width={260}
             height={340}
             alt={name}
+            onError={() => setImageError(true)}
             style={{
               display: "block",
               objectFit: "cover",
