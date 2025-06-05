@@ -1,13 +1,13 @@
 import { Response, Request } from "express";
-import { handleExceptions } from "../helpers/utils";
-import prisma from "../helpers/prisma";
+import { handleExceptions } from "../../helpers/utils";
+import prisma from "../../helpers/prisma";
 import { OrderStatus, Item, ItemOrder } from "@prisma/client";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import {
   getEmailConfirmationHtml,
   getOrderConfirmationHtml,
-} from "../helpers/html-emails";
+} from "../../helpers/html-emails";
 // import { Resend } from "resend";
 
 type ShippingEstimate = {
@@ -150,63 +150,72 @@ export const createOrder = handleExceptions(
 
     try {
       // Start a transaction to ensure data consistency
-      const result = await prisma.$transaction(async (tx) => {
-        // 1. Check if user exists, if not create one
-        let user = await tx.user.findUnique({
-          where: { email: orderData.email },
+      let user = await prisma.user.findUnique({
+        where: { email: orderData.email },
+      });
+
+      if (!user) {
+        return res.status(400).json({
+          status: "error",
+          error: {
+            root: "User not found, please sign in or create an account",
+          },
         });
-        if (!user) {
-          const hashedPassword = await bcrypt.hash(orderData.password, 10);
+      }
+      const result = await prisma.$transaction(async (tx) => {
+        // // 1. Check if user exists, if not create one
+        // if (!user) {
+        //   const hashedPassword = await bcrypt.hash(orderData.password, 10);
 
-          let username = generateUsername(orderData.email);
-          let usernameExists = await tx.user.findUnique({
-            where: { username },
-          });
-          while (usernameExists) {
-            username = generateUsername(orderData.email);
-            usernameExists = await tx.user.findUnique({
-              where: { username },
-            });
-          }
+        //   let username = generateUsername(orderData.email);
+        //   let usernameExists = await tx.user.findUnique({
+        //     where: { username },
+        //   });
+        //   while (usernameExists) {
+        //     username = generateUsername(orderData.email);
+        //     usernameExists = await tx.user.findUnique({
+        //       where: { username },
+        //     });
+        //   }
 
-          const token = crypto.randomUUID();
-          const expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
+        //   const token = crypto.randomUUID();
+        //   const expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
 
-          user = await tx.user.create({
-            data: {
-              email: orderData.email,
-              password: hashedPassword,
-              username: username,
-              firstName: orderData.address.firstName,
-              lastName: orderData.address.lastName,
-              phoneNumber: orderData.phoneNumber,
-              confirmationToken: token,
-              tokenExpiresAt: expires,
-            },
-          });
-          // send verification email
-          const html = getEmailConfirmationHtml(
-            orderData.address.firstName ?? "Loomer",
-            token
-          );
+        //   user = await tx.user.create({
+        //     data: {
+        //       email: orderData.email,
+        //       password: hashedPassword,
+        //       username: username,
+        //       firstName: orderData.address.firstName,
+        //       lastName: orderData.address.lastName,
+        //       phoneNumber: orderData.phoneNumber,
+        //       confirmationToken: token,
+        //       tokenExpiresAt: expires,
+        //     },
+        //   });
+        //   // send verification email
+        //   const html = getEmailConfirmationHtml(
+        //     orderData.address.firstName ?? "Loomer",
+        //     token
+        //   );
 
-          // const resend = new Resend(process.env.RESEND_API_KEY);
-          // await resend.emails.send({
-          //   from: "Loom Cairo <orders@loomcairo.com>",
-          //   to: orderData.email,
-          //   subject: "Confirm your email",
-          //   html,
-          // });
-        } else {
-          // check if user's password matches the one provided
-          const passwordMatches = await bcrypt.compare(
-            orderData.password,
-            user.password
-          );
-          if (!passwordMatches) {
-            throw new Error("Invalid password");
-          }
-        }
+        //   // const resend = new Resend(process.env.RESEND_API_KEY);
+        //   // await resend.emails.send({
+        //   //   from: "Loom Cairo <orders@loomcairo.com>",
+        //   //   to: orderData.email,
+        //   //   subject: "Confirm your email",
+        //   //   html,
+        //   // });
+        // } else {
+        //   // check if user's password matches the one provided
+        //   const passwordMatches = await bcrypt.compare(
+        //     orderData.password,
+        //     user.password
+        //   );
+        //   if (!passwordMatches) {
+        //     throw new Error("Invalid password");
+        //   }
+        // }
 
         // 2. Create shipping address
         const shippingAddress = await tx.address.create({

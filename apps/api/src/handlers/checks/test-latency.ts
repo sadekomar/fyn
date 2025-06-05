@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { handleExceptions } from "../helpers/utils";
+import { handleExceptions } from "../../helpers/utils";
 
 export const testLatency = handleExceptions(
   async (req: Request, res: Response) => {

@@ -1,4 +1,4 @@
-export function getOrderBy(sort_by: string | undefined) {
+export function getSortBy(sort_by: string | undefined) {
   enum SortBy {
     DATE_ASC = "date-ascending",
     DATE_DESC = "date-descending",

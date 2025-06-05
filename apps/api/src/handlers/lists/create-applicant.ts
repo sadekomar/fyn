@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { handleExceptions } from "../helpers/utils";
-import prisma from "../helpers/prisma";
+import { handleExceptions } from "../../helpers/utils";
+import prisma from "../../helpers/prisma";
 import { Resend } from "resend";
-import { getApplicationConfirmationHtml } from "../helpers/html-emails";
+import { getApplicationConfirmationHtml } from "../../helpers/html-emails";
+import { careersFromAddress } from "../../helpers/email";
 
 type CreateApplicantResponse = {
   id: string;
@@ -24,19 +25,19 @@ export const createApplicant = handleExceptions(
       data: { name, email, phone, whyYou, whyLoom },
     });
 
-    await ApplicationConfirmationEmail(email, name);
+    await sendConfirmationEmail(email, name);
 
     return res.status(201).json(applicant);
   }
 );
 
-async function ApplicationConfirmationEmail(email: string, name: string) {
+async function sendConfirmationEmail(email: string, name: string) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const html = getApplicationConfirmationHtml(name);
 
   await resend.emails.send({
-    from: "Loom Cairo <careers@loomcairo.com>",
+    from: careersFromAddress,
     to: email,
     subject: "Loom application confirmation",
     html,

@@ -2,10 +2,10 @@ import prisma from "../helpers/prisma";
 import { Request, Response } from "express";
 import { handleExceptions } from "../helpers/utils";
 import { z } from "zod";
-import { CategoriesI, ImageSizes, ItemCardsI, MetadataI } from "../types";
+import { CategoriesI, ImageSizes, ItemCardsI, MetadataI } from "../types/types";
 import { equal } from "assert";
 import { constructWhere } from "../helpers/construct-where";
-import { getOrderBy } from "../helpers/get-order-by";
+import { getSortBy } from "../helpers/get-sort-by";
 import { Gender } from "@prisma/client";
 import { hasValidValue } from "../helpers/has-valid-value";
 
@@ -60,7 +60,7 @@ const QuerySchema = z.object({
 
 export type QueryI = z.infer<typeof QuerySchema>;
 
-export const getAllItems = handleExceptions(
+export const readItems = handleExceptions(
   async (req: Request, res: Response) => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
@@ -87,7 +87,7 @@ export const getAllItems = handleExceptions(
 
     const where: any = constructWhere(parsedQuery.data);
 
-    const orderBy = getOrderBy(sort_by);
+    const orderBy = getSortBy(sort_by);
 
     const items = await prisma.item.findMany({
       take: limit || 300,
@@ -139,7 +139,10 @@ export const getAllItems = handleExceptions(
   }
 );
 
-export const getItemsBrandCategoriesMetadata = handleExceptions(
+/**
+ * get categories and their images for each brand
+ */
+export const readCategoriesWithImages = handleExceptions(
   async (req: Request, res: Response) => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
@@ -191,7 +194,7 @@ export const getItemsBrandCategoriesMetadata = handleExceptions(
   }
 );
 
-export const getItemsMetadata = handleExceptions(
+export const readItemsMetadata = handleExceptions(
   async (req: Request, res: Response) => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 

@@ -3,7 +3,7 @@ import prisma from "../helpers/prisma";
 import { handleExceptions } from "../helpers/utils";
 import { Request, Response } from "express";
 
-export const getAllBrands = handleExceptions(
+export const readBrands = handleExceptions(
   async (req: Request, res: Response) => {
     const brands = await prisma.brand.findMany({
       orderBy: {
@@ -14,7 +14,7 @@ export const getAllBrands = handleExceptions(
   }
 );
 
-export const getAllBrandsByLetterHandler = handleExceptions(
+export const readBrandsByLetter = handleExceptions(
   async (req: Request, res: Response) => {
     const brands = await prisma.brand.findMany({
       orderBy: {

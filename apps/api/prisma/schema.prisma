@@ -52,7 +52,9 @@ model ItemView {
   userId    String
   item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId    String
+  quantity  Int      @default(1)
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CategoryView {
@@ -61,7 +63,9 @@ model CategoryView {
   userId     String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String
+  quantity   Int      @default(1)
   createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model BrandView {
@@ -70,7 +74,9 @@ model BrandView {
   userId    String
   brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
   brandId   String
+  quantity  Int      @default(1)
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Like {
@@ -123,10 +129,12 @@ model Color {
 // TODO
 // a way to specify a primary/thumbnail image for an item.
 model Image {
-  id     String @id @default(uuid())
-  url    String
-  Item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  itemId String
+  id          String   @id @default(uuid())
+  url         String
+  Item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId      String
+  isThumbnail Boolean  @default(false)
+  createdAt   DateTime @default(now())
 }
 
 model Size {
@@ -193,7 +201,7 @@ model User {
   isEmailConfirmed  Boolean        @default(false)
   firstName         String?
   lastName          String?
-  phoneNumber       String?
+  phoneNumber       String
   itemViews         ItemView[]
   categoryViews     CategoryView[]
   brandViews        BrandView[]

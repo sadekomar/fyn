@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import { Resend } from "resend";
 import { getEmailConfirmationHtml } from "../helpers/html-emails";
+import { confirmFromAddress } from "../helpers/email";
 
 type LoginSuccessResponse = {
   status: "success";
@@ -63,7 +64,7 @@ export const login = handleExceptions(
 
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: "Loom Cairo <orders@orders.loomcairo.com>",
+        from: confirmFromAddress,
         to: user.email,
         subject: "Confirm your email",
         html: `<p>Click <a href="${process.env.FRONTEND_URL}/verify-email?token=${token}">here</a> to confirm your email</p>`,
@@ -94,9 +95,11 @@ const registerSchema = z.object({
   username: z
     .string()
     .min(3, { message: "Username must be at least 3 characters long" }),
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 characters long" }),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
-  phoneNumber: z.string().optional(),
 });
 
 export const register = handleExceptions(
@@ -162,7 +165,7 @@ export const register = handleExceptions(
 
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: "Loom Cairo <orders@orders.loomcairo.com>",
+        from: confirmFromAddress,
         to: email,
         subject: "Confirm your email",
         html,
@@ -241,7 +244,7 @@ export const resendVerificationEmail = handleExceptions(
 
     const html = getEmailConfirmationHtml(user.firstName || "", token);
     await resend.emails.send({
-      from: "Loom Cairo <orders@orders.loomcairo.com>",
+      from: confirmFromAddress,
       to: email,
       subject: "Confirm your email",
       html,

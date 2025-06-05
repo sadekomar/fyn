@@ -2,79 +2,76 @@ import express, { Request, Response } from "express";
 import prisma from "./helpers/prisma";
 import cors from "cors";
 import {
-  getAllItems,
-  getItemsBrandCategoriesMetadata,
-  getItemsMetadata,
-} from "./handlers/get-all-items.handler";
-import {
-  getAllBrands,
-  getAllBrandsByLetterHandler,
-} from "./handlers/get-all-brands.handler";
-import { getItemById } from "./handlers/get-item.handler";
-import { testLatency } from "./handlers/test-latency.handler";
-import { getItemsByIds } from "./handlers/get-items-by-id.handler";
-import { Resend } from "resend";
+  readItems,
+  readCategoriesWithImages,
+  readItemsMetadata,
+} from "./handlers/read-items";
+import { readBrands, readBrandsByLetter } from "./handlers/read-brands";
+import { readItem } from "./handlers/read-item";
+import { readItemsByIds } from "./handlers/read-items-by-ids";
+import { testLatency } from "./handlers/checks/test-latency";
+
 import {
   confirmEmail,
   login,
   register,
   resendVerificationEmail,
 } from "./handlers/auth";
-import { createApplicant } from "./handlers/create-applicant";
-import { createOrder } from "./handlers/create-order";
+import { createApplicant } from "./handlers/lists/create-applicant";
+import { createOrder } from "./handlers/order/create-order";
+import { healthCheck } from "./handlers/checks/health-check";
+import { Endpoints } from "./types/endpoints";
+import { createNewsletter } from "./handlers/lists/create-newsletter";
+import {
+  createCartItem,
+  deleteCartItem,
+  readCartItems,
+  updateCartItem,
+} from "./handlers/order/cart";
+import { readOrder } from "./handlers/order/read-order";
+import { updateOrder } from "./handlers/order/update-order";
+import { deleteOrder } from "./handlers/order/delete-order";
+import { readOrders } from "./handlers/order/read-orders";
+import { readUser } from "./handlers/user/read-user";
+import { readAddress } from "./handlers/address/read-addresses";
+import { readCategories } from "./handlers/categories/read-categories";
 
 const app = express();
 const PORT = process.env.PORT;
-
-export enum Endpoints {
-  Welcome = "/",
-  Health = "/health",
-  Items = "/items",
-  ItemsMetadata = "/items-metadata",
-  BrandCategories = "/brand-categories",
-  ItemById = "/item/:id",
-  ItemsByIds = "/items-by-ids",
-  Brands = "/brands",
-  BrandsAlphabetical = "/brands-alphabetical",
-  Latency = "/latency",
-  Login = "/login",
-  Register = "/register",
-  ConfirmEmail = "/confirm-email",
-  Apply = "/apply",
-  Order = "/order",
-  // TBD
-  ForgotPassword = "/forgot-password",
-  ResetPassword = "/reset-password",
-  ResendVerificationEmail = "/resend-verification-email",
-  ResendPasswordResetEmail = "/resend-password-reset-email",
-}
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// Routes
-app.get(Endpoints.Health, (req: Request, res: Response) => {
-  res.status(200).send("OK");
-});
-
-app.get(Endpoints.Welcome, (req: Request, res: Response) => {
-  res.json({ message: "Welcome to the Node.js application!" });
-});
-
-app.get(Endpoints.Items, getAllItems);
-app.get(Endpoints.ItemsMetadata, getItemsMetadata);
-app.get(Endpoints.BrandCategories, getItemsBrandCategoriesMetadata);
-app.get(Endpoints.ItemById, getItemById);
-app.post(Endpoints.ItemsByIds, getItemsByIds);
-
-app.get(Endpoints.Brands, getAllBrands);
-app.get(Endpoints.BrandsAlphabetical, getAllBrandsByLetterHandler);
-
+app.get(Endpoints.Health, healthCheck);
 app.get(Endpoints.Latency, testLatency);
 
+// Items/Categories
+app.get(Endpoints.Items, readItems);
+app.get(Endpoints.ItemsMetadata, readItemsMetadata);
+app.get(Endpoints.BrandCategories, readCategoriesWithImages);
+app.get(Endpoints.ItemById, readItem);
+app.post(Endpoints.ItemsByIds, readItemsByIds);
+
+// Categories
+app.get(Endpoints.Categories, readCategories);
+
+// Brands
+app.get(Endpoints.Brands, readBrands);
+app.get(Endpoints.BrandsAlphabetical, readBrandsByLetter);
+
+// user-data
+app.post(Endpoints.CartItem, createCartItem);
+app.get(Endpoints.CartItems, readCartItems);
+app.patch(Endpoints.CartItemById, updateCartItem);
+app.delete(Endpoints.CartItemById, deleteCartItem);
+
 app.post(Endpoints.Order, createOrder);
+app.get(Endpoints.Order, readOrder);
+app.patch(Endpoints.Order, updateOrder);
+app.delete(Endpoints.Order, deleteOrder);
+app.get(Endpoints.Orders, readOrders);
 
 // Auth
 app.post(Endpoints.Login, login);
@@ -82,23 +79,14 @@ app.post(Endpoints.Register, register);
 app.get(Endpoints.ConfirmEmail, confirmEmail);
 app.post(Endpoints.ResendVerificationEmail, resendVerificationEmail);
 
+// user
+app.get(Endpoints.User, readUser);
+app.get(Endpoints.Addresses, readAddress);
+
+// lists
 app.post(Endpoints.Apply, createApplicant);
+app.post(Endpoints.Newsletter, createNewsletter);
 
-app.post("/newsletter", async (req: Request, res: Response) => {
-  const { email, type } = req.body;
-
-  try {
-    const newsletter = await prisma.newsletter.create({
-      data: { email, type },
-    });
-    res.json(newsletter);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to create newsletter submission" });
-  }
-});
-
-// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT} and more`);
 });

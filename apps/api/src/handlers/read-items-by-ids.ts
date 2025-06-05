@@ -1,7 +1,7 @@
 import prisma from "../helpers/prisma";
 import { handleExceptions } from "../helpers/utils";
 import { Request, Response } from "express";
-import { ImageSizes, ItemCardsI } from "../types";
+import { ImageSizes, ItemCardsI } from "../types/types";
 import { Gender } from "@prisma/client";
 
 // Function to translate gender values from request to enum values
@@ -16,7 +16,7 @@ const translateGender = (gender: string): Gender | null => {
   return genderMap[gender.toLowerCase()] || null;
 };
 
-export const getItemsByIds = handleExceptions(
+export const readItemsByIds = handleExceptions(
   async (req: Request, res: Response) => {
     const { ids } = req.body;
     console.log("ids", ids);
