@@ -51,23 +51,26 @@ export default async function Home() {
     queryKey: ["home-daddys-girl"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=daddysgirl&sort_by=date-descending`,
+        `/items?brands=daddysgirl&sort_by=date-descending&limit=20`,
       ),
   });
 
   await queryClient.prefetchQuery({
     queryKey: ["home-pants"],
-    queryFn: () => serverHttp.get<ItemCardsI[]>(`/items?categories=pants`),
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(`/items?categories=pants&limit=20`),
   });
 
   await queryClient.prefetchQuery({
     queryKey: ["home-sets"],
-    queryFn: () => serverHttp.get<ItemCardsI[]>(`/items?categories=sets`),
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(`/items?categories=sets&limit=20`),
   });
 
   await queryClient.prefetchQuery({
     queryKey: ["home-jeans"],
-    queryFn: () => serverHttp.get<ItemCardsI[]>(`/items?categories=jeans`),
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(`/items?categories=jeans&limit=20`),
   });
 
   await queryClient.prefetchQuery({
