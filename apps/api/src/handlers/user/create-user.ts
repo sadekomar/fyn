@@ -68,7 +68,7 @@ export const createUser = handleExceptions(
           username,
           firstName,
           lastName,
-          phoneNumber,
+          phoneNumber: phoneNumber || "",
         },
       });
 
