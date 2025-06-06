@@ -26,37 +26,24 @@ export type CreateBrandResponse =
   | CreateBrandErrorResponse;
 
 // Read
-type ReadBrandsSuccessResponse = {
-  status: "success";
-  message: string;
-  data: Brand[];
-};
+export type ReadBrandsResponse = {
+  name: string;
+  id: string;
+  description: string | null;
+  image: string | null;
+  logo: string | null;
+}[];
 
-type ReadBrandsErrorResponse = {
-  status: "error";
-  error: {
-    [key: string]: string[];
-  };
-};
-
-export type ReadBrandsResponse =
-  | ReadBrandsSuccessResponse
-  | ReadBrandsErrorResponse;
-
-export type ReadBrandsByLetterResponse = {
-  status: "success";
-  message: string;
-  data: Record<
-    string,
-    {
-      id: string;
-      name: string;
-      description: string | null;
-      image: string | null;
-      logo: string | null;
-    }[]
-  >;
-};
+export type ReadBrandsByLetterResponse = Record<
+  string,
+  {
+    id: string;
+    name: string;
+    description: string | null;
+    image: string | null;
+    logo: string | null;
+  }[]
+>;
 
 // Update
 export type UpdateBrandRequest = {

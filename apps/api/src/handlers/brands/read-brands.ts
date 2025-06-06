@@ -15,13 +15,7 @@ export const readBrands = handleExceptions(
       },
     });
 
-    const response: ReadBrandsResponse = {
-      status: "success",
-      message: "Brands fetched successfully",
-      data: brands,
-    };
-
-    return res.status(200).json(response);
+    return res.status(200).json(brands);
   }
 );
 
@@ -48,12 +42,6 @@ export const readBrandsByLetter = handleExceptions(
       {} as Record<string, Brand[]>
     );
 
-    const response: ReadBrandsByLetterResponse = {
-      status: "success",
-      message: "Brands fetched successfully",
-      data: brandsByLetter,
-    };
-
-    return res.status(200).json(response);
+    return res.status(200).json(brandsByLetter);
   }
 );

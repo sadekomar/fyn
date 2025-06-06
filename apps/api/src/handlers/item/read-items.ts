@@ -2,12 +2,7 @@ import prisma from "../../helpers/prisma";
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import { z } from "zod";
-import {
-  CategoriesI,
-  ImageSizes,
-  ItemCardsI,
-  MetadataI,
-} from "../../types/types";
+import { CategoriesI, ImageSizes, ItemCardsI, MetadataI } from "./item-types";
 import { constructWhere } from "../../helpers/construct-where";
 import { getSortBy } from "../../helpers/get-sort-by";
 import { Gender } from "@prisma/client";
