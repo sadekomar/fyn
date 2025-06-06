@@ -1,13 +1,17 @@
-import prisma from "../helpers/prisma";
+import prisma from "../../helpers/prisma";
 import { Request, Response } from "express";
-import { handleExceptions } from "../helpers/utils";
+import { handleExceptions } from "../../helpers/utils";
 import { z } from "zod";
-import { CategoriesI, ImageSizes, ItemCardsI, MetadataI } from "../types/types";
-import { equal } from "assert";
-import { constructWhere } from "../helpers/construct-where";
-import { getSortBy } from "../helpers/get-sort-by";
+import {
+  CategoriesI,
+  ImageSizes,
+  ItemCardsI,
+  MetadataI,
+} from "../../types/types";
+import { constructWhere } from "../../helpers/construct-where";
+import { getSortBy } from "../../helpers/get-sort-by";
 import { Gender } from "@prisma/client";
-import { hasValidValue } from "../helpers/has-valid-value";
+import { hasValidValue } from "../../helpers/has-valid-value";
 
 const genderMap: Record<string, Gender> = {
   MALE: Gender.MALE,
@@ -61,7 +65,7 @@ const QuerySchema = z.object({
 export type QueryI = z.infer<typeof QuerySchema>;
 
 export const readItems = handleExceptions(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<Response<ItemCardsI[]>> => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
     if (!parsedQuery.success) {
@@ -126,7 +130,7 @@ export const readItems = handleExceptions(
       ),
     }));
 
-    return res.json(formattedItems);
+    return res.status(200).json(formattedItems);
   }
 );
 
@@ -134,7 +138,7 @@ export const readItems = handleExceptions(
  * get categories and their images for each brand
  */
 export const readCategoriesWithImages = handleExceptions(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<Response<CategoriesI[]>> => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
     if (!parsedQuery.success) {
@@ -181,12 +185,12 @@ export const readCategoriesWithImages = handleExceptions(
           ?.images[0]?.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL) || "",
     }));
 
-    return res.json(formattedCategories);
+    return res.status(200).json(formattedCategories);
   }
 );
 
 export const readItemsMetadata = handleExceptions(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<Response<MetadataI>> => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
     if (!parsedQuery.success) {
@@ -462,6 +466,6 @@ export const readItemsMetadata = handleExceptions(
       brands: brandsMetadata,
       materials: materialsMetadata,
     };
-    return res.json(metadata);
+    return res.status(200).json(metadata);
   }
 );

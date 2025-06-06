@@ -4,22 +4,35 @@ import prisma from "../../helpers/prisma";
 import { Resend } from "resend";
 import { getApplicationConfirmationHtml } from "../../helpers/html-emails";
 import { careersFromAddress } from "../../helpers/email";
+import {
+  CreateApplicantRequest,
+  CreateApplicantResponse,
+} from "./applicant-types";
+import { z } from "zod";
 
-type CreateApplicantResponse = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  whyYou: string;
-  whyLoom: string;
-};
+const createApplicantSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().min(1, "Phone is required"),
+  whyYou: z.string().min(1, "Why you want to work with us is required"),
+  whyLoom: z.string().min(1, "Why you want to work with us is required"),
+});
 
 export const createApplicant = handleExceptions(
   async (
     req: Request,
     res: Response
   ): Promise<Response<CreateApplicantResponse>> => {
-    const { name, email, phone, whyYou, whyLoom } = req.body;
+    const result = createApplicantSchema.safeParse(req.body);
+    if (!result.success) {
+      return res.status(400).json({
+        status: "error",
+        error: result.error.flatten().fieldErrors,
+      });
+    }
+
+    const { name, email, phone, whyYou, whyLoom }: CreateApplicantRequest =
+      result.data;
 
     const applicant = await prisma.applicant.create({
       data: { name, email, phone, whyYou, whyLoom },

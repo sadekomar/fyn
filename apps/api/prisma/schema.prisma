@@ -44,6 +44,9 @@ model Item {
   likes       Like[]
   carts       ItemCart[]
   orders      ItemOrder[]
+
+  @@index([brandId])
+  @@index([materialId])
 }
 
 model ItemView {
@@ -55,6 +58,9 @@ model ItemView {
   quantity  Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([itemId])
+  @@index([userId])
 }
 
 model CategoryView {
@@ -66,6 +72,9 @@ model CategoryView {
   quantity   Int      @default(1)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([userId])
 }
 
 model BrandView {
@@ -77,6 +86,9 @@ model BrandView {
   quantity  Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([userId])
 }
 
 model Like {
@@ -86,6 +98,9 @@ model Like {
   item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId    String
   createdAt DateTime @default(now())
+
+  @@index([itemId])
+  @@index([userId])
 }
 
 model Price {
@@ -94,11 +109,16 @@ model Price {
   createdAt DateTime @default(now())
   item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId    String
+
+  @@index([itemId, createdAt(sort: Desc)])
 }
 
 model Brand {
   id               String             @id @default(uuid())
   name             String             @unique
+  description      String?
+  image            String?
+  logo             String?
   items            Item[]
   brandViews       BrandView[]
   showrooms        Showroom[]
@@ -135,6 +155,8 @@ model Image {
   itemId      String
   isThumbnail Boolean  @default(false)
   createdAt   DateTime @default(now())
+
+  @@index([itemId])
 }
 
 model Size {
@@ -146,6 +168,8 @@ model Size {
   itemId     String
   itemCarts  ItemCart[]
   itemOrders ItemOrder[]
+
+  @@index([itemId])
 }
 
 model Material {

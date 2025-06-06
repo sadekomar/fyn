@@ -9,6 +9,7 @@ export enum Endpoints {
   BrandsAlphabetical = "/brands-alphabetical",
   // categories
   Categories = "/categories",
+  CategoryById = "/categories/:id",
   // checks
   Latency = "/latency",
   Health = "/health",
@@ -30,5 +31,9 @@ export enum Endpoints {
   CartItems = "/cart-items",
   CartItemById = "/cart-item/:id",
   User = "/user/:id",
+  Address = "/address",
   Addresses = "/addresses/:userId",
+  // applicants
+  Applicants = "/applicants",
+  ApplicantById = "/applicant/:id",
 }

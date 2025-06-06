@@ -1,10 +1,10 @@
-import { handleExceptions } from "../helpers/utils";
+import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
-import prisma from "../helpers/prisma";
-import { Genders, ImageSizes, ItemPageI } from "../types/types";
+import prisma from "../../helpers/prisma";
+import { Genders, ImageSizes, ItemPageI } from "../../types/types";
 
 export const readItem = handleExceptions(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<Response<ItemPageI>> => {
     const { id } = req.params;
 
     const item = await prisma.item.findUnique({
@@ -86,6 +86,6 @@ export const readItem = handleExceptions(
         available: size.available,
       })),
     };
-    return res.json(formattedItem);
+    return res.status(200).json(formattedItem);
   }
 );
