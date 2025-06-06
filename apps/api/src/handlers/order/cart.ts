@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
 import { ItemCart } from "@prisma/client";
-import { ItemCardsI } from "../../types/types";
+import { ItemCardsI } from "../item/item-types";
 
 type CartRequest = {
   itemId: string;
