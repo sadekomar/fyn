@@ -1,5 +1,5 @@
 import { hasValidValue } from "./has-valid-value";
-import { QueryI } from "../handlers/read-items";
+import { QueryI } from "../handlers/item/read-items";
 import { parseSearchQuery } from "./ngram-matcher";
 
 export function constructWhere(parsedQuery: QueryI) {

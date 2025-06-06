@@ -5,10 +5,10 @@ import {
   readItems,
   readCategoriesWithImages,
   readItemsMetadata,
-} from "./handlers/read-items";
+} from "./handlers/item/read-items";
 import { readBrands, readBrandsByLetter } from "./handlers/brands/read-brands";
-import { readItem } from "./handlers/read-item";
-import { readItemsByIds } from "./handlers/read-items-by-ids";
+import { readItem } from "./handlers/item/read-item";
+import { readItemsByIds } from "./handlers/item/read-items-by-ids";
 import { testLatency } from "./handlers/checks/test-latency";
 import {
   confirmEmail,
