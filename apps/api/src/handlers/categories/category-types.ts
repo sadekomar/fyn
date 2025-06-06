@@ -23,22 +23,7 @@ export type CreateCategoryResponse =
   | CreateCategoryErrorResponse;
 
 // Read
-type ReadCategoriesSuccessResponse = {
-  status: "success";
-  message: string;
-  data: Category[];
-};
-
-type ReadCategoriesErrorResponse = {
-  status: "error";
-  error: {
-    [key: string]: string[];
-  };
-};
-
-export type ReadCategoriesResponse =
-  | ReadCategoriesSuccessResponse
-  | ReadCategoriesErrorResponse;
+export type ReadCategoriesResponse = Category[];
 
 // Update
 export type UpdateCategoryRequest = {

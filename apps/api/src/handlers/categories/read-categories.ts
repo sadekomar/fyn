@@ -10,12 +10,6 @@ export const readCategories = handleExceptions(
   ): Promise<Response<ReadCategoriesResponse>> => {
     const categories = await prisma.category.findMany();
 
-    const response: ReadCategoriesResponse = {
-      status: "success",
-      message: "Categories fetched successfully",
-      data: categories,
-    };
-
-    return res.status(200).json(response);
+    return res.status(200).json(categories);
   }
 );
