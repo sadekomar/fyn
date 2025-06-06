@@ -2,6 +2,8 @@ import "./globals.css";
 
 import { Theme } from "@radix-ui/themes";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import "@radix-ui/themes/styles.css";
 import { MobileNavBar } from "@/components/navigation/MobileNavBar/MobileNavBar";
 import { Footer } from "@/components/navigation/Footer/Footer";
@@ -27,6 +29,7 @@ export default function RootLayout({
             <div className="footer-outlet">
               <div className="outlet-wrapper">{children}</div>
               <Analytics />
+              <SpeedInsights />
               <Toaster />
               <Footer />
             </div>
