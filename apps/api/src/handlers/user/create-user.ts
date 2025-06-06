@@ -4,15 +4,7 @@ import { User } from "@prisma/client";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import prisma from "../../helpers/prisma";
-
-type CreateUserRequest = {
-  email: string;
-  password: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-};
+import { CreateUserRequest, CreateUserResponse } from "./user-types";
 
 const createUserSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -22,13 +14,18 @@ const createUserSchema = z.object({
   username: z
     .string()
     .min(3, { message: "Username must be at least 3 characters long" }),
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 characters long" }),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
-  phoneNumber: z.string().optional(),
 });
 
 export const createUser = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<User>> => {
+  async (
+    req: Request,
+    res: Response
+  ): Promise<Response<CreateUserResponse>> => {
     const result = createUserSchema.safeParse(req.body);
 
     if (!result.success) {
@@ -38,8 +35,14 @@ export const createUser = handleExceptions(
       });
     }
 
-    const { email, password, username, firstName, lastName, phoneNumber } =
-      result.data;
+    const {
+      email,
+      password,
+      username,
+      firstName,
+      lastName,
+      phoneNumber,
+    }: CreateUserRequest = result.data;
 
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -72,10 +75,19 @@ export const createUser = handleExceptions(
         },
       });
 
-      return res.status(201).json(user);
+      return res.status(201).json({
+        status: "success",
+        message: "User created successfully",
+        data: user,
+      });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({
+        status: "error",
+        error: {
+          root: "Internal server error",
+        },
+      }) as Response<CreateUserResponse>;
     }
   }
 );

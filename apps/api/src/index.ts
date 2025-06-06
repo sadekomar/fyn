@@ -35,6 +35,9 @@ import { readOrders } from "./handlers/order/read-orders";
 import { readUser } from "./handlers/user/read-user";
 import { readAddress } from "./handlers/address/read-addresses";
 import { readCategories } from "./handlers/categories/read-categories";
+import { deleteUser } from "./handlers/user/delete-user";
+import { createUser } from "./handlers/user/create-user";
+import { updateUser } from "./handlers/user/update-user";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -61,7 +64,7 @@ app.get(Endpoints.Categories, readCategories);
 app.get(Endpoints.Brands, readBrands);
 app.get(Endpoints.BrandsAlphabetical, readBrandsByLetter);
 
-// user-data
+// itemCart
 app.post(Endpoints.CartItem, createCartItem);
 app.get(Endpoints.CartItems, readCartItems);
 app.patch(Endpoints.CartItemById, updateCartItem);
@@ -73,15 +76,19 @@ app.patch(Endpoints.Order, updateOrder);
 app.delete(Endpoints.Order, deleteOrder);
 app.get(Endpoints.Orders, readOrders);
 
+// user
+app.post(Endpoints.User, createUser);
+app.get(Endpoints.User, readUser);
+app.patch(Endpoints.User, updateUser);
+app.delete(Endpoints.User, deleteUser);
+
+app.get(Endpoints.Addresses, readAddress);
+
 // Auth
 app.post(Endpoints.Login, login);
 app.post(Endpoints.Register, register);
 app.get(Endpoints.ConfirmEmail, confirmEmail);
 app.post(Endpoints.ResendVerificationEmail, resendVerificationEmail);
-
-// user
-app.get(Endpoints.User, readUser);
-app.get(Endpoints.Addresses, readAddress);
 
 // lists
 app.post(Endpoints.Apply, createApplicant);
