@@ -30,7 +30,7 @@ export function ItemCard({
       <div className={`ItemCard ${className}`}>
         <LikeButton id={id} className="LikeButton" />
         {/* <CompareButton id={id} className="CompareButton" /> */}
-        <Link href={`/item/${id}`}>
+        <Link prefetch={true} href={`/item/${id}`}>
           <LoomImage
             loading={imgLoading}
             src={image}
@@ -54,8 +54,11 @@ export function ItemCard({
           />
         </Link>
 
-        <Link href={`/item/${id}`}>{name}</Link>
+        <Link prefetch={true} href={`/item/${id}`}>
+          {name}
+        </Link>
         <Link
+          prefetch={true}
           href={`/brands/${brand}`}
           className="text-gray-500 hover:text-gray-700 capitalize hover:underline underline-offset-2"
         >
