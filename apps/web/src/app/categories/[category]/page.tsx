@@ -13,7 +13,9 @@ import { CategoriesI } from "@/lib/types";
 export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateStaticParams() {
-  const categories = await serverHttp.get<CategoriesI[]>(Endpoints.Categories);
+  const categories = await serverHttp.get<{ id: string; name: string }[]>(
+    Endpoints.Categories,
+  );
 
   return categories.map((category) => ({ category: category.name }));
 }
