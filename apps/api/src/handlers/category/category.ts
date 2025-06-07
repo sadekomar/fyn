@@ -1,4 +1,10 @@
 import { Category } from "@prisma/client";
+import { readCategories } from "./read-categories";
+import { createCategory } from "./create-category";
+import { deleteCategory } from "./delete-category";
+import { updateCategory } from "./update-category";
+
+export { readCategories, createCategory, deleteCategory, updateCategory };
 
 // Create
 export type CreateCategoryRequest = {

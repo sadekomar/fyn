@@ -1,7 +1,7 @@
 import prisma from "../../helpers/prisma";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
-import { ImageSizes, ItemCardsI } from "./item-types";
+import { ImageSizes, ItemCardsI } from "./item";
 import { Gender } from "@prisma/client";
 
 // Function to translate gender values from request to enum values

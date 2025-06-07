@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-import { CreateItemResponse } from "./item-types";
+import { CreateItemResponse } from "./item";
 import { z } from "zod";
 import { Gender } from "@prisma/client";
 

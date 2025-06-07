@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
 import { handleExceptions } from "../../helpers/utils";
-import { DeleteAddressResponse } from "./address-types";
+import { DeleteAddressResponse } from "./address";
 
 export const deleteAddress = handleExceptions(
   async (

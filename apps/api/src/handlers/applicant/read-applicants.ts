@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ReadApplicantsResponse } from "./applicant-types";
+import { ReadApplicantsResponse } from "./applicant";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
 

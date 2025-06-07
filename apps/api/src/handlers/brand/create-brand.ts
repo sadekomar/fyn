@@ -1,7 +1,7 @@
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
-import { CreateBrandRequest, CreateBrandResponse } from "./brand-types";
+import { CreateBrandRequest, CreateBrandResponse } from "./brand";
 
 export const createBrand = handleExceptions(
   async (

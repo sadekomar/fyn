@@ -1,4 +1,17 @@
 import { Applicant } from "@prisma/client";
+import { createApplicant } from "./create-applicant";
+import { readApplicant } from "./read-applicant";
+import { readApplicants } from "./read-applicants";
+import { updateApplicant } from "./update-applicant";
+import { deleteApplicant } from "./delete-applicant";
+
+export {
+  readApplicant,
+  createApplicant,
+  updateApplicant,
+  deleteApplicant,
+  readApplicants,
+};
 
 // Create
 export type CreateApplicantRequest = {

@@ -2,7 +2,7 @@ import { Brand } from "@prisma/client";
 import prisma from "../../helpers/prisma";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
-import { UpdateBrandRequest, UpdateBrandResponse } from "./brand-types";
+import { UpdateBrandRequest, UpdateBrandResponse } from "./brand";
 
 export const updateBrand = handleExceptions(
   async (

@@ -4,10 +4,7 @@ import prisma from "../../helpers/prisma";
 import { Resend } from "resend";
 import { getApplicationConfirmationHtml } from "../../helpers/html-emails";
 import { careersFromAddress } from "../../helpers/email";
-import {
-  CreateApplicantRequest,
-  CreateApplicantResponse,
-} from "./applicant-types";
+import { CreateApplicantRequest, CreateApplicantResponse } from "./applicant";
 import { z } from "zod";
 
 const createApplicantSchema = z.object({

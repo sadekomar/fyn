@@ -1,7 +1,7 @@
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
-import { Genders, ImageSizes, ItemPageI } from "./item-types";
+import { Genders, ImageSizes, ItemPageI } from "./item";
 
 export const readItem = handleExceptions(
   async (req: Request, res: Response): Promise<Response<ItemPageI>> => {

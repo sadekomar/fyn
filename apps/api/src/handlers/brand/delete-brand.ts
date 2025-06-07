@@ -2,7 +2,7 @@ import { Brand } from "@prisma/client";
 import prisma from "../../helpers/prisma";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
-import { DeleteBrandResponse } from "./brand-types";
+import { DeleteBrandResponse } from "./brand";
 
 export const deleteBrand = handleExceptions(
   async (

@@ -1,50 +1,64 @@
 import express from "express";
 import prisma from "./helpers/prisma";
 import cors from "cors";
-import {
-  readItems,
-  readCategoriesWithImages,
-  readItemsMetadata,
-} from "./handlers/item/read-items";
-import { readBrands, readBrandsByLetter } from "./handlers/brands/read-brands";
-import { readItem } from "./handlers/item/read-item";
-import { readItemsByIds } from "./handlers/item/read-items-by-ids";
+
+import { Endpoints } from "./types/endpoints";
 import { testLatency } from "./handlers/checks/test-latency";
+import { healthCheck } from "./handlers/checks/health-check";
 import {
   confirmEmail,
   login,
   register,
   resendVerificationEmail,
 } from "./handlers/auth";
-import { createApplicant } from "./handlers/applicants/create-applicant";
-import { createOrder } from "./handlers/order/create-order";
-import { healthCheck } from "./handlers/checks/health-check";
-import { Endpoints } from "./types/endpoints";
-import { createNewsletter } from "./handlers/newsletter/create-newsletter";
 import {
   createCartItem,
   deleteCartItem,
   readCartItems,
   updateCartItem,
-} from "./handlers/order/cart";
-import { readOrder } from "./handlers/order/read-order";
-import { updateOrder } from "./handlers/order/update-order";
-import { deleteOrder } from "./handlers/order/delete-order";
-import { readOrders } from "./handlers/order/read-orders";
-import { readUser } from "./handlers/user/read-user";
-import { readAddress } from "./handlers/address/read-addresses";
-import { readCategories } from "./handlers/categories/read-categories";
-import { deleteUser } from "./handlers/user/delete-user";
-import { createUser } from "./handlers/user/create-user";
-import { updateUser } from "./handlers/user/update-user";
-import { readApplicants } from "./handlers/applicants/read-applicants";
-import { readApplicant } from "./handlers/applicants/read-applicant";
-import { updateApplicant } from "./handlers/applicants/update-applicant";
-import { deleteApplicant } from "./handlers/applicants/delete-applicant";
-import { createCategory } from "./handlers/categories/create-category";
-import { updateCategory } from "./handlers/categories/update-category";
-import { deleteCategory } from "./handlers/categories/delete-category";
-import { createAddress } from "./handlers/address/create-address";
+} from "./handlers/cart/cart";
+import {
+  readUser,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "./handlers/user/user";
+import {
+  createOrder,
+  readOrder,
+  readOrders,
+  updateOrder,
+  deleteOrder,
+} from "./handlers/order/order";
+import {
+  readAddress,
+  createAddress,
+  deleteAddress,
+} from "./handlers/address/address";
+import {
+  createApplicant,
+  readApplicant,
+  readApplicants,
+  updateApplicant,
+  deleteApplicant,
+} from "./handlers/applicant/applicant";
+import {
+  readCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from "./handlers/category/category";
+import {
+  createItem,
+  deleteItem,
+  readItem,
+  readItems,
+  readCategoriesWithImages,
+  readItemsMetadata,
+  readItemsByIds,
+} from "./handlers/item/item";
+import { createNewsletter } from "./handlers/newsletter/create-newsletter";
+import { readBrands, readBrandsByLetter } from "./handlers/brand/brand";
 
 const app = express();
 const PORT = process.env.PORT;

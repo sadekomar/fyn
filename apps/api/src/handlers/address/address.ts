@@ -1,4 +1,9 @@
 import { Address, AddressType } from "@prisma/client";
+import { createAddress } from "./create-address";
+import { readAddress } from "./read-addresses";
+import { deleteAddress } from "./delete-address";
+
+export { readAddress, createAddress, deleteAddress };
 
 // Create
 export type CreateAddressRequest = {

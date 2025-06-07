@@ -1,23 +1,23 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-import { DeleteCategoryResponse } from "./category-types";
+import { DeleteApplicantResponse } from "./applicant";
 
-export const deleteCategory = handleExceptions(
+export const deleteApplicant = handleExceptions(
   async (
     req: Request,
     res: Response
-  ): Promise<Response<DeleteCategoryResponse>> => {
+  ): Promise<Response<DeleteApplicantResponse>> => {
     const { id } = req.params;
 
-    const category = await prisma.category.delete({
+    const applicant = await prisma.applicant.delete({
       where: { id },
     });
 
-    const response: DeleteCategoryResponse = {
+    const response: DeleteApplicantResponse = {
       status: "success",
-      message: "Category deleted successfully",
-      data: category,
+      message: "Applicant deleted successfully",
+      data: applicant,
     };
 
     return res.status(200).json(response);

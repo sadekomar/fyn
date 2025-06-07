@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
 import { handleExceptions } from "../../helpers/utils";
-import {
-  UpdateCategoryRequest,
-  UpdateCategoryResponse,
-} from "./category-types";
+import { UpdateCategoryRequest, UpdateCategoryResponse } from "./category";
 import { z } from "zod";
 
 const updateCategorySchema = z.object({

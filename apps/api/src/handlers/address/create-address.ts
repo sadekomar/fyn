@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateAddressRequest, CreateAddressResponse } from "./address-types";
+import { CreateAddressRequest, CreateAddressResponse } from "./address";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
 import { z } from "zod";

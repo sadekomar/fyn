@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import {
-  CreateCategoryRequest,
-  CreateCategoryResponse,
-} from "./category-types";
+import { CreateCategoryRequest, CreateCategoryResponse } from "./category";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
 import { z } from "zod";

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
-import { ReadCategoriesResponse } from "./category-types";
+import { ReadCategoriesResponse } from "./category";
 import { handleExceptions } from "../../helpers/utils";
 
 export const readCategories = handleExceptions(

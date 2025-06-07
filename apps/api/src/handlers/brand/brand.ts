@@ -1,4 +1,16 @@
 import { Brand } from "@prisma/client";
+import { readBrands, readBrandsByLetter } from "./read-brands";
+import { createBrand } from "./create-brand";
+import { deleteBrand } from "./delete-brand";
+import { updateBrand } from "./update-brand";
+
+export {
+  readBrands,
+  readBrandsByLetter,
+  createBrand,
+  deleteBrand,
+  updateBrand,
+};
 
 // Create
 export type CreateBrandRequest = {

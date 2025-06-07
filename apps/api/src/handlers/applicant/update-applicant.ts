@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-import {
-  UpdateApplicantRequest,
-  UpdateApplicantResponse,
-} from "./applicant-types";
+import { UpdateApplicantRequest, UpdateApplicantResponse } from "./applicant";
 import { z } from "zod";
 
 const updateApplicantSchema = z.object({
