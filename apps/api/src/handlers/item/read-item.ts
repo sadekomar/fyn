@@ -71,7 +71,7 @@ export const readItem = handleExceptions(
       brand: item.brand.name,
       link: item.link,
       images: item.images.map((image) =>
-        image.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL)
+        image.url.replaceAll(ImageSizes.PATTERN, ImageSizes.SMALL)
       ),
       categories: item.categories.map((category) => category.name),
       colors: item.colors.map((color) => ({

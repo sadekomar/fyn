@@ -119,7 +119,7 @@ export const readItems = handleExceptions(
       name: item.name,
       price: item.latestPrice,
       brand: item.brand.name,
-      image: item.images[0]?.url.replace(
+      image: item.images[0]?.url.replaceAll(
         ImageSizes.PATTERN,
         ImageSizes.THUMBNAIL
       ),
@@ -177,7 +177,8 @@ export const readCategoriesWithImages = handleExceptions(
       image:
         items
           .find((item) => item.categories.some((c) => c.name === name))
-          ?.images[0]?.url.replace(ImageSizes.PATTERN, ImageSizes.SMALL) || "",
+          ?.images[0]?.url.replaceAll(ImageSizes.PATTERN, ImageSizes.SMALL) ??
+        null,
     }));
 
     return res.status(200).json(formattedCategories);
