@@ -75,7 +75,7 @@ export type SearchParamsI = {
 export type CategoriesI = {
   name: string;
   count: number;
-  image: string;
+  image: string | null;
 };
 
 // Create

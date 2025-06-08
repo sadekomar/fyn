@@ -49,7 +49,7 @@ export const updateUser = handleExceptions(
     const saltRounds = 10;
     const hashedPassword = password
       ? await bcrypt.hash(password, saltRounds)
-      : null;
+      : undefined;
 
     const updatedUser = await prisma.user.update({
       where: { id },

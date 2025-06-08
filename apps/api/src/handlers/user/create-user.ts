@@ -45,7 +45,7 @@ export const createUser = handleExceptions(
     }: CreateUserRequest = result.data;
 
     const saltRounds = 10;
-    const hashedPassword: string = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     try {
       const existingUserByEmail = await prisma.user.findUnique({
