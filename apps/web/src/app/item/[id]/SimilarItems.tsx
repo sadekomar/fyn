@@ -1,12 +1,7 @@
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
-import { IPAddress } from "@/data/IPAddress";
 import Link from "next/link";
 import { ItemCardsI } from "@/lib/types";
-import {
-  httpService,
-  HttpMethods,
-  serverHttp,
-} from "@/lib/queries/http.service";
+import { serverHttp } from "@/lib/queries/http.service";
 
 export async function SimilarItems({
   category,
@@ -32,7 +27,7 @@ export async function SimilarItems({
           More from{" "}
           <Link
             className="brand-link"
-            href={`/categories/${category}?color=${color}`}
+            href={`/categories/${category}?colors=${color}`}
           >
             {color} {category}
           </Link>
