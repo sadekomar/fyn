@@ -6,38 +6,43 @@ import { useQuery } from "@tanstack/react-query";
 import { Brands } from "./(components)/brands";
 import { CategoriesComponent } from "../categories/categories-component";
 import { conifg } from "./utils";
+import Link from "next/link";
 
 export function ClientHomePage() {
-  const { data: newItems } = useQuery({
+  const { data: newItems = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-items"],
     queryFn: () =>
-      clientHttp.get<ItemCardsI[]>(
-        `/items?limit=20&sort_by=popularity-descending`,
-      ),
+      clientHttp.get<ItemCardsI[]>(`/items?limit=20&sort_by=date-descending`),
   });
-  const { data: brand } = useQuery({
+  const { data: brand = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-daddys-girl"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=daddysgirl&sort_by=date-descending&limit=20`,
+        `/items?brands=daddysgirl&limit=20&sort_by=date-descending`,
       ),
   });
-  const { data: pants } = useQuery({
+  const { data: pants = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-pants"],
     queryFn: () =>
-      clientHttp.get<ItemCardsI[]>(`/items?categories=pants&limit=20`),
+      clientHttp.get<ItemCardsI[]>(
+        `/items?categories=pants&limit=20&sort_by=date-descending`,
+      ),
   });
-  const { data: sets } = useQuery({
+  const { data: sets = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-sets"],
     queryFn: () =>
-      clientHttp.get<ItemCardsI[]>(`/items?categories=sets&limit=20`),
+      clientHttp.get<ItemCardsI[]>(
+        `/items?categories=sets&limit=20&sort_by=date-descending`,
+      ),
   });
-  const { data: jeans } = useQuery({
+  const { data: jeans = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-jeans"],
     queryFn: () =>
-      clientHttp.get<ItemCardsI[]>(`/items?categories=jeans&limit=20`),
+      clientHttp.get<ItemCardsI[]>(
+        `/items?categories=jeans&limit=20&sort_by=date-descending`,
+      ),
   });
-  const { data: brandOfTheDay } = useQuery({
+  const { data: brandOfTheDay = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["brand-of-the-day", conifg.brandOfTheDay.value],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
@@ -49,36 +54,52 @@ export function ClientHomePage() {
     <>
       <Brands />
 
-      <section className="flex flex-col gap-4 mt-10">
-        <h1 className="text-2xl font-bold md:mx-20 mx-4">New on loom</h1>
-        <HorizontalScroller items={newItems ?? []} />
+      <section className="mt-10 flex flex-col">
+        <div className="h-scroller-title">
+          <h3>New on Loom</h3>
+        </div>
+        <HorizontalScroller items={newItems} />
       </section>
 
-      <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold md:mx-20 mx-4">
-          New from Daddy's Girl{" "}
-        </h1>
-        <HorizontalScroller items={brand ?? []} />
+      <section className="flex flex-col">
+        <div className="h-scroller-title">
+          <h3>
+            New from{" "}
+            <Link href={`/brands/daddysgirl`} className="brand-link">
+              Daddy's Girl
+            </Link>
+          </h3>
+        </div>
+        <HorizontalScroller items={brand} />
       </section>
 
-      <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold md:mx-20 mx-4">Pants</h1>
-        <HorizontalScroller items={pants ?? []} />
+      <section className="flex flex-col">
+        <div className="h-scroller-title">
+          <h3>Pants</h3>
+        </div>
+        <HorizontalScroller items={pants} />
       </section>
-      <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold md:mx-20 mx-4">Sets</h1>
-        <HorizontalScroller items={sets ?? []} />
+      <section className="flex flex-col">
+        <div className="h-scroller-title">
+          <h3>Sets</h3>
+        </div>
+        <HorizontalScroller items={sets} />
       </section>
-      <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold md:mx-20 mx-4">Jeans</h1>
-        <HorizontalScroller items={jeans ?? []} />
+      <section className="flex flex-col">
+        <div className="h-scroller-title">
+          <h3>Jeans</h3>
+        </div>
+        <HorizontalScroller items={jeans} />
       </section>
-      <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold md:mx-20 mx-4">
-          {conifg.brandOfTheDay.label}
-        </h1>
-        <HorizontalScroller items={brandOfTheDay ?? []} />
-      </section>
+
+      {brandOfTheDay.length > 0 && (
+        <section className="flex flex-col">
+          <div className="h-scroller-title">
+            <h3>{conifg.brandOfTheDay.label}</h3>
+          </div>
+          <HorizontalScroller items={brandOfTheDay ?? []} />
+        </section>
+      )}
 
       <CategoriesComponent />
     </>

@@ -1,8 +1,8 @@
 .h-scroller-title {
   display: flex;
   justify-content: space-between;
-  margin-block-start: 1.6rem;
-  margin-block-end: 1rem;
+  /* margin-block-start: 1.6rem; */
+  /* margin-block-end: 1rem; */
   align-items: center;
 
   width: min(100% - (2 * var(--margin-inline)), var(--grid-max-width));

@@ -20,13 +20,7 @@ import {
   PiTShirt,
   PiShirtFolded,
   PiSneaker,
-  PiWatch,
-  PiBaby,
-  PiPercent,
-  PiSparkle,
   PiPackage,
-  PiCoatHanger,
-  PiBarbell,
 } from "react-icons/pi";
 
 type NavigationLink = {
