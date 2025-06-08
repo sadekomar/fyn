@@ -45,7 +45,7 @@ type NavigationCategory = {
   }[];
 };
 
-type NavigationItem = NavigationLink | NavigationCategory;
+export type NavigationItem = NavigationLink | NavigationCategory;
 
 const menuItems: NavigationItem[] = [
   {
@@ -96,7 +96,7 @@ const menuItems: NavigationItem[] = [
   },
   {
     type: "category",
-    label: "Women's",
+    label: "Women",
     subcategories: [
       {
         label: "Tops",
@@ -126,9 +126,45 @@ const menuItems: NavigationItem[] = [
     ],
   },
   {
+    type: "category",
+    label: "Men",
+    subcategories: [
+      {
+        label: "T-Shirts",
+        icon: <PiTShirt className="mr-2 h-4 w-4" />,
+        href: "/categories/t-shirts?genders=MALE",
+      },
+      {
+        label: "Shirts",
+        icon: <PiShirtFolded className="mr-2 h-4 w-4" />,
+        href: "/categories/shirts?genders=MALE",
+      },
+      {
+        label: "Polos",
+        icon: <PiShirtFolded className="mr-2 h-4 w-4" />,
+        href: "/categories/polos?genders=MALE",
+      },
+      {
+        label: "Pants",
+        icon: <PiPants className="mr-2 h-4 w-4" />,
+        href: "/categories/pants?genders=MALE",
+      },
+      {
+        label: "Jeans",
+        icon: <PiPants className="mr-2 h-4 w-4" />,
+        href: "/categories/jeans?genders=MALE",
+      },
+    ],
+  },
+  {
     type: "link",
     label: "Brands",
     href: "/brands",
+  },
+  {
+    type: "link",
+    label: "Categories",
+    href: "/categories",
   },
   {
     type: "link",

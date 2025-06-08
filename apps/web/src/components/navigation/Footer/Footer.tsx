@@ -1,6 +1,72 @@
 import Link from "next/link";
-
 import "./Footer.css";
+import { NavigationItem } from "../MobileNavBar/hamburger-menu";
+
+const BrowseMenu: NavigationItem[] = [
+  {
+    type: "link",
+    label: "Home",
+    href: "/",
+  },
+  {
+    type: "link",
+    label: "Shop",
+    href: "/shop",
+  },
+  {
+    type: "link",
+    label: "Brands",
+    href: "/brands",
+  },
+  {
+    type: "link",
+    label: "About",
+    href: "/about",
+  },
+  {
+    type: "link",
+    label: "Careers",
+    href: "/careers",
+  },
+];
+
+const ShopMenu: NavigationItem[] = [
+  {
+    type: "link",
+    label: "T-shirts",
+    href: "/categories/t-shirts",
+  },
+  {
+    type: "link",
+    label: "Shirts",
+    href: "/categories/shirts",
+  },
+  {
+    type: "link",
+    label: "Pants",
+    href: "/categories/pants",
+  },
+  {
+    type: "link",
+    label: "Shoes",
+    href: "/categories/shoes",
+  },
+  {
+    type: "link",
+    label: "Sets",
+    href: "/categories/sets",
+  },
+  {
+    type: "link",
+    label: "Hats",
+    href: "/categories/hats",
+  },
+  {
+    type: "link",
+    label: "Perfumes",
+    href: "/categories/perfumes",
+  },
+];
 
 export function Footer() {
   return (
@@ -16,22 +82,27 @@ export function Footer() {
         </div>
         <div className="FooterBrowseNav">
           <div className="footer-title hover:underline">Browse</div>
-          <Link href={"/"}>Home</Link>
-          <Link href={"/shop"}>Shop</Link>
-          <Link href={"/brands"}>Brands</Link>
-          <Link href={"/about"}>About</Link>
-          <Link href={"/careers"}>Careers</Link>
+          {BrowseMenu.map((item, index) =>
+            item.type === "link" ? (
+              <Link className="hover:underline" href={item.href} key={index}>
+                {item.label}
+              </Link>
+            ) : (
+              <div key={index}>{item.label}</div>
+            ),
+          )}
         </div>
         <div className="FooterShopNav">
           <div className="footer-title">Shop</div>
-          {/* {Object.keys(categories).map((category, index) => (
-            <Link
-              href={categories[category as keyof typeof categories].link}
-              key={index}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </Link>
-          ))} */}
+          {ShopMenu.map((item, index) =>
+            item.type === "link" ? (
+              <Link className="hover:underline" href={item.href} key={index}>
+                {item.label}
+              </Link>
+            ) : (
+              <div key={index}>{item.label}</div>
+            ),
+          )}
         </div>
         <div className="FooterContactSection">
           <div className="footer-title">Contact</div>
