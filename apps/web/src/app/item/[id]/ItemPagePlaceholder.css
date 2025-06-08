@@ -1,5 +1,4 @@
-.itempage-placeholder-wrapper {
-  /* border: 1px solid red; */
+/* .itempage-placeholder-wrapper {
   display: grid;
   gap: 0.5rem;
 }
@@ -58,7 +57,6 @@
 .sizes-placeholders-wrapper {
   display: flex;
   gap: 0.5rem;
-  /* resetting the cascade */
   background-color: transparent;
 }
 
@@ -79,4 +77,4 @@
   height: 40px;
   background-color: transparent;
   border: 2px solid black;
-}
+} */

@@ -5,7 +5,7 @@ import "./CategoryPage.css";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { ColorPills } from "@/app/(home)/(components)/color-pills";
 
-import { newCategories } from "@/data/categories";
+import { allCategoriesData } from "@/data/categories";
 import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
@@ -25,7 +25,10 @@ export function CategoryPageClient() {
     queryFn: () => getCategoryItems(category, queryString, false),
   });
 
-  const { data: metadata, isPending } = useQuery({
+  const categoryData =
+    allCategoriesData[category as keyof typeof allCategoriesData];
+
+  const { data: metadata } = useQuery({
     queryKey: [
       "/category-metadata",
       category,
@@ -37,10 +40,7 @@ export function CategoryPageClient() {
   return (
     <>
       <div className="category-page-header">
-        <LoomImage
-          src={newCategories[category]?.["image"] || ""}
-          alt={newCategories[category]?.["description"] || ""}
-        />
+        <LoomImage src={categoryData.image} alt={categoryData.description} />
         <div className="category-page-title-wrapper">
           <h2 className="category-page-title">{category}</h2>
         </div>

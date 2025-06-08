@@ -4,7 +4,6 @@ import Link from "next/link";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 
 import { brandsPages } from "@/data/brandsPages";
-import { extendedCategories } from "@/data/extendedCategories";
 
 import {
   CustomMagnifyingGlassIcon,
@@ -17,7 +16,7 @@ import { LoomImage } from "@/components/LoomImage";
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-export function NavigationBar() {
+function NavigationBar() {
   const currentPath = usePathname();
 
   function highlightSearchBar() {
@@ -73,7 +72,7 @@ export function NavigationBar() {
                   <ChevronDown className="CaretDown" aria-hidden />
                 </span>
               </NavigationMenu.Trigger>
-              <NavigationMenu.Content className="NavigationMenuContent">
+              {/* <NavigationMenu.Content className="NavigationMenuContent">
                 <div className="mega-menu-content">
                   {Object.keys(extendedCategories).map(
                     (parentCategory, index) => (
@@ -103,7 +102,7 @@ export function NavigationBar() {
                     ),
                   )}
                 </div>
-              </NavigationMenu.Content>
+              </NavigationMenu.Content> */}
             </NavigationMenu.Item>
 
             <NavigationMenu.Item>

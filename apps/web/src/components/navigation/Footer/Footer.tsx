@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import "./Footer.css";
-import { categories } from "../../../data/categories";
 
 export function Footer() {
   return (
@@ -25,14 +24,14 @@ export function Footer() {
         </div>
         <div className="FooterShopNav">
           <div className="footer-title">Shop</div>
-          {Object.keys(categories).map((category, index) => (
+          {/* {Object.keys(categories).map((category, index) => (
             <Link
               href={categories[category as keyof typeof categories].link}
               key={index}
             >
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </Link>
-          ))}
+          ))} */}
         </div>
         <div className="FooterContactSection">
           <div className="footer-title">Contact</div>
@@ -123,7 +122,9 @@ export function Footer() {
         </div>
       </div>
       <div className="CopyrightNotice">
-        <div className="CopyrightNoticeText">Copyright © 2025 Loom</div>
+        <div className="CopyrightNoticeText">
+          Copyright © {new Date().getFullYear()} Loom
+        </div>
         <div className="CopyrightNoticeText">
           <Link href={"/privacy"}>Privacy Policy</Link>
         </div>

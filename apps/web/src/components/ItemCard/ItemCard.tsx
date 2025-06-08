@@ -33,7 +33,7 @@ export function ItemCard({
         <Link prefetch={true} href={`/item/${id}`}>
           <LoomImage
             loading={imgLoading}
-            src={image}
+            src={image === "" ? undefined : image}
             width={260}
             height={340}
             alt={name}
@@ -60,7 +60,7 @@ export function ItemCard({
         <Link
           prefetch={true}
           href={`/brands/${brand}`}
-          className="text-gray-500 hover:text-gray-700 capitalize hover:underline underline-offset-2"
+          className="text-gray-500 capitalize underline-offset-2 hover:text-gray-700 hover:underline"
         >
           {brand}
         </Link>

@@ -1,4 +1,4 @@
-export const extendedCategories: Record<
+export const categoriesPage: Record<
   string,
   Record<
     string,
@@ -380,40 +380,3 @@ export const extendedCategories: Record<
     },
   },
 };
-
-const moreCategories = [
-  "Bags",
-  "Co-ord Sets",
-  "Perfumes",
-  "Makeup",
-  "Basics",
-  "Accessories",
-  "Jewellery",
-  "Waistcoats",
-  "Sweatshirts",
-  "Knitwear",
-  "Shoes",
-  "Cardigans",
-  "Sweaters",
-  "Trousers",
-  "Jeans",
-  "T-shirts",
-  "Shirts",
-  "Tops",
-  "Bodysuits",
-  "Skirts",
-  "Dresses",
-  "Jackets",
-  "Blazers",
-
-  "Linen",
-  "Hoodies",
-  "Cargo",
-  "Polo Shirts",
-  "Shorts",
-  "Swimwear",
-  "Coats",
-  "Overshirts",
-  "Suits",
-  "Tracksuits",
-];

@@ -15,6 +15,7 @@ import { serverHttp } from "@/lib/queries/http.service";
 import { ItemPageI } from "@/lib/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
+import ImageSlider from "@/app/item/image-slider";
 
 export async function generateMetadata({
   params,
@@ -65,6 +66,7 @@ export default async function ItemPage(props: {
     <>
       {/* <PhoneImages data={data} /> */}
       <SnapScroller images={data.images} />
+      <ImageSlider images={data.images} />
       <div className="ItemGrid">
         <DesktopImages data={data} />
         <ItemData data={data} />

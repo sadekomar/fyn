@@ -23,8 +23,8 @@ import { PaymentMethod } from "./components/payment-method";
 import { BackToCart } from "./components/back-to-cart";
 import { useGetSession } from "@/lib/use-auth";
 import { clientHttp } from "@/lib/queries/http.service";
-import { Endpoints } from "@/lib/endpoints";
 import { useQuery } from "@tanstack/react-query";
+import { Endpoints } from "@/lib/endpoints";
 
 export const checkoutSchema = z.discriminatedUnion("isLoggedIn", [
   z.object({
@@ -83,6 +83,7 @@ export default function CheckoutPage() {
   const session = useGetSession();
   const { data: cartItems = [] } = useGetCartItems();
 
+  // Logged in only
   const { data: user } = useQuery({
     queryKey: ["user", session?.userId],
     queryFn: () => clientHttp.get<User>(`/user/${session?.userId}`),
@@ -93,8 +94,6 @@ export default function CheckoutPage() {
     queryFn: () => clientHttp.get<Address[]>(`/addresses/${session?.userId}`),
     enabled: session !== null,
   });
-
-  console.log(addresses);
 
   const subtotal = getTotalPrice(cartItems);
   const shippingEstimates = getShippingEstimates(cartItems);

@@ -20,6 +20,21 @@ export async function generateStaticParams() {
   return brands.map((brand) => ({ brand: brand.name }));
 }
 
+export async function generateMetadata(props: { params: { brand: string } }) {
+  const params = await props.params;
+  const brand = params.brand.replaceAll("%20", " ");
+
+  return {
+    title: brand,
+    openGraph: {
+      title: brand,
+      description:
+        "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      type: "website",
+    },
+  };
+}
+
 export const revalidate = 43200; // 12 hours in seconds
 
 export default async function BrandPage(props: {

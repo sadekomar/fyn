@@ -5,7 +5,6 @@ import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import {
-  CustomHamburgerIcon,
   CustomMagnifyingGlassIcon,
   CrossIcon,
   CartIcon,
@@ -13,14 +12,12 @@ import {
   InstagramIcon,
   TiktokIcon,
   LinkedinIcon,
+  LoomHamburger,
 } from "../../Icons/CustomIcons";
 
 import { getFromLocalStorage } from "../../../app/(utils)/localStorageUtils";
 
 import "./SideBar.css";
-import { brandsPages } from "../../../data/brandsPages";
-import { extendedCategories } from "../../../data/extendedCategories";
-import { logout } from "@/lib/auth";
 
 export function SideBar() {
   let [open, setOpen] = useState(false);
@@ -68,7 +65,7 @@ export function SideBar() {
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger className="DialogTrigger" asChild>
           <button className="hamburger-icon" name="side menu">
-            <CustomHamburgerIcon />
+            <LoomHamburger />
           </button>
         </Dialog.Trigger>
         <Dialog.Portal>
@@ -142,7 +139,7 @@ export function SideBar() {
                         <NavigationMenu.Item>
                           <NavLink href={"/categories"}>All Categories</NavLink>
                         </NavigationMenu.Item>
-                        {Object.keys(extendedCategories).map(
+                        {/* {Object.keys(extendedCategories).map(
                           (parentCategory, index) => (
                             <NavigationMenu.Item key={index}>
                               <NavigationMenu.Trigger
@@ -190,7 +187,7 @@ export function SideBar() {
                               </NavigationMenu.Content>
                             </NavigationMenu.Item>
                           ),
-                        )}
+                        )} */}
                       </NavigationMenu.List>
                     </NavigationMenu.Sub>
                   </NavigationMenu.Content>

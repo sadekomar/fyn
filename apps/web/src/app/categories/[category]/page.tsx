@@ -8,7 +8,6 @@ import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { CategoryPageClient } from "./CategoryPage";
 import { serverHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/lib/endpoints";
-import { CategoriesI } from "@/lib/types";
 
 export const revalidate = 43200; // 12 hours in seconds
 
@@ -18,6 +17,23 @@ export async function generateStaticParams() {
   );
 
   return categories.map((category) => ({ category: category.name }));
+}
+
+export async function generateMetadata(props: {
+  params: { category: string };
+}) {
+  const params = await props.params;
+  const category = params.category.replaceAll("%20", " ");
+
+  return {
+    title: category,
+    openGraph: {
+      title: category,
+      description:
+        "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      type: "website",
+    },
+  };
 }
 
 export default async function CategoryPage(props: {

@@ -1,5 +1,5 @@
 import { LoomImage } from "@/components/LoomImage";
-import { extendedCategories } from "@/data/extendedCategories";
+import { categoriesPage } from "@/data/extendedCategories";
 import Link from "next/link";
 import "./AllCategories.css";
 
@@ -30,14 +30,13 @@ export function CategoriesComponent({
 }) {
   return (
     <div>
-      {Object.keys(extendedCategories).map((parentCategory, index) => (
+      {Object.keys(categoriesPage).map((parentCategory, index) => (
         <div key={index}>
           <h1 className="parent-category-title">{parentCategory}</h1>
           <div className="parent-category-slider">
-            {Object.keys(extendedCategories[parentCategory]).map(
+            {Object.keys(categoriesPage[parentCategory]).map(
               (categoryKey, indexTwo) => {
-                const category =
-                  extendedCategories[parentCategory][categoryKey];
+                const category = categoriesPage[parentCategory][categoryKey];
                 return isCategoryCompatibleWithGender ? (
                   isCategoryCompatibleWithGender(category) ? (
                     <Link

@@ -1,4 +1,4 @@
-export function CustomHamburgerIcon() {
+export function LoomHamburger() {
   return (
     <svg
       width="19.6"

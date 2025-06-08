@@ -27,21 +27,6 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Endpoints } from "@/lib/endpoints";
 
-export async function generateMetadata(props: { params: { brand: string } }) {
-  const params = await props.params;
-  const brand = params.brand.replaceAll("%20", " ");
-
-  return {
-    title: brand,
-    openGraph: {
-      title: brand,
-      description:
-        "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
-      type: "website",
-    },
-  };
-}
-
 export function BrandPageClient() {
   const { brand } = useParams<{ brand: brandKey }>();
   const searchParams = useSearchParams();
@@ -49,7 +34,7 @@ export function BrandPageClient() {
   const queryString = searchParams.toString();
   const queryStringArray = Array.from(searchParams.entries());
 
-  const { data: brandsList, isFetching: isFetchingBrandsList } = useQuery({
+  const { data: brandsList } = useQuery({
     queryKey: ["brands-list"],
     queryFn: () => clientHttp.get<BrandsList>(Endpoints.Brands),
   });

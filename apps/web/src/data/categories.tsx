@@ -1,91 +1,4 @@
-export const categories = {
-  "All Categories": {
-    image: "/categories/all-categories.webp",
-    description: "The sets",
-    link: "/all-categories",
-    display_item: "Daddy's Set By Blameworthy",
-    display_item_link: "/item/17104",
-  },
-  "t-shirts": {
-    image: "/categories/t-shirts.webp",
-    description: "The T-shirts",
-    link: "/categories/t-shirts",
-    display_item: "Core Basics Green Tee By Core",
-    display_item_link: "/item/18871",
-  },
-  tops: {
-    image: "/categories/tops.webp",
-    description: "The top",
-    link: "/categories/tops",
-    display_item: "ROUND NECK VEST IN WHITE By Fehe Concept",
-    display_item_link: "/item/18929",
-  },
-  jeans: {
-    image: "/categories/jeans.webp",
-    description: "The jeans",
-    link: "/categories/jeans",
-    display_item: "BLACK WASHED STRAIGHT LEG DENIM By Blanksandco",
-    display_item_link: "/item/18636",
-  },
-  cargos: {
-    image: "/categories/cargos.webp",
-    description: "The cargos",
-    link: "/categories/cargos",
-    display_item: "WHITE X PINK CARGOS By Stps",
-    display_item_link: "/item/2086",
-  },
-  shirts: {
-    image: "/categories/shirts.webp",
-    description: "The Shirts",
-    link: "/categories/shirts",
-    display_item: "Eugenia Shirt By Odd",
-    display_item_link: "/item/16022",
-  },
-  pants: {
-    image: "/categories/pants.webp",
-    description: "The Pants",
-    link: "/categories/pants",
-    display_item: "Grey Tailored Pants By Kncpt",
-    display_item_link: "/item/14000",
-  },
-  "linen Pants": {
-    image: "/categories/linen-pants.webp",
-    description: "The linen Pants",
-    link: "/categories/pants?material=linen",
-    display_item: "301 Beige Oversized Linen Pants By Navy",
-    display_item_link: "/item/13853",
-  },
-  hoodies: {
-    image: "/categories/hoodies.webp",
-    description: "The Hoodies",
-    link: "/categories/hoodies",
-    display_item: "HOODIE (HEATHER GREY) by Aesthete",
-    display_item_link: "/item/1887",
-  },
-  crewnecks: {
-    image: "/categories/crewnecks.webp",
-    description: "The crewneck",
-    link: "/categories/crewnecks",
-    display_item: "BRIO V1 Crewneck by Juvénile",
-    display_item_link: "/item/1760",
-  },
-  jackets: {
-    image: "/categories/jackets.webp",
-    description: "The jackets",
-    link: "/categories/jackets",
-    display_item: "Black Jacket By Finepicks",
-    display_item_link: "/item/18712",
-  },
-  shorts: {
-    image: "/categories/shorts.webp",
-    description: "The shorts",
-    link: "/categories/shorts",
-    display_item: "Light blue denim short By Abstract",
-    display_item_link: "/item/20663",
-  },
-};
-
-export const newCategories: Record<
+export const allCategoriesData: Record<
   string,
   {
     image: string;
@@ -386,7 +299,6 @@ export const newCategories: Record<
     display_item_link: "/item/1397",
     parent_category: "accessories",
   },
-
   necklaces: {
     image: "/categories/necklaces.webp",
     description: "The necklaces",
