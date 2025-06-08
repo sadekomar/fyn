@@ -2,11 +2,7 @@ import Link from "next/link";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
-import {
-  httpService,
-  HttpMethods,
-  serverHttp,
-} from "@/lib/queries/http.service";
+import { serverHttp } from "@/lib/queries/http.service";
 
 import "@/layouts/HorizontalScroller/HorizontalScroll.css";
 import { ItemCardsI } from "@/lib/types";

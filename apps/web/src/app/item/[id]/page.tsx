@@ -1,19 +1,19 @@
 import { Suspense } from "react";
 
-import "./ItemPage.css";
-import "./ItemPagePlaceholder.css";
+import "./(components)/ItemPage.css";
+import "./(components)/ItemPagePlaceholder.css";
 
-import { SimilarItems } from "./SimilarItems";
+import { SimilarItems } from "./(components)/SimilarItems";
 
 import { BrandScroller } from "@/app/item/[id]/(components)/BrandScroller";
-import { ItemData } from "./ItemData";
+import { ItemData } from "./(components)/ItemData";
 import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
-import { DesktopImages } from "./DesktopImages";
+import { DesktopImages } from "./(components)/DesktopImages";
 import { serverHttp } from "@/lib/queries/http.service";
 import { ItemPageI } from "@/lib/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
-import ImageSlider from "@/app/item/image-slider";
+import { ImageSlider } from "./(components)/image-slider";
 
 export async function generateMetadata({
   params,

@@ -27,7 +27,9 @@ export function ItemCard({
 
   return (
     <>
-      <div className={`ItemCard ${className}`}>
+      <div
+        className={`ItemCard ${className} transition-all duration-300 active:scale-105`}
+      >
         <LikeButton id={id} className="LikeButton" />
         {/* <CompareButton id={id} className="CompareButton" /> */}
         <Link prefetch={true} href={`/item/${id}`}>

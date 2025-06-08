@@ -13,7 +13,7 @@ export function HorizontalScroller({
   children?: ReactElement<any>;
 }) {
   return (
-    <div className="horizontalScroller">
+    <div className="horizontalScroller py-4">
       {items
         ? items.map((item, index) => (
             <ItemCard
