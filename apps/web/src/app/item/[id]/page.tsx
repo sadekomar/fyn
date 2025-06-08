@@ -64,8 +64,6 @@ export default async function ItemPage(props: {
 
   return (
     <>
-      {/* <PhoneImages data={data} /> */}
-      <SnapScroller images={data.images} />
       <ImageSlider images={data.images} />
       <div className="ItemGrid">
         <DesktopImages data={data} />

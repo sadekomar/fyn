@@ -111,10 +111,10 @@ export default function ImageSlider({
 
   return (
     <div
-      className={`relative mx-auto w-full max-w-md overflow-hidden rounded-lg bg-white shadow-lg ${className}`}
+      className={`relative mx-auto w-full overflow-hidden bg-gray-100 md:hidden ${className}`}
     >
       {/* Image Container */}
-      <div className="relative aspect-square">
+      <div className="relative h-[440px]">
         <div
           ref={sliderRef}
           className="scrollbar-hide flex h-full cursor-grab snap-x snap-mandatory overflow-x-auto active:cursor-grabbing"
@@ -134,7 +134,7 @@ export default function ImageSlider({
                 alt={`Slide ${index + 1}`}
                 width={400}
                 height={400}
-                className="h-full w-full object-cover select-none"
+                className="h-full w-full object-contain select-none"
                 draggable={false}
               />
             </div>
@@ -170,10 +170,10 @@ export default function ImageSlider({
           {images.map((_, index) => (
             <button
               key={index}
-              className={`h-2 w-2 rounded-full transition-all duration-200 ${
+              className={`h-2 w-4 rounded-full transition-all duration-200 ${
                 index === currentIndex
-                  ? "scale-110 bg-white"
-                  : "bg-white/50 hover:bg-white/75"
+                  ? "scale-110 bg-[#a6a2de]"
+                  : "bg-gray-500/50 hover:bg-gray-500/75"
               }`}
               onClick={() => goToSlide(index)}
             />
