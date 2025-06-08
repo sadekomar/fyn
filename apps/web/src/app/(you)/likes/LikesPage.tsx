@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 import "../../item/[id]/ItemPage.css";
 
-import { IPAddress } from "@/data/IPAddress";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 
@@ -32,7 +31,7 @@ export default function LikesPage() {
 
       try {
         if (likes != 0) {
-          const response = await fetch(`${IPAddress}/ids?ids=${likesString}`, {
+          const response = await fetch(`/ids?ids=${likesString}`, {
             signal: abortControllerRef.current?.signal,
           });
           const data = await response.json();

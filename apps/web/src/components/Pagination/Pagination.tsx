@@ -1,4 +1,3 @@
-import { IPAddress } from "@/data/IPAddress";
 import { PaginationControl } from "./PaginationControl";
 
 // this is actually great in terms of security
@@ -14,9 +13,7 @@ export async function Pagination({
   const searchParamsObject = new URLSearchParams(searchParams);
 
   // const response = await fetch(`${IPAddress}/metadata?brand=${params.brand}&${searchParamsObject.toString()}`);
-  const response = await fetch(
-    `${IPAddress}/metadata?${searchParamsObject.toString()}`,
-  );
+  const response = await fetch(`/metadata?${searchParamsObject.toString()}`);
   const metadata = await response.json();
 
   const ITEMS_PER_PAGE = 100;

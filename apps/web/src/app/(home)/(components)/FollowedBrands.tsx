@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getCookie } from "@/app/(utils)/cookies.utils";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
-import { BrandScrollerClient } from "@/components/BrandScrollerClient";
 
 export async function FollowedBrands() {
   const followingArray = await getCookie("following");
@@ -46,10 +45,6 @@ export async function FollowedBrands() {
           </Link>
         </>
       </PageTitle>
-
-      {followingArray.map((brand, index) => (
-        <BrandScrollerClient title={brand} key={index} brand={brand} />
-      ))}
     </>
   );
 }

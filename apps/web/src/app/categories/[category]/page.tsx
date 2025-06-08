@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(props: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }) {
   const params = await props.params;
   const category = params.category.replaceAll("%20", " ");

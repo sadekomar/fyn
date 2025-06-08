@@ -20,7 +20,9 @@ export async function generateStaticParams() {
   return brands.map((brand) => ({ brand: brand.name }));
 }
 
-export async function generateMetadata(props: { params: { brand: string } }) {
+export async function generateMetadata(props: {
+  params: Promise<{ brand: string }>;
+}) {
   const params = await props.params;
   const brand = params.brand.replaceAll("%20", " ");
 

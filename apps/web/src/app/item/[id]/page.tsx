@@ -3,8 +3,6 @@ import { Suspense } from "react";
 import "./ItemPage.css";
 import "./ItemPagePlaceholder.css";
 
-import { SnapScroller } from "@/components/SnapScroller/SnapScroller";
-import { RecentlyViewed } from "./RecentlyViewed";
 import { SimilarItems } from "./SimilarItems";
 
 import { BrandScroller } from "@/app/item/[id]/(components)/BrandScroller";
@@ -89,19 +87,5 @@ export default async function ItemPage(props: {
       </Suspense> */}
       <AddToRecentlyViewed id={id} />
     </>
-  );
-}
-
-function PhoneImages({
-  data,
-  height = "440px",
-}: {
-  data: ItemPageI;
-  height?: string;
-}) {
-  return (
-    <div className="ItemImagePhoneDisplay">
-      <SnapScroller images={data.images} height={height} />
-    </div>
   );
 }

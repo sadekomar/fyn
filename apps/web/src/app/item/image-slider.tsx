@@ -89,21 +89,20 @@ export default function ImageSlider({
     }
   };
 
-  const handleScroll = () => {
-    if (sliderRef.current && !isDragging) {
-      const slideWidth = sliderRef.current.offsetWidth;
-      const newIndex = Math.round(sliderRef.current.scrollLeft / slideWidth);
-      setCurrentIndex(newIndex);
-    }
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      if (sliderRef.current && !isDragging) {
+        const slideWidth = sliderRef.current.offsetWidth;
+        const newIndex = Math.round(sliderRef.current.scrollLeft / slideWidth);
+        setCurrentIndex(newIndex);
+      }
+    };
     const slider = sliderRef.current;
     if (slider) {
       slider.addEventListener("scroll", handleScroll);
       return () => slider.removeEventListener("scroll", handleScroll);
     }
-  }, []);
+  }, [isDragging]);
 
   if (!images || images.length === 0) {
     return null;

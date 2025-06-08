@@ -3,7 +3,6 @@
 import { Flex, Button, AlertDialog } from "@radix-ui/themes";
 import React, { useRef, useEffect, useState } from "react";
 
-import { IPAddress } from "@/data/IPAddress";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 
@@ -31,12 +30,9 @@ export default function HistoryPage() {
 
       try {
         if (recentlyViewed != 0) {
-          const response = await fetch(
-            `${IPAddress}/ids?ids=${recentlyViewedString}`,
-            {
-              signal: abortControllerRef.current?.signal,
-            },
-          );
+          const response = await fetch(`/ids?ids=${recentlyViewedString}`, {
+            signal: abortControllerRef.current?.signal,
+          });
           const data = await response.json();
           setProducts(data);
         } else {
