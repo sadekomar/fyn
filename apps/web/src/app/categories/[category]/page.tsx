@@ -7,7 +7,7 @@ import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
 import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { CategoryPageClient } from "./CategoryPage";
 import { serverHttp } from "@/lib/queries/http.service";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 
 export const revalidate = 43200; // 12 hours in seconds
 

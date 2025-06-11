@@ -67,7 +67,7 @@ export class HttpService {
       return parsedResponse as T;
     } catch (error) {
       console.error("error in HttpService", error);
-      throw error;
+      return error as T;
     }
   }
 

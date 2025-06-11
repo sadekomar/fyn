@@ -17,65 +17,79 @@ import { FormControl, FormField } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
 import { egyptianGovernorates } from "../(utlis)/governorates";
 import { z } from "zod";
-import { Address, CheckoutFormSchema } from "../checkout-form";
+import { OrderFormSchema } from "../checkout-form";
 import { useState, useEffect } from "react";
+import { ReadUserCheckoutResponse } from "@/api/types/user-types";
 
-export const addressSchema = z.object({
-  country: z.string().min(1, { message: "Country is required" }),
-  firstName: z.string().min(1, { message: "First name is required" }),
-  lastName: z.string().min(1, { message: "Last name is required" }),
-  address: z.string().min(1, { message: "Address is required" }),
-  apartment: z.string().optional(),
-  city: z.string().min(1, { message: "City is required" }),
-  governorate: z.string().min(1, { message: "Governorate is required" }),
-  postalCode: z.string().min(1, { message: "Postal code is required" }),
-});
+export const addressSchema = z.discriminatedUnion("isSavedAddress", [
+  z.object({
+    isSavedAddress: z.literal(false),
+    country: z.string().min(1, { message: "Country is required" }),
+    firstName: z.string().min(1, { message: "First name is required" }),
+    lastName: z.string().min(1, { message: "Last name is required" }),
+    address: z.string().min(1, { message: "Address is required" }),
+    apartment: z.string().optional(),
+    city: z.string().min(1, { message: "City is required" }),
+    governorate: z.string().min(1, { message: "Governorate is required" }),
+    postalCode: z.string().min(1, { message: "Postal code is required" }),
+  }),
+  z.object({
+    isSavedAddress: z.literal(true),
+    addressId: z.string().min(1, { message: "Address is required" }),
+  }),
+]);
 
 export type AddressFormSchema = z.infer<typeof addressSchema>;
 
 export function ShippingAddress({
   form,
   addresses = [],
+  isLoggedIn,
 }: {
-  form: UseFormReturn<CheckoutFormSchema>;
-  addresses?: Address[];
+  form: UseFormReturn<OrderFormSchema>;
+  addresses?: ReadUserCheckoutResponse["addresses"];
+  isLoggedIn: boolean;
 }) {
   const [selectedAddress, setSelectedAddress] = useState<string>("new-address");
 
-  // Set initial form values if there are saved addresses
   useEffect(() => {
-    if (addresses.length > 0) {
+    if (addresses.length > 0 && isLoggedIn) {
       const defaultAddress = addresses[0];
       form.setValue("address", {
-        country: defaultAddress.country,
-        firstName: defaultAddress.firstName,
-        lastName: defaultAddress.lastName,
-        address: defaultAddress.address,
-        apartment: defaultAddress.apartment ?? "",
-        city: defaultAddress.city,
-        governorate: defaultAddress.governorate,
-        postalCode: defaultAddress.postalCode ?? "",
+        isSavedAddress: true,
+        addressId: defaultAddress.id,
       });
+      setSelectedAddress(defaultAddress.id);
+    } else {
+      form.setValue("address", {
+        isSavedAddress: false,
+        country: "Egypt",
+        firstName: "",
+        lastName: "",
+        address: "",
+        apartment: "",
+        city: "",
+        governorate:
+          egyptianGovernorates.find((governorate) => governorate.value === "C")
+            ?.value ?? "",
+        postalCode: "",
+      });
+      setSelectedAddress("new-address");
     }
-  }, [addresses, form]);
+  }, [addresses, form, isLoggedIn]);
 
   const handleAddressSelect = (addressId: string) => {
     setSelectedAddress(addressId);
     const address = addresses.find((addr) => addr.id === addressId);
     if (address) {
       form.setValue("address", {
-        country: address.country,
-        firstName: address.firstName,
-        lastName: address.lastName,
-        address: address.address,
-        apartment: address.apartment ?? "",
-        city: address.city,
-        governorate: address.governorate,
-        postalCode: address.postalCode ?? "",
+        isSavedAddress: true,
+        addressId: address.id,
       });
     } else {
       // Reset form when selecting "Enter a new address"
       form.setValue("address", {
+        isSavedAddress: false,
         country: "Egypt",
         firstName: "",
         lastName: "",
@@ -93,7 +107,7 @@ export function ShippingAddress({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-gray-800 text-white rounded-full flex items-center justify-center text-sm font-medium">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800 text-sm font-medium text-white">
             2
           </div>
           Shipping address
@@ -117,7 +131,7 @@ export function ShippingAddress({
                       <Label
                         key={address.id}
                         htmlFor={address.id}
-                        className="flex items-start space-x-2 p-4 border rounded-lg hover:bg-gray-50 cursor-pointer"
+                        className="flex cursor-pointer items-start space-x-2 rounded-lg border p-4 hover:bg-gray-50"
                       >
                         <RadioGroupItem
                           value={address.id}
@@ -128,7 +142,7 @@ export function ShippingAddress({
                           <span className="text-base font-medium">
                             {address.firstName} {address.lastName}
                           </span>
-                          <div className="text-sm text-gray-600 mt-1 space-y-1">
+                          <div className="mt-1 space-y-1 text-sm text-gray-600">
                             <p>{address.address}</p>
                             {address.apartment && (
                               <p>Apt {address.apartment}</p>
@@ -148,7 +162,7 @@ export function ShippingAddress({
                     ))}
                     <Label
                       htmlFor="new-address"
-                      className="flex items-start space-x-2 p-4 border rounded-lg hover:bg-gray-50 cursor-pointer"
+                      className="flex cursor-pointer items-start space-x-2 rounded-lg border p-4 hover:bg-gray-50"
                     >
                       <RadioGroupItem
                         value="new-address"
@@ -169,7 +183,7 @@ export function ShippingAddress({
           />
         )}
 
-        {(!addresses.length || selectedAddress === "") && (
+        {(!addresses.length || selectedAddress === "new-address") && (
           <>
             <FormField
               control={form.control}

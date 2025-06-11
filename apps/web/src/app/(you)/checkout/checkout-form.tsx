@@ -3,9 +3,10 @@
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import { egyptianGovernorates } from "./(utlis)/governorates";
 import {
+  clearCart,
   getShippingEstimates,
   getTotalPrice,
 } from "@/app/(you)/cart/(utils)/cart-utils";
@@ -22,15 +23,17 @@ import { OrderSummary } from "./components/order-summary";
 import { PaymentMethod } from "./components/payment-method";
 import { BackToCart } from "./components/back-to-cart";
 import { useGetSession } from "@/lib/use-auth";
-import { clientHttp } from "@/lib/queries/http.service";
 import { useQuery } from "@tanstack/react-query";
-import { Endpoints } from "@/lib/endpoints";
+import { getUserCheckout } from "@/api/user";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
+import queryClient from "@/lib/queries/queryClient";
 
-export const checkoutSchema = z.discriminatedUnion("isLoggedIn", [
+export const orderFormSchema = z.discriminatedUnion("isLoggedIn", [
   z.object({
     isLoggedIn: z.literal(true),
-    email: z.string().email({ message: "Invalid email address" }).optional(),
-    phoneNumber: z.string().optional(),
+    email: z.string().email({ message: "Invalid email address" }),
+    phoneNumber: z.string(),
     address: addressSchema,
     billingAddress: billingAddressSchema,
   }),
@@ -44,54 +47,15 @@ export const checkoutSchema = z.discriminatedUnion("isLoggedIn", [
   }),
 ]);
 
-export type CheckoutFormSchema = z.infer<typeof checkoutSchema>;
-
-type User = {
-  id: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
-  username: string;
-  isEmailConfirmed: boolean;
-  firstName: string | null;
-  lastName: string | null;
-  confirmationToken: string | null;
-  tokenExpiresAt: Date | null;
-  createdAt: Date;
-  updatedAt: Date;
-};
-
-type AddressType = "NORMAL" | "BILLING";
-
-export type Address = {
-  userId: string;
-  address: string;
-  id: string;
-  firstName: string;
-  lastName: string;
-  company: string | null;
-  apartment: string | null;
-  city: string;
-  governorate: string;
-  country: string;
-  postalCode: string | null;
-  createdAt: Date;
-  addressType: AddressType;
-};
+export type OrderFormSchema = z.infer<typeof orderFormSchema>;
 
 export default function CheckoutPage() {
   const session = useGetSession();
   const { data: cartItems = [] } = useGetCartItems();
 
-  // Logged in only
   const { data: user } = useQuery({
     queryKey: ["user", session?.userId],
-    queryFn: () => clientHttp.get<User>(`/user/${session?.userId}`),
-    enabled: session !== null,
-  });
-  const { data: addresses } = useQuery({
-    queryKey: ["addresses", session?.userId],
-    queryFn: () => clientHttp.get<Address[]>(`/addresses/${session?.userId}`),
+    queryFn: () => getUserCheckout(session?.userId),
     enabled: session !== null,
   });
 
@@ -101,14 +65,15 @@ export default function CheckoutPage() {
     subtotal +
     shippingEstimates.reduce((acc, estimate) => acc + estimate.cost, 0);
 
-  const form = useForm<CheckoutFormSchema>({
-    resolver: zodResolver(checkoutSchema),
+  const form = useForm<OrderFormSchema>({
+    resolver: zodResolver(orderFormSchema),
     defaultValues: {
       isLoggedIn: session !== null,
-      email: user?.email,
-      phoneNumber: user?.phoneNumber,
+      email: user?.email ?? "",
+      phoneNumber: user?.phoneNumber ?? "",
       password: "",
       address: {
+        isSavedAddress: false,
         city: "",
         governorate: egyptianGovernorates.find(
           (governorate) => governorate.value === "C",
@@ -135,7 +100,11 @@ export default function CheckoutPage() {
     },
   });
 
-  async function onSubmit(data: CheckoutFormSchema) {
+  useEffect(() => {
+    form.setValue("isLoggedIn", session !== null);
+  }, [form, session]);
+
+  async function onSubmit(orderForm: OrderFormSchema) {
     const orderItems = cartItems.map((item) => ({
       itemId: item.localCartItem.itemId,
       quantity: item.localCartItem.quantity,
@@ -146,21 +115,47 @@ export default function CheckoutPage() {
       colorId: item.localCartItem.color?.id,
     }));
 
-    createOrder(data, orderItems);
+    const response = await createOrder(
+      orderForm,
+      orderItems,
+      shippingEstimates,
+    );
+    clearCart();
+    queryClient.invalidateQueries({ queryKey: ["cart"] });
+
+    if (response.status === "error") {
+      form.setError(Object.keys(response.error)[0] as keyof OrderFormSchema, {
+        type: "manual",
+        message: response.error[Object.keys(response.error)[0]][0],
+      });
+    } else {
+      redirect(`/order-confirmed?orderId=${response.data.orderId}`);
+    }
+  }
+
+  function onInvalid(errors: FieldErrors<OrderFormSchema>) {
+    console.log("errors", errors);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit, onInvalid)}
+        className="space-y-6"
+      >
         <input type="hidden" {...form.register("isLoggedIn")} />
         <div className="min-h-screen bg-gray-50 py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <BackToCart />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
               <div className="space-y-6">
-                <ContactInfo loggedIn={session !== null} form={form} />
-                <ShippingAddress form={form} addresses={addresses} />
+                <ContactInfo isLoggedIn={session !== null} form={form} />
+                <ShippingAddress
+                  isLoggedIn={session !== null}
+                  form={form}
+                  addresses={user?.addresses}
+                />
                 <BillingAddress form={form} />
                 <PaymentMethod />
               </div>

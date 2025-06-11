@@ -9,7 +9,9 @@ export const useGetSession = () => {
   } | null>(null);
 
   useEffect(() => {
-    getSessionAction().then((session) => setSession(session));
+    getSessionAction().then((session) => {
+      setSession(session);
+    });
   }, []);
 
   return session;

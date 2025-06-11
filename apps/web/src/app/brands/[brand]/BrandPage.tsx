@@ -25,7 +25,7 @@ import {
 } from "./(utils)/read-brand";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 
 export function BrandPageClient() {
   const { brand } = useParams<{ brand: brandKey }>();

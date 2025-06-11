@@ -32,13 +32,10 @@ const registerSchema = z.object({
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long" }),
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters long" })
-    .trim(),
   phoneNumber: z
     .string()
     .min(10, { message: "Phone number must be at least 10 characters long" }),
+  username: z.string().optional(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
 });
@@ -70,7 +67,12 @@ export default function RegisterForm() {
           message: response.error[Object.keys(response.error)[0]][0],
         },
       );
+      return;
     }
+
+    redirect(
+      `/please-confirm?email=${encodeURIComponent(response.data.email)}`,
+    );
   };
 
   return (
@@ -94,20 +96,6 @@ export default function RegisterForm() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <FormField
                 control={form.control}
                 name="email"
@@ -136,7 +124,7 @@ export default function RegisterForm() {
                         />
                         <button
                           type="button"
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           {showPassword ? (
@@ -146,6 +134,20 @@ export default function RegisterForm() {
                           )}
                         </button>
                       </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -189,10 +191,12 @@ export default function RegisterForm() {
 
               <FormField
                 control={form.control}
-                name="phoneNumber"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>
+                      Username <span className="text-gray-500">(optional)</span>
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -201,10 +205,10 @@ export default function RegisterForm() {
                 )}
               />
 
-              <Button className="w-full text-md" type="submit">
+              <Button className="text-md w-full" type="submit">
                 Sign up
               </Button>
-              <div className="mt-4 text-center text-md">
+              <div className="text-md mt-4 text-center">
                 Already have an account?{" "}
                 <a href="/login" className="text-blue-600 hover:underline">
                   Login

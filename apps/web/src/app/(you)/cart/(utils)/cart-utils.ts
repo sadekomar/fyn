@@ -79,6 +79,17 @@ export function removeFromCart(id: string) {
   window.dispatchEvent(event);
 }
 
+export function clearCart() {
+  localStorage.removeItem("cart");
+  const event = new CustomEvent("localStorageChanged", {
+    detail: {
+      key: "cart",
+      value: "[]",
+    },
+  });
+  window.dispatchEvent(event);
+}
+
 export function getItemsFromLocalCart(): CartItem[] {
   return JSON.parse(localStorage.getItem("cart") || "[]");
 }

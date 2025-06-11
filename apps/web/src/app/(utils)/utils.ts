@@ -3,7 +3,7 @@
 import { serverHttp } from "@/lib/queries/http.service";
 import { ItemCardsI } from "@/lib/types";
 import { getCookie } from "./cookies.utils";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 
 export function getQueryString(searchParams: {
   [key: string]: string | string[] | undefined;

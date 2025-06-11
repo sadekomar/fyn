@@ -10,7 +10,7 @@ import {
 } from "./cart-utils";
 import { redirect } from "next/navigation";
 import { clientHttp } from "@/lib/queries/http.service";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 import { getSessionAction } from "@/lib/auth";
 
 type CartRequest = {
@@ -38,22 +38,21 @@ export function useAddToCart() {
     selectedColor: { id: string; name: string },
   ) => {
     const session = await getSessionAction();
+    console.log("session", session?.userId);
 
-    if (!session) {
+    if (!session?.userId) {
       addToLocalCart(data, selectedSize, selectedColor);
       queryClient.refetchQueries({ queryKey: ["cart"] });
-      redirect("/cart");
-      return;
+    } else {
+      await clientHttp.post<CartRequest, CartResponse>(Endpoints.CartItem, {
+        itemId: data.id,
+        sizeId: selectedSize.id,
+        colorId: selectedColor.id,
+        quantity: 1,
+        userId: session.userId,
+      });
+      queryClient.refetchQueries({ queryKey: ["cart"] });
     }
-
-    await clientHttp.post<CartRequest, CartResponse>(Endpoints.CartItem, {
-      itemId: data.id,
-      sizeId: selectedSize.id,
-      colorId: selectedColor.id,
-      quantity: 1,
-      userId: session.userId,
-    });
-    queryClient.refetchQueries({ queryKey: ["cart"] });
     redirect("/cart");
   };
 }
@@ -64,7 +63,7 @@ export function useRemoveFromCart() {
   return async (id: string) => {
     const session = await getSessionAction();
 
-    if (!session) {
+    if (!session?.userId) {
       removeFromCart(id);
       queryClient.refetchQueries({ queryKey: ["cart"] });
       redirect("/cart");
@@ -82,13 +81,14 @@ export function useGetCartItems() {
     queryKey: ["cart"],
     queryFn: async () => {
       const session = await getSessionAction();
+      console.log("session", session);
       let cart: CartItem[] = [];
 
       if (!session) {
         cart = getItemsFromLocalCart();
       } else {
         cart = await clientHttp.get<CartItem[]>(
-          `${Endpoints.CartItems}?userId=${encodeURIComponent(session.userId)}`,
+          `${Endpoints.CartItemsByUserId.replace(":userId", session.userId)}`,
         );
       }
 
@@ -128,7 +128,7 @@ export function useUpdateCartItemQuantity() {
   return async (id: string, newQuantity: number) => {
     const session = await getSessionAction();
 
-    if (!session) {
+    if (!session?.userId) {
       updateCartItemQuantity(id, newQuantity);
       queryClient.refetchQueries({ queryKey: ["cart"] });
       return;

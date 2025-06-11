@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { FormControl, FormField } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
-import { CheckoutFormSchema } from "../checkout-form";
+import { OrderFormSchema } from "../checkout-form";
 import { useGetSession } from "@/lib/use-auth";
 import { useQuery } from "@tanstack/react-query";
 import { clientHttp } from "@/lib/queries/http.service";
@@ -29,24 +29,24 @@ type User = {
 };
 
 export function ContactInfo({
-  loggedIn,
+  isLoggedIn,
   form,
 }: {
-  loggedIn: boolean;
-  form: UseFormReturn<CheckoutFormSchema>;
+  isLoggedIn: boolean;
+  form: UseFormReturn<OrderFormSchema>;
 }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-gray-800 text-white rounded-full flex items-center justify-center text-sm font-medium">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800 text-sm font-medium text-white">
             1
           </div>
           Contact information
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {loggedIn ? (
+        {isLoggedIn ? (
           <LoggedInContactInfo form={form} />
         ) : (
           <GuestContactInfo form={form} />
@@ -59,7 +59,7 @@ export function ContactInfo({
 function LoggedInContactInfo({
   form,
 }: {
-  form: UseFormReturn<CheckoutFormSchema>;
+  form: UseFormReturn<OrderFormSchema>;
 }) {
   const [useAccountContactInfo, setUseAccountContactInfo] =
     useState<boolean>(true);
@@ -80,7 +80,7 @@ function LoggedInContactInfo({
 
   return (
     <>
-      <div className="flex items-center space-x-2 mb-4 cursor-pointer">
+      <div className="mb-4 flex cursor-pointer items-center space-x-2">
         <Checkbox
           id="useAccountContactInfo"
           checked={useAccountContactInfo}
@@ -124,11 +124,7 @@ function LoggedInContactInfo({
   );
 }
 
-function GuestContactInfo({
-  form,
-}: {
-  form: UseFormReturn<CheckoutFormSchema>;
-}) {
+function GuestContactInfo({ form }: { form: UseFormReturn<OrderFormSchema> }) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
@@ -162,7 +158,7 @@ function GuestContactInfo({
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (

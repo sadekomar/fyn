@@ -3,10 +3,11 @@
 import { createSession, deleteSession, getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { serverHttp } from "./queries/http.service";
-import { Endpoints } from "./endpoints";
+import { Endpoints } from "../api/endpoints";
 import { LoginResponse } from "./types";
 import { LoginFormSchema } from "@/app/(auth)/login/page";
 import { RegisterFormSchema } from "@/app/(auth)/sign-up/page";
+import { CreateUserRequest, CreateUserResponse } from "@/api/types/user-types";
 
 export async function login(data: LoginFormSchema): Promise<LoginResponse> {
   const { email, password } = data;
@@ -41,22 +42,14 @@ export async function login(data: LoginFormSchema): Promise<LoginResponse> {
   redirect("/");
 }
 
-type RegisterRequest = RegisterFormSchema;
-type RegisterResponse = {
-  status: "success" | "error";
-  error?: {
-    root: string[];
-  };
-};
-
 export async function register(
   data: RegisterFormSchema,
-): Promise<RegisterResponse> {
-  const { email, password, username, phoneNumber } = data;
+): Promise<CreateUserResponse> {
+  const { email, password, phoneNumber, username, firstName, lastName } = data;
 
-  const response = await serverHttp.post<RegisterRequest, RegisterResponse>(
-    Endpoints.Register,
-    { email, password, username, phoneNumber },
+  const response = await serverHttp.post<CreateUserRequest, CreateUserResponse>(
+    Endpoints.User,
+    { email, password, phoneNumber, username, firstName, lastName },
   );
 
   if (!response) {
@@ -72,7 +65,11 @@ export async function register(
     return response;
   }
 
-  redirect(`/please-confirm?email=${encodeURIComponent(email)}`);
+  console.log("response", response);
+
+  await createSession(response.data.id);
+
+  return response;
 }
 
 export async function logout() {

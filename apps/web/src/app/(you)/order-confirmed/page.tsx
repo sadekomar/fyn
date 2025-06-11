@@ -6,28 +6,130 @@ import { Separator } from "@/components/ui/separator";
 import { CheckCircle2, Package, Truck, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { LoomImage } from "@/components/LoomImage";
-import { useGetCartItems } from "@/app/(you)/cart/(utils)/use-cart";
-import {
-  getTotalPrice,
-  getShippingEstimates,
-} from "@/app/(you)/cart/(utils)/cart-utils";
+
+import { useSearchParams } from "next/navigation";
+import { getOrderById } from "@/api/orders";
+import { useQuery } from "@tanstack/react-query";
+import { ReadOrderResponse } from "@/api/types/order-types";
+
+function OrderConfirmedSkeleton() {
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        {/* Header Skeleton */}
+        <div className="mb-8 text-center">
+          <div className="mb-4 inline-flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-gray-200"></div>
+          <div className="mx-auto mb-2 h-8 w-64 animate-pulse rounded-md bg-gray-200"></div>
+          <div className="mx-auto h-4 w-96 animate-pulse rounded-md bg-gray-200"></div>
+        </div>
+
+        <div className="grid gap-6">
+          {/* Order Summary Skeleton */}
+          <Card>
+            <CardHeader>
+              <div className="h-6 w-32 animate-pulse rounded-md bg-gray-200"></div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-4">
+                {[1, 2].map((i) => (
+                  <div key={i} className="flex items-center space-x-4">
+                    <div className="h-16 w-16 animate-pulse rounded-md bg-gray-200"></div>
+                    <div className="min-w-0 flex-1 space-y-2">
+                      <div className="h-4 w-3/4 animate-pulse rounded-md bg-gray-200"></div>
+                      <div className="h-4 w-1/2 animate-pulse rounded-md bg-gray-200"></div>
+                    </div>
+                    <div className="h-4 w-20 animate-pulse rounded-md bg-gray-200"></div>
+                  </div>
+                ))}
+              </div>
+
+              <Separator />
+
+              <div className="space-y-2">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex justify-between">
+                    <div className="h-4 w-24 animate-pulse rounded-md bg-gray-200"></div>
+                    <div className="h-4 w-20 animate-pulse rounded-md bg-gray-200"></div>
+                  </div>
+                ))}
+                <Separator />
+                <div className="flex justify-between">
+                  <div className="h-6 w-16 animate-pulse rounded-md bg-gray-200"></div>
+                  <div className="h-6 w-24 animate-pulse rounded-md bg-gray-200"></div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Order Status Skeleton */}
+          <Card>
+            <CardHeader>
+              <div className="h-6 w-32 animate-pulse rounded-md bg-gray-200"></div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {[1, 2].map((i) => (
+                  <div key={i} className="flex items-start space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200"></div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-4 w-32 animate-pulse rounded-md bg-gray-200"></div>
+                      <div className="h-4 w-48 animate-pulse rounded-md bg-gray-200"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Buttons Skeleton */}
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="h-10 flex-1 animate-pulse rounded-md bg-gray-200"></div>
+            <div className="h-10 flex-1 animate-pulse rounded-md bg-gray-200"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function OrderConfirmedPage() {
-  const { data: cartItems = [] } = useGetCartItems();
-  const subtotal = getTotalPrice(cartItems);
-  const shippingEstimates = getShippingEstimates(cartItems);
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
+  console.log(orderId);
+  const { data: order, isLoading } = useQuery({
+    queryKey: ["order", orderId],
+    queryFn: async () => {
+      return await getOrderById(orderId!);
+    },
+  });
+
+  if (isLoading) {
+    return <OrderConfirmedSkeleton />;
+  }
+
+  if (!order) {
+    return <div>Order not found</div>;
+  }
+
+  const subtotal = order.items.reduce(
+    (acc: number, item) => acc + item.price * item.quantity,
+    0,
+  );
+  const shippingEstimates = order.items.map((item) => item.shippingEstimate);
   const total =
     subtotal +
-    shippingEstimates.reduce((acc, estimate) => acc + estimate.cost, 0);
+    shippingEstimates.reduce((acc: number, estimate) => acc + estimate.cost, 0);
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
+          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
             <CheckCircle2 className="h-8 w-8 text-green-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">
             Order Confirmed!
           </h1>
           <p className="text-gray-600">
@@ -44,35 +146,29 @@ export default function OrderConfirmedPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
-                {cartItems.map((item) => (
-                  <div
-                    key={item.localCartItem.id}
-                    className="flex items-center space-x-4"
-                  >
+                {order.items.map((item) => (
+                  <div key={item.id} className="flex items-center space-x-4">
                     <div className="relative">
                       <LoomImage
-                        src={item.itemCard.image}
-                        alt={item.itemCard.name}
-                        className="w-16 h-16 object-cover rounded-md"
+                        src={item.image}
+                        alt={item.name}
+                        className="h-16 w-16 rounded-md object-cover"
                       />
-                      <div className="absolute -top-2 -right-2 bg-gray-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {item.localCartItem.quantity}
+                      <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-500 text-xs text-white">
+                        {item.quantity}
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-medium text-gray-900 truncate">
-                        {item.itemCard.name}
+                    <div className="min-w-0 flex-1">
+                      <h3 className="truncate text-sm font-medium text-gray-900">
+                        {item.name}
                       </h3>
                       <p className="text-sm text-gray-500 capitalize">
-                        {item.localCartItem.color?.name} •{" "}
-                        {item.localCartItem.size?.name}
+                        {item.color ? `Color: ${item.color.name}` : ""} •{" "}
+                        {item.size ? `Size: ${item.size.name}` : ""}
                       </p>
                     </div>
                     <div className="text-sm font-medium">
-                      LE{" "}
-                      {(
-                        item.itemCard.price * item.localCartItem.quantity
-                      ).toFixed(2)}
+                      LE {(item.price * item.quantity).toFixed(2)}
                     </div>
                   </div>
                 ))}
@@ -90,7 +186,7 @@ export default function OrderConfirmedPage() {
                     className="flex justify-between text-sm capitalize"
                     key={index}
                   >
-                    <span>Shipping - {estimate.brand}</span>
+                    <span>Shipping - {estimate.brand.name}</span>
                     <span>LE {estimate.cost}</span>
                   </div>
                 ))}
@@ -112,7 +208,7 @@ export default function OrderConfirmedPage() {
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
                       <Package className="h-4 w-4 text-green-600" />
                     </div>
                   </div>
@@ -127,7 +223,7 @@ export default function OrderConfirmedPage() {
                 </div>
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
                       <Truck className="h-4 w-4 text-gray-400" />
                     </div>
                   </div>
@@ -145,7 +241,7 @@ export default function OrderConfirmedPage() {
           </Card>
 
           {/* Next Steps */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <Link href="/" className="flex-1">
               <Button variant="outline" className="w-full">
                 Continue Shopping

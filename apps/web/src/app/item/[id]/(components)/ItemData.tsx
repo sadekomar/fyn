@@ -52,11 +52,11 @@ export function ItemData({ data }: { data: ItemPageI }) {
         />
 
         <div className="action-buttons-wrapper">
-          {/* <AddToCart
+          <AddToCart
             data={data}
             selectedColor={selectedColor}
             selectedSize={selectedSize}
-          /> */}
+          />
           <BuyNowLink data={data} />
         </div>
 
@@ -66,14 +66,14 @@ export function ItemData({ data }: { data: ItemPageI }) {
 
         <div>
           <div className="sizes-title">Colors</div>
-          <div className="flex flex-wrap gap-1 mt-2">
+          <div className="mt-2 flex flex-wrap gap-1">
             {data.colors.map((color, index) => (
               <label
                 key={index}
-                className={`relative w-6 h-6 rounded-full cursor-pointer transition-all duration-200 ${
+                className={`relative h-6 w-6 cursor-pointer rounded-full transition-all duration-200 ${
                   selectedColor.id === color.id
-                    ? "ring-1 ring-offset-1 ring-black shadow-sm scale-105"
-                    : "hover:ring-1 hover:ring-offset-0.5 hover:ring-gray-400 hover:scale-102"
+                    ? "scale-105 shadow-sm ring-1 ring-black ring-offset-1"
+                    : "hover:ring-offset-0.5 hover:scale-102 hover:ring-1 hover:ring-gray-400"
                 }`}
                 style={{ backgroundColor: color.name }}
                 onClick={() => setSelectedColor(color)}
@@ -88,9 +88,9 @@ export function ItemData({ data }: { data: ItemPageI }) {
                 />
                 {selectedColor.id === color.id && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-3 h-3 rounded-full bg-white/20 flex items-center justify-center">
+                    <div className="flex h-3 w-3 items-center justify-center rounded-full bg-white/20">
                       <svg
-                        className="w-1.5 h-1.5 text-white"
+                        className="h-1.5 w-1.5 text-white"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

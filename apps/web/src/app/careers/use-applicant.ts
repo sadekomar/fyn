@@ -4,7 +4,7 @@ import {
   HttpMethods,
   httpService,
 } from "../../lib/queries/http.service";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 
 export enum NewsletterType {
   CAREERS = "CAREERS",

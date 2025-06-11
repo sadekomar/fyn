@@ -12,7 +12,7 @@ import {
   getBrandItems,
   getBrandMetadata,
 } from "./(utils)/read-brand";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 
 export async function generateStaticParams() {
   const brands = await serverHttp.get<BrandsList>(Endpoints.Brands);

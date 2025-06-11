@@ -1,29 +1,15 @@
-// @ts-nocheck
 "use server";
 
-import {
-  httpService,
-  HttpMethods,
-  serverHttp,
-} from "@/lib/queries/http.service";
+import { serverHttp } from "@/lib/queries/http.service";
 import { ShippingEstimate } from "../../cart/(utils)/cart-utils";
-import { Endpoints } from "@/lib/endpoints";
-import { toast } from "sonner";
-import { redirect } from "next/navigation";
-import { createSession, getSession } from "@/lib/session";
+import { Endpoints } from "@/api/endpoints";
+import { getSession } from "@/lib/session";
 import { register } from "@/lib/auth";
-import { CheckoutFormSchema } from "../checkout-form";
-
-type Address = {
-  country: string;
-  firstName: string;
-  lastName: string;
-  address: string;
-  apartment?: string;
-  city: string;
-  governorate: string;
-  postalCode: string;
-};
+import { OrderFormSchema } from "../checkout-form";
+import {
+  CreateOrderRequest,
+  CreateOrderResponse,
+} from "@/api/types/order-types";
 
 type OrderItem = {
   itemId: string;
@@ -35,110 +21,93 @@ type OrderItem = {
   colorId?: string;
 };
 
-export type LoggedInOrderData = {
-  isLoggedIn: true;
-  userId: string;
-  email: string;
-  phoneNumber: string;
-  address: Address;
-  billingAddress: Partial<Address> | null;
-  shippingEstimates: ShippingEstimate[];
-  items: OrderItem[];
-  paymentMethod: string;
-};
-
-export type GuestOrderData = {
-  isLoggedIn: false;
-  userId: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  address: Address;
-  billingAddress: Partial<Address> | null;
-  shippingEstimates: ShippingEstimate[];
-  items: OrderItem[];
-  paymentMethod: string;
-};
-
-// this server action is what handles if a user account will be created first or not.
-// both will call the register function
-// the register function will log users in if they exist
-// and it'll also register new users if they don't exist
-// in both cases, i just need to send user id
-
-export type OrderData = LoggedInOrderData | GuestOrderData;
-
-type OrderSuccessResponse = {
-  status: "success";
-  message: string;
-  data: {
-    userId: string;
-    isEmailConfirmed: boolean;
-  };
-};
-
-type OrderErrorResponse = {
-  status: "error";
-  error: {
-    [key: string]: string[];
-  };
-};
-
-export type OrderResponse = OrderSuccessResponse | OrderErrorResponse;
-
-type OrderRequest = {
-  userId: string;
-  checkoutFormData: CheckoutFormSchema;
-  orderItems: OrderItem[];
-};
-
 export const createOrder = async (
-  checkoutFormData: CheckoutFormSchema,
+  orderForm: OrderFormSchema,
   orderItems: OrderItem[],
+  shippingEstimates: ShippingEstimate[],
 ) => {
   const session = await getSession();
   let userId: string;
 
-  if (!session && !checkoutFormData.isLoggedIn) {
+  if (!session && !orderForm.isLoggedIn && !orderForm.address.isSavedAddress) {
     const newAccount = await register({
-      email: checkoutFormData.email,
-      password: checkoutFormData.password,
-      username: checkoutFormData.email
+      email: orderForm.email,
+      password: orderForm.password,
+      username: orderForm.email
         .split("@")[0]
         .concat(Math.random().toString(36).substring(2, 15)),
-      firstName: checkoutFormData.address.firstName,
-      lastName: checkoutFormData.address.lastName,
-      phoneNumber: checkoutFormData.phoneNumber,
+      firstName: orderForm.address.firstName,
+      lastName: orderForm.address.lastName,
+      phoneNumber: orderForm.phoneNumber,
     });
     if (newAccount.status === "error") {
       console.log(newAccount.error);
       return newAccount;
     }
-    await createSession(newAccount.data.userId);
-    userId = newAccount.data.userId;
+    userId = newAccount.data.id;
   } else if (session) {
     userId = session.userId;
   } else {
     throw new Error("Invalid state: session is null but user is logged in");
   }
 
-  const response = await serverHttp.post<OrderRequest, OrderResponse>(
-    Endpoints.Order,
-    {
-      userId,
-      checkoutFormData,
-      orderItems,
-    },
-  );
-
-  if (response?.status === "error") {
-    console.log(response);
-    toast.error(response.error["root"][0]);
-    return response;
+  let data: CreateOrderRequest;
+  if (orderForm.address.isSavedAddress) {
+    data = {
+      userId: userId,
+      email: orderForm.email,
+      phoneNumber: orderForm.phoneNumber,
+      shippingEstimates: shippingEstimates.map((estimate) => ({
+        cost: estimate.cost,
+        brand: estimate.brand,
+      })),
+      isSavedAddress: true,
+      addressId: orderForm.address.addressId,
+      itemOrders: orderItems.map((item) => ({
+        itemId: item.itemId,
+        quantity: item.quantity,
+        name: item.name,
+        image: item.image,
+        price: item.price,
+        sizeId: item.sizeId,
+        colorId: item.colorId ?? null,
+      })),
+    };
   } else {
-    toast.success(response.message);
-    redirect("/order-confirmed");
+    data = {
+      userId: userId,
+      email: orderForm.email,
+      phoneNumber: orderForm.phoneNumber,
+      shippingEstimates: shippingEstimates.map((estimate) => ({
+        cost: estimate.cost,
+        brand: estimate.brand,
+      })),
+      isSavedAddress: false,
+      address: {
+        firstName: orderForm.address.firstName,
+        lastName: orderForm.address.lastName,
+        address: orderForm.address.address,
+        apartment: orderForm.address.apartment ?? null,
+        city: orderForm.address.city,
+        governorate: orderForm.address.governorate,
+        postalCode: orderForm.address.postalCode,
+      },
+      itemOrders: orderItems.map((item) => ({
+        itemId: item.itemId,
+        quantity: item.quantity,
+        name: item.name,
+        image: item.image,
+        price: item.price,
+        sizeId: item.sizeId,
+        colorId: item.colorId ?? null,
+      })),
+    };
   }
+
+  const response = await serverHttp.post<
+    CreateOrderRequest,
+    CreateOrderResponse
+  >(Endpoints.Order, data);
 
   return response;
 };

@@ -14,7 +14,7 @@ import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { clientHttp } from "@/lib/queries/http.service";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 import { AuthResponse } from "@/lib/types";
 
 export default function ConfirmEmailPage() {
@@ -59,8 +59,8 @@ export default function ConfirmEmailPage() {
               alt="Loom logo"
             />
           </div>
-          <div className="flex justify-center mb-4">
-            <div className="bg-blue-100 p-3 rounded-full">
+          <div className="mb-4 flex justify-center">
+            <div className="rounded-full bg-blue-100 p-3">
               <Mail className="h-8 w-8 text-blue-600" />
             </div>
           </div>

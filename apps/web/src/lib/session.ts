@@ -21,7 +21,7 @@ export async function createSession(userId: string) {
       expiresAt: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000),
     });
 
-    (await cookies()).set("session", session, {
+    (await cookies()).set("loom-session", session, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 21 * 24 * 60 * 60,
@@ -34,7 +34,7 @@ export async function createSession(userId: string) {
 
 export async function deleteSession() {
   const cookieStore = await cookies();
-  cookieStore.delete("session");
+  cookieStore.delete("loom-session");
 }
 
 export async function getSession(): Promise<{
@@ -42,12 +42,16 @@ export async function getSession(): Promise<{
   expiresAt: Date;
 } | null> {
   const cookieStore = await cookies();
-  const cookie = cookieStore.get("session")?.value;
+  const cookie = cookieStore.get("loom-session")?.value;
   const session = cookie ? await decrypt(cookie) : null;
-  return {
-    userId: session?.userId as string,
-    expiresAt: new Date(session?.expiresAt as number),
-  };
+  console.log("session", session);
+  console.log("cookie", session?.userId);
+  return session
+    ? {
+        userId: session.userId as string,
+        expiresAt: new Date(session.expiresAt as number),
+      }
+    : null;
 }
 
 type Payload = {

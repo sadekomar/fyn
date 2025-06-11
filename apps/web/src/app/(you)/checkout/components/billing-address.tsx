@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { CheckoutFormSchema } from "../checkout-form";
+import { OrderFormSchema } from "../checkout-form";
 
 export const billingAddressSchema = z
   .object({
@@ -35,7 +35,7 @@ export const billingAddressSchema = z
 export function BillingAddress({
   form,
 }: {
-  form: UseFormReturn<CheckoutFormSchema>;
+  form: UseFormReturn<OrderFormSchema>;
 }) {
   const [sameAsShipping, setSameAsShipping] = useState<boolean>(true);
 
@@ -43,14 +43,14 @@ export function BillingAddress({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-gray-800 text-white rounded-full flex items-center justify-center text-sm font-medium">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800 text-sm font-medium text-white">
             3
           </div>
           Billing address
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center space-x-2 mb-4 cursor-pointer">
+        <div className="mb-4 flex cursor-pointer items-center space-x-2">
           <Checkbox
             id="sameAsShipping"
             checked={sameAsShipping}
@@ -69,7 +69,7 @@ export function BillingAddress({
 export function BillingAddressForm({
   form,
 }: {
-  form: UseFormReturn<CheckoutFormSchema>;
+  form: UseFormReturn<OrderFormSchema>;
 }) {
   return (
     <div className="space-y-4">

@@ -9,6 +9,7 @@ export enum Endpoints {
   BrandsAlphabetical = "/brands-alphabetical",
   // categories
   Categories = "/categories",
+  CategoryById = "/categories/:id",
   // checks
   Latency = "/latency",
   Health = "/health",
@@ -17,18 +18,24 @@ export enum Endpoints {
   Apply = "/apply",
   // auth
   Login = "/login",
-  Register = "/register",
   ForgotPassword = "/forgot-password",
   ConfirmEmail = "/confirm-email",
   ResetPassword = "/reset-password",
   ResendVerificationEmail = "/resend-verification-email",
   ResendPasswordResetEmail = "/resend-password-reset-email",
   // user-data
+  User = "/user",
+  UserById = "/user/:id",
+  UserCheckoutById = "/user-checkout/:id",
   Order = "/order",
-  Orders = "/orders",
+  OrderById = "/order/:id",
+  OrdersByUserId = "/orders/:userId",
   CartItem = "/cart-item",
-  CartItems = "/cart-items",
+  CartItemsByUserId = "/cart-items/:userId",
   CartItemById = "/cart-item/:id",
-  User = "/user/:id",
+  Address = "/address",
   Addresses = "/addresses/:userId",
+  // applicants
+  Applicants = "/applicants",
+  ApplicantById = "/applicant/:id",
 }

@@ -4,7 +4,7 @@ import { LetterNavigator } from "./LetterNavigator";
 import { IsometricBrands } from "@/app/(home)/(components)/IsometricBrands";
 import "./AllBrands.css";
 import { serverHttp } from "@/lib/queries/http.service";
-import { Endpoints } from "@/lib/endpoints";
+import { Endpoints } from "@/api/endpoints";
 
 export const metadata = {
   title: "All Brands",

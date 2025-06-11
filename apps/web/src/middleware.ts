@@ -7,6 +7,7 @@ const protectedRoutes = [
   "/settings",
   "/please-confirm",
   "/verify-email",
+  "/account",
 ];
 
 const publicRoutes = ["/login", "/sign-up"];
@@ -17,8 +18,9 @@ export default async function middleware(request: NextRequest) {
   const isPublicRoute = publicRoutes.includes(pathname);
 
   const cookieStore = await cookies();
-  const cookie = cookieStore.get("session")?.value;
+  const cookie = cookieStore.get("loom-session")?.value;
   const session = cookie ? await decrypt(cookie) : null;
+  console.log("session", session);
 
   // if user isn't logged in don't show them protected routes
   if (isProtectedRoute && !session?.userId) {
