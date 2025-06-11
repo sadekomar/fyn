@@ -19,7 +19,6 @@ const translateGender = (gender: string): Gender | null => {
 export const readItemsByIds = handleExceptions(
   async (req: Request, res: Response): Promise<Response<ItemCardsI[]>> => {
     const { ids } = req.body;
-    console.log("ids", ids);
 
     const items = await prisma.item.findMany({
       where: {

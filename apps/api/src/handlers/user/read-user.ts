@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-import { ReadUserResponse } from "./user-types";
+import { ReadUserCheckoutResponse, ReadUserFullResponse } from "./user";
 
 export const readUser = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<ReadUserResponse>> => {
+  async (
+    req: Request,
+    res: Response
+  ): Promise<Response<ReadUserFullResponse>> => {
     const { id } = req.params;
 
     const user = await prisma.user.findUnique({
@@ -24,11 +27,31 @@ export const readUser = handleExceptions(
       return res.status(404).json({ error: "User not found" });
     }
 
-    const response: ReadUserResponse = {
-      status: "success",
-      message: "User fetched successfully",
-      data: user,
-    };
+    const response: ReadUserFullResponse = user;
+
+    return res.status(200).json(response);
+  }
+);
+
+export const readUserCheckout = handleExceptions(
+  async (
+    req: Request,
+    res: Response
+  ): Promise<Response<ReadUserCheckoutResponse>> => {
+    const { id } = req.params;
+
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: {
+        addresses: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const response: ReadUserCheckoutResponse = user;
 
     return res.status(200).json(response);
   }

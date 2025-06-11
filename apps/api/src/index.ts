@@ -19,6 +19,7 @@ import {
 } from "./handlers/cart/cart";
 import {
   readUser,
+  readUserCheckout,
   createUser,
   updateUser,
   deleteUser,
@@ -81,7 +82,7 @@ app.post(Endpoints.ItemsByIds, readItemsByIds);
 // Categories
 app.get(Endpoints.Categories, readCategories);
 app.post(Endpoints.Categories, createCategory);
-app.patch(Endpoints.CategoryById, updateCategory);
+app.put(Endpoints.CategoryById, updateCategory);
 app.delete(Endpoints.CategoryById, deleteCategory);
 
 // Brands
@@ -90,30 +91,30 @@ app.get(Endpoints.BrandsAlphabetical, readBrandsByLetter);
 
 // itemCart
 app.post(Endpoints.CartItem, createCartItem);
-app.get(Endpoints.CartItems, readCartItems);
-app.patch(Endpoints.CartItemById, updateCartItem);
+app.get(Endpoints.CartItemsByUserId, readCartItems);
+app.put(Endpoints.CartItemById, updateCartItem);
 app.delete(Endpoints.CartItemById, deleteCartItem);
 
 app.post(Endpoints.Order, createOrder);
-app.get(Endpoints.Order, readOrder);
-app.patch(Endpoints.Order, updateOrder);
-app.delete(Endpoints.Order, deleteOrder);
-app.get(Endpoints.Orders, readOrders);
-
-// user
-app.post(Endpoints.User, createUser);
-app.get(Endpoints.User, readUser);
-app.patch(Endpoints.User, updateUser);
-app.delete(Endpoints.User, deleteUser);
-
-app.get(Endpoints.Addresses, readAddress);
-app.get(Endpoints.Address, createAddress);
+app.get(Endpoints.OrderById, readOrder);
+app.get(Endpoints.OrdersByUserId, readOrders);
+app.put(Endpoints.OrderById, updateOrder);
+app.delete(Endpoints.OrderById, deleteOrder);
 
 // Auth
 app.post(Endpoints.Login, login);
-app.post(Endpoints.Register, register);
 app.get(Endpoints.ConfirmEmail, confirmEmail);
 app.post(Endpoints.ResendVerificationEmail, resendVerificationEmail);
+
+// user
+app.post(Endpoints.User, createUser);
+app.get(Endpoints.UserById, readUser);
+app.get(Endpoints.UserCheckoutById, readUserCheckout);
+app.put(Endpoints.UserById, updateUser);
+app.delete(Endpoints.UserById, deleteUser);
+
+app.get(Endpoints.Addresses, readAddress);
+app.get(Endpoints.Address, createAddress);
 
 // lists
 app.post(Endpoints.Newsletter, createNewsletter);
@@ -122,7 +123,7 @@ app.post(Endpoints.Newsletter, createNewsletter);
 app.post(Endpoints.Apply, createApplicant);
 app.get(Endpoints.Applicants, readApplicants);
 app.get(Endpoints.ApplicantById, readApplicant);
-app.patch(Endpoints.ApplicantById, updateApplicant);
+app.put(Endpoints.ApplicantById, updateApplicant);
 app.delete(Endpoints.ApplicantById, deleteApplicant);
 
 app.listen(PORT, () => {

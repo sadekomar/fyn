@@ -161,9 +161,8 @@ export const register = handleExceptions(
         },
       });
 
-      const html = getEmailConfirmationHtml(firstName || "", token);
-
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const html = getEmailConfirmationHtml(firstName || "", token);
       await resend.emails.send({
         from: confirmFromAddress,
         to: email,

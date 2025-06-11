@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import { UpdateUserRequest, UpdateUserResponse } from "./user-types";
+import { UpdateUserRequest, UpdateUserResponse } from "./user";
 
 const updateUserSchema = z.object({
   email: z.string().email().optional(),

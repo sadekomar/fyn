@@ -4,8 +4,21 @@ import prisma from "../../helpers/prisma";
 import { CartItem } from "./cart";
 
 export const readCartItems = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<CartItem[]>> => {
+  async (
+    req: Request,
+    res: Response<CartItem[] | { status: "error"; error: { userId: string[] } }>
+  ) => {
     const { userId } = req.params;
+    console.log("");
+
+    if (!userId) {
+      return res.status(400).json({
+        status: "error",
+        error: {
+          userId: ["User ID is required"],
+        },
+      });
+    }
 
     const cartItems = await prisma.itemCart.findMany({
       select: {
