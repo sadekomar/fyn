@@ -7,6 +7,7 @@ import { CreateUserRequest, CreateUserResponse } from "./user";
 import { Resend } from "resend";
 import { getEmailConfirmationHtml } from "../../helpers/html-emails";
 import { confirmFromAddress } from "../../helpers/email";
+import { randomUUID } from "crypto";
 
 const createUserSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -73,7 +74,7 @@ export const createUser = handleExceptions(
         });
       }
 
-      const token = crypto.randomUUID();
+      const token = randomUUID();
       const expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
 
       const user = await prisma.user.create({
