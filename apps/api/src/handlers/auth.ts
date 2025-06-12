@@ -6,6 +6,7 @@ import { z } from "zod";
 import { Resend } from "resend";
 import { getEmailConfirmationHtml } from "../helpers/html-emails";
 import { confirmFromAddress } from "../helpers/email";
+import { randomUUID } from "crypto";
 
 type LoginSuccessResponse = {
   status: "success";
@@ -54,7 +55,7 @@ export const login = handleExceptions(
     }
 
     if (!user.isEmailConfirmed) {
-      const token = crypto.randomUUID();
+      const token = randomUUID();
       const expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
 
       await prisma.user.update({
@@ -145,7 +146,7 @@ export const register = handleExceptions(
         });
       }
 
-      const token = crypto.randomUUID();
+      const token = randomUUID();
       const expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
 
       const user = await prisma.user.create({
@@ -231,7 +232,7 @@ export const resendVerificationEmail = handleExceptions(
       return res.status(400).json({ status: "error", error: "User not found" });
     }
 
-    const token = crypto.randomUUID();
+    const token = randomUUID();
     const expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
 
     await prisma.user.update({
