@@ -64,14 +64,13 @@ export const login = handleExceptions(
       });
 
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const html = getEmailConfirmationHtml(user.firstName || "", token);
       await resend.emails.send({
         from: confirmFromAddress,
-        to: user.email,
+        to: email,
         subject: "Confirm your email",
-        html: `<p>Click <a href="${process.env.FRONTEND_URL}/verify-email?token=${token}">here</a> to confirm your email</p>`,
+        html,
       });
-
-      console.log("Email sent");
 
       return res.status(200).json({
         status: "success",
@@ -241,7 +240,6 @@ export const resendVerificationEmail = handleExceptions(
     });
 
     const resend = new Resend(process.env.RESEND_API_KEY);
-
     const html = getEmailConfirmationHtml(user.firstName || "", token);
     await resend.emails.send({
       from: confirmFromAddress,
