@@ -15,10 +15,6 @@ const genderMap: Record<string, Gender> = {
   KIDS: Gender.KIDS,
 };
 
-const translateGender = (gender: string): Gender | null => {
-  return genderMap[gender.toUpperCase()] || null;
-};
-
 const QuerySchema = z.object({
   search: z.string().optional(),
   brands: z

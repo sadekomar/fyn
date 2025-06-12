@@ -282,22 +282,23 @@ model ItemCart {
 
 // these entities are created after user clicks checkout.
 model Order {
-  id          String      @id @default(uuid())
-  orderNumber String      @unique
-  items       ItemOrder[]
+  id                String             @id @default(uuid())
+  orderNumber       String             @unique
+  items             ItemOrder[]
   // shipping + prices
-  orderTotal  Int
-  status      OrderStatus @default(PENDING)
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  orderTotal        Int
+  status            OrderStatus        @default(PENDING)
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
   // user associated data
   // but what if someone wants to order again with a different email or phone number for this specific order. also a user could have multiple addresses but we need to associate that order with just one address.
-  email       String
-  phoneNumber String
-  address     Address     @relation(fields: [addressId], references: [id])
-  addressId   String
+  email             String
+  phoneNumber       String
+  address           Address            @relation(fields: [addressId], references: [id])
+  addressId         String
+  shippingEstimates ShippingEstimate[]
 
   @@index([orderNumber, status])
 }
@@ -326,6 +327,8 @@ model ShippingEstimate {
   brand      Brand       @relation(fields: [brandId], references: [id])
   brandId    String
   itemOrders ItemOrder[]
+  order      Order       @relation(fields: [orderId], references: [id])
+  orderId    String
 }
 
 enum OrderStatus {

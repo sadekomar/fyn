@@ -109,20 +109,6 @@ export const createOrder = handleExceptions(
           addressId = orderData.addressId;
         }
 
-        const shippingEstimates = await Promise.all(
-          orderData.shippingEstimates.map(async (estimate) => {
-            const brand = await tx.brand.findUnique({
-              where: { name: estimate.brand },
-            });
-            return tx.shippingEstimate.create({
-              data: {
-                cost: estimate.cost,
-                brandId: brand?.id ?? "",
-              },
-            });
-          })
-        );
-
         const itemsTotal = orderData.itemOrders.reduce(
           (sum, item) => sum + item.price * item.quantity,
           0
@@ -155,6 +141,21 @@ export const createOrder = handleExceptions(
             addressId,
           },
         });
+
+        const shippingEstimates = await Promise.all(
+          orderData.shippingEstimates.map(async (estimate) => {
+            const brand = await tx.brand.findUnique({
+              where: { name: estimate.brand },
+            });
+            return tx.shippingEstimate.create({
+              data: {
+                cost: estimate.cost,
+                brandId: brand?.id ?? "",
+                orderId: order.id,
+              },
+            });
+          })
+        );
 
         // item orders
         const itemOrders = await Promise.all(
