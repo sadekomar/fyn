@@ -6,17 +6,20 @@ import {
   CartItemWithItemCard,
   ShippingEstimate,
 } from "../../cart/(utils)/cart-utils";
+import { Loader2 } from "lucide-react";
 
 export function OrderSummary({
   cartItems,
   shippingEstimates,
   subtotal,
   total,
+  formSubmitting,
 }: {
   cartItems: CartItemWithItemCard[];
   shippingEstimates: ShippingEstimate[];
   subtotal: number;
   total: number;
+  formSubmitting: boolean;
 }) {
   return (
     <>
@@ -36,14 +39,14 @@ export function OrderSummary({
                     <LoomImage
                       src={item.itemCard.image}
                       alt={item.itemCard.name}
-                      className="w-16 h-16 object-cover rounded-md"
+                      className="h-16 w-16 rounded-md object-cover"
                     />
-                    <div className="absolute -top-2 -right-2 bg-gray-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-500 text-xs text-white">
                       {item.localCartItem.quantity}
                     </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-gray-900 truncate">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="truncate text-sm font-medium text-gray-900">
                       {item.itemCard.name}
                     </h3>
                     <p className="text-sm text-gray-500 capitalize">
@@ -89,11 +92,20 @@ export function OrderSummary({
               </div>
             </div>
 
-            <Button className="w-full mt-6" size="lg">
-              Place Order • LE {total.toFixed(2)}
+            <Button
+              type="submit"
+              className="mt-6 w-full"
+              size="lg"
+              disabled={formSubmitting}
+            >
+              {formSubmitting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <>Place Order • LE {total.toFixed(2)}</>
+              )}
             </Button>
 
-            <p className="text-xs text-gray-500 text-center mt-2">
+            <p className="mt-2 text-center text-xs text-gray-500">
               By placing your order, you agree to our Terms of Service and
               Privacy Policy.
             </p>

@@ -82,8 +82,12 @@ export default function Cart() {
           </div>
           <div className="w-full">
             <Link
-              href="/checkout"
+              href={cart.length === 0 ? "#" : "/checkout"}
               className="block w-full rounded-md bg-black px-4 py-3 text-center text-white transition-colors hover:bg-gray-800"
+              style={{
+                opacity: cart.length === 0 ? 0.5 : 1,
+                pointerEvents: cart.length === 0 ? "none" : "auto",
+              }}
             >
               Checkout
             </Link>

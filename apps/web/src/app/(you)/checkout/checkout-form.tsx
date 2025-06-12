@@ -53,6 +53,10 @@ export default function CheckoutPage() {
   const session = useGetSession();
   const { data: cartItems = [] } = useGetCartItems();
 
+  if (cartItems.length === 0) {
+    redirect("/");
+  }
+
   const { data: user } = useQuery({
     queryKey: ["user", session?.userId],
     queryFn: () => getUserCheckout(session?.userId),
@@ -165,6 +169,7 @@ export default function CheckoutPage() {
                 shippingEstimates={shippingEstimates}
                 subtotal={subtotal}
                 total={total}
+                formSubmitting={form.formState.isSubmitting}
               />
             </div>
           </div>
