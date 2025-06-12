@@ -24,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoomImage } from "@/components/LoomImage";
 import { login } from "@/lib/auth";
 import { useState } from "react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).trim(),
@@ -38,6 +38,7 @@ export type LoginFormSchema = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -47,14 +48,19 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormSchema) => {
-    const response = await login(data);
-    console.log("response", response);
+    setIsLoading(true);
+    try {
+      const response = await login(data);
+      console.log("response", response);
 
-    if (response.status === "error") {
-      form.setError(Object.keys(response.error)[0] as keyof LoginFormSchema, {
-        type: "manual",
-        message: response.error[Object.keys(response.error)[0]][0],
-      });
+      if (response.status === "error") {
+        form.setError(Object.keys(response.error)[0] as keyof LoginFormSchema, {
+          type: "manual",
+          message: response.error[Object.keys(response.error)[0]][0],
+        });
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -107,7 +113,7 @@ export default function LoginForm() {
                         />
                         <button
                           type="button"
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           {showPassword ? (
@@ -122,10 +128,18 @@ export default function LoginForm() {
                   </FormItem>
                 )}
               />
-              <Button className="w-full text-md" type="submit">
-                Login
+              <Button
+                className="text-md w-full"
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Login"
+                )}
               </Button>
-              <div className="mt-4 text-center text-md">
+              <div className="text-md mt-4 text-center">
                 Don't have an account?{" "}
                 <a href="/sign-up" className="text-blue-600 hover:underline">
                   Sign up

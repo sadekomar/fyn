@@ -17,11 +17,11 @@ export function AddToCart({
 
   return (
     <button
-      className={`cart-button ${!selectedSize || !selectedColor ? "opacity-50 cursor-not-allowed" : ""}`}
+      className={`cart-button ${!selectedSize || !selectedColor ? "cursor-not-allowed opacity-50" : ""}`}
       onClick={() => {
         addToCart(data, selectedSize, selectedColor);
       }}
-      disabled={!selectedSize || !selectedColor}
+      disabled={!selectedSize}
     >
       Add to Cart
     </button>

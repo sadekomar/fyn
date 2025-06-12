@@ -25,7 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoomImage } from "@/components/LoomImage";
 import { login, register } from "@/lib/auth";
 import { useState } from "react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 
 const registerSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -44,6 +44,7 @@ export type RegisterFormSchema = z.infer<typeof registerSchema>;
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -57,22 +58,27 @@ export default function RegisterForm() {
   });
 
   const onSubmit = async (data: RegisterFormSchema) => {
-    const response = await register(data);
+    setIsLoading(true);
+    try {
+      const response = await register(data);
 
-    if (response.status === "error") {
-      form.setError(
-        Object.keys(response.error)[0] as keyof RegisterFormSchema,
-        {
-          type: "manual",
-          message: response.error[Object.keys(response.error)[0]][0],
-        },
+      if (response.status === "error") {
+        form.setError(
+          Object.keys(response.error)[0] as keyof RegisterFormSchema,
+          {
+            type: "manual",
+            message: response.error[Object.keys(response.error)[0]][0],
+          },
+        );
+        return;
+      }
+
+      redirect(
+        `/please-confirm?email=${encodeURIComponent(response.data.email)}`,
       );
-      return;
+    } finally {
+      setIsLoading(false);
     }
-
-    redirect(
-      `/please-confirm?email=${encodeURIComponent(response.data.email)}`,
-    );
   };
 
   return (
@@ -205,8 +211,16 @@ export default function RegisterForm() {
                 )}
               />
 
-              <Button className="text-md w-full" type="submit">
-                Sign up
+              <Button
+                className="text-md w-full"
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Sign up"
+                )}
               </Button>
               <div className="text-md mt-4 text-center">
                 Already have an account?{" "}
