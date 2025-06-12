@@ -70,7 +70,7 @@ export const readItems = handleExceptions(
       });
     }
 
-    const { page, limit, sort_by, in_stock } = parsedQuery.data;
+    const { page, limit, sort_by } = parsedQuery.data;
 
     const where: any = constructWhere(parsedQuery.data);
 
@@ -111,6 +111,7 @@ export const readItems = handleExceptions(
             url: true,
           },
         },
+        isSoldOut: true,
       },
     });
 
@@ -123,6 +124,7 @@ export const readItems = handleExceptions(
         ImageSizes.PATTERN,
         ImageSizes.THUMBNAIL
       ),
+      isSoldOut: item.isSoldOut,
     }));
 
     return res.status(200).json(formattedItems);
