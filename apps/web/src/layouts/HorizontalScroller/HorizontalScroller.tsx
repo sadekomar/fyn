@@ -24,6 +24,7 @@ export function HorizontalScroller({
               brand={item["brand"]}
               image={item["image"]}
               imgLoading="eager"
+              isSoldOut={item.isSoldOut}
             />
           ))
         : [...Array(20)].map((_, index) => <ItemCardPlaceholder key={index} />)}

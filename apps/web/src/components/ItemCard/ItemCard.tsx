@@ -18,7 +18,12 @@ export function ItemCard({
   image,
   imgLoading = "lazy",
   className = "",
-}: ItemCardsI & { imgLoading?: "lazy" | "eager"; className?: string }) {
+  isSoldOut = false,
+}: ItemCardsI & {
+  imgLoading?: "lazy" | "eager";
+  className?: string;
+  isSoldOut?: boolean;
+}) {
   const [imageError, setImageError] = useState(false);
 
   if (!image || imageError) {
@@ -28,11 +33,13 @@ export function ItemCard({
   return (
     <>
       <div
-        className={`ItemCard ${className} transition-all duration-300 active:scale-105`}
+        className={`ItemCard ${className} relative transition-all duration-300 active:scale-105 ${
+          isSoldOut ? "opacity-75" : ""
+        }`}
       >
         <LikeButton id={id} className="LikeButton" />
         {/* <CompareButton id={id} className="CompareButton" /> */}
-        <Link prefetch={true} href={`/item/${id}`}>
+        <Link prefetch={true} href={`/item/${id}`} className="relative block">
           <LoomImage
             loading={imgLoading}
             src={image === "" ? undefined : image}
@@ -54,9 +61,18 @@ export function ItemCard({
               transitionDelay: "0s",
             }}
           />
+          {isSoldOut && (
+            <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/50">
+              <span className="text-lg font-semibold text-white">Sold Out</span>
+            </div>
+          )}
         </Link>
 
-        <Link prefetch={true} href={`/item/${id}`}>
+        <Link
+          prefetch={true}
+          href={`/item/${id}`}
+          className={`block ${isSoldOut ? "text-gray-500" : ""}`}
+        >
           {name}
         </Link>
         <Link
@@ -66,7 +82,9 @@ export function ItemCard({
         >
           {brand}
         </Link>
-        <data value={price}>LE {price.toLocaleString()}</data>
+        <data value={price} className={isSoldOut ? "text-gray-500" : ""}>
+          LE {price.toLocaleString()}
+        </data>
       </div>
     </>
   );

@@ -6,6 +6,7 @@ export type ItemCardsI = {
   price: number;
   brand: string;
   image: string;
+  isSoldOut: boolean;
 };
 
 export type ItemPageI = {

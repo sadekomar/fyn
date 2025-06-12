@@ -223,45 +223,44 @@ export default function OrdersPage() {
                       {order.status}
                     </span>
                   </div>
-                  {order.status !== OrderStatus.CANCELLED &&
-                    order.status !== OrderStatus.DELIVERED && (
-                      <>
-                        <div className="h-4 w-px bg-gray-200"></div>
-                        <AlertDialog.Root>
-                          <AlertDialog.Trigger>
-                            <button
-                              onClick={() => setOrderToCancel(order.id)}
-                              className="rounded-md bg-red-50 px-3 py-1 text-sm font-medium text-red-600 transition-colors hover:bg-red-100"
-                            >
-                              Cancel
-                            </button>
-                          </AlertDialog.Trigger>
-                          <AlertDialog.Content className="max-w-md">
-                            <AlertDialog.Title>Cancel Order</AlertDialog.Title>
-                            <AlertDialog.Description>
-                              Are you sure you want to cancel order #
-                              {order.orderNumber}? This action cannot be undone.
-                            </AlertDialog.Description>
-                            <div className="mt-6 flex flex-col justify-end gap-3 md:flex-row">
-                              <AlertDialog.Cancel>
-                                <Button variant="soft" color="gray">
-                                  Keep Order
-                                </Button>
-                              </AlertDialog.Cancel>
-                              <AlertDialog.Action>
-                                <Button
-                                  variant="solid"
-                                  color="red"
-                                  onClick={() => handleCancelOrder(order.id)}
-                                >
-                                  Yes, Cancel Order
-                                </Button>
-                              </AlertDialog.Action>
-                            </div>
-                          </AlertDialog.Content>
-                        </AlertDialog.Root>
-                      </>
-                    )}
+                  {order.status === OrderStatus.PENDING && (
+                    <>
+                      <div className="h-4 w-px bg-gray-200"></div>
+                      <AlertDialog.Root>
+                        <AlertDialog.Trigger>
+                          <button
+                            onClick={() => setOrderToCancel(order.id)}
+                            className="rounded-md bg-red-50 px-3 py-1 text-sm font-medium text-red-600 transition-colors hover:bg-red-100"
+                          >
+                            Cancel
+                          </button>
+                        </AlertDialog.Trigger>
+                        <AlertDialog.Content className="max-w-md">
+                          <AlertDialog.Title>Cancel Order</AlertDialog.Title>
+                          <AlertDialog.Description>
+                            Are you sure you want to cancel order #
+                            {order.orderNumber}? This action cannot be undone.
+                          </AlertDialog.Description>
+                          <div className="mt-6 flex flex-col justify-end gap-3 md:flex-row">
+                            <AlertDialog.Cancel>
+                              <Button variant="soft" color="gray">
+                                Keep Order
+                              </Button>
+                            </AlertDialog.Cancel>
+                            <AlertDialog.Action>
+                              <Button
+                                variant="solid"
+                                color="red"
+                                onClick={() => handleCancelOrder(order.id)}
+                              >
+                                Yes, Cancel Order
+                              </Button>
+                            </AlertDialog.Action>
+                          </div>
+                        </AlertDialog.Content>
+                      </AlertDialog.Root>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

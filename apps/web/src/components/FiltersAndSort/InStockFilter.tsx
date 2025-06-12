@@ -1,25 +1,27 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export function InStockFilter() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const router = useRouter();
 
   function toggleInStock() {
-    const currentAvailability = searchParams.get("availability");
     const params = new URLSearchParams(searchParams);
-    params.set(
-      "availability",
-      currentAvailability === "in-stock" ? "all" : "in-stock",
-    );
+    const isInStock = params.get("in_stock") === "true";
+
+    if (isInStock) {
+      params.delete("in_stock");
+    } else {
+      params.set("in_stock", "true");
+    }
+
     params.set("page", "1");
-    router.push(pathname + "?" + params.toString(), { scroll: false });
+    window.history.pushState(null, "", pathname + "?" + params.toString());
   }
 
   function isChecked() {
-    return searchParams.get("availability") === "in-stock";
+    return searchParams.get("in_stock") === "true";
   }
 
   return (

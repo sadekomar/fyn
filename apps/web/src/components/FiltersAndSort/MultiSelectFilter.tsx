@@ -128,7 +128,7 @@ export function MultiSelectFilter({
           {metadata?.[filterType]?.map((filter, index) => (
             <div
               key={index}
-              className="filters-checkbox-wrapper active:scale-98 transition-transform duration-100"
+              className="filters-checkbox-wrapper transition-transform duration-100 active:scale-98"
             >
               <input
                 className="filters-checkbox"

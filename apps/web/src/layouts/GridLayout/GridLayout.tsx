@@ -18,12 +18,13 @@ export function GridLayout({ items }: { items: ItemCardsI[] | undefined }) {
                 price={item.price}
                 brand={item.brand}
                 image={item.image}
+                isSoldOut={item.isSoldOut}
               />
             ))}
           </div>
         </div>
       ) : items?.length === 0 ? (
-        <div className="no-results-found flex flex-col items-center justify-center p-8 my-6 rounded-lg  text-gray-600 text-xl font-medium shadow-sm border border-gray-200">
+        <div className="no-results-found my-6 flex flex-col items-center justify-center rounded-lg border border-gray-200 p-8 text-xl font-medium text-gray-600 shadow-sm">
           <p className="mb-2">No results found</p>
           <p className="text-sm text-gray-500">
             Try adjusting your search or filters to find what you're looking
