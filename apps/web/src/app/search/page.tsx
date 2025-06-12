@@ -140,7 +140,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex min-h-dvh flex-col">
         <div className="search-and-autofill">
           <div
             className={`searchbar-wrapper ${!searchParams.get("search") ? "startup-searchbar-wrapper" : ""}`}
