@@ -179,9 +179,9 @@ const menuFooter = [
     href: "/likes",
   },
   {
-    label: "My Account",
+    label: "My Orders",
     icon: <User className="mr-2 h-4 w-4" />,
-    href: "/account",
+    href: "/orders",
   },
 ];
 
