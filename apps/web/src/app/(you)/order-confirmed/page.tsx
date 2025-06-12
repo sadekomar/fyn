@@ -130,7 +130,7 @@ export default function OrderConfirmedPage() {
             <CheckCircle2 className="h-8 w-8 text-green-600" />
           </div>
           <h1 className="mb-2 text-3xl font-bold text-gray-900">
-            Order Confirmed!
+            Order confirmed
           </h1>
           <p className="text-gray-600">
             Thank you for your purchase. We'll send you an email with your order
@@ -142,7 +142,7 @@ export default function OrderConfirmedPage() {
           {/* Order Summary */}
           <Card>
             <CardHeader>
-              <CardTitle>Order Summary</CardTitle>
+              <CardTitle>Order summary</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
@@ -202,7 +202,7 @@ export default function OrderConfirmedPage() {
           {/* Order Status */}
           <Card>
             <CardHeader>
-              <CardTitle>Order Status</CardTitle>
+              <CardTitle>Order status</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -244,12 +244,12 @@ export default function OrderConfirmedPage() {
           <div className="flex flex-col gap-4 sm:flex-row">
             <Link href="/" className="flex-1">
               <Button variant="outline" className="w-full">
-                Continue Shopping
+                Continue shopping
               </Button>
             </Link>
             <Link href="/orders" className="flex-1">
               <Button className="w-full">
-                View Order Details
+                View all orders
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
