@@ -58,10 +58,6 @@ export default function Cart() {
     <>
       <div className="cart-page-header">
         <h2>Your Cart</h2>
-        <p>
-          When you're ready to make a purchase, we will direct you to the
-          original website to complete your transaction.
-        </p>
       </div>
       <div className="cart-wrapper">
         {isLoading ? (

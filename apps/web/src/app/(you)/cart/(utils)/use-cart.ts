@@ -134,7 +134,7 @@ export function useUpdateCartItemQuantity() {
       return;
     }
 
-    await clientHttp.patch(`${Endpoints.CartItemById.replace(":id", id)}`, {
+    await clientHttp.put(`${Endpoints.CartItemById.replace(":id", id)}`, {
       quantity: newQuantity,
     });
     queryClient.refetchQueries({ queryKey: ["cart"] });
