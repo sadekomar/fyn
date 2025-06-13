@@ -13,7 +13,6 @@ import { MetadataI } from "@/lib/types";
 
 export function Filters({ metadata }: { metadata: MetadataI | undefined }) {
   const searchParams = useSearchParams();
-
   const pathname = usePathname();
 
   function resetAllFilters() {

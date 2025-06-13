@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import {
@@ -26,6 +25,7 @@ import { LoomImage } from "@/components/LoomImage";
 import { login, register } from "@/lib/auth";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const registerSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -45,6 +45,7 @@ export type RegisterFormSchema = z.infer<typeof registerSchema>;
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -73,7 +74,7 @@ export default function RegisterForm() {
         return;
       }
 
-      redirect(
+      router.push(
         `/please-confirm?email=${encodeURIComponent(response.data.email)}`,
       );
     } finally {

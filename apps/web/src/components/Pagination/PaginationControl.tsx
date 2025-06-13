@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import "./Pagination.css";
@@ -20,11 +19,11 @@ export function PaginationControl({
   );
 
   const searchParams = useSearchParams();
-  let currentPage = parseInt(searchParams.get("page") || 1);
+  let currentPage = parseInt(searchParams.get("page") || "1");
 
-  function goToPage(index) {
+  function goToPage(index: number) {
     const params = new URLSearchParams(searchParams);
-    params.set("page", index);
+    params.set("page", index.toString());
     window.history.pushState(null, "", `?${params.toString()}`);
     window.scrollTo({
       top: 0,
@@ -35,7 +34,7 @@ export function PaginationControl({
   function goToNextPage() {
     const nextPageNumber = parseInt(searchParams.get("page") || "1") + 1;
     const params = new URLSearchParams(searchParams);
-    params.set("page", nextPageNumber);
+    params.set("page", nextPageNumber.toString());
     window.history.pushState(null, "", `?${params.toString()}`);
     window.scrollTo({
       top: 0,
@@ -46,7 +45,7 @@ export function PaginationControl({
   function goToPrevPage() {
     const previousPageNumber = parseInt(searchParams.get("page") || "1") - 1;
     const params = new URLSearchParams(searchParams);
-    params.set("page", previousPageNumber);
+    params.set("page", previousPageNumber.toString());
     window.history.pushState(null, "", `?${params.toString()}`);
     window.scrollTo({
       top: 0,
@@ -55,11 +54,11 @@ export function PaginationControl({
   }
 
   function isFirstPage() {
-    return currentPage == "1";
+    return currentPage == 1;
   }
 
-  function isLastPage(numberOfPages) {
-    currentPage = parseInt(searchParams.get("page") || 1);
+  function isLastPage(numberOfPages: number) {
+    currentPage = parseInt(searchParams.get("page") || "1");
     return currentPage === numberOfPages;
   }
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import {
@@ -15,7 +14,30 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { clientHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/api/endpoints";
-import { AuthResponse } from "@/lib/types";
+
+type ResendVerificationEmailRequest = {
+  email: string;
+};
+
+type ResendVerificationEmailSuccessResponse = {
+  status: "success";
+  message: string;
+  data: {
+    userId: string;
+    isEmailConfirmed: boolean;
+  };
+};
+
+type ResendVerificationEmailErrorResponse = {
+  status: "error";
+  error: {
+    [key: string]: string[];
+  };
+};
+
+type ResendVerificationEmailResponse =
+  | ResendVerificationEmailSuccessResponse
+  | ResendVerificationEmailErrorResponse;
 
 export default function ConfirmEmailPage() {
   const [isResending, setIsResending] = useState(false);
@@ -28,11 +50,10 @@ export default function ConfirmEmailPage() {
     setResendMessage("");
 
     try {
-      const response = await clientHttp.post<AuthResponse>(
-        Endpoints.ResendVerificationEmail,
-        { email },
-      );
-      console.log("response", response);
+      const response = await clientHttp.post<
+        ResendVerificationEmailRequest,
+        ResendVerificationEmailResponse
+      >(Endpoints.ResendVerificationEmail, { email });
 
       if (response && response.status === "success") {
         setResendMessage("Verification email has been resent!");

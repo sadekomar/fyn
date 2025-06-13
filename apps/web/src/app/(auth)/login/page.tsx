@@ -51,7 +51,6 @@ export default function LoginForm() {
     setIsLoading(true);
     try {
       const response = await login(data);
-      console.log("response", response);
 
       if (response.status === "error") {
         form.setError(Object.keys(response.error)[0] as keyof LoginFormSchema, {
