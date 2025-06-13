@@ -26,7 +26,7 @@ import { useGetSession } from "@/lib/use-auth";
 import { useQuery } from "@tanstack/react-query";
 import { getUserCheckout } from "@/api/user";
 import { useEffect } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import queryClient from "@/lib/queries/queryClient";
 
 export const orderFormSchema = z.discriminatedUnion("isLoggedIn", [
@@ -52,9 +52,10 @@ export type OrderFormSchema = z.infer<typeof orderFormSchema>;
 export default function CheckoutPage() {
   const session = useGetSession();
   const { data: cartItems = [] } = useGetCartItems();
+  const router = useRouter();
 
   if (cartItems.length === 0) {
-    redirect("/");
+    router.push("/");
   }
 
   const { data: user } = useQuery({
@@ -133,7 +134,7 @@ export default function CheckoutPage() {
         message: response.error[Object.keys(response.error)[0]][0],
       });
     } else {
-      redirect(`/order-confirmed?orderId=${response.data.orderId}`);
+      router.push(`/order-confirmed?orderId=${response.data.orderId}`);
     }
   }
 

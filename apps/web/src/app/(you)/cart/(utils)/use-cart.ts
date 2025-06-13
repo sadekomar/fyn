@@ -8,7 +8,7 @@ import {
   removeFromCart,
   updateCartItemQuantity,
 } from "./cart-utils";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { clientHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/api/endpoints";
 import { getSessionAction } from "@/lib/auth";
@@ -31,6 +31,7 @@ type CartResponse = {
 
 export function useAddToCart() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return async (
     data: ItemPageI,
@@ -53,26 +54,26 @@ export function useAddToCart() {
       });
       queryClient.refetchQueries({ queryKey: ["cart"] });
     }
-    redirect("/cart");
+    router.push("/cart");
   };
 }
 
 export function useRemoveFromCart() {
   const queryClient = useQueryClient();
-
+  const router = useRouter();
   return async (id: string) => {
     const session = await getSessionAction();
 
     if (!session?.userId) {
       removeFromCart(id);
       queryClient.refetchQueries({ queryKey: ["cart"] });
-      redirect("/cart");
+      router.push("/cart");
       return;
     }
 
     await clientHttp.delete(`${Endpoints.CartItem}/${id}`);
     queryClient.refetchQueries({ queryKey: ["cart"] });
-    redirect("/cart");
+    router.push("/cart");
   };
 }
 
