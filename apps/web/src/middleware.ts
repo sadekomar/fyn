@@ -2,13 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
 
-const protectedRoutes = [
-  "/orders",
-  "/settings",
-  "/please-confirm",
-  "/verify-email",
-  "/account",
-];
+const protectedRoutes = ["/orders", "/settings", "/please-confirm", "/account"];
 
 const publicRoutes = ["/login", "/sign-up"];
 
