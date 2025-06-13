@@ -120,7 +120,8 @@ export type ItemCardsI = {
   isSoldOut: boolean;
 };
 
-export type ItemPageI = {
+export type ItemSuccess = {
+  status: "success";
   id: string;
   name: string;
   description: string;
@@ -138,6 +139,13 @@ export type ItemPageI = {
     available: boolean;
   }[];
 };
+
+type ItemPageErrorResponse = {
+  status: "error";
+  error: { root: string[] };
+};
+
+export type ItemPageResponse = ItemSuccess | ItemPageErrorResponse;
 
 // Update
 export type UpdateItemRequest = Partial<{

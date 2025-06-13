@@ -48,6 +48,7 @@ model Item {
 
   @@index([brandId])
   @@index([materialId])
+  @@index([inTrash])
 }
 
 model ItemView {

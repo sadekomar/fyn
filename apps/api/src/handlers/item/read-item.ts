@@ -1,14 +1,14 @@
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
-import { Genders, ImageSizes, ItemPageI } from "./item";
+import { Genders, ImageSizes, ItemPageResponse } from "./item";
 
 export const readItem = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<ItemPageI>> => {
+  async (req: Request, res: Response<ItemPageResponse>) => {
     const { id } = req.params;
 
     const item = await prisma.item.findUnique({
-      where: { id },
+      where: { id, inTrash: false, deletedAt: null },
       select: {
         id: true,
         name: true,
@@ -58,12 +58,18 @@ export const readItem = handleExceptions(
         },
       },
     });
-    console.log(item);
+
     if (!item) {
-      return res.json([]);
+      return res.status(404).json({
+        status: "error",
+        error: {
+          root: ["Item not found"],
+        },
+      });
     }
 
-    const formattedItem: ItemPageI = {
+    return res.status(200).json({
+      status: "success",
       id: item.id,
       name: item.name,
       description: item.description,
@@ -85,7 +91,6 @@ export const readItem = handleExceptions(
         name: size.name,
         available: size.available,
       })),
-    };
-    return res.status(200).json(formattedItem);
+    });
   }
 );
