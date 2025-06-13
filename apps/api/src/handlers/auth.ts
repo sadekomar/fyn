@@ -188,9 +188,25 @@ export const register = handleExceptions(
   }
 );
 
+type ConfirmEmailSuccessResponse = {
+  status: "success";
+  message: string;
+};
+
+type ConfirmEmailErrorResponse = {
+  status: "error";
+  error: {
+    [key: string]: string[];
+  };
+};
+
+type ConfirmEmailResponse =
+  | ConfirmEmailSuccessResponse
+  | ConfirmEmailErrorResponse;
+
 export const confirmEmail = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<AuthResponse>> => {
-    const { token } = req.params;
+  async (req: Request, res: Response<ConfirmEmailResponse>) => {
+    const { token } = req.query;
 
     const user = await prisma.user.findFirst({
       where: {
@@ -200,7 +216,9 @@ export const confirmEmail = handleExceptions(
     });
 
     if (!user) {
-      return res.status(400).json({ status: "error", error: "Invalid token" });
+      return res
+        .status(400)
+        .json({ status: "error", error: { root: ["Invalid token"] } });
     }
 
     await prisma.user.update({
@@ -218,8 +236,35 @@ export const confirmEmail = handleExceptions(
   }
 );
 
+type ResendVerificationEmailRequest = {
+  email: string;
+};
+
+type ResendVerificationEmailSuccessResponse = {
+  status: "success";
+  message: string;
+  data: {
+    userId: string;
+    isEmailConfirmed: boolean;
+  };
+};
+
+type ResendVerificationEmailErrorResponse = {
+  status: "error";
+  error: {
+    [key: string]: string[];
+  };
+};
+
+type ResendVerificationEmailResponse =
+  | ResendVerificationEmailSuccessResponse
+  | ResendVerificationEmailErrorResponse;
+
 export const resendVerificationEmail = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<AuthResponse>> => {
+  async (
+    req: Request<{}, {}, ResendVerificationEmailRequest>,
+    res: Response<ResendVerificationEmailResponse>
+  ) => {
     const { email } = req.body;
     console.log("Resending verification email to", email);
 
@@ -228,7 +273,9 @@ export const resendVerificationEmail = handleExceptions(
     });
 
     if (!user) {
-      return res.status(400).json({ status: "error", error: "User not found" });
+      return res
+        .status(400)
+        .json({ status: "error", error: { root: ["User not found"] } });
     }
 
     const token = randomUUID();

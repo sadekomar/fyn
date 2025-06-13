@@ -17,7 +17,10 @@ const translateGender = (gender: string): Gender | null => {
 };
 
 export const readItemsByIds = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<ItemCardsI[]>> => {
+  async (
+    req: Request<{}, {}, { ids: string[] }>,
+    res: Response<ItemCardsI[]>
+  ) => {
     const { ids } = req.body;
 
     const items = await prisma.item.findMany({
@@ -39,6 +42,7 @@ export const readItemsByIds = handleExceptions(
             url: true,
           },
         },
+        isSoldOut: true,
       },
     });
     // Create a map of items by ID for O(1) lookup
@@ -59,6 +63,7 @@ export const readItemsByIds = handleExceptions(
             ImageSizes.SMALL
           ),
           gender: item.gender ? translateGender(item.gender) : null,
+          isSoldOut: item.isSoldOut,
         };
       });
 

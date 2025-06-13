@@ -54,6 +54,30 @@ export const createUser = handleExceptions(
       });
 
       if (existingUserByEmail) {
+        const passwordMatch = await bcrypt.compare(
+          password,
+          existingUserByEmail.password
+        );
+        if (passwordMatch) {
+          return res.status(200).json({
+            status: "success",
+            message: "User already exists",
+            data: {
+              email: existingUserByEmail.email,
+              username: existingUserByEmail.username,
+              firstName: existingUserByEmail.firstName,
+              lastName: existingUserByEmail.lastName,
+              phoneNumber: existingUserByEmail.phoneNumber,
+              isEmailConfirmed: existingUserByEmail.isEmailConfirmed,
+              confirmationToken: existingUserByEmail.confirmationToken,
+              tokenExpiresAt: existingUserByEmail.tokenExpiresAt,
+              createdAt: existingUserByEmail.createdAt,
+              updatedAt: existingUserByEmail.updatedAt,
+              id: existingUserByEmail.id,
+              password: existingUserByEmail.password,
+            },
+          });
+        }
         return res.status(400).json({
           status: "error",
           error: {

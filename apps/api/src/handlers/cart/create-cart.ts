@@ -10,11 +10,14 @@ export const createCartItem = handleExceptions(
   ): Promise<Response<CreateCartResponse>> => {
     const { itemId, sizeId, colorId, quantity, userId } = req.body;
 
+    // oh my god this was a crazy problem.
+    // i would add an item to another user's cart because i wasn't checking the userId
     const existingCartItem = await prisma.itemCart.findFirst({
       where: {
         itemId: req.body.itemId,
         sizeId: req.body.sizeId,
         colorId: req.body.colorId,
+        userId: req.body.userId,
       },
     });
 
