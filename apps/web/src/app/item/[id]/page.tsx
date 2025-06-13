@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Link from "next/link";
 
 import "./(components)/ItemPage.css";
 import "./(components)/ItemPagePlaceholder.css";
@@ -14,6 +15,7 @@ import { ItemPageI } from "@/lib/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
 import { ImageSlider } from "./(components)/image-slider";
+import { ItemPageResponse } from "@/api/types/item";
 
 export async function generateMetadata({
   params,
@@ -21,7 +23,13 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const data = await serverHttp.get<ItemPageI>(`/item/${id}`);
+  const data = await serverHttp.get<ItemPageResponse>(`/item/${id}`);
+
+  if (data.status === "error") {
+    return {
+      title: "Item not found",
+    };
+  }
 
   return {
     title: data.name,
@@ -54,7 +62,33 @@ export default async function ItemPage(props: {
 }) {
   const { id } = await props.params;
 
-  const data = await serverHttp.get<ItemPageI>(`/item/${id}`);
+  const data = await serverHttp.get<ItemPageResponse>(`/item/${id}`);
+
+  if (data.status === "error") {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[var(--clr-neutral-100)] p-8">
+        <div className="text-[var(--clr-loom-lilac)] text-[var(--fs-1000)]">
+          🔍
+        </div>
+        <div className="max-w-[var(--grid-max-width)] space-y-4 text-center">
+          <h1 className="font-[var(--fw-bold)] text-[var(--clr-neutral-900)] text-[var(--fs-800)]">
+            Oops! Item Not Found
+          </h1>
+          <p className="text-[var(--clr-gray-text)] text-[var(--fs-400)]">
+            Looks like this item has gone on a little adventure! Maybe it&apos;s
+            exploring the fashion universe? 🌌
+          </p>
+        </div>
+        <Link
+          href="/"
+          className="flex items-center gap-2 rounded-[var(--border-radius)] bg-[var(--clr-loom-lilac)] px-6 py-3 font-[var(--fw-regular)] text-white transition-all duration-300 hover:bg-[var(--clr-loom-lilac-900)]"
+        >
+          <span>Take Me Home</span>
+          <span className="text-[var(--fs-500)]">🏠</span>
+        </Link>
+      </div>
+    );
+  }
 
   const category = data.categories[0];
   const color = data.colors[0];
