@@ -37,6 +37,15 @@ export const getOrderById = async (id: string) => {
   );
 };
 
+export const getOrderByNumber = async (number: string) => {
+  if (!number) {
+    return null;
+  }
+  return clientHttp.get<ReadOrderResponse>(
+    Endpoints.OrderByNumber.replace(":orderNumber", number.toString()),
+  );
+};
+
 export const putOrder = async (id: string, order: UpdateOrderRequest) => {
   if (!id) {
     return null;

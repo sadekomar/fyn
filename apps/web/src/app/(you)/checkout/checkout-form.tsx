@@ -23,11 +23,10 @@ import { OrderSummary } from "./components/order-summary";
 import { PaymentMethod } from "./components/payment-method";
 import { BackToCart } from "./components/back-to-cart";
 import { useGetSession } from "@/lib/use-auth";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserCheckout } from "@/api/user";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import queryClient from "@/lib/queries/queryClient";
 
 export const orderFormSchema = z.discriminatedUnion("isLoggedIn", [
   z.object({
@@ -53,6 +52,7 @@ export default function CheckoutPage() {
   const session = useGetSession();
   const { data: cartItems = [] } = useGetCartItems();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   if (cartItems.length === 0) {
     router.push("/");
