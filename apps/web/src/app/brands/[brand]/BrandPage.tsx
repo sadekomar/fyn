@@ -119,7 +119,9 @@ function getPreviousNextBrands(
   const currentBrandIndex = brandsList?.findIndex(
     (brand) => brand.name === currentBrand,
   );
-  if (!currentBrandIndex) return { previousBrand: null, nextBrand: null };
+  if (currentBrandIndex === undefined) {
+    return { previousBrand: null, nextBrand: null };
+  }
   const nextBrand =
     brandsList?.[
       (currentBrandIndex + 1 + brandsList.length) % brandsList.length
