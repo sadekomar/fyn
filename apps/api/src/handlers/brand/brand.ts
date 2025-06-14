@@ -3,6 +3,7 @@ import { readBrands, readBrandsByLetter } from "./read-brands";
 import { createBrand } from "./create-brand";
 import { deleteBrand } from "./delete-brand";
 import { updateBrand } from "./update-brand";
+import { readBrand } from "./read-brand";
 
 export {
   readBrands,
@@ -10,6 +11,7 @@ export {
   createBrand,
   deleteBrand,
   updateBrand,
+  readBrand,
 };
 
 // Create

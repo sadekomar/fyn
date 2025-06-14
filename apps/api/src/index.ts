@@ -59,7 +59,11 @@ import {
   readItemsByIds,
 } from "./handlers/item/item";
 import { createNewsletter } from "./handlers/newsletter/create-newsletter";
-import { readBrands, readBrandsByLetter } from "./handlers/brand/brand";
+import {
+  readBrand,
+  readBrands,
+  readBrandsByLetter,
+} from "./handlers/brand/brand";
 import { readOrderByNumber } from "./handlers/order/read-order";
 
 const app = express();
@@ -87,6 +91,7 @@ app.put(Endpoints.CategoryById, updateCategory);
 app.delete(Endpoints.CategoryById, deleteCategory);
 
 // Brands
+app.get(Endpoints.BrandByName, readBrand);
 app.get(Endpoints.Brands, readBrands);
 app.get(Endpoints.BrandsAlphabetical, readBrandsByLetter);
 
