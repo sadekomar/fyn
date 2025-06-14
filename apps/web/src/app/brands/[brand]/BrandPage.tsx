@@ -73,6 +73,8 @@ export function BrandPageClient() {
               src={brandData.image ?? undefined}
               className={`BrandImage`}
               alt={brandData.name}
+              fetchPriority="high"
+              loading="eager"
             />
           )}
           <div className="BrandContainer">

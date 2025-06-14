@@ -8,6 +8,8 @@ import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { CategoryPageClient } from "./CategoryPage";
 import { serverHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/api/endpoints";
+import { getSessionAction } from "@/lib/auth";
+import { postCategoryView } from "@/api/category-views";
 
 export const revalidate = 43200; // 12 hours in seconds
 
@@ -43,6 +45,11 @@ export default async function CategoryPage(props: {
   const queryClient = new QueryClient();
   const { category } = await props.params;
   const searchParams = await props.searchParams;
+
+  const session = await getSessionAction();
+  if (session) {
+    await postCategoryView({ categoryName: category, userId: session.userId });
+  }
 
   const queryString = getQueryString(searchParams);
   const queryStringArray = getQueryStringArray(searchParams);

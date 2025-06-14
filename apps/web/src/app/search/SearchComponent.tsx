@@ -7,7 +7,6 @@ export function ControlledSearchComponent() {
   const debouncedSearch = useDebounce(searchField);
 
   useEffect(() => {
-    console.log(debouncedSearch);
     window.history.pushState(null, "", `/search?query=${debouncedSearch}`);
   }, [debouncedSearch]);
 

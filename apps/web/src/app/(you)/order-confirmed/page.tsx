@@ -97,7 +97,6 @@ function OrderConfirmedSkeleton() {
 export default function OrderConfirmedPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
-  console.log(orderId);
   const { data: order, isLoading } = useQuery({
     queryKey: ["order", orderId],
     queryFn: async () => {

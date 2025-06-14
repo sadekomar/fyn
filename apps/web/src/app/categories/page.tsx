@@ -23,11 +23,6 @@ export const metadata = {
 
 export default async function AllCategoriesPage(props: { searchParams?: any }) {
   const searchParams = await props.searchParams;
-  if (searchParams) {
-    console.log(searchParams.gender);
-  } else {
-    console.log("not available");
-  }
 
   function generateCategoryLink(categoryLink: string) {
     let genderParam;

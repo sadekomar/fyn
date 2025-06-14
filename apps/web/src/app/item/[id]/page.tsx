@@ -16,6 +16,8 @@ import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
 import { ImageSlider } from "./(components)/image-slider";
 import { ItemPageResponse } from "@/api/types/item";
+import { getSessionAction } from "@/lib/auth";
+import { postItemView } from "@/api/item-views";
 
 export async function generateMetadata({
   params,
@@ -63,6 +65,11 @@ export default async function ItemPage(props: {
   const { id } = await props.params;
 
   const data = await serverHttp.get<ItemPageResponse>(`/item/${id}`);
+  const session = await getSessionAction();
+
+  if (session) {
+    await postItemView({ itemId: id, userId: session.userId });
+  }
 
   if (data.status === "error") {
     return (
@@ -119,7 +126,6 @@ export default async function ItemPage(props: {
       {/* <Suspense fallback={<HScrollerPlaceholder />}>
         <RecentlyViewed />
       </Suspense> */}
-      <AddToRecentlyViewed id={id} />
     </>
   );
 }

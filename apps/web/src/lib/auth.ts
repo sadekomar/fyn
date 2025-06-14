@@ -65,8 +65,6 @@ export async function register(
     return response;
   }
 
-  console.log("response", response);
-
   await createSession(response.data.id);
 
   return response;

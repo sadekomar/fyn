@@ -6,8 +6,8 @@ export enum Endpoints {
   ItemsByIds = "/items-by-ids",
   // brands
   Brands = "/brands",
-  BrandByName = "/brand/:name",
   BrandsAlphabetical = "/brands-alphabetical",
+  BrandByName = "/brand/:name",
   // categories
   Categories = "/categories",
   CategoryById = "/categories/:id",
@@ -37,6 +37,16 @@ export enum Endpoints {
   CartItemById = "/cart-item/:id",
   Address = "/address",
   Addresses = "/addresses/:userId",
+  // views
+  ItemView = "/item-view",
+  UserItemViews = "/user-item-views/:userId",
+  ItemViewsCount = "/item-views-count/:itemId",
+  CategoryView = "/category-view",
+  UserCategoryViews = "/user-category-views/:userId",
+  CategoryViewsCount = "/category-views-count/:categoryId",
+  BrandView = "/brand-view",
+  UserBrandViews = "/user-brand-views/:userId",
+  BrandViewsCount = "/brand-views-count/:brandId",
   // applicants
   Applicants = "/applicants",
   ApplicantById = "/applicant/:id",

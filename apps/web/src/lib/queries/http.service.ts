@@ -43,9 +43,6 @@ export class HttpService {
         headers["Content-Type"] = "application/json";
       }
 
-      console.log("requestBody", requestBody);
-      console.log("url", `${this.baseURL}${url}`);
-
       const res = await fetch(`${this.baseURL}${url}`, {
         signal: method !== HttpMethods.GET ? undefined : options.signal,
         method,

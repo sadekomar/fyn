@@ -12,7 +12,6 @@ export async function SimilarItems({
   color: string;
   gender: string;
 }) {
-  console.log(category, color, gender);
   const data: ItemCardsI[] = await serverHttp.get(
     `/items?categories=${category}&colors=${color}&limit=20&gender=${gender}`,
   );

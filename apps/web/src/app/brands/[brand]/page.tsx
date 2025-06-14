@@ -14,6 +14,8 @@ import {
   getBrandMetadata,
 } from "./(utils)/read-brand";
 import { Endpoints } from "@/api/endpoints";
+import { getSessionAction } from "@/lib/auth";
+import { postBrandView } from "@/api/brand-views";
 
 export async function generateStaticParams() {
   const brands = await serverHttp.get<BrandsList>(Endpoints.Brands);
@@ -48,6 +50,11 @@ export default async function BrandPage(props: {
   const { brand } = await props.params;
   const searchParams = await props.searchParams;
 
+  const session = await getSessionAction();
+  if (session) {
+    await postBrandView({ brandName: brand, userId: session.userId });
+  }
+
   const queryString = getQueryString(searchParams);
   const queryStringArray = getQueryStringArray(searchParams);
 
@@ -55,7 +62,6 @@ export default async function BrandPage(props: {
     queryKey: ["brands-list"],
     queryFn: () => serverHttp.get<BrandsList>(Endpoints.Brands),
   });
-
   await queryClient.prefetchQuery({
     queryKey: ["/brand", brand],
     queryFn: () => getBrand(brand),

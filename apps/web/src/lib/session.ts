@@ -44,8 +44,6 @@ export async function getSession(): Promise<{
   const cookieStore = await cookies();
   const cookie = cookieStore.get("loom-session")?.value;
   const session = cookie ? await decrypt(cookie) : null;
-  console.log("session", session);
-  console.log("cookie", session?.userId);
   return session
     ? {
         userId: session.userId as string,

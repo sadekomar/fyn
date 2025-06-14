@@ -43,10 +43,8 @@ export function CompareButton({ id, className }) {
 
     if (isFilled) {
       removeFromLocalStorage("compare", id);
-      console.log(`removed ${id}`);
     } else {
       addToLocalStorage("compare", id, 2);
-      console.log(`added ${id}`);
     }
   };
 

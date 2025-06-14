@@ -39,7 +39,6 @@ export function useAddToCart() {
     selectedColor: { id: string; name: string },
   ) => {
     const session = await getSessionAction();
-    console.log("session", session?.userId);
 
     if (!session?.userId) {
       addToLocalCart(data, selectedSize, selectedColor);
@@ -82,7 +81,6 @@ export function useGetCartItems() {
     queryKey: ["cart"],
     queryFn: async () => {
       const session = await getSessionAction();
-      console.log("session", session);
       let cart: CartItem[] = [];
 
       if (!session) {
