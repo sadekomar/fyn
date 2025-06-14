@@ -27,6 +27,7 @@ import {
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Endpoints } from "@/api/endpoints";
+import { AddBrandView } from "./(components)/add-brand-view";
 
 export function BrandPageClient() {
   const { brand } = useParams<{ brand: brandKey }>();
@@ -108,6 +109,7 @@ export function BrandPageClient() {
         <FiltersAndCount metadata={metadata} />
         <GridLayout items={data} />
         <PaginationControl metadata={metadata} />
+        <AddBrandView brand={brand} />
       </div>
     </>
   );

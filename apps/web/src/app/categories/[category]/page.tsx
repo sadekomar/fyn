@@ -46,11 +46,6 @@ export default async function CategoryPage(props: {
   const { category } = await props.params;
   const searchParams = await props.searchParams;
 
-  const session = await getSessionAction();
-  if (session) {
-    await postCategoryView({ categoryName: category, userId: session.userId });
-  }
-
   const queryString = getQueryString(searchParams);
   const queryStringArray = getQueryStringArray(searchParams);
 

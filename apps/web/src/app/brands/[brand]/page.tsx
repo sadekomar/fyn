@@ -50,11 +50,6 @@ export default async function BrandPage(props: {
   const { brand } = await props.params;
   const searchParams = await props.searchParams;
 
-  const session = await getSessionAction();
-  if (session) {
-    await postBrandView({ brandName: brand, userId: session.userId });
-  }
-
   const queryString = getQueryString(searchParams);
   const queryStringArray = getQueryStringArray(searchParams);
 

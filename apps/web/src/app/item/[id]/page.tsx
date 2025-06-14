@@ -65,11 +65,6 @@ export default async function ItemPage(props: {
   const { id } = await props.params;
 
   const data = await serverHttp.get<ItemPageResponse>(`/item/${id}`);
-  const session = await getSessionAction();
-
-  if (session) {
-    await postItemView({ itemId: id, userId: session.userId });
-  }
 
   if (data.status === "error") {
     return (
@@ -126,6 +121,7 @@ export default async function ItemPage(props: {
       {/* <Suspense fallback={<HScrollerPlaceholder />}>
         <RecentlyViewed />
       </Suspense> */}
+      <AddToRecentlyViewed id={id} />
     </>
   );
 }

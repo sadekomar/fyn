@@ -12,6 +12,7 @@ import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { useParams, useSearchParams } from "next/navigation";
 import { LoomImage } from "@/components/LoomImage";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
+import { AddCategoryView } from "./add-category-view";
 
 export function CategoryPageClient() {
   const { category } = useParams<{ category: string }>();
@@ -55,6 +56,7 @@ export function CategoryPageClient() {
       <FiltersAndCount metadata={metadata} />
       <GridLayout items={data} />
       <PaginationControl metadata={metadata} />
+      <AddCategoryView category={category} />
     </>
   );
 }
