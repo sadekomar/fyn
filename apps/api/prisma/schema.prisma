@@ -125,6 +125,7 @@ model Brand {
   brandViews       BrandView[]
   showrooms        Showroom[]
   ShippingEstimate ShippingEstimate[]
+  inTrash          Boolean            @default(false)
 }
 
 model Showroom {
