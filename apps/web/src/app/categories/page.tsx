@@ -36,9 +36,9 @@ export default async function AllCategoriesPage(props: { searchParams?: any }) {
       return categoryLink;
     }
     if (categoryLink.includes("?")) {
-      genderParam = `&gender=${searchParams.gender}`;
+      genderParam = `&genders=${searchParams.gender}`;
     } else {
-      genderParam = `?gender=${searchParams.gender}`;
+      genderParam = `?genders=${searchParams.gender}`;
     }
     return categoryLink + genderParam;
   }
@@ -74,7 +74,7 @@ export default async function AllCategoriesPage(props: { searchParams?: any }) {
     display_item_link: string;
     women_only?: boolean;
   }) {
-    const userInMenCategories = searchParams.gender == "men,unisex";
+    const userInMenCategories = searchParams.genders == "men,unisex";
 
     if ("women_only" in category && userInMenCategories) {
       return false;
