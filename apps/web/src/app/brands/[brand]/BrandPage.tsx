@@ -69,7 +69,11 @@ export function BrandPageClient() {
 
         <div className="BrandImageContainer">
           {brandData && (
-            <LoomImage src={brandData.image ?? ""} className={`BrandImage`} />
+            <LoomImage
+              src={brandData.image ?? undefined}
+              className={`BrandImage`}
+              alt={brandData.name}
+            />
           )}
           <div className="BrandContainer">
             <div>
