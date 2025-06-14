@@ -7,9 +7,13 @@ import {
   Order,
   Address,
   ShippingEstimate,
+  AddressType,
 } from "@prisma/client";
 import { z } from "zod";
-import { getOrderConfirmationHtml } from "../../helpers/html-emails";
+import {
+  getOrderConfirmationHtml,
+  OrderConfirmationEmail,
+} from "../../helpers/order-confirmation-email";
 import {
   CreateOrderRequest,
   CreateOrderResponse,
@@ -262,17 +266,63 @@ async function sendOrderConfirmationEmail(result: {
   shippingEstimates: ShippingEstimate[];
 }) {
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const html = getOrderConfirmationHtml({
-    name: result.address?.firstName ?? "Loomer",
-    orderNumber: result.order.orderNumber,
-    items: result.itemOrders,
-    total: result.order.orderTotal,
-    shippingAddress: result.address?.address ?? "Loomer",
-    estimatedDelivery: "2025-05-25",
+  const items = await prisma.item.findMany({
+    where: {
+      id: { in: result.itemOrders.map((item) => item.itemId) },
+    },
+    include: {
+      brand: true,
+      sizes: true,
+    },
   });
+
+  const brands = await prisma.brand.findMany({
+    where: {
+      id: { in: result.shippingEstimates.map((estimate) => estimate.brandId) },
+    },
+  });
+
+  const order: OrderConfirmationEmail = {
+    orderNumber: result.order.orderNumber,
+    orderTotal: result.order.orderTotal,
+    items: result.itemOrders.map((item) => ({
+      name: item.name,
+      quantity: item.quantity,
+      brand: items.find((i) => i.id === item.itemId)?.brand.name ?? "",
+      price: item.price,
+      size:
+        items
+          .find((i) => i.id === item.itemId)
+          ?.sizes.find((s) => s.id === item.sizeId)?.name ?? "",
+      image: item.image ?? "",
+    })),
+    shippingEstimates: result.shippingEstimates.map((estimate) => ({
+      cost: estimate.cost,
+      brand: {
+        id: estimate.brandId,
+        name: brands.find((b) => b.id === estimate.brandId)?.name ?? "",
+      },
+    })),
+    status: result.order.status as OrderStatus,
+    address: {
+      addressType: result.address?.addressType ?? AddressType.NORMAL,
+      firstName: result.address?.firstName ?? "",
+      lastName: result.address?.lastName ?? "",
+      address: result.address?.address ?? "",
+      apartment: result.address?.apartment ?? "",
+      city: result.address?.city ?? "",
+      governorate: result.address?.governorate ?? "",
+      country: result.address?.country ?? "",
+      postalCode: result.address?.postalCode ?? "",
+      company: result.address?.company ?? "",
+      createdAt: result.address?.createdAt ?? new Date(),
+    },
+  };
+
+  const html = getOrderConfirmationHtml(order);
   await resend.emails.send({
     from: "Loom Cairo <orders@loomcairo.com>",
-    to: result.order.email,
+    to: [result.order.email, "contact@loomcairo.com"],
     subject: "Order Confirmation",
     html,
   });
