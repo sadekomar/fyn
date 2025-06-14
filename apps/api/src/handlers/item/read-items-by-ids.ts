@@ -58,7 +58,7 @@ export const readItemsByIds = handleExceptions(
           name: item.name,
           price: item.latestPrice,
           brand: item.brand.name,
-          image: item.images[0].url.replace(
+          image: item.images[0].url.replaceAll(
             ImageSizes.PATTERN,
             ImageSizes.SMALL
           ),
