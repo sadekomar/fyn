@@ -13,6 +13,9 @@ export const readBrands = handleExceptions(
       orderBy: {
         name: "asc",
       },
+      where: {
+        inTrash: false,
+      },
     });
 
     return res.status(200).json(brands);
@@ -27,6 +30,9 @@ export const readBrandsByLetter = handleExceptions(
     const brands = await prisma.brand.findMany({
       orderBy: {
         name: "asc",
+      },
+      where: {
+        inTrash: false,
       },
     });
 
