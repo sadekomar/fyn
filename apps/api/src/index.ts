@@ -65,6 +65,21 @@ import {
   readBrandsByLetter,
 } from "./handlers/brand/brand";
 import { readOrderByNumber } from "./handlers/order/read-order";
+import {
+  createItemView,
+  readItemViewsCount,
+  readUserItemViews,
+} from "./handlers/item-view/item-view";
+import {
+  createBrandView,
+  readBrandViewsCount,
+  readUserBrandViews,
+} from "./handlers/brand-view/brand-view";
+import {
+  createCategoryView,
+  readCategoryViewsCount,
+  readUserCategoryViews,
+} from "./handlers/category-view/category-view";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -94,6 +109,17 @@ app.delete(Endpoints.CategoryById, deleteCategory);
 app.get(Endpoints.BrandByName, readBrand);
 app.get(Endpoints.Brands, readBrands);
 app.get(Endpoints.BrandsAlphabetical, readBrandsByLetter);
+
+// views
+app.post(Endpoints.ItemView, createItemView);
+app.get(Endpoints.UserItemViews, readUserItemViews);
+app.get(Endpoints.ItemViewsCount, readItemViewsCount);
+app.post(Endpoints.BrandView, createBrandView);
+app.get(Endpoints.UserBrandViews, readUserBrandViews);
+app.get(Endpoints.BrandViewsCount, readBrandViewsCount);
+app.post(Endpoints.CategoryView, createCategoryView);
+app.get(Endpoints.UserCategoryViews, readUserCategoryViews);
+app.get(Endpoints.CategoryViewsCount, readCategoryViewsCount);
 
 // itemCart
 app.post(Endpoints.CartItem, createCartItem);
