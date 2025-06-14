@@ -1,3 +1,4 @@
+import { Endpoints } from "@/api/endpoints";
 import { HttpService } from "@/lib/queries/http.service";
 import { CategoriesI, ItemCardsI, MetadataI } from "@/lib/types";
 
@@ -8,6 +9,13 @@ export function getBrandItems(
 ) {
   const httpService = new HttpService(isServer);
   return httpService.get<ItemCardsI[]>(`/items?brands=${brand}&${queryString}`);
+}
+
+export function getBrand(brand: string, isServer = true) {
+  const httpService = new HttpService(isServer);
+  return httpService.get<BrandData>(
+    Endpoints.BrandByName.replace(":name", brand),
+  );
 }
 
 export function getBrandMetadata(

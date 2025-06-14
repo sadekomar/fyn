@@ -19,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { clientHttp } from "@/lib/queries/http.service";
 import { BrandsList } from "@/lib/types";
 import {
+  getBrand,
   getBrandCategories,
   getBrandItems,
   getBrandMetadata,
@@ -34,12 +35,16 @@ export function BrandPageClient() {
   const queryString = searchParams.toString();
   const queryStringArray = Array.from(searchParams.entries());
 
+  const { data: brandData } = useQuery({
+    queryKey: ["/brand", brand],
+    queryFn: () => getBrand(brand, false),
+  });
   const { data: brandsList } = useQuery({
     queryKey: ["brands-list"],
     queryFn: () => clientHttp.get<BrandsList>(Endpoints.Brands),
   });
   const { data } = useQuery({
-    queryKey: ["/brand", brand, ...queryStringArray],
+    queryKey: ["/brand-items", brand, ...queryStringArray],
     queryFn: () => getBrandItems(brand, queryString, false),
   });
   const { data: metadata } = useQuery({
@@ -57,31 +62,19 @@ export function BrandPageClient() {
 
   const { previousBrand, nextBrand } = getPreviousNextBrands(brand, brandsList);
 
-  const coverImage = "";
-
-  function getHeroImage() {
-    if (heroImages[brand]) {
-      let displayImage = heroImages[brand];
-      displayImage.replace("loom-image-dimensions", "300");
-      return displayImage;
-    } else {
-      if (coverImage) {
-        return coverImage["src"];
-      }
-    }
-  }
-
   return (
     <>
       <div className="brand-page-wrapper">
         <BrandsNavigator params={{ brand }} brandsList={brandsList} />
 
         <div className="BrandImageContainer">
-          <LoomImage src={getHeroImage()} className={`BrandImage`} />
+          {brandData && (
+            <LoomImage src={brandData.image ?? ""} className={`BrandImage`} />
+          )}
           <div className="BrandContainer">
             <div>
               <div className="brand-info-wrapper">
-                <h2 className="brand-name">{brand.replaceAll("%20", " ")}</h2>
+                <h2 className="brand-name">{brandData?.name}</h2>
                 <FollowButton className={"follow-button-white"} brand={brand} />
               </div>
               <BrandDescription brand={brand} />

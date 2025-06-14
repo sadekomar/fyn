@@ -8,6 +8,7 @@ import { serverHttp } from "@/lib/queries/http.service";
 import { BrandsList } from "@/lib/types";
 import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
 import {
+  getBrand,
   getBrandCategories,
   getBrandItems,
   getBrandMetadata,
@@ -56,7 +57,11 @@ export default async function BrandPage(props: {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["/brand", brand, ...queryStringArray],
+    queryKey: ["/brand", brand],
+    queryFn: () => getBrand(brand),
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["/brand-items", brand, ...queryStringArray],
     queryFn: () => getBrandItems(brand, queryString),
   });
   await queryClient.prefetchQuery({

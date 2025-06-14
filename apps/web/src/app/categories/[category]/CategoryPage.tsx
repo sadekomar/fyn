@@ -27,7 +27,6 @@ export function CategoryPageClient() {
 
   const removeSpaces = (category: string) => {
     const categoryWithoutSpaces = category.replace("%20", " ");
-    console.log("categoryWithoutSpaces", categoryWithoutSpaces);
     return categoryWithoutSpaces;
   };
 
