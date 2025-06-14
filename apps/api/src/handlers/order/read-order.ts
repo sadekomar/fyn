@@ -50,3 +50,51 @@ export const readOrder = handleExceptions(
     return res.status(200).json(order);
   }
 );
+
+export const readOrderByNumber = handleExceptions(
+  async (
+    req: Request,
+    res: Response<
+      ReadOrderResponse | { status: "error"; error: { orderNumber: string[] } }
+    >
+  ) => {
+    const { orderNumber } = req.params;
+
+    if (!orderNumber) {
+      return res.status(400).json({
+        status: "error",
+        error: {
+          orderNumber: ["Order number is required"],
+        },
+      });
+    }
+
+    const order = await prisma.order.findUnique({
+      where: { orderNumber },
+      include: {
+        items: {
+          include: {
+            size: true,
+            color: true,
+            shippingEstimate: {
+              include: {
+                brand: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        status: "error",
+        error: {
+          orderNumber: ["Order not found"],
+        },
+      });
+    }
+
+    return res.status(200).json(order);
+  }
+);

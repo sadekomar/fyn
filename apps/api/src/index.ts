@@ -60,6 +60,7 @@ import {
 } from "./handlers/item/item";
 import { createNewsletter } from "./handlers/newsletter/create-newsletter";
 import { readBrands, readBrandsByLetter } from "./handlers/brand/brand";
+import { readOrderByNumber } from "./handlers/order/read-order";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -97,6 +98,7 @@ app.delete(Endpoints.CartItemById, deleteCartItem);
 
 app.post(Endpoints.Order, createOrder);
 app.get(Endpoints.OrderById, readOrder);
+app.get(Endpoints.OrderByNumber, readOrderByNumber);
 app.get(Endpoints.OrdersByUserId, readOrders);
 app.put(Endpoints.OrderById, updateOrder);
 app.delete(Endpoints.OrderById, deleteOrder);
