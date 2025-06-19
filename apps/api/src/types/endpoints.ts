@@ -24,6 +24,8 @@ export enum Endpoints {
   ResetPassword = "/reset-password",
   ResendVerificationEmail = "/resend-verification-email",
   ResendPasswordResetEmail = "/resend-password-reset-email",
+  // analytics
+  GuestUser = "/guest-user",
   // user-data
   User = "/user",
   UserById = "/user/:id",

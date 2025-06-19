@@ -51,55 +51,93 @@ model Item {
   @@index([inTrash])
 }
 
+model GuestUser {
+  id            String         @id @default(uuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  itemViews     ItemView[]
+  categoryViews CategoryView[]
+  brandViews    BrandView[]
+  likes         Like[]
+  itemCarts     ItemCart[]
+  sessions      Session[]
+
+  @@index([createdAt])
+}
+
+// okay lemme worry about session expiry later on.
+model Session {
+  id          String    @id @default(uuid())
+  guestUserId String
+  GuestUser   GuestUser @relation(fields: [guestUserId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  isExpired   Boolean   @default(false)
+
+  @@index([guestUserId])
+}
+
+// Analytics
 model ItemView {
-  id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  itemId    String
-  quantity  Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String     @id @default(uuid())
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  item        Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId      String
+  quantity    Int        @default(1)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  guestUserId String?
 
   @@index([itemId])
   @@index([userId])
+  @@index([guestUserId])
 }
 
 model CategoryView {
-  id         String   @id @default(uuid())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId String
-  quantity   Int      @default(1)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String     @id @default(uuid())
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId  String
+  quantity    Int        @default(1)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  guestUserId String?
 
   @@index([categoryId])
   @@index([userId])
+  @@index([guestUserId])
 }
 
 model BrandView {
-  id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  brandId   String
-  quantity  Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String     @id @default(uuid())
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  brand       Brand      @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId     String
+  quantity    Int        @default(1)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  guestUserId String?
 
   @@index([brandId])
   @@index([userId])
+  @@index([guestUserId])
 }
 
 model Like {
-  id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  itemId    String
-  createdAt DateTime @default(now())
+  id          String     @id @default(uuid())
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  item        Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId      String
+  createdAt   DateTime   @default(now())
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  guestUserId String?
 
   @@index([itemId])
   @@index([userId])
@@ -244,45 +282,24 @@ model User {
   @@index([email])
 }
 
-enum AddressType {
-  NORMAL
-  BILLING
-}
-
-model Address {
-  id          String      @id @default(uuid())
-  firstName   String
-  lastName    String
-  company     String?
-  address     String
-  apartment   String?
-  city        String
-  governorate String
-  country     String      @default("Egypt")
-  postalCode  String?
-  createdAt   DateTime    @default(now())
-  orders      Order[]
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-  addressType AddressType @default(NORMAL)
-}
-
 model ItemCart {
-  id        String   @id @default(uuid())
-  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  itemId    String
-  quantity  Int      @default(1)
-  size      Size     @relation(fields: [sizeId], references: [id])
-  sizeId    String
-  color     Color?   @relation(fields: [colorId], references: [id])
-  colorId   String?
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String     @id @default(uuid())
+  item        Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId      String
+  quantity    Int        @default(1)
+  size        Size       @relation(fields: [sizeId], references: [id])
+  sizeId      String
+  color       Color?     @relation(fields: [colorId], references: [id])
+  colorId     String?
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  guestUserId String?
 }
 
-// these entities are created after user clicks checkout.
+// After clicking checkout.
 model Order {
   id                String             @id @default(uuid())
   orderNumber       String             @unique
@@ -321,6 +338,29 @@ model ItemOrder {
   colorId            String?
   shippingEstimate   ShippingEstimate @relation(fields: [shippingEstimateId], references: [id], onDelete: Cascade)
   shippingEstimateId String
+}
+
+enum AddressType {
+  NORMAL
+  BILLING
+}
+
+model Address {
+  id          String      @id @default(uuid())
+  firstName   String
+  lastName    String
+  company     String?
+  address     String
+  apartment   String?
+  city        String
+  governorate String
+  country     String      @default("Egypt")
+  postalCode  String?
+  createdAt   DateTime    @default(now())
+  orders      Order[]
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  addressType AddressType @default(NORMAL)
 }
 
 model ShippingEstimate {

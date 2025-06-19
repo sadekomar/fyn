@@ -12,12 +12,10 @@ export const createCategoryView = handleExceptions(
     req: Request<{}, {}, CreateCategoryViewRequest>,
     res: Response<CreateCategoryViewResponse>
   ) => {
-    const { categoryName, userId } = req.body;
+    const { categoryName, type } = req.body;
 
     const category = await prisma.category.findUnique({
-      where: {
-        name: categoryName,
-      },
+      where: { name: categoryName },
     });
     if (!category) {
       return res.status(404).json({
@@ -27,40 +25,50 @@ export const createCategoryView = handleExceptions(
     }
     const categoryId = category.id;
 
-    const existingCategoryView = await prisma.categoryView.findFirst({
-      where: {
-        AND: [
-          {
-            categoryId: categoryId,
-          },
-          {
-            userId: userId,
-          },
-        ],
-      },
-    });
-
-    if (existingCategoryView) {
-      await prisma.categoryView.update({
+    if (type === "user") {
+      const { userId } = req.body;
+      const existingCategoryView = await prisma.categoryView.findFirst({
         where: {
-          id: existingCategoryView.id,
-        },
-        data: {
-          quantity: existingCategoryView.quantity + 1,
+          AND: [{ categoryId: categoryId }, { userId: userId }],
         },
       });
+      if (existingCategoryView) {
+        await prisma.categoryView.update({
+          where: { id: existingCategoryView.id },
+          data: { quantity: existingCategoryView.quantity + 1 },
+        });
 
-      return res.status(200).json({
-        status: "success",
-        message: "Category view updated",
-      });
+        return res.status(200).json({
+          status: "success",
+          message: "Category view updated",
+        });
+      } else {
+        await prisma.categoryView.create({
+          data: { categoryId, userId },
+        });
+      }
     } else {
-      await prisma.categoryView.create({
-        data: {
-          categoryId,
-          userId,
+      const { guestUserId } = req.body;
+      const existingCategoryView = await prisma.categoryView.findFirst({
+        where: {
+          AND: [{ categoryId: categoryId }, { guestUserId: guestUserId }],
         },
       });
+      if (existingCategoryView) {
+        await prisma.categoryView.update({
+          where: { id: existingCategoryView.id },
+          data: { quantity: existingCategoryView.quantity + 1 },
+        });
+
+        return res.status(200).json({
+          status: "success",
+          message: "Category view updated",
+        });
+      } else {
+        await prisma.categoryView.create({
+          data: { categoryId, guestUserId },
+        });
+      }
     }
 
     return res.status(201).json({

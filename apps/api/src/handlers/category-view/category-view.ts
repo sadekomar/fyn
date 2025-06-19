@@ -7,10 +7,21 @@ import {
 export { createCategoryView, readCategoryViewsCount, readUserCategoryViews };
 
 // Create
-export type CreateCategoryViewRequest = {
+type CreateCategoryViewGuestRequest = {
+  type: "guest";
+  categoryName: string;
+  guestUserId: string;
+};
+
+type CreateCategoryViewUserRequest = {
+  type: "user";
   categoryName: string;
   userId: string;
 };
+
+export type CreateCategoryViewRequest =
+  | CreateCategoryViewGuestRequest
+  | CreateCategoryViewUserRequest;
 
 export type CreateCategoryViewResponse = {
   status: "success" | "error";
@@ -19,7 +30,8 @@ export type CreateCategoryViewResponse = {
 
 // Read
 export type ReadCategoryViewRequest = {
-  userId: string;
+  userId?: string;
+  guestUserId?: string;
 };
 
 export type ReadCategoryViewResponse = {

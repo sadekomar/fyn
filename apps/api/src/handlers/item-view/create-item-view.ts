@@ -9,47 +9,61 @@ export const createItemView = handleExceptions(
     req: Request<{}, {}, CreateItemViewRequest>,
     res: Response<CreateItemViewResponse>
   ) => {
-    const { itemId, userId } = req.body;
+    const { itemId, type } = req.body;
 
-    const existingItemView = await prisma.itemView.findFirst({
-      where: {
-        AND: [
-          {
-            itemId: itemId,
-          },
-          {
-            userId: userId,
-          },
-        ],
-      },
-    });
+    if (type === "guest") {
+      const { guestUserId } = req.body;
 
-    if (existingItemView) {
-      await prisma.itemView.update({
+      const existingItemView = await prisma.itemView.findFirst({
         where: {
-          id: existingItemView.id,
-        },
-        data: {
-          quantity: existingItemView.quantity + 1,
+          AND: [{ itemId: itemId }, { guestUserId: guestUserId }],
         },
       });
 
-      return res.status(200).json({
+      if (existingItemView) {
+        await prisma.itemView.update({
+          where: { id: existingItemView.id },
+          data: { quantity: existingItemView.quantity + 1 },
+        });
+      } else {
+        await prisma.itemView.create({
+          data: { itemId, guestUserId },
+        });
+      }
+
+      return res.status(201).json({
         status: "success",
-        message: "Item view updated",
+        message: "Item view created",
       });
     } else {
-      await prisma.itemView.create({
-        data: {
-          itemId,
-          userId,
+      const { userId } = req.body;
+
+      const existingItemView = await prisma.itemView.findFirst({
+        where: {
+          AND: [{ itemId: itemId }, { userId: userId }],
         },
       });
-    }
 
-    return res.status(201).json({
-      status: "success",
-      message: "Item view created",
-    });
+      if (existingItemView) {
+        await prisma.itemView.update({
+          where: { id: existingItemView.id },
+          data: { quantity: existingItemView.quantity + 1 },
+        });
+
+        return res.status(200).json({
+          status: "success",
+          message: "Item view updated",
+        });
+      } else {
+        await prisma.itemView.create({
+          data: { itemId, userId },
+        });
+      }
+
+      return res.status(201).json({
+        status: "success",
+        message: "Item view created",
+      });
+    }
   }
 );

@@ -80,6 +80,7 @@ import {
   readCategoryViewsCount,
   readUserCategoryViews,
 } from "./handlers/category-view/category-view";
+import { createGuestUser } from "./handlers/guest-user/guest-user";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -91,6 +92,9 @@ app.use(cors());
 
 app.get(Endpoints.Health, healthCheck);
 app.get(Endpoints.Latency, testLatency);
+
+// Guest user
+app.post(Endpoints.GuestUser, createGuestUser);
 
 // Items
 app.get(Endpoints.Items, readItems);

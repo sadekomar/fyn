@@ -4,10 +4,21 @@ import { readBrandViewsCount, readUserBrandViews } from "./read-brand-view";
 export { createBrandView, readBrandViewsCount, readUserBrandViews };
 
 // Create
-export type CreateBrandViewRequest = {
+type CreateBrandViewGuestRequest = {
+  type: "guest";
+  brandName: string;
+  guestUserId: string;
+};
+
+type CreateBrandViewUserRequest = {
+  type: "user";
   brandName: string;
   userId: string;
 };
+
+export type CreateBrandViewRequest =
+  | CreateBrandViewGuestRequest
+  | CreateBrandViewUserRequest;
 
 export type CreateBrandViewResponse = {
   status: "success" | "error";
@@ -16,7 +27,8 @@ export type CreateBrandViewResponse = {
 
 // Read
 export type ReadBrandViewRequest = {
-  userId: string;
+  userId?: string;
+  guestUserId?: string;
 };
 
 export type ReadBrandViewResponse = {

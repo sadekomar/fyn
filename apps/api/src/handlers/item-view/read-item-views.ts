@@ -5,11 +5,11 @@ import { ImageSizes, ItemCardsI } from "../item/item";
 
 export const readUserItemViews = handleExceptions(
   async (req: Request, res: Response<ItemCardsI[]>) => {
-    const { userId } = req.params;
+    const { userId, guestUserId } = req.params;
 
     const itemViews = await prisma.itemView.findMany({
       where: {
-        userId: userId,
+        OR: [{ userId: userId }, { guestUserId: guestUserId }],
       },
       include: {
         item: {

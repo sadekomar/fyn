@@ -9,56 +9,62 @@ export const createBrandView = handleExceptions(
     req: Request<{}, {}, CreateBrandViewRequest>,
     res: Response<CreateBrandViewResponse>
   ) => {
-    const { brandName, userId } = req.body;
+    const { brandName, type } = req.body;
 
     const brand = await prisma.brand.findUnique({
-      where: {
-        name: brandName,
-      },
+      where: { name: brandName },
     });
-
     if (!brand) {
       return res.status(404).json({
         status: "error",
         message: "Brand not found",
       });
     }
-    const brandId = brand.id;
 
-    const existingBrandView = await prisma.brandView.findFirst({
-      where: {
-        AND: [
-          {
-            brandId: brandId,
-          },
-          {
-            userId: userId,
-          },
-        ],
-      },
-    });
-
-    if (existingBrandView) {
-      await prisma.brandView.update({
+    if (type === "user") {
+      const { userId } = req.body;
+      const existingBrandView = await prisma.brandView.findFirst({
         where: {
-          id: existingBrandView.id,
-        },
-        data: {
-          quantity: existingBrandView.quantity + 1,
+          AND: [{ brandId: brand.id }, { userId: userId }],
         },
       });
+      if (existingBrandView) {
+        await prisma.brandView.update({
+          where: { id: existingBrandView.id },
+          data: { quantity: existingBrandView.quantity + 1 },
+        });
 
-      return res.status(200).json({
-        status: "success",
-        message: "Brand view updated",
-      });
+        return res.status(200).json({
+          status: "success",
+          message: "Brand view updated",
+        });
+      } else {
+        await prisma.brandView.create({
+          data: { brandId: brand.id, userId },
+        });
+      }
     } else {
-      await prisma.brandView.create({
-        data: {
-          brandId,
-          userId,
+      const { guestUserId } = req.body;
+      const existingBrandView = await prisma.brandView.findFirst({
+        where: {
+          AND: [{ brandId: brand.id }, { guestUserId: guestUserId }],
         },
       });
+      if (existingBrandView) {
+        await prisma.brandView.update({
+          where: { id: existingBrandView.id },
+          data: { quantity: existingBrandView.quantity + 1 },
+        });
+
+        return res.status(200).json({
+          status: "success",
+          message: "Brand view updated",
+        });
+      } else {
+        await prisma.brandView.create({
+          data: { brandId: brand.id, guestUserId },
+        });
+      }
     }
 
     return res.status(201).json({

@@ -4,10 +4,21 @@ import { readUserItemViews } from "./read-item-views";
 
 export { createItemView, readItemViewsCount, readUserItemViews };
 
-export type CreateItemViewRequest = {
+type CreateItemViewGuestRequest = {
+  type: "guest";
+  itemId: string;
+  guestUserId: string;
+};
+
+export type CreateItemViewUserRequest = {
+  type: "user";
   itemId: string;
   userId: string;
 };
+
+export type CreateItemViewRequest =
+  | CreateItemViewGuestRequest
+  | CreateItemViewUserRequest;
 
 export type CreateItemViewResponse = {
   status: "success" | "error";
