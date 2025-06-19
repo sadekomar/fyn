@@ -2,7 +2,7 @@
 
 import { getOrdersByUserId, putOrder } from "@/api/orders";
 import { ReadAllOrdersResponse } from "@/api/types/order-types";
-import { getSessionAction } from "@/lib/auth";
+import { getUserSession } from "@/lib/auth";
 import { LoomImage } from "@/components/LoomImage";
 import Link from "next/link";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -87,7 +87,7 @@ export default function OrdersPage() {
   } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
-      const session = await getSessionAction();
+      const session = await getUserSession();
       if (!session?.userId) {
         throw new Error("Please log in to view your orders");
       }

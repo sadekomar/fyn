@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { LoomImage } from "@/components/LoomImage";
-import "./home.css";
+import "../home.css";
 
-import { Hero } from "./hero";
 import { Brands } from "./brands";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { clientHttp } from "@/lib/queries/http.service";
@@ -13,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { conifg } from "../utils";
 import FestivalFashion from "./festival-fashion";
 import HeroByV0 from "./hero-by-v0";
+import HeroExperimentPage from "./experiment";
 
 export default function ClientHomePage() {
   const { data: latestBrandData } = useQuery({
@@ -48,16 +48,39 @@ export default function ClientHomePage() {
   });
 
   return (
-    <div className="space-y-12 pb-12">
+    <div className="space-y-12">
+      <LoomImage
+        src="/model.webp"
+        className="h-[320px] w-full object-cover object-[50%_20%]"
+        alt="Fashion editorial"
+      />
+      Look no further
       {/* <HeroExperimentPage /> */}
+      <div className="w-full overflow-hidden bg-neutral-900/60 py-3 backdrop-blur-md md:py-5">
+        <div className="animate-marquee text-xs whitespace-nowrap text-neutral-400 sm:text-sm md:text-base">
+          <span className="mx-3 md:mx-4">✨ Discover Local Gems</span>
+          <span className="mx-3 md:mx-4"> Curated Collections </span>
+          <span className="mx-3 md:mx-4"> Fashion-Forward Finds </span>
+          <span className="mx-3 md:mx-4"> Support Small Brands </span>
+          <span className="mx-3 md:mx-4"> Unique Styles Daily </span>
+          <span className="mx-3 md:mx-4">Handcrafted Quality</span>
+          {/* Repeated for smooth loop */}
+          <span className="mx-3 md:mx-4">✨ Discover Local Gems</span>
+          <span className="mx-3 md:mx-4"> Curated Collections </span>
+          <span className="mx-3 md:mx-4"> Fashion-Forward Finds </span>
+          <span className="mx-3 md:mx-4"> Support Small Brands </span>
+          <span className="mx-3 md:mx-4"> Unique Styles Daily </span>
+          <span className="mx-3 md:mx-4">Handcrafted Quality</span>
+        </div>
+      </div>
       {/* Fashion Editorial Hero Section */}
-      <section className="relative h-[95vh] min-h-[800px] bg-black overflow-hidden">
+      <section className="relative h-[95vh] min-h-[800px] overflow-hidden bg-black">
         {/* Background Image with Dynamic Overlay */}
         <div className="absolute inset-0">
           <LoomImage
             src="/dreamy.webp"
             alt="Fashion editorial"
-            className="object-cover w-full h-full"
+            className="h-full w-full object-cover"
             width={1920}
             height={1080}
             loading="eager"
@@ -67,33 +90,33 @@ export default function ClientHomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative h-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex flex-col justify-end h-full pb-32">
+        <div className="relative mx-auto h-full max-w-7xl px-4 md:px-6 lg:px-8">
+          <div className="flex h-full flex-col justify-end pb-32">
             {/* Main Content */}
             <div className="max-w-2xl">
               <div className="mb-6">
-                <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-medium tracking-wider uppercase">
+                <span className="inline-block rounded-full bg-white/10 px-4 py-2 text-sm font-medium tracking-wider text-white uppercase backdrop-blur-sm">
                   New Season
                 </span>
               </div>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+              <h1 className="mb-6 text-5xl leading-[1.1] font-bold tracking-tight text-white md:text-7xl lg:text-8xl">
                 Define Your{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-purple-400">
+                <span className="bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent">
                   Style
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-xl">
+              <p className="mb-8 max-w-xl text-xl leading-relaxed text-gray-200 md:text-2xl">
                 Discover the perfect blend of contemporary design and timeless
                 elegance. Where every piece tells your story.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row">
                 <Link
                   href="/categories"
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-none text-white bg-white/10 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20"
+                  className="group inline-flex items-center justify-center rounded-none border border-white/20 bg-white/10 px-8 py-4 text-lg font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
                 >
                   Shop the Drop
                   <svg
-                    className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform"
+                    className="ml-2 h-5 w-5 transform transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -110,38 +133,38 @@ export default function ClientHomePage() {
             </div>
 
             {/* Stats Section */}
-            <div className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm py-8">
-              <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="absolute right-0 bottom-0 left-0 bg-black/40 py-8 backdrop-blur-sm">
+              <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
+                <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
                   <div className="text-center">
-                    <div className="text-4xl font-light text-white mb-2">
+                    <div className="mb-2 text-4xl font-light text-white">
                       300+
                     </div>
-                    <div className="text-sm text-gray-300 tracking-widest uppercase">
+                    <div className="text-sm tracking-widest text-gray-300 uppercase">
                       Local Brands
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-4xl font-light text-white mb-2">
+                    <div className="mb-2 text-4xl font-light text-white">
                       17,000+
                     </div>
-                    <div className="text-sm text-gray-300 tracking-widest uppercase">
+                    <div className="text-sm tracking-widest text-gray-300 uppercase">
                       Curated Pieces
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-4xl font-light text-white mb-2">
+                    <div className="mb-2 text-4xl font-light text-white">
                       24/7
                     </div>
-                    <div className="text-sm text-gray-300 tracking-widest uppercase">
+                    <div className="text-sm tracking-widest text-gray-300 uppercase">
                       Style Support
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-4xl font-light text-white mb-2">
+                    <div className="mb-2 text-4xl font-light text-white">
                       100%
                     </div>
-                    <div className="text-sm text-gray-300 tracking-widest uppercase">
+                    <div className="text-sm tracking-widest text-gray-300 uppercase">
                       Local Fashion
                     </div>
                   </div>
@@ -150,31 +173,30 @@ export default function ClientHomePage() {
             </div>
 
             {/* Scroll Indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:block">
+            <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 transform md:block">
               <div className="flex flex-col items-center text-white/30">
-                <span className="text-xs tracking-widest uppercase mb-2">
+                <span className="mb-2 text-xs tracking-widest uppercase">
                   Scroll to explore
                 </span>
-                <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent" />
+                <div className="h-12 w-px bg-gradient-to-b from-white/50 to-transparent" />
               </div>
             </div>
           </div>
         </div>
       </section>
-
       <HeroByV0 />
       <FestivalFashion items={featuredBrands} />
       {/* Featured Brands Section */}
       <section className="px-4 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-6 flex items-center justify-between">
             <div>
               <Link href="/brands/featured">
-                <h2 className="text-2xl font-bold hover:text-gray-600 transition-colors">
+                <h2 className="text-2xl font-bold transition-colors hover:text-gray-600">
                   Featured Brands
                 </h2>
               </Link>
-              <p className="text-gray-600 mt-1">
+              <p className="mt-1 text-gray-600">
                 Discover our handpicked selection of top brands
               </p>
             </div>
@@ -188,18 +210,17 @@ export default function ClientHomePage() {
           <HorizontalScroller items={featuredBrands || []} />
         </div>
       </section>
-
       {/* Latest from Brand Section */}
-      <section className="px-4 md:px-6 lg:px-8 bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
+      <section className="bg-gray-50 px-4 py-12 md:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-6 flex items-center justify-between">
             <div>
               <Link href={`/brands/${conifg.latestFromBrand.value}`}>
-                <h2 className="text-2xl font-bold hover:text-gray-600 transition-colors">
+                <h2 className="text-2xl font-bold transition-colors hover:text-gray-600">
                   Latest from {conifg.latestFromBrand.label}
                 </h2>
               </Link>
-              <p className="text-gray-600 mt-1">
+              <p className="mt-1 text-gray-600">
                 Fresh arrivals from your favorite brand
               </p>
             </div>
@@ -213,17 +234,16 @@ export default function ClientHomePage() {
           <HorizontalScroller items={latestBrandData || []} />
         </div>
       </section>
-
       {/* Brand of the Day Section */}
       {brandOfTheDayData && brandOfTheDayData.length > 0 && (
         <section className="px-4 md:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-6 flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold">
                   Brand of the Day: {conifg.brandOfTheDay.label}
                 </h2>
-                <p className="text-gray-600 mt-1">
+                <p className="mt-1 text-gray-600">
                   Special spotlight on our featured brand
                 </p>
               </div>
@@ -238,18 +258,17 @@ export default function ClientHomePage() {
           </div>
         </section>
       )}
-
       {/* Trending Items Section */}
-      <section className="px-4 md:px-6 lg:px-8 bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
+      <section className="bg-gray-50 px-4 py-12 md:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-6 flex items-center justify-between">
             <div>
               <Link href="/trending">
-                <h2 className="text-2xl font-bold hover:text-gray-600 transition-colors">
+                <h2 className="text-2xl font-bold transition-colors hover:text-gray-600">
                   Trending Now
                 </h2>
               </Link>
-              <p className="text-gray-600 mt-1">
+              <p className="mt-1 text-gray-600">
                 What's hot and popular right now
               </p>
             </div>
@@ -263,12 +282,9 @@ export default function ClientHomePage() {
           <HorizontalScroller items={trendingItems || []} />
         </div>
       </section>
-
       {/* Original Hero Section */}
       <section className="px-4 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <Hero />
-        </div>
+        <div className="mx-auto max-w-7xl"></div>
       </section>
       <Brands />
     </div>

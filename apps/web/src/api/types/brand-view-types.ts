@@ -1,8 +1,19 @@
 // Create
-export type CreateBrandViewRequest = {
+type CreateBrandViewGuestRequest = {
+  type: "guest";
+  brandName: string;
+  guestUserId: string;
+};
+
+type CreateBrandViewUserRequest = {
+  type: "user";
   brandName: string;
   userId: string;
 };
+
+export type CreateBrandViewRequest =
+  | CreateBrandViewGuestRequest
+  | CreateBrandViewUserRequest;
 
 export type CreateBrandViewResponse = {
   status: "success" | "error";

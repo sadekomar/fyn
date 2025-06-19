@@ -16,7 +16,7 @@ import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
 import { ImageSlider } from "./(components)/image-slider";
 import { ItemPageResponse } from "@/api/types/item";
-import { getSessionAction } from "@/lib/auth";
+import { getUserSession } from "@/lib/auth";
 import { postItemView } from "@/api/item-views";
 
 export async function generateMetadata({

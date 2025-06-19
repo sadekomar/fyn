@@ -8,7 +8,7 @@ import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { CategoryPageClient } from "./CategoryPage";
 import { serverHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/api/endpoints";
-import { getSessionAction } from "@/lib/auth";
+import { getUserSession } from "@/lib/auth";
 import { postCategoryView } from "@/api/category-views";
 
 export const revalidate = 43200; // 12 hours in seconds

@@ -1,19 +1,29 @@
 "use client";
 
-import { useGetSession } from "@/lib/use-auth";
+import { useGetGuest, useGetUser } from "@/lib/use-auth";
 import { postCategoryView } from "@/api/category-views";
 import { useEffect } from "react";
 
 export function AddCategoryView({ category }: { category: string }) {
-  const session = useGetSession();
+  const user = useGetUser();
+  const guest = useGetGuest();
 
   useEffect(() => {
-    if (session && category) {
+    if (user && category) {
       postCategoryView(
-        { categoryName: category, userId: session.userId },
+        { type: "user", categoryName: category, userId: user.userId },
+        false,
+      );
+    } else if (guest && category) {
+      postCategoryView(
+        {
+          type: "guest",
+          categoryName: category,
+          guestUserId: guest.guestUserId,
+        },
         false,
       );
     }
-  }, [session, category]);
+  }, [user, guest, category]);
   return null;
 }

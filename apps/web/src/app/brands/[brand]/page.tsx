@@ -14,8 +14,9 @@ import {
   getBrandMetadata,
 } from "./(utils)/read-brand";
 import { Endpoints } from "@/api/endpoints";
-import { getSessionAction } from "@/lib/auth";
+import { getUserSession } from "@/lib/auth";
 import { postBrandView } from "@/api/brand-views";
+import { Metadata } from "next/types";
 
 export async function generateStaticParams() {
   const brands = await serverHttp.get<BrandsList>(Endpoints.Brands);
@@ -25,7 +26,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: {
   params: Promise<{ brand: string }>;
-}) {
+}): Promise<Metadata> {
   const params = await props.params;
   const brand = params.brand.replaceAll("%20", " ");
 
@@ -36,6 +37,7 @@ export async function generateMetadata(props: {
       description:
         "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
       type: "website",
+      images: "https://capsuleegy.com/products/flip-flops-1",
     },
   };
 }

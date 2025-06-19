@@ -3,14 +3,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getUser } from "@/api/user";
-import { logout, getSessionAction } from "@/lib/auth";
+import { logout, getUserSession } from "@/lib/auth";
 import { useQuery } from "@tanstack/react-query";
 
 export default function AccountPage() {
   const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
-      const session = await getSessionAction();
+      const session = await getUserSession();
       if (!session?.userId) return null;
       return getUser(session.userId);
     },

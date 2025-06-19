@@ -22,6 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#A6A2DE" />
+      </head>
       <body>
         <Theme>
           <QueryProvider>

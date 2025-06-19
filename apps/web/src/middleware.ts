@@ -14,7 +14,6 @@ export default async function middleware(request: NextRequest) {
   const cookieStore = await cookies();
   const cookie = cookieStore.get("loom-session")?.value;
   const session = cookie ? await decrypt(cookie) : null;
-  console.log("session", session);
 
   // if user isn't logged in don't show them protected routes
   if (isProtectedRoute && !session?.userId) {

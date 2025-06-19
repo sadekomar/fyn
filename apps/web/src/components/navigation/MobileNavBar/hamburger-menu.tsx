@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useGetSession } from "@/lib/use-auth";
+import { useGetUser } from "@/lib/use-auth";
 import { LoomHamburger } from "@/components/Icons/CustomIcons";
 import Link from "next/link";
 import {
@@ -187,7 +187,7 @@ const menuFooter = [
 
 export default function HamburgerMenu() {
   // if user is logged in show Hi name,
-  const session = useGetSession();
+  const session = useGetUser();
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);

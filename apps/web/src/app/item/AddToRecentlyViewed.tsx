@@ -1,15 +1,21 @@
 "use client";
 import { useEffect } from "react";
-import { useGetSession } from "@/lib/use-auth";
+import { useGetGuest, useGetUser } from "@/lib/use-auth";
 import { postItemView } from "@/api/item-views";
 
 export function AddToRecentlyViewed({ id }: { id: string }) {
-  const session = useGetSession();
+  const user = useGetUser();
+  const guest = useGetGuest();
 
   useEffect(() => {
-    if (session && id) {
-      postItemView({ itemId: id, userId: session.userId }, false);
+    if (user && id) {
+      postItemView({ type: "user", itemId: id, userId: user.userId }, false);
+    } else if (guest && id) {
+      postItemView(
+        { type: "guest", itemId: id, guestUserId: guest.guestUserId },
+        false,
+      );
     }
-  }, [id, session]);
+  }, [id, user, guest]);
   return null;
 }

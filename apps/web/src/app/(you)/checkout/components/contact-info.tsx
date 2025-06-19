@@ -9,7 +9,7 @@ import { FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { FormControl, FormField } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
 import { OrderFormSchema } from "../checkout-form";
-import { useGetSession } from "@/lib/use-auth";
+import { useGetUser } from "@/lib/use-auth";
 import { useQuery } from "@tanstack/react-query";
 import { clientHttp } from "@/lib/queries/http.service";
 
@@ -64,7 +64,7 @@ function LoggedInContactInfo({
   const [useAccountContactInfo, setUseAccountContactInfo] =
     useState<boolean>(true);
 
-  const session = useGetSession();
+  const session = useGetUser();
   const { data: user } = useQuery({
     queryKey: ["user", session?.userId],
     queryFn: () => clientHttp.get<User>(`/user/${session?.userId}`),

@@ -1,8 +1,19 @@
 // Create
-export type CreateCategoryViewRequest = {
+type CreateCategoryViewGuestRequest = {
+  type: "guest";
+  categoryName: string;
+  guestUserId: string;
+};
+
+type CreateCategoryViewUserRequest = {
+  type: "user";
   categoryName: string;
   userId: string;
 };
+
+export type CreateCategoryViewRequest =
+  | CreateCategoryViewGuestRequest
+  | CreateCategoryViewUserRequest;
 
 export type CreateCategoryViewResponse = {
   status: "success" | "error";

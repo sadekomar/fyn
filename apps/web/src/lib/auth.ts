@@ -33,7 +33,7 @@ export async function login(data: LoginFormSchema): Promise<LoginResponse> {
   if (response.status === "error") {
     return response;
   }
-  await createSession(response.data.userId);
+  await createSession(response.data.userId, "loom-session");
 
   if (!response.data.isEmailConfirmed) {
     redirect(`/please-confirm?email=${encodeURIComponent(email)}`);
@@ -65,17 +65,17 @@ export async function register(
     return response;
   }
 
-  await createSession(response.data.id);
+  await createSession(response.data.id, "loom-session");
 
   return response;
 }
 
 export async function logout() {
-  await deleteSession();
+  await deleteSession("loom-session");
   redirect("/login");
 }
 
-export async function getSessionAction() {
-  const session = await getSession();
+export async function getUserSession() {
+  const session = await getSession("loom-session");
   return session;
 }

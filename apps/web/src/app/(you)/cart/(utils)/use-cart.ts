@@ -11,7 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { clientHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/api/endpoints";
-import { getSessionAction } from "@/lib/auth";
+import { getUserSession } from "@/lib/auth";
 
 type CartRequest = {
   itemId: string;
@@ -38,7 +38,7 @@ export function useAddToCart() {
     selectedSize: { id: string; name: string; available: boolean },
     selectedColor: { id: string; name: string },
   ) => {
-    const session = await getSessionAction();
+    const session = await getUserSession();
 
     if (!session?.userId) {
       addToLocalCart(data, selectedSize, selectedColor);
@@ -61,7 +61,7 @@ export function useRemoveFromCart() {
   const queryClient = useQueryClient();
   const router = useRouter();
   return async (id: string) => {
-    const session = await getSessionAction();
+    const session = await getUserSession();
 
     if (!session?.userId) {
       removeFromCart(id);
@@ -80,7 +80,7 @@ export function useGetCartItems() {
   return useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
-      const session = await getSessionAction();
+      const session = await getUserSession();
       let cart: CartItem[] = [];
 
       if (!session) {
@@ -125,7 +125,7 @@ export function useUpdateCartItemQuantity() {
   const queryClient = useQueryClient();
 
   return async (id: string, newQuantity: number) => {
-    const session = await getSessionAction();
+    const session = await getUserSession();
 
     if (!session?.userId) {
       updateCartItemQuantity(id, newQuantity);

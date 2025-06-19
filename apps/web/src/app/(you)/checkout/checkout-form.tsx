@@ -22,7 +22,7 @@ import { addressSchema, ShippingAddress } from "./components/shipping-address";
 import { OrderSummary } from "./components/order-summary";
 import { PaymentMethod } from "./components/payment-method";
 import { BackToCart } from "./components/back-to-cart";
-import { useGetSession } from "@/lib/use-auth";
+import { useGetUser } from "@/lib/use-auth";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserCheckout } from "@/api/user";
 import { useEffect } from "react";
@@ -49,7 +49,7 @@ export const orderFormSchema = z.discriminatedUnion("isLoggedIn", [
 export type OrderFormSchema = z.infer<typeof orderFormSchema>;
 
 export default function CheckoutPage() {
-  const session = useGetSession();
+  const session = useGetUser();
   const { data: cartItems = [] } = useGetCartItems();
   const router = useRouter();
   const queryClient = useQueryClient();

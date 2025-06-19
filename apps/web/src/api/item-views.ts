@@ -13,6 +13,8 @@ export function postItemView(data: CreateItemViewRequest, isServer = true) {
   );
 }
 
+// obviously user item views take precedent over any guest views
+
 export function getUserItemViews(userId: string, isServer = true) {
   const httpService = new HttpService(isServer);
   return httpService.get(Endpoints.UserItemViews.replace(":userId", userId));

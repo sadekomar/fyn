@@ -14,14 +14,17 @@ if (!secretKey) {
 // Encode the secret key for JWT signing
 const encodedKey = new TextEncoder().encode(secretKey);
 
-export async function createSession(userId: string) {
+export async function createSession(
+  userId: string,
+  key: string = "loom-session",
+) {
   try {
     const session = await encrypt({
       userId,
       expiresAt: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000),
     });
 
-    (await cookies()).set("loom-session", session, {
+    (await cookies()).set(key, session, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 21 * 24 * 60 * 60,
@@ -32,17 +35,17 @@ export async function createSession(userId: string) {
   }
 }
 
-export async function deleteSession() {
+export async function deleteSession(key: string = "loom-session") {
   const cookieStore = await cookies();
-  cookieStore.delete("loom-session");
+  cookieStore.delete(key);
 }
 
-export async function getSession(): Promise<{
+export async function getSession(key: string = "loom-session"): Promise<{
   userId: string;
   expiresAt: Date;
 } | null> {
   const cookieStore = await cookies();
-  const cookie = cookieStore.get("loom-session")?.value;
+  const cookie = cookieStore.get(key)?.value;
   const session = cookie ? await decrypt(cookie) : null;
   return session
     ? {
