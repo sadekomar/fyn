@@ -4,6 +4,8 @@ import {
   CreateItemViewRequest,
   CreateItemViewResponse,
 } from "./types/item-view-types";
+import { ItemCardsI } from "@/lib/types";
+import { getIdQuery } from "@/app/(utils)/utils";
 
 export function postItemView(data: CreateItemViewRequest, isServer = true) {
   const httpService = new HttpService(isServer);
@@ -13,11 +15,14 @@ export function postItemView(data: CreateItemViewRequest, isServer = true) {
   );
 }
 
-// obviously user item views take precedent over any guest views
-
-export function getUserItemViews(userId: string, isServer = true) {
+export function getItemViews(
+  { type, id }: { type: "user" | "guest"; id: string },
+  isServer = true,
+): Promise<ItemCardsI[]> {
   const httpService = new HttpService(isServer);
-  return httpService.get(Endpoints.UserItemViews.replace(":userId", userId));
+  return httpService.get<ItemCardsI[]>(
+    `${Endpoints.ItemViews}?type=${type}&${getIdQuery(id, type)}`,
+  );
 }
 
 export function getItemViewsCount(itemId: string, isServer = true) {

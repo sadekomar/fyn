@@ -41,7 +41,7 @@ export enum Endpoints {
   Addresses = "/addresses/:userId",
   // views
   ItemView = "/item-view",
-  UserItemViews = "/user-item-views/:userId",
+  ItemViews = "/item-views",
   ItemViewsCount = "/item-views-count/:itemId",
   CategoryView = "/category-view",
   UserCategoryViews = "/user-category-views/:userId",

@@ -1,15 +1,23 @@
-// @ts-nocheck
 import Link from "next/link";
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
-import { useQuery } from "@tanstack/react-query";
-import { getRecentlyViewed } from "@/app/(utils)/utils";
+import { getItemViews } from "@/api/item-views";
+import { getUserSession } from "@/lib/auth";
+import { getGuestSession } from "@/lib/guest-session";
 
 export async function RecentlyViewed() {
-  const data = await getRecentlyViewed();
+  const userSession = await getUserSession();
+  const guestSession = await getGuestSession();
 
-  if (!data || data.length === 0) {
+  const isLoggedIn = !!userSession;
+  const type = isLoggedIn ? "user" : "guest";
+  const id = isLoggedIn ? userSession?.userId : guestSession?.guestUserId;
+
+  if (!id) {
+    console.log("No user ID available");
     return null;
   }
+
+  const data = await getItemViews({ type, id }, true);
 
   return (
     <>

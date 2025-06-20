@@ -3,6 +3,28 @@ import { ItemCardsI } from "@/lib/types";
 import { getCookie } from "./cookies.utils";
 import { Endpoints } from "@/api/endpoints";
 
+/**
+ * Get the query string for the ID based on if the user is logged in or not.
+ * @returns The query string for the ID
+ */
+export const getIdQuery = (id: string, type: "user" | "guest") => {
+  if (type === "user") {
+    return `userId=${id}`;
+  }
+  return `guestUserId=${id}`;
+};
+
+/**
+ * Get the request body for the ID based on if the user is logged in or not.
+ * @returns The request body for the ID
+ */
+export const getIdBody = (id: string, type: "user" | "guest") => {
+  if (type === "user") {
+    return { userId: id };
+  }
+  return { guestUserId: id };
+};
+
 export function getQueryString(searchParams: {
   [key: string]: string | string[] | undefined;
 }) {
