@@ -1,4 +1,5 @@
 "use client";
+
 import { HorizontalScroller } from "@/layouts/HorizontalScroller/HorizontalScroller";
 import { clientHttp } from "@/lib/queries/http.service";
 import { ItemCardsI } from "@/lib/types";
@@ -7,23 +8,8 @@ import { Brands } from "./(components)/brands";
 import { CategoriesComponent } from "../categories/categories-component";
 import { conifg } from "./utils";
 import Link from "next/link";
-import { useEffect } from "react";
-import { createGuestSession } from "@/lib/guest-session";
 
 export function ClientHomePage() {
-  useEffect(() => {
-    async function guestCreation() {
-      try {
-        await createGuestSession();
-        console.log("Guest session created");
-      } catch (error) {
-        console.error("Error creating guest session", error);
-      }
-    }
-
-    guestCreation();
-  }, []);
-
   const { data: newItems = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-items"],
     queryFn: () =>

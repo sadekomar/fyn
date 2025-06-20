@@ -9,6 +9,7 @@ import { MobileNavBar } from "@/components/navigation/MobileNavBar/MobileNavBar"
 import { Footer } from "@/components/navigation/Footer/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProvider from "@/lib/provider";
+import { GuestSessionProvider } from "./guest-session-provider";
 
 export const metadata = {
   title: "Loom",
@@ -37,6 +38,7 @@ export default function RootLayout({
               <SpeedInsights />
               <Toaster />
               <Footer />
+              <GuestSessionProvider />
             </div>
           </QueryProvider>
         </Theme>

@@ -6,7 +6,7 @@ import { Endpoints } from "@/api/endpoints";
 import {
   CreateGuestUserRequest,
   CreateGuestUserResponse,
-} from "@/api/types/guest-user";
+} from "@/api/types/guest-user-types";
 
 export async function createGuestSession() {
   if (await getSession("loom-session")) {

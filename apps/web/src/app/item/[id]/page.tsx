@@ -16,8 +16,7 @@ import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
 import { ImageSlider } from "./(components)/image-slider";
 import { ItemPageResponse } from "@/api/types/item";
-import { getUserSession } from "@/lib/auth";
-import { postItemView } from "@/api/item-views";
+import { RecentlyViewed } from "./(components)/RecentlyViewed";
 
 export async function generateMetadata({
   params,
@@ -118,10 +117,10 @@ export default async function ItemPage(props: {
         <BrandScroller brand={data["brand"]} title={"More from "} />
       </Suspense>
 
-      {/* <Suspense fallback={<HScrollerPlaceholder />}>
+      <Suspense fallback={<HScrollerPlaceholder />}>
         <RecentlyViewed />
-      </Suspense> */}
-      <AddToRecentlyViewed id={id} />
+      </Suspense>
+      <AddToRecentlyViewed itemId={id} />
     </>
   );
 }
