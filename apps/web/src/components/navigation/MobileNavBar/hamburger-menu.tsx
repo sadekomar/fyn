@@ -128,7 +128,7 @@ export default function HamburgerMenu() {
 
   const menuFooter = [
     {
-      label: data ? `Hi ${data.firstName}` : "My profile",
+      label: data ? `Hi, ${data.firstName}!` : "My profile",
       icon: <User className="mr-2 h-4 w-4" />,
       href: "/account",
     },

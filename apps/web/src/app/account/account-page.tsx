@@ -79,7 +79,7 @@ export default function AccountClientPage() {
                     <CardTitle className="text-lg font-semibold text-gray-900">
                       {user.firstName} {user.lastName}
                     </CardTitle>
-                    <p className="text-sm text-gray-500">{user.username}</p>
+                    <p className="text-sm text-gray-500">@{user.username}</p>
                   </div>
                 </div>
               </CardHeader>
