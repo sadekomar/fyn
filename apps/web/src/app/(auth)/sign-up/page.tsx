@@ -26,6 +26,7 @@ import { login, register } from "@/lib/auth";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const registerSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -46,6 +47,7 @@ export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
   const form = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -79,6 +81,11 @@ export default function RegisterForm() {
       );
     } finally {
       setIsLoading(false);
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      queryClient.invalidateQueries({ queryKey: ["likes"] });
+      queryClient.invalidateQueries({ queryKey: ["history"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
     }
   };
 

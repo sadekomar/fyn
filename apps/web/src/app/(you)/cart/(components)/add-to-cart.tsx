@@ -2,7 +2,7 @@
 
 import "./AddToCart.css";
 import { ItemPageI } from "@/lib/types";
-import { useAddToCart } from "../(utils)/use-cart";
+import { useAddItemCart } from "../(utils)/use-cart";
 
 export function AddToCart({
   data,
@@ -13,14 +13,18 @@ export function AddToCart({
   selectedColor: ItemPageI["colors"][number];
   selectedSize: ItemPageI["sizes"][number];
 }) {
-  const addToCart = useAddToCart();
   const isDisabled = !selectedSize;
+  const { mutate: addItemCart } = useAddItemCart();
 
   return (
     <button
       className={`cart-button ${isDisabled ? "cursor-not-allowed opacity-50" : ""}`}
       onClick={() => {
-        addToCart(data, selectedSize, selectedColor);
+        addItemCart({
+          data,
+          selectedSize,
+          selectedColor,
+        });
       }}
       disabled={isDisabled}
     >

@@ -1,80 +1,72 @@
-import Link from "next/link";
-import { Plus, Minus } from "lucide-react";
+"use client";
 
-import { LikeTextButton } from "@/components/LikeButton/LikeTextButton";
+import { Plus, Minus } from "lucide-react";
+import Link from "next/link";
+
 import { CrossIcon } from "@/components/Icons/CustomIcons";
 
 import "./CartCard.css";
 import { LoomImage } from "@/components/LoomImage";
-import { CartItemWithItemCard } from "@/app/(you)/cart/(utils)/cart-utils";
-import {
-  useRemoveFromCart,
-  useUpdateCartItemQuantity,
-} from "@/app/(you)/cart/(utils)/use-cart";
+import { ItemCart } from "@/app/(you)/cart/(utils)/cart-utils";
 
-export function CartCard({ product }: { product: CartItemWithItemCard }) {
-  const removeFromCart = useRemoveFromCart();
-  const updateQuantity = useUpdateCartItemQuantity();
+import { useDeleteItemCart, useEditItemCart } from "../(utils)/use-cart";
+
+export function CartCard({ product }: { product: ItemCart }) {
+  const { mutate: deleteItemCart } = useDeleteItemCart();
+  const { mutate: editItemCart } = useEditItemCart();
 
   return (
     <>
       <div className="cart-card-wrapper">
         <LoomImage
           className="cart-card-img"
-          src={product.itemCard.image}
+          src={product.image}
           sizes="120px"
           alt=""
         />
         <div className="cart-card-content">
           <div className="cart-card-content-info">
-            <Link
-              href={`/item/${product.itemCard.id}`}
-              className="cart-card-title"
-            >
-              {product.itemCard.name}
+            <Link href={`/item/${product.itemId}`} className="cart-card-title">
+              {product.name}
             </Link>
             <Link
-              href={`/brands/${product.itemCard.brand}`}
+              href={`/brands/${product.brand.name}`}
               className="cart-card-brand"
             >
-              {product.itemCard.brand}
+              {product.brand.name}
             </Link>
             <p className="cart-card-price">
-              {product.itemCard.price * product.localCartItem.quantity}
+              {product.price * product.quantity}
             </p>
             <div className="cart-card-variants text-xs text-gray-500">
               <div className="cart-card-quantity">
                 <button
                   className="quantity-button"
                   onClick={() =>
-                    updateQuantity(
-                      product.localCartItem.id,
-                      product.localCartItem.quantity - 1,
-                    )
+                    editItemCart({
+                      product,
+                      quantity: product.quantity - 1,
+                    })
                   }
                 >
                   <Minus className="h-3 w-3" />
                 </button>
-                <span className="text-sm font-medium">
-                  {product.localCartItem.quantity}
-                </span>
+                <span className="text-sm font-medium">{product.quantity}</span>
                 <button
                   className="quantity-button"
                   onClick={() =>
-                    updateQuantity(
-                      product.localCartItem.id,
-                      product.localCartItem.quantity + 1,
-                    )
+                    editItemCart({
+                      product,
+                      quantity: product.quantity + 1,
+                    })
                   }
                 >
                   <Plus className="h-3 w-3" />
                 </button>
               </div>
-              <p className="cart-card-size">
-                Size: {product.localCartItem.size?.name}
-              </p>
+              <p className="cart-card-size">Size: {product.size?.name}</p>
               <p className="cart-card-color capitalize">
-                Color: {product.localCartItem.color?.name}
+                Color: {product.color?.name}
               </p>
             </div>
           </div>
@@ -85,7 +77,7 @@ export function CartCard({ product }: { product: CartItemWithItemCard }) {
         <button
           className="cart-card-remove-button"
           onClick={() => {
-            removeFromCart(product.localCartItem.id);
+            deleteItemCart({ id: product.id });
           }}
         >
           <CrossIcon width="13" />

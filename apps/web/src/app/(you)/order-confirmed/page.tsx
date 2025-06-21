@@ -9,8 +9,7 @@ import { LoomImage } from "@/components/LoomImage";
 
 import { useSearchParams } from "next/navigation";
 import { getOrderById } from "@/api/orders";
-import { useQuery } from "@tanstack/react-query";
-import { ReadOrderResponse } from "@/api/types/order-types";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 function OrderConfirmedSkeleton() {
   return (
@@ -97,12 +96,15 @@ function OrderConfirmedSkeleton() {
 export default function OrderConfirmedPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
+  const queryClient = useQueryClient();
   const { data: order, isLoading } = useQuery({
     queryKey: ["order", orderId],
     queryFn: async () => {
       return await getOrderById(orderId!);
     },
   });
+
+  queryClient.invalidateQueries({ queryKey: ["cart"] });
 
   if (isLoading) {
     return <OrderConfirmedSkeleton />;

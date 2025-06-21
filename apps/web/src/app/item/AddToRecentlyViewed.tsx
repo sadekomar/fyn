@@ -1,16 +1,13 @@
 "use client";
 import { useEffect } from "react";
-import { useGetGuest, useGetUser } from "@/lib/use-auth";
+import { useGetCurrentUser } from "@/lib/use-auth";
 import { postItemView } from "@/api/item-views";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getIdBody } from "../(utils)/utils";
 import { CreateItemViewRequest } from "@/api/types/item-view-types";
 
 export function AddToRecentlyViewed({ itemId }: { itemId: string }) {
-  const user = useGetUser();
-  const guest = useGetGuest();
-  const type = user ? "user" : "guest";
-  const id = user ? user.userId : guest?.guestUserId;
+  const { id, type } = useGetCurrentUser();
 
   const queryClient = useQueryClient();
 

@@ -18,7 +18,9 @@ export function ItemData({ data }: { data: ItemPageI }) {
   );
   const [selectedColor, setSelectedColor] = useState<
     ItemPageI["colors"][number]
-  >(data.colors[0]);
+  >(data.colors[0] ?? null);
+
+  console.log("data", data);
 
   return (
     <div className="ItemData">

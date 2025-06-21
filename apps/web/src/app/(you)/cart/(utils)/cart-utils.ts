@@ -2,9 +2,9 @@
 
 import { ItemCardsI, ItemPageI } from "@/lib/types";
 
-export type CartItem = {
+// Read
+export type ItemCart = {
   id: string;
-  itemId: string;
   quantity: number;
   size: {
     id: string;
@@ -14,11 +14,19 @@ export type CartItem = {
     id: string;
     name: string;
   } | null;
-  createdAt: Date;
+  // item card data
+  itemId: string;
+  name: string;
+  price: number;
+  brand: {
+    id: string;
+    name: string;
+  };
+  image: string;
 };
 
 export type CartItemWithItemCard = {
-  localCartItem: CartItem;
+  localCartItem: ItemCart;
   itemCard: ItemCardsI;
 };
 
@@ -51,7 +59,13 @@ export function addToLocalCart(
         id: selectedColor.id,
         name: selectedColor.name,
       },
-      createdAt: new Date(),
+      name: data.name,
+      price: data.price,
+      brand: {
+        id: data.brand,
+        name: data.brand,
+      },
+      image: data.images[0],
     });
   }
 
@@ -68,7 +82,7 @@ export function addToLocalCart(
 
 export function removeFromCart(id: string) {
   const cart = getItemsFromLocalCart();
-  const newCart = cart.filter((item: CartItem) => item.id !== id);
+  const newCart = cart.filter((item: ItemCart) => item.id !== id);
   localStorage.setItem("cart", JSON.stringify(newCart));
   const event = new CustomEvent("localStorageChanged", {
     detail: {
@@ -90,15 +104,12 @@ export function clearCart() {
   window.dispatchEvent(event);
 }
 
-export function getItemsFromLocalCart(): CartItem[] {
+export function getItemsFromLocalCart(): ItemCart[] {
   return JSON.parse(localStorage.getItem("cart") || "[]");
 }
 
-export function getTotalPrice(cart: CartItemWithItemCard[]) {
-  return cart.reduce(
-    (acc, item) => acc + item.itemCard.price * item.localCartItem.quantity,
-    0,
-  );
+export function getTotalPrice(cart: ItemCart[]) {
+  return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 }
 
 export type ShippingEstimate = {
@@ -108,19 +119,17 @@ export type ShippingEstimate = {
 };
 
 export function getShippingEstimates(
-  cartItems: CartItemWithItemCard[],
+  cartItems: ItemCart[],
 ): ShippingEstimate[] {
   const shippingEstimates: ShippingEstimate[] = [];
-  const uniqueBrands = [
-    ...new Set(cartItems.map((item) => item.itemCard.brand)),
-  ];
+  const uniqueBrands = [...new Set(cartItems.map((item) => item.brand.name))];
   uniqueBrands.forEach((brand) => {
     shippingEstimates.push({
       brand: brand,
       cost: 70,
       itemIds: cartItems
-        .filter((item) => item.itemCard.brand === brand)
-        .map((item) => item.itemCard.id),
+        .filter((item) => item.brand.name === brand)
+        .map((item) => item.id),
     });
   });
   return shippingEstimates;
@@ -128,7 +137,7 @@ export function getShippingEstimates(
 
 export function updateCartItemQuantity(id: string, newQuantity: number) {
   const cart = getItemsFromLocalCart();
-  const item = cart.find((item: CartItem) => item.id === id);
+  const item = cart.find((item: ItemCart) => item.id === id);
   if (item) {
     item.quantity = Math.max(1, newQuantity); // Ensure quantity is at least 1
     localStorage.setItem("cart", JSON.stringify(cart));

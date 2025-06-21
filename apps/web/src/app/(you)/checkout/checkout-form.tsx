@@ -6,11 +6,9 @@ import { z } from "zod";
 import { FieldErrors, useForm } from "react-hook-form";
 import { egyptianGovernorates } from "./(utlis)/governorates";
 import {
-  clearCart,
   getShippingEstimates,
   getTotalPrice,
 } from "@/app/(you)/cart/(utils)/cart-utils";
-import { useGetCartItems } from "@/app/(you)/cart/(utils)/use-cart";
 import { createOrder } from "./(utlis)/checkout-utils";
 
 import {
@@ -23,10 +21,11 @@ import { OrderSummary } from "./components/order-summary";
 import { PaymentMethod } from "./components/payment-method";
 import { BackToCart } from "./components/back-to-cart";
 import { useGetUser } from "@/lib/use-auth";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getUserCheckout } from "@/api/user";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useGetItemCarts } from "../cart/(utils)/use-cart";
 
 export const orderFormSchema = z.discriminatedUnion("isLoggedIn", [
   z.object({
@@ -50,16 +49,11 @@ export type OrderFormSchema = z.infer<typeof orderFormSchema>;
 
 export default function CheckoutPage() {
   const session = useGetUser();
-  const { data: cartItems = [] } = useGetCartItems();
+  const { data: cartItems = [] } = useGetItemCarts();
   const router = useRouter();
-  const queryClient = useQueryClient();
-
-  if (cartItems.length === 0) {
-    router.push("/");
-  }
 
   const { data: user } = useQuery({
-    queryKey: ["user", session?.userId],
+    queryKey: ["user"],
     queryFn: () => getUserCheckout(session?.userId),
     enabled: session !== null,
   });
@@ -109,15 +103,21 @@ export default function CheckoutPage() {
     form.setValue("isLoggedIn", session !== null);
   }, [form, session]);
 
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      router.push("/");
+    }
+  }, [cartItems.length, router]);
+
   async function onSubmit(orderForm: OrderFormSchema) {
     const orderItems = cartItems.map((item) => ({
-      itemId: item.localCartItem.itemId,
-      quantity: item.localCartItem.quantity,
-      name: item.itemCard.name,
-      image: item.itemCard.image,
-      price: item.itemCard.price,
-      sizeId: item.localCartItem.size.id,
-      colorId: item.localCartItem.color?.id,
+      itemId: item.itemId,
+      quantity: item.quantity,
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      sizeId: item.size.id,
+      colorId: item.color?.id,
     }));
 
     const response = await createOrder(
@@ -125,8 +125,6 @@ export default function CheckoutPage() {
       orderItems,
       shippingEstimates,
     );
-    clearCart();
-    queryClient.invalidateQueries({ queryKey: ["cart"] });
 
     if (response.status === "error") {
       form.setError(Object.keys(response.error)[0] as keyof OrderFormSchema, {

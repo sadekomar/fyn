@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingBag, Heart, User, ChevronRight, X, Home } from "lucide-react";
+import {
+  ShoppingBag,
+  Heart,
+  User,
+  ChevronRight,
+  X,
+  Home,
+  Box,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,7 +19,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useGetUser } from "@/lib/use-auth";
 import { LoomHamburger } from "@/components/Icons/CustomIcons";
 import Link from "next/link";
 import {
@@ -22,6 +29,7 @@ import {
   PiSneaker,
   PiPackage,
 } from "react-icons/pi";
+import { useGetUserData } from "@/app/account/(utils)/use-user";
 
 type NavigationLink = {
   type: "link";
@@ -49,8 +57,13 @@ const menuItems: NavigationItem[] = [
   },
   {
     type: "category",
-    label: "Unisex",
+    label: "Shop",
     subcategories: [
+      {
+        label: "Shop all",
+        icon: <PiPackage className="mr-2 h-4 w-4" />,
+        href: "/shop",
+      },
       {
         label: "T-Shirts",
         icon: <PiTShirt className="mr-2 h-4 w-4" />,
@@ -82,17 +95,6 @@ const menuItems: NavigationItem[] = [
         href: "/categories/shirts",
       },
       {
-        label: "Shoes",
-        icon: <PiSneaker className="mr-2 h-4 w-4" />,
-        href: "/categories/shoes",
-      },
-    ],
-  },
-  {
-    type: "category",
-    label: "Women",
-    subcategories: [
-      {
         label: "Tops",
         icon: <PiTShirt className="mr-2 h-4 w-4" />,
         href: "/categories/tops?genders=FEMALE",
@@ -101,52 +103,6 @@ const menuItems: NavigationItem[] = [
         label: "Sets",
         icon: <PiPackage className="mr-2 h-4 w-4" />,
         href: "/categories/sets?genders=FEMALE",
-      },
-      {
-        label: "Skirts",
-        icon: <PiDress className="mr-2 h-4 w-4" />,
-        href: "/categories/skirts?genders=FEMALE",
-      },
-      {
-        label: "Dresses",
-        icon: <PiDress className="mr-2 h-4 w-4" />,
-        href: "/categories/dresses?genders=FEMALE",
-      },
-      {
-        label: "Leggings",
-        icon: <PiPants className="mr-2 h-4 w-4" />,
-        href: "/categories/leggings?genders=FEMALE",
-      },
-    ],
-  },
-  {
-    type: "category",
-    label: "Men",
-    subcategories: [
-      {
-        label: "T-Shirts",
-        icon: <PiTShirt className="mr-2 h-4 w-4" />,
-        href: "/categories/t-shirts?genders=MALE",
-      },
-      {
-        label: "Shirts",
-        icon: <PiShirtFolded className="mr-2 h-4 w-4" />,
-        href: "/categories/shirts?genders=MALE",
-      },
-      {
-        label: "Polos",
-        icon: <PiShirtFolded className="mr-2 h-4 w-4" />,
-        href: "/categories/polos?genders=MALE",
-      },
-      {
-        label: "Pants",
-        icon: <PiPants className="mr-2 h-4 w-4" />,
-        href: "/categories/pants?genders=MALE",
-      },
-      {
-        label: "Jeans",
-        icon: <PiPants className="mr-2 h-4 w-4" />,
-        href: "/categories/jeans?genders=MALE",
       },
     ],
   },
@@ -167,27 +123,31 @@ const menuItems: NavigationItem[] = [
   },
 ];
 
-const menuFooter = [
-  {
-    label: "Cart",
-    icon: <ShoppingBag className="mr-2 h-4 w-4" />,
-    href: "/cart",
-  },
-  {
-    label: "Likes",
-    icon: <Heart className="mr-2 h-4 w-4" />,
-    href: "/likes",
-  },
-  {
-    label: "My Orders",
-    icon: <User className="mr-2 h-4 w-4" />,
-    href: "/orders",
-  },
-];
-
 export default function HamburgerMenu() {
-  // if user is logged in show Hi name,
-  const session = useGetUser();
+  const { data } = useGetUserData();
+
+  const menuFooter = [
+    {
+      label: data ? `Hi ${data.firstName}` : "My profile",
+      icon: <User className="mr-2 h-4 w-4" />,
+      href: "/account",
+    },
+    {
+      label: "Likes",
+      icon: <Heart className="mr-2 h-4 w-4" />,
+      href: "/likes",
+    },
+    {
+      label: "Cart",
+      icon: <ShoppingBag className="mr-2 h-4 w-4" />,
+      href: "/cart",
+    },
+    {
+      label: "My Orders",
+      icon: <Box className="mr-2 h-4 w-4" />,
+      href: "/orders",
+    },
+  ];
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);

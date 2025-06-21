@@ -1,9 +1,6 @@
-// @ts-nocheck
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-
-import "../../item/[id]/ItemPage.css";
+import "../../item/[id]/(components)/ItemPage.css";
 
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
@@ -11,47 +8,12 @@ import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 import { ItemCardPlaceholder } from "@/components/ItemCard/ItemCardPlaceholder";
 import Link from "next/link";
+import { useGetLikes } from "./(utils)/use-likes";
 
-export default function LikesPage() {
-  const abortControllerRef = useRef(null);
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(false);
+export default function LikesClientPage() {
+  const { data = [], isPending, error } = useGetLikes();
 
-  useEffect(() => {
-    const likes = JSON.parse(localStorage.getItem("likes") || "[]");
-    likes.reverse();
-    const likesString = likes.join(",");
-
-    async function fetchData() {
-      abortControllerRef.current?.abort();
-      abortControllerRef.current = new AbortController();
-      setIsLoading(true);
-
-      try {
-        if (likes != 0) {
-          const response = await fetch(`/ids?ids=${likesString}`, {
-            signal: abortControllerRef.current?.signal,
-          });
-          const data = await response.json();
-          setProducts(data);
-        } else {
-          setIsEmpty(true);
-        }
-      } catch (e) {
-        if (e.name == "AbortError") {
-          return;
-        }
-        setError(e);
-      }
-      setIsLoading(false);
-    }
-
-    fetchData();
-  }, []);
-
-  if (isLoading) {
+  if (isPending) {
     return (
       <>
         <PageTitle>Likes</PageTitle>
@@ -70,7 +32,7 @@ export default function LikesPage() {
     return <div>An error occurred</div>;
   }
 
-  if (isEmpty) {
+  if (data?.length === 0) {
     return (
       <>
         <PageTitle>Likes</PageTitle>
@@ -95,7 +57,7 @@ export default function LikesPage() {
   return (
     <>
       <PageTitle>Likes</PageTitle>
-      <GridLayout items={products} />
+      <GridLayout items={data} />
     </>
   );
 }

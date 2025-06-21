@@ -17,6 +17,14 @@ import type { Metadata } from "next";
 import { ImageSlider } from "./(components)/image-slider";
 import { ItemPageResponse } from "@/api/types/item";
 import { RecentlyViewed } from "./(components)/RecentlyViewed";
+import { ReadLikeResponse } from "@/app/(you)/likes/(utils)/like-types";
+import { getCurrentUser } from "@/lib/auth";
+import { getIdQuery } from "@/app/(utils)/utils";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 export async function generateMetadata({
   params,
@@ -62,8 +70,18 @@ export default async function ItemPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await props.params;
-
   const data = await serverHttp.get<ItemPageResponse>(`/item/${id}`);
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["item-like", id],
+    queryFn: async () => {
+      const { id: userId, type } = await getCurrentUser();
+      return serverHttp.get<ReadLikeResponse>(
+        `/like?type=${type}&${getIdQuery(userId!, type)}&itemId=${id}`,
+      );
+    },
+  });
 
   if (data.status === "error") {
     return (
@@ -100,7 +118,9 @@ export default async function ItemPage(props: {
       <ImageSlider images={data.images} />
       <div className="ItemGrid">
         <DesktopImages data={data} />
-        <ItemData data={data} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <ItemData data={data} />
+        </HydrationBoundary>
       </div>
 
       <Suspense

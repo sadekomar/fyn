@@ -7,7 +7,26 @@ import { Endpoints } from "../api/endpoints";
 import { LoginResponse } from "./types";
 import { LoginFormSchema } from "@/app/(auth)/login/page";
 import { RegisterFormSchema } from "@/app/(auth)/sign-up/page";
-import { CreateUserRequest, CreateUserResponse } from "@/api/types/user-types";
+import {
+  CreateUserRequest,
+  CreateUserResponse,
+  ReadUserFullResponse,
+} from "@/api/types/user-types";
+import { getGuestSession } from "./guest-session";
+
+export async function onboardUser(userId: string) {
+  const response = await serverHttp.get<ReadUserFullResponse>(
+    `${Endpoints.User}/${userId}`,
+  );
+
+  if (!response) {
+    redirect("/login");
+  }
+
+  await createSession(userId, "loom-session");
+
+  return response;
+}
 
 export async function login(data: LoginFormSchema): Promise<LoginResponse> {
   const { email, password } = data;
@@ -78,4 +97,12 @@ export async function logout() {
 export async function getUserSession() {
   const session = await getSession("loom-session");
   return session;
+}
+
+export async function getCurrentUser() {
+  const userSession = await getUserSession();
+  const guestSession = await getGuestSession();
+  const type = userSession ? "user" : "guest";
+  const id = userSession ? userSession.userId : guestSession?.guestUserId;
+  return { id, type } as const;
 }

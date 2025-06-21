@@ -61,19 +61,6 @@ export function ShippingAddress({
       });
       setSelectedAddress(defaultAddress.id);
     } else {
-      form.setValue("address", {
-        isSavedAddress: false,
-        country: "Egypt",
-        firstName: "",
-        lastName: "",
-        address: "",
-        apartment: "",
-        city: "",
-        governorate:
-          egyptianGovernorates.find((governorate) => governorate.value === "C")
-            ?.value ?? "",
-        postalCode: "",
-      });
       setSelectedAddress("new-address");
     }
   }, [addresses, form, isLoggedIn]);

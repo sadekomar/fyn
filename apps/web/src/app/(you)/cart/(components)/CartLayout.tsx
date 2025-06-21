@@ -1,13 +1,13 @@
 import { CartCard } from "./CartCard";
 import Link from "next/link";
 import { EmptyState } from "../../../../components/EmptyState/EmptyState";
-import { CartItemWithItemCard } from "@/app/(you)/cart/(utils)/cart-utils";
+import { ItemCart } from "@/app/(you)/cart/(utils)/cart-utils";
 
 export function CartLayout({
   products,
   isEmpty,
 }: {
-  products: CartItemWithItemCard[];
+  products: ItemCart[];
   isEmpty: boolean;
 }) {
   return (

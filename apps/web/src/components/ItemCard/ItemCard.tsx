@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import "./ItemCard.css";
 import "./Feather.css";
-import { LikeButton } from "./LikeButton";
 // import { CompareButton } from "../CompareButton";
 import { LoomImage } from "../LoomImage";
 import { ItemCardsI } from "@/lib/types";
@@ -33,11 +32,10 @@ export function ItemCard({
   return (
     <>
       <div
-        className={`ItemCard ${className} relative transition-all duration-300 active:scale-105 ${
+        className={`ItemCard ${className} relative transition-all duration-300 active:scale-103 ${
           isSoldOut ? "opacity-75" : ""
         }`}
       >
-        <LikeButton id={id} className="LikeButton" />
         {/* <CompareButton id={id} className="CompareButton" /> */}
         <Link prefetch={true} href={`/item/${id}`} className="relative block">
           <LoomImage

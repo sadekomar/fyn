@@ -35,8 +35,10 @@ export enum Endpoints {
   OrderByNumber = "/order-by-number/:orderNumber",
   OrdersByUserId = "/orders/:userId",
   CartItem = "/cart-item",
-  CartItemsByUserId = "/cart-items/:userId",
+  CartItems = "/cart-items",
   CartItemById = "/cart-item/:id",
+  Like = "/like",
+  Likes = "/likes",
   Address = "/address",
   Addresses = "/addresses/:userId",
   // views

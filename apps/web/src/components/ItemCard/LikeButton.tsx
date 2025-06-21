@@ -1,8 +1,8 @@
 "use client";
 
+import { useAddLike, useGetLike } from "@/app/(you)/likes/(utils)/use-likes";
 import { IconButton } from "@radix-ui/themes";
 import { HeartIcon } from "lucide-react";
-import React, { useEffect, useState } from "react";
 
 export function LikeButton({
   id,
@@ -11,27 +11,8 @@ export function LikeButton({
   id: string;
   className: string;
 }) {
-  const [isFilled, setIsFilled] = useState(false);
-
-  useEffect(() => {
-    const likes = JSON.parse(localStorage.getItem("likes") || "[]");
-    const isLiked = likes.includes(id);
-    setIsFilled(isLiked);
-  }, [id]);
-
-  const toggleIcon = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation();
-    setIsFilled((prevIsFilled) => !prevIsFilled);
-
-    let likes = JSON.parse(localStorage.getItem("likes") || "[]");
-    if (isFilled) {
-      likes = likes.filter((likedId: string) => likedId !== id);
-    } else {
-      likes.push(id);
-    }
-
-    localStorage.setItem("likes", JSON.stringify(likes));
-  };
+  const { data } = useGetLike(id);
+  const { mutate: addLike } = useAddLike();
 
   return (
     <>
@@ -39,9 +20,15 @@ export function LikeButton({
         name="like button"
         className={className}
         variant="soft"
-        onClick={toggleIcon}
+        onClick={() => {
+          addLike(id);
+        }}
       >
-        {isFilled ? <HeartIcon style={{ fill: "#FF69B4" }} /> : <HeartIcon />}
+        {data?.isLiked ? (
+          <HeartIcon style={{ fill: "#FF69B4" }} />
+        ) : (
+          <HeartIcon />
+        )}
       </IconButton>
     </>
   );

@@ -2,7 +2,7 @@ import { ItemCardsI, ItemPageI } from "@/lib/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addToLocalCart,
-  CartItem,
+  ItemCart,
   CartItemWithItemCard,
   getItemsFromLocalCart,
   removeFromCart,
@@ -81,20 +81,20 @@ export function useGetCartItems() {
     queryKey: ["cart"],
     queryFn: async () => {
       const session = await getUserSession();
-      let cart: CartItem[] = [];
+      let cart: ItemCart[] = [];
 
       if (!session) {
         cart = getItemsFromLocalCart();
       } else {
-        cart = await clientHttp.get<CartItem[]>(
-          `${Endpoints.CartItemsByUserId.replace(":userId", session.userId)}`,
+        cart = await clientHttp.get<ItemCart[]>(
+          `${Endpoints.CartItems}?type=user&userId=${session.userId}`,
         );
       }
 
       const data = await clientHttp.post<{ ids: string[] }, ItemCardsI[]>(
         Endpoints.ItemsByIds,
         {
-          ids: cart.map((item: CartItem) => item.itemId),
+          ids: cart.map((item: ItemCart) => item.itemId),
         },
       );
 
