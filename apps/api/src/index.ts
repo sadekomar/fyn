@@ -67,6 +67,7 @@ import {
 import { readOrderByNumber } from "./handlers/order/read-order";
 import {
   createItemView,
+  deleteItemViews,
   readItemViewsCount,
   readUserItemViews,
 } from "./handlers/item-view/item-view";
@@ -81,6 +82,8 @@ import {
   readUserCategoryViews,
 } from "./handlers/category-view/category-view";
 import { createGuestUser } from "./handlers/guest-user/guest-user";
+import { createLike, readLike } from "./handlers/like/like";
+import { readLikes } from "./handlers/like/read-likes";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -116,8 +119,10 @@ app.get(Endpoints.BrandsAlphabetical, readBrandsByLetter);
 
 // views
 app.post(Endpoints.ItemView, createItemView);
-app.get(Endpoints.UserItemViews, readUserItemViews);
+app.get(Endpoints.ItemViews, readUserItemViews);
 app.get(Endpoints.ItemViewsCount, readItemViewsCount);
+app.delete(Endpoints.ItemViews, deleteItemViews);
+
 app.post(Endpoints.BrandView, createBrandView);
 app.get(Endpoints.UserBrandViews, readUserBrandViews);
 app.get(Endpoints.BrandViewsCount, readBrandViewsCount);
@@ -127,9 +132,14 @@ app.get(Endpoints.CategoryViewsCount, readCategoryViewsCount);
 
 // itemCart
 app.post(Endpoints.CartItem, createCartItem);
-app.get(Endpoints.CartItemsByUserId, readCartItems);
+app.get(Endpoints.CartItems, readCartItems);
 app.put(Endpoints.CartItemById, updateCartItem);
 app.delete(Endpoints.CartItemById, deleteCartItem);
+
+// likes
+app.post(Endpoints.Like, createLike);
+app.get(Endpoints.Like, readLike);
+app.get(Endpoints.Likes, readLikes);
 
 app.post(Endpoints.Order, createOrder);
 app.get(Endpoints.OrderById, readOrder);

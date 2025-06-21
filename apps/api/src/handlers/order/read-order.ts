@@ -52,21 +52,11 @@ export const readOrder = handleExceptions(
 );
 
 export const readOrderByNumber = handleExceptions(
-  async (
-    req: Request,
-    res: Response<
-      ReadOrderResponse | { status: "error"; error: { orderNumber: string[] } }
-    >
-  ) => {
+  async (req: Request, res: Response<ReadOrderResponse | null>) => {
     const { orderNumber } = req.params;
 
     if (!orderNumber) {
-      return res.status(400).json({
-        status: "error",
-        error: {
-          orderNumber: ["Order number is required"],
-        },
-      });
+      return res.status(400).json(null);
     }
 
     const order = await prisma.order.findUnique({
@@ -87,12 +77,7 @@ export const readOrderByNumber = handleExceptions(
     });
 
     if (!order) {
-      return res.status(404).json({
-        status: "error",
-        error: {
-          orderNumber: ["Order not found"],
-        },
-      });
+      return res.status(404).json(null);
     }
 
     return res.status(200).json(order);

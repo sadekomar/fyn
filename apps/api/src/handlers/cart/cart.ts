@@ -6,13 +6,24 @@ import { deleteCartItem } from "./delete-cart";
 export { createCartItem, readCartItems, updateCartItem, deleteCartItem };
 
 // Create
-export type CreateCartRequest = {
+type CreateCartItemBase = {
   itemId: string;
   sizeId: string;
-  colorId: string;
   quantity: number;
+  colorId?: string | null | undefined;
+};
+
+type CreateCartItemUser = CreateCartItemBase & {
+  type: "user";
   userId: string;
 };
+
+type CreateCartItemGuest = CreateCartItemBase & {
+  type: "guest";
+  guestUserId: string;
+};
+
+export type CreateCartRequest = CreateCartItemUser | CreateCartItemGuest;
 
 type CreateCartSuccessResponse = {
   status: "success";
@@ -35,9 +46,8 @@ export type CreateCartResponse =
   | CreateCartErrorResponse;
 
 // Read
-export type CartItem = {
+export type ItemCart = {
   id: string;
-  itemId: string;
   quantity: number;
   size: {
     id: string;
@@ -47,7 +57,15 @@ export type CartItem = {
     id: string;
     name: string;
   } | null;
-  createdAt: Date;
+  // item card data
+  itemId: string;
+  name: string;
+  price: number;
+  brand: {
+    id: string;
+    name: string;
+  };
+  image: string;
 };
 
 // Update

@@ -89,7 +89,9 @@ model ItemView {
   updatedAt   DateTime   @updatedAt
   GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId String?
+  deletedAt   DateTime?
 
+  @@index([deletedAt])
   @@index([itemId])
   @@index([userId])
   @@index([guestUserId])
@@ -139,6 +141,8 @@ model Like {
   GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId String?
 
+  @@unique([userId, itemId])
+  @@unique([guestUserId, itemId])
   @@index([itemId])
   @@index([userId])
 }
@@ -259,25 +263,27 @@ model Trash {
 }
 
 model User {
-  id                String         @id @default(uuid())
-  email             String         @unique
-  password          String
-  username          String         @unique
-  isEmailConfirmed  Boolean        @default(false)
-  firstName         String?
-  lastName          String?
-  phoneNumber       String
-  itemViews         ItemView[]
-  categoryViews     CategoryView[]
-  brandViews        BrandView[]
-  likes             Like[]
-  itemCarts         ItemCart[]
-  orders            Order[]
-  addresses         Address[]
-  confirmationToken String?
-  tokenExpiresAt    DateTime?
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
+  id                       String         @id @default(uuid())
+  email                    String         @unique
+  password                 String
+  username                 String         @unique
+  isEmailConfirmed         Boolean        @default(false)
+  firstName                String?
+  lastName                 String?
+  phoneNumber              String
+  itemViews                ItemView[]
+  categoryViews            CategoryView[]
+  brandViews               BrandView[]
+  likes                    Like[]
+  itemCarts                ItemCart[]
+  orders                   Order[]
+  addresses                Address[]
+  confirmationToken        String?
+  tokenExpiresAt           DateTime?
+  createdAt                DateTime       @default(now())
+  updatedAt                DateTime       @updatedAt
+  isPasswordReset          Boolean        @default(true)
+  isOnboardingLoginAllowed Boolean        @default(false)
 
   @@index([email])
 }
@@ -297,6 +303,12 @@ model ItemCart {
   updatedAt   DateTime   @updatedAt
   GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId String?
+  deletedAt   DateTime?
+
+  @@index([deletedAt])
+  @@index([itemId])
+  @@index([userId])
+  @@index([guestUserId])
 }
 
 // After clicking checkout.

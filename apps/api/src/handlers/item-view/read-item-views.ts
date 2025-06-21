@@ -2,19 +2,40 @@ import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
 import { ImageSizes, ItemCardsI } from "../item/item";
+import { Prisma } from "@prisma/client";
 
 export const readUserItemViews = handleExceptions(
   async (req: Request, res: Response<ItemCardsI[]>) => {
-    const { userId, guestUserId } = req.params;
+    const { type } = req.query;
+
+    let where: Prisma.ItemViewWhereInput = {};
+    if (!type || (type !== "user" && type !== "guest")) {
+      return res.status(400).json([]);
+    }
+
+    if (type === "user") {
+      const { userId } = req.query;
+      if (!userId) return res.status(400).json([]);
+      where = { userId: userId as string };
+    } else if (type === "guest") {
+      const { guestUserId } = req.query;
+      if (!guestUserId) return res.status(400).json([]);
+      where = { guestUserId: guestUserId as string };
+    }
 
     const itemViews = await prisma.itemView.findMany({
       where: {
-        OR: [{ userId: userId }, { guestUserId: guestUserId }],
+        ...where,
+        deletedAt: null,
+      },
+      orderBy: {
+        updatedAt: "desc",
       },
       include: {
         item: {
           include: {
             images: true,
+            brand: true,
           },
         },
       },
@@ -25,7 +46,7 @@ export const readUserItemViews = handleExceptions(
         id: itemView.item.id,
         name: itemView.item.name,
         price: itemView.item.latestPrice,
-        brand: itemView.item.brandId,
+        brand: itemView.item.brand.name,
         image: itemView.item.images[0].url.replaceAll(
           ImageSizes.PATTERN,
           ImageSizes.SMALL
