@@ -16,12 +16,11 @@ const updateUserSchema = z.object({
 });
 
 export const updateUser = handleExceptions(
-  async (
-    req: Request,
-    res: Response
-  ): Promise<Response<UpdateUserResponse>> => {
+  async (req: Request, res: Response<UpdateUserResponse>) => {
+    console.log(req.body);
     const { id } = req.params;
     const result = updateUserSchema.safeParse(req.body);
+    console.log(result);
 
     if (!result.success) {
       return res.status(400).json({
@@ -43,7 +42,12 @@ export const updateUser = handleExceptions(
       where: { id },
     });
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({
+        status: "error",
+        error: {
+          message: ["User not found"],
+        },
+      });
     }
 
     const saltRounds = 10;
@@ -60,9 +64,14 @@ export const updateUser = handleExceptions(
         firstName,
         lastName,
         phoneNumber,
+        isPasswordReset: true,
       },
     });
 
-    return res.status(200).json(updatedUser);
+    return res.status(200).json({
+      status: "success",
+      data: updatedUser,
+      message: "User updated successfully",
+    });
   }
 );

@@ -284,6 +284,7 @@ model User {
   updatedAt                DateTime       @updatedAt
   isPasswordReset          Boolean        @default(true)
   isOnboardingLoginAllowed Boolean        @default(false)
+  customMessage            String?
 
   @@index([email])
 }

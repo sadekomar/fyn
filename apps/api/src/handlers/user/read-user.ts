@@ -4,10 +4,7 @@ import prisma from "../../helpers/prisma";
 import { ReadUserCheckoutResponse, ReadUserFullResponse } from "./user";
 
 export const readUser = handleExceptions(
-  async (
-    req: Request,
-    res: Response
-  ): Promise<Response<ReadUserFullResponse>> => {
+  async (req: Request, res: Response<ReadUserFullResponse | null>) => {
     const { id } = req.params;
 
     const user = await prisma.user.findUnique({
@@ -24,7 +21,7 @@ export const readUser = handleExceptions(
     });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json(null);
     }
 
     const response: ReadUserFullResponse = user;
@@ -34,10 +31,7 @@ export const readUser = handleExceptions(
 );
 
 export const readUserCheckout = handleExceptions(
-  async (
-    req: Request,
-    res: Response
-  ): Promise<Response<ReadUserCheckoutResponse>> => {
+  async (req: Request, res: Response<ReadUserCheckoutResponse | null>) => {
     const { id } = req.params;
 
     const user = await prisma.user.findUnique({
@@ -48,7 +42,7 @@ export const readUserCheckout = handleExceptions(
     });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json(null);
     }
 
     const response: ReadUserCheckoutResponse = user;

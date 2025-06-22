@@ -134,6 +134,7 @@ export type ReadUserCheckoutResponse = {
   phoneNumber: string;
   confirmationToken: string | null;
   tokenExpiresAt: Date | null;
+  customMessage: string | null;
   createdAt: Date;
   updatedAt: Date;
   addresses: {
