@@ -7,10 +7,10 @@ import { Accordion } from "@/components/Accordion/Accordion";
 import Link from "next/link";
 import { LikeButton } from "@/components/ItemCard/LikeButton";
 import { ShareButton } from "@/components/ShareButton";
-import { CompareButton } from "@/components/CompareButton";
+// import { CompareButton } from "@/components/CompareButton";
 import { SizesPicker } from "./SizesPicker";
 import { ItemPageI } from "@/lib/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function ItemData({ data }: { data: ItemPageI }) {
   const [selectedSize, setSelectedSize] = useState<ItemPageI["sizes"][number]>(
@@ -19,8 +19,6 @@ export function ItemData({ data }: { data: ItemPageI }) {
   const [selectedColor, setSelectedColor] = useState<
     ItemPageI["colors"][number]
   >(data.colors[0] ?? null);
-
-  console.log("data", data);
 
   return (
     <div className="ItemData">
@@ -44,7 +42,7 @@ export function ItemData({ data }: { data: ItemPageI }) {
             description={data.description}
             className={"ItemPage_Button"}
           />
-          <CompareButton id={data.id} className={"ItemPage_Button"} />
+          {/* <CompareButton id={data.id} className={"ItemPage_Button"} /> */}
         </Flex>
 
         <SizesPicker
