@@ -10,12 +10,12 @@ import { RegisterFormSchema } from "@/app/(auth)/sign-up/page";
 import {
   CreateUserRequest,
   CreateUserResponse,
-  ReadUserFullResponse,
+  ReadUserCheckoutResponse,
 } from "@/api/types/user-types";
 import { getGuestSession } from "./guest-session";
 
 export async function onboardUser(userId: string) {
-  const response = await serverHttp.get<ReadUserFullResponse>(
+  const response = await serverHttp.get<ReadUserCheckoutResponse>(
     `${Endpoints.User}/${userId}`,
   );
 
@@ -23,6 +23,10 @@ export async function onboardUser(userId: string) {
     redirect("/login");
   }
 
+  const existingSession = await getSession("loom-session");
+  if (existingSession) {
+    return response;
+  }
   await createSession(userId, "loom-session");
 
   return response;

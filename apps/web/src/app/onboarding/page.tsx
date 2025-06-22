@@ -1,345 +1,336 @@
 "use client";
 
+import { UpdateUserRequest, UpdateUserResponse } from "@/api/types/user-types";
+import { onboardUser } from "@/lib/auth";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { clientHttp } from "@/lib/queries/http.service";
+import { useGetUserData } from "../account/(utils)/use-user";
+
+const passwordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters long" })
+      // .regex(/[A-Z]/, {
+      //   message: "Password must contain at least one uppercase letter",
+      // })
+      // .regex(/\d/, { message: "Password must contain at least one number" })
+      // .regex(/[!@#$%^&*(),.?":{}|<>]/, {
+      //   message: "Password must contain at least one special character",
+      // })
+      .trim(),
+    confirmPassword: z.string().trim(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+export type PasswordFormSchema = z.infer<typeof passwordSchema>;
 
 export default function Onboarding() {
-  return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-100">
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 py-8 sm:py-12">
-        <div className="animate-fade-in mb-8 text-center sm:mb-12">
-          <h1 className="animate-slide-up mb-4 text-3xl font-bold text-gray-900 sm:mb-6 sm:text-4xl md:text-5xl">
-            Welcome to{" "}
-            <span className="animate-pulse text-purple-600">Loom</span>
-          </h1>
-          <p className="animate-slide-up-delay mx-auto max-w-xl text-lg text-gray-600 sm:text-xl">
-            Discover the world of fashion at your fingertips. Shop, explore, and
-            connect with the latest trends and brands.
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const userId = searchParams.get("userId");
+  const [currentStep, setCurrentStep] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { data: user, isLoading } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () => {
+      return onboardUser(userId as string);
+    },
+  });
+
+  const form = useForm<PasswordFormSchema>({
+    resolver: zodResolver(passwordSchema),
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const { mutate: createPassword, isPending } = useMutation({
+    mutationFn: (password: string) => {
+      console.log("create password is running");
+      return clientHttp.put<UpdateUserRequest, UpdateUserResponse>(
+        `/user/${userId}`,
+        {
+          password,
+        },
+      );
+    },
+  });
+
+  const steps = [
+    {
+      content: (
+        <div className="text-left">
+          <h2 className="mb-4 text-center text-2xl font-bold">
+            Hi, {user?.firstName || "there"}!
+          </h2>
+          <p className="mb-6 text-gray-600">
+            We're excited to have you join our fashion community.
+          </p>
+          <p className="mb-6 text-gray-600">{user?.customMessage}</p>
+          <p className="text-gray-600">
+            {user?.isPasswordReset
+              ? "Your account is ready to use."
+              : "Let's get you set up with a secure password to protect your account."}
           </p>
         </div>
+      ),
+    },
+    {
+      content: (
+        <div>
+          <h2 className="mb-4 text-center text-2xl font-bold">
+            Create your password
+          </h2>
+          <p className="mb-6 text-center text-gray-600">
+            Choose a strong password to keep your account secure.
+          </p>
 
-        {/* Features Grid */}
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:mb-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {/* Shop Categories */}
-          <div className="animate-card-1 transform rounded-lg bg-white p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:p-6">
-            <div className="mb-3 flex h-10 w-10 animate-bounce items-center justify-center rounded-lg bg-purple-100 sm:mb-4 sm:h-12 sm:w-12">
-              <svg
-                className="h-5 w-5 text-purple-600 sm:h-6 sm:w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
-              Shop by Category
-            </h3>
-            <p className="mb-3 text-sm text-gray-600 sm:mb-4 sm:text-base">
-              Explore thousands of products across fashion, accessories, and
-              lifestyle categories.
-            </p>
-            <Link
-              href="/categories"
-              className="text-sm font-medium text-purple-600 transition-colors duration-200 hover:text-purple-700 sm:text-base"
-            >
-              Browse Categories →
-            </Link>
-          </div>
+          <Form {...form}>
+            <form className="space-y-4">
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Enter your password"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeIcon className="h-4 w-4" />
+                          ) : (
+                            <EyeOffIcon className="h-4 w-4" />
+                          )}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          {/* Discover Brands */}
-          <div className="animate-card-2 transform rounded-lg bg-white p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:p-6">
-            <div className="mb-3 flex h-10 w-10 animate-bounce items-center justify-center rounded-lg bg-purple-100 sm:mb-4 sm:h-12 sm:w-12">
-              <svg
-                className="h-5 w-5 text-purple-600 sm:h-6 sm:w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
-              Discover Brands
-            </h3>
-            <p className="mb-3 text-sm text-gray-600 sm:mb-4 sm:text-base">
-              Follow your favorite brands and discover new ones with our curated
-              selection.
-            </p>
-            <Link
-              href="/brands"
-              className="text-sm font-medium text-purple-600 transition-colors duration-200 hover:text-purple-700 sm:text-base"
-            >
-              Explore Brands →
-            </Link>
-          </div>
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="Confirm your password"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                        >
+                          {showConfirmPassword ? (
+                            <EyeIcon className="h-4 w-4" />
+                          ) : (
+                            <EyeOffIcon className="h-4 w-4" />
+                          )}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
 
-          {/* Personalized Experience */}
-          <div className="animate-card-3 transform rounded-lg bg-white p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:p-6">
-            <div className="mb-3 flex h-10 w-10 animate-bounce items-center justify-center rounded-lg bg-purple-100 sm:mb-4 sm:h-12 sm:w-12">
-              <svg
-                className="h-5 w-5 text-purple-600 sm:h-6 sm:w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
-              Personalized Experience
-            </h3>
-            <p className="mb-3 text-sm text-gray-600 sm:mb-4 sm:text-base">
-              Get recommendations tailored to your style and preferences.
-            </p>
-            <Link
-              href="/account"
-              className="text-sm font-medium text-purple-600 transition-colors duration-200 hover:text-purple-700 sm:text-base"
-            >
-              Create Account →
-            </Link>
-          </div>
-
-          {/* Easy Shopping */}
-          <div className="animate-card-4 transform rounded-lg bg-white p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:p-6">
-            <div className="mb-3 flex h-10 w-10 animate-bounce items-center justify-center rounded-lg bg-purple-100 sm:mb-4 sm:h-12 sm:w-12">
-              <svg
-                className="h-5 w-5 text-purple-600 sm:h-6 sm:w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m6 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"
-                />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
-              Easy Shopping
-            </h3>
-            <p className="mb-3 text-sm text-gray-600 sm:mb-4 sm:text-base">
-              Add items to cart, save favorites, and checkout seamlessly.
-            </p>
-            <Link
-              href="/cart"
-              className="text-sm font-medium text-purple-600 transition-colors duration-200 hover:text-purple-700 sm:text-base"
-            >
-              View Cart →
-            </Link>
-          </div>
-
-          {/* Track Orders */}
-          <div className="animate-card-5 transform rounded-lg bg-white p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:p-6">
-            <div className="mb-3 flex h-10 w-10 animate-bounce items-center justify-center rounded-lg bg-purple-100 sm:mb-4 sm:h-12 sm:w-12">
-              <svg
-                className="h-5 w-5 text-purple-600 sm:h-6 sm:w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
-              Track Orders
-            </h3>
-            <p className="mb-3 text-sm text-gray-600 sm:mb-4 sm:text-base">
-              Monitor your orders and get updates on delivery status.
-            </p>
-            <Link
-              href="/orders"
-              className="text-sm font-medium text-purple-600 transition-colors duration-200 hover:text-purple-700 sm:text-base"
-            >
-              View Orders →
-            </Link>
-          </div>
-
-          {/* Stay Updated */}
-          <div className="animate-card-6 transform rounded-lg bg-white p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:p-6">
-            <div className="mb-3 flex h-10 w-10 animate-bounce items-center justify-center rounded-lg bg-purple-100 sm:mb-4 sm:h-12 sm:w-12">
-              <svg
-                className="h-5 w-5 text-purple-600 sm:h-6 sm:w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h10v-2H4v2zM4 11h14v-2H4v2zM4 7h18v-2H4v2z"
-                />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
-              Stay Updated
-            </h3>
-            <p className="mb-3 text-sm text-gray-600 sm:mb-4 sm:text-base">
-              Follow brands and get notified about new arrivals and sales.
-            </p>
-            <Link
-              href="/following"
-              className="text-sm font-medium text-purple-600 transition-colors duration-200 hover:text-purple-700 sm:text-base"
-            >
-              Manage Following →
-            </Link>
-          </div>
+          {/* <div className="mt-6 rounded-lg bg-gray-50 p-3 text-sm text-gray-600">
+            <p className="mb-2 font-medium">Password requirements:</p>
+            <ul className="space-y-1">
+              <li>• At least 8 characters long</li>
+              <li>• Contains at least one uppercase letter</li>
+              <li>• Contains at least one number</li>
+              <li>• Contains at least one special character</li>
+            </ul>
+          </div> */}
         </div>
+      ),
+    },
+    {
+      content: (
+        <div className="text-center">
+          <h2 className="mb-4 text-2xl font-bold">
+            You're all set, {user?.firstName}!
+          </h2>
+          <p className="mb-6 text-gray-600">
+            Your account is now secure and ready to use.
+          </p>
+          <p className="mb-8 text-gray-600">
+            Start exploring and discover amazing fashion pieces just for you.
+          </p>
+          <Link href="/">
+            <Button className="w-full">Explore Loom</Button>
+          </Link>
+        </div>
+      ),
+    },
+  ];
 
-        {/* Call to Action */}
-        <div className="animate-fade-in-up text-center">
-          <div className="mx-auto max-w-lg transform rounded-lg bg-white p-6 shadow-lg transition-transform duration-300 hover:scale-105 sm:p-8">
-            <h2 className="mb-3 text-2xl font-bold text-gray-900 sm:mb-4 sm:text-3xl">
-              Ready to Start Shopping?
-            </h2>
-            <p className="mb-4 text-sm text-gray-600 sm:mb-6 sm:text-base">
-              Join thousands of fashion enthusiasts who trust Loom for their
-              shopping needs.
-            </p>
-            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+  // Filter steps based on user.isPasswordReset flag
+  const activeSteps = user?.isPasswordReset ? [steps[0], steps[2]] : steps;
+
+  const nextStep = async () => {
+    console.log("next step is running");
+    console.log("curerntstep", currentStep);
+    console.log("user", user);
+    if (currentStep === 1 && !user?.isPasswordReset) {
+      const isValid = await form.trigger();
+      if (!isValid) {
+        return;
+      }
+      createPassword(form.getValues("password"));
+    }
+
+    if (currentStep < activeSteps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1">
+            <div className="mx-auto h-6 w-48 animate-pulse rounded bg-gray-200"></div>
+            <div className="mx-auto h-4 w-64 animate-pulse rounded bg-gray-200"></div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-4 text-center">
+              <div className="mx-auto h-8 w-56 animate-pulse rounded bg-gray-200"></div>
+              <div className="mx-auto h-4 w-80 animate-pulse rounded bg-gray-200"></div>
+              <div className="mx-auto h-4 w-72 animate-pulse rounded bg-gray-200"></div>
+              <div className="mx-auto h-4 w-64 animate-pulse rounded bg-gray-200"></div>
+            </div>
+
+            <div className="flex justify-between pt-4">
+              <div className="h-10 w-20 animate-pulse rounded bg-gray-200"></div>
+              <div className="h-10 w-24 animate-pulse rounded bg-gray-200"></div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-center">Oops!</CardTitle>
+            <CardDescription className="text-center">
+              We couldn't find your account.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/login">
+              <Button className="w-full">Go to Login</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-gray-50 p-4">
+      <Card className="w-full max-w-md">
+        <CardContent className="space-y-4">
+          {activeSteps[currentStep].content}
+
+          <div className="flex justify-between pt-4">
+            <Button
+              onClick={prevStep}
+              disabled={currentStep === 0}
+              variant={currentStep === 0 ? "secondary" : "outline"}
+              className={
+                currentStep === 0 ? "cursor-not-allowed opacity-50" : ""
+              }
+            >
+              Previous
+            </Button>
+
+            {currentStep < activeSteps.length - 1 ? (
+              <Button onClick={nextStep}>
+                {currentStep === 1 && !user?.isPasswordReset
+                  ? "Create Password"
+                  : "Next"}
+              </Button>
+            ) : (
+              <Link href="/">
+                <Button>Get Started</Button>
+              </Link>
+            )}
+          </div>
+
+          {currentStep < activeSteps.length - 1 && (
+            <div className="text-center">
               <Link
                 href="/"
-                className="transform rounded-lg bg-purple-600 px-6 py-2 font-semibold text-white transition-all duration-200 hover:scale-105 hover:bg-purple-700 sm:px-8 sm:py-3"
+                className="text-sm text-gray-500 hover:text-gray-700"
               >
-                Start Shopping
-              </Link>
-              <Link
-                href="/about"
-                className="transform rounded-lg border border-purple-600 px-6 py-2 font-semibold text-purple-600 transition-all duration-200 hover:scale-105 hover:bg-purple-50 sm:px-8 sm:py-3"
-              >
-                Learn More
+                Skip onboarding
               </Link>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slide-up-delay {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-
-        .animate-slide-up {
-          animation: slide-up 0.8s ease-out;
-        }
-
-        .animate-slide-up-delay {
-          animation: slide-up 0.8s ease-out 0.2s both;
-        }
-
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out 0.4s both;
-        }
-
-        .animate-card-1 {
-          animation: slide-up 0.6s ease-out 0.1s both;
-        }
-
-        .animate-card-2 {
-          animation: slide-up 0.6s ease-out 0.2s both;
-        }
-
-        .animate-card-3 {
-          animation: slide-up 0.6s ease-out 0.3s both;
-        }
-
-        .animate-card-4 {
-          animation: slide-up 0.6s ease-out 0.4s both;
-        }
-
-        .animate-card-5 {
-          animation: slide-up 0.6s ease-out 0.5s both;
-        }
-
-        .animate-card-6 {
-          animation: slide-up 0.6s ease-out 0.6s both;
-        }
-
-        .animate-bounce {
-          animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-          0%,
-          20%,
-          50%,
-          80%,
-          100% {
-            transform: translateY(0);
-          }
-          40% {
-            transform: translateY(-10px);
-          }
-          60% {
-            transform: translateY(-5px);
-          }
-        }
-      `}</style>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

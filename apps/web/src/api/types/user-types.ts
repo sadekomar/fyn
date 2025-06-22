@@ -116,6 +116,8 @@ export type ReadUserCheckoutResponse = {
   tokenExpiresAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+  customMessage: string | null;
+  isPasswordReset: boolean;
   addresses: {
     id: string;
     firstName: string;
