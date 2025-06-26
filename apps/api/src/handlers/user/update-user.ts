@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
@@ -17,10 +16,8 @@ const updateUserSchema = z.object({
 
 export const updateUser = handleExceptions(
   async (req: Request, res: Response<UpdateUserResponse>) => {
-    console.log(req.body);
     const { id } = req.params;
     const result = updateUserSchema.safeParse(req.body);
-    console.log(result);
 
     if (!result.success) {
       return res.status(400).json({
@@ -64,7 +61,7 @@ export const updateUser = handleExceptions(
         firstName,
         lastName,
         phoneNumber,
-        isPasswordReset: true,
+        isPasswordReset: password ? true : false,
       },
     });
 
