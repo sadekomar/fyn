@@ -54,7 +54,6 @@ export type PasswordFormSchema = z.infer<typeof passwordSchema>;
 
 export default function Onboarding() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const userId = searchParams.get("userId");
   const [currentStep, setCurrentStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -75,9 +74,8 @@ export default function Onboarding() {
     },
   });
 
-  const { mutate: createPassword, isPending } = useMutation({
+  const { mutate: createPassword } = useMutation({
     mutationFn: (password: string) => {
-      console.log("create password is running");
       return clientHttp.put<UpdateUserRequest, UpdateUserResponse>(
         `/user/${userId}`,
         {

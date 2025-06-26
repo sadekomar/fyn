@@ -1,13 +1,11 @@
 "use client";
 
 import { Flex } from "@radix-ui/themes";
-import { BuyNowLink } from "./BuyNowLink";
 import { AddToCart } from "@/app/(you)/cart/(components)/add-to-cart";
 import { Accordion } from "@/components/Accordion/Accordion";
 import Link from "next/link";
 import { LikeButton } from "@/components/ItemCard/LikeButton";
 import { ShareButton } from "@/components/ShareButton";
-// import { CompareButton } from "@/components/CompareButton";
 import { SizesPicker } from "./SizesPicker";
 import { ItemPageI } from "@/lib/types";
 import { useState } from "react";
@@ -42,7 +40,6 @@ export function ItemData({ data }: { data: ItemPageI }) {
             description={data.description}
             className={"ItemPage_Button"}
           />
-          {/* <CompareButton id={data.id} className={"ItemPage_Button"} /> */}
         </Flex>
 
         <SizesPicker
@@ -57,7 +54,6 @@ export function ItemData({ data }: { data: ItemPageI }) {
             selectedColor={selectedColor}
             selectedSize={selectedSize}
           />
-          <BuyNowLink data={data} />
         </div>
 
         {data.description && data.description.length > 0 && (
