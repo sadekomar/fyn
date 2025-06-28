@@ -78,11 +78,11 @@ export function CardImage({
         loading="eager"
       />
       <img
-        ref={imgRef}
         {...props}
+        ref={imgRef}
         alt={alt}
-        srcSet={generateSrcset(props.src)}
-        src={generateSrc(props.src)}
+        // srcSet={generateSrcset(props.src)}
+        src={generateBlur(props.src)}
         sizes="(max-width: 768px) 180px, 240px"
         className={`${props.className ?? ""}`}
       />

@@ -38,10 +38,10 @@ export function LoomImage({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
+      {...props}
       alt={alt}
       src={generateSrc(props.src)}
       srcSet={generateSrcset(props.src)}
-      {...props}
     />
   );
 }
