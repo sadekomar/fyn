@@ -51,9 +51,7 @@ export function CardImage({
 
   const generateBlur = (src: string | Blob | undefined) => {
     if (!src) return "";
-    console.log(src.toString().replaceAll(imagePattern, "20"));
-    console.log("generating image");
-    return src.toString().replaceAll(imagePattern, "20");
+    return src.toString().replaceAll(imagePattern, ImageSizes.BLUR);
   };
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -96,8 +94,8 @@ export function CardImage({
         {...props}
         ref={imgRef}
         alt={alt}
-        // srcSet={generateSrcset(props.src)}
-        src={generateBlur(props.src)}
+        srcSet={generateSrcset(props.src)}
+        src={generateSrc(props.src)}
         sizes="(max-width: 768px) 180px, 240px"
         className={`${props.className ?? ""}`}
       />
