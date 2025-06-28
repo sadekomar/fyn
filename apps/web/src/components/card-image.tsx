@@ -8,19 +8,32 @@ export function CardImage({
   ...props
 }: ImgHTMLAttributes<HTMLImageElement> & { alt?: string }) {
   const imagePattern = "loom-image-dimensions";
-  enum ImageSizes {
-    "6XL" = "2048",
-    "5XL" = "1728",
-    "4XL" = "1512",
-    "3XL" = "1296",
-    "XXL" = "1080",
-    "XL" = "900",
-    "L" = "720",
-    "M" = "590",
-    "S" = "360",
-    "XS" = "180",
-    "BLUR" = "20",
-  }
+  // enum ImageSizes {
+  //   "6XL" = 2048,
+  //   "5XL" = 1728,
+  //   "4XL" = 1512,
+  //   "3XL" = 1296,
+  //   "XXL" = 1080,
+  //   "XL" = 900,
+  //   "L" = 720,
+  //   "M" = 590,
+  //   "S" = 360,
+  //   "XS" = 180,
+  //   "BLUR" = 20,
+  // }
+  const ImageSizes = {
+    "6XL": "2048",
+    "5XL": "1728",
+    "4XL": "1512",
+    "3XL": "1296",
+    XXL: "1080",
+    XL: "900",
+    L: "720",
+    M: "590",
+    S: "360",
+    XS: "180",
+    BLUR: "20",
+  } as const;
 
   const generateSrc = (src: string | Blob | undefined): string => {
     if (!src || typeof src !== "string") return "";
@@ -38,6 +51,8 @@ export function CardImage({
 
   const generateBlur = (src: string | Blob | undefined) => {
     if (!src) return "";
+    console.log(src.toString().replaceAll(imagePattern, ImageSizes.BLUR));
+    console.log("generating image");
     return src.toString().replaceAll(imagePattern, ImageSizes.BLUR);
   };
 
