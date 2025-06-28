@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-import { ImageSizes, ItemCardsI } from "../item/item";
+import { ItemCardsI } from "../item/item";
 import { Prisma } from "@prisma/client";
 
 export const readUserItemViews = handleExceptions(
@@ -47,10 +47,7 @@ export const readUserItemViews = handleExceptions(
         name: itemView.item.name,
         price: itemView.item.latestPrice,
         brand: itemView.item.brand.name,
-        image: itemView.item.images[0].url.replaceAll(
-          ImageSizes.PATTERN,
-          ImageSizes.SMALL
-        ),
+        image: itemView.item.images[0].url,
         isSoldOut: itemView.item.isSoldOut,
       }))
     );

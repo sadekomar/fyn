@@ -1,7 +1,7 @@
 import prisma from "../../helpers/prisma";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
-import { ImageSizes, ItemCardsI } from "./item";
+import { ItemCardsI } from "./item";
 import { Gender } from "@prisma/client";
 
 // Function to translate gender values from request to enum values
@@ -58,10 +58,7 @@ export const readItemsByIds = handleExceptions(
           name: item.name,
           price: item.latestPrice,
           brand: item.brand.name,
-          image: item.images[0].url.replaceAll(
-            ImageSizes.PATTERN,
-            ImageSizes.SMALL
-          ),
+          image: item.images[0].url,
           gender: item.gender ? translateGender(item.gender) : null,
           isSoldOut: item.isSoldOut,
         };

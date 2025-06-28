@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-import { ImageSizes } from "../item/item";
 
 type BrandData = {
   name: string;
@@ -28,10 +27,8 @@ export const readBrand = handleExceptions(
       id: brand?.id,
       name: brand?.name,
       description: brand?.description,
-      image:
-        brand?.image?.replaceAll(ImageSizes.PATTERN, ImageSizes.SMALL) ?? null,
-      logo:
-        brand?.logo?.replaceAll(ImageSizes.PATTERN, ImageSizes.SMALL) ?? null,
+      image: brand?.image ?? null,
+      logo: brand?.logo ?? null,
       inTrash: brand?.inTrash,
     });
   }

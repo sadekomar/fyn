@@ -4,7 +4,6 @@ import prisma from "../../helpers/prisma";
 import { ItemCart } from "./cart";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
-import { ImageSizes } from "../item/item";
 
 const ReadItemCartsRequestQuery = z.discriminatedUnion("type", [
   z.object({
@@ -105,10 +104,7 @@ export const readCartItems = handleExceptions(
       name: cartItem.item.name,
       price: cartItem.item.latestPrice,
       brand: cartItem.item.brand,
-      image: cartItem.item.images[0].url.replaceAll(
-        ImageSizes.PATTERN,
-        ImageSizes.THUMBNAIL
-      ),
+      image: cartItem.item.images[0].url,
       link: cartItem.item.link,
     }));
 

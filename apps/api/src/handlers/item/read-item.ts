@@ -1,7 +1,7 @@
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
-import { Genders, ImageSizes, ItemPageResponse } from "./item";
+import { Genders, ItemPageResponse } from "./item";
 
 export const readItem = handleExceptions(
   async (req: Request, res: Response<ItemPageResponse>) => {
@@ -76,9 +76,7 @@ export const readItem = handleExceptions(
       price: item.prices[0].price,
       brand: item.brand.name,
       link: item.link,
-      images: item.images.map((image) =>
-        image.url.replaceAll(ImageSizes.PATTERN, ImageSizes.SMALL)
-      ),
+      images: item.images.map((image) => image.url),
       categories: item.categories.map((category) => category.name),
       colors: item.colors.map((color) => ({
         id: color.id,
