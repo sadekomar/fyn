@@ -6,14 +6,6 @@ export enum Genders {
   FEMALE = "Female",
 }
 
-export enum ImageSizes {
-  PATTERN = "loom-image-dimensions",
-  LARGE = "1080",
-  MEDIUM = "600",
-  SMALL = "460",
-  THUMBNAIL = "300",
-}
-
 export type MetadataI = {
   items: {
     name: string;
