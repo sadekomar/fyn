@@ -51,9 +51,9 @@ export function CardImage({
 
   const generateBlur = (src: string | Blob | undefined) => {
     if (!src) return "";
-    console.log(src.toString().replaceAll(imagePattern, ImageSizes.BLUR));
+    console.log(src.toString().replaceAll(imagePattern, "20"));
     console.log("generating image");
-    return src.toString().replaceAll(imagePattern, ImageSizes.BLUR);
+    return src.toString().replaceAll(imagePattern, "20");
   };
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
