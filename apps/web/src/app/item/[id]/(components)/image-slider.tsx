@@ -58,7 +58,6 @@ export const ImageSlider = ({ images }: { images: string[] }) => {
               <LoomImage
                 className="SnapScroller__Image"
                 src={image}
-                srcSet={image}
                 sizes="300px"
               />
             </Dialog.Content>

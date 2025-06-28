@@ -16,12 +16,11 @@ export function DesktopImages({
           data["images"].map((image, index) => (
             <Dialog.Trigger key={index}>
               <LoomImage
+                alt={data.name}
                 key={index}
                 style={{ width: "100%" }}
                 src={image}
-                srcSet={image}
                 sizes="410px"
-                alt=""
               />
             </Dialog.Trigger>
           ))}

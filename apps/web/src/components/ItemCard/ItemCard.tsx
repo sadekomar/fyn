@@ -5,9 +5,9 @@ import Link from "next/link";
 import "./ItemCard.css";
 import "./Feather.css";
 // import { CompareButton } from "../CompareButton";
-import { LoomImage } from "../LoomImage";
 import { ItemCardsI } from "@/lib/types";
 import { useState } from "react";
+import { CardImage } from "../card-image";
 
 export function ItemCard({
   id,
@@ -32,36 +32,29 @@ export function ItemCard({
   return (
     <>
       <div
-        className={`ItemCard ${className} relative transition-all duration-300 active:scale-103 ${
+        className={`ItemCard ${className} transition-all duration-300 active:scale-103 ${
           isSoldOut ? "opacity-75" : ""
         }`}
       >
         {/* <CompareButton id={id} className="CompareButton" /> */}
-        <Link prefetch={true} href={`/item/${id}`} className="relative block">
-          <LoomImage
+        <Link prefetch={true} href={`/item/${id}`} className="relative">
+          <CardImage
             loading={imgLoading}
             src={image === "" ? undefined : image}
-            width={260}
-            height={340}
             alt={name}
             onError={() => setImageError(true)}
             style={{
-              display: "block",
-              objectFit: "cover",
-              width: "100%",
-              maxWidth: "100%",
-              height: "340px",
-              backgroundColor: "var(--gray-5)",
               borderRadius: "8px",
-              transitionProperty: "width",
-              transitionDuration: "0.3s",
-              transitionTimingFunction: "ease",
-              transitionDelay: "0s",
+              width: "100%",
+              height: "300px",
+              backgroundColor: "var(--gray-5)",
             }}
           />
           {isSoldOut && (
             <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/50">
-              <span className="text-lg font-semibold text-white">Sold Out</span>
+              <span className="text-lg font-semibold text-white">
+                Out of stock
+              </span>
             </div>
           )}
         </Link>
