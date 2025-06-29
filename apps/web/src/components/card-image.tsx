@@ -72,23 +72,22 @@ export function CardImage({
   }, [imgRef]);
 
   return (
-    <div
-      className={`relative ${props.className ?? ""}`}
-      style={{
-        backdropFilter: isLoaded ? "blur(10px)" : "blur(10px)",
-        transition: "backdrop-filter 0.3s ease-in-out",
-      }}
-    >
+    <div className={`relative ${props.className ?? ""}`}>
       {/* okay so the div fetches very low on the priority list that's why i guess i should use another image instead of the wrapping div */}
       <img
         {...props}
         src={generateBlur(props.src)}
         alt={alt}
-        className={`absolute inset-0 h-full w-full transition-opacity duration-150 ease-in-out ${
+        className={`${props.className ?? ""} absolute inset-0 h-full w-full rounded-[8px] transition-opacity duration-150 ease-in-out ${
           isLoaded ? "opacity-0" : "opacity-100"
         }`}
         fetchPriority="high"
         loading="eager"
+      />
+      <div
+        className={`absolute inset-0 h-full w-full rounded-[8px] bg-transparent backdrop-blur-sm ${
+          isLoaded ? "opacity-0" : "opacity-100"
+        }`}
       />
       <img
         {...props}
