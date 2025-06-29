@@ -3,24 +3,8 @@
 
 import { ImgHTMLAttributes, useState, useEffect, useRef } from "react";
 
-export function CardImage({
-  alt = "Image",
-  ...props
-}: ImgHTMLAttributes<HTMLImageElement> & { alt?: string }) {
+export function CardImage({ ...props }: ImgHTMLAttributes<HTMLImageElement>) {
   const imagePattern = "loom-image-dimensions";
-  // enum ImageSizes {
-  //   "6XL" = 2048,
-  //   "5XL" = 1728,
-  //   "4XL" = 1512,
-  //   "3XL" = 1296,
-  //   "XXL" = 1080,
-  //   "XL" = 900,
-  //   "L" = 720,
-  //   "M" = 590,
-  //   "S" = 360,
-  //   "XS" = 180,
-  //   "BLUR" = 20,
-  // }
   const ImageSizes = {
     "6XL": "2048",
     "5XL": "1728",
@@ -77,7 +61,7 @@ export function CardImage({
       <img
         {...props}
         src={generateBlur(props.src)}
-        alt={alt}
+        alt={props.alt}
         className={`${props.className ?? ""} absolute inset-0 h-full w-full rounded-[8px] transition-opacity duration-150 ease-in-out ${
           isLoaded ? "opacity-0" : "opacity-100"
         }`}
@@ -92,7 +76,7 @@ export function CardImage({
       <img
         {...props}
         ref={imgRef}
-        alt={alt}
+        alt={props.alt}
         srcSet={generateSrcset(props.src)}
         src={generateSrc(props.src)}
         className={`${props.className ?? ""}`}

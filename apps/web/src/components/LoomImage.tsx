@@ -2,10 +2,7 @@ import { ImgHTMLAttributes } from "react";
 
 // very very cool to be honest
 // i now get all the props and type safety from the ImgHTMLAttributes with my custom component
-export function LoomImage({
-  alt = "Image",
-  ...props
-}: ImgHTMLAttributes<HTMLImageElement> & { alt?: string }) {
+export function LoomImage({ ...props }: ImgHTMLAttributes<HTMLImageElement>) {
   const imagePattern = "loom-image-dimensions";
   enum ImageSizes {
     "6XL" = "2048",
@@ -39,7 +36,7 @@ export function LoomImage({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       {...props}
-      alt={alt}
+      alt={props.alt}
       src={generateSrc(props.src)}
       srcSet={generateSrcset(props.src)}
     />

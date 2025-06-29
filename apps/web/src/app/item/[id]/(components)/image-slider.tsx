@@ -42,7 +42,9 @@ export const ImageSlider = ({ images }: { images: string[] }) => {
           <Dialog.Root key={index}>
             <Dialog.Trigger>
               <LoomImage
+                alt={`${name}-${index + 1}`}
                 key={index}
+                sizes="(max-width: 768px) 180px, 240px"
                 src={image}
                 className="h-full w-full flex-none snap-center bg-gray-200 object-contain"
               />
