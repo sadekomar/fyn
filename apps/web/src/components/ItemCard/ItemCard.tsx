@@ -41,6 +41,7 @@ export function ItemCard({
           <CardImage
             loading={imgLoading}
             src={image === "" ? undefined : image}
+            sizes="(max-width: 768px) 180px, 240px"
             alt={name}
             onError={() => setImageError(true)}
             style={{

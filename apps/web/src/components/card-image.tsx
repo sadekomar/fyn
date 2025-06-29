@@ -35,13 +35,13 @@ export function CardImage({
     BLUR: "20",
   } as const;
 
-  const generateSrc = (src: string | Blob | undefined): string => {
-    if (!src || typeof src !== "string") return "";
+  const generateSrc = (src: string | Blob | undefined) => {
+    if (!src || typeof src !== "string") return undefined;
     return src.replaceAll(imagePattern, ImageSizes.L);
   };
 
-  const generateSrcset = (src: string | Blob | undefined): string => {
-    if (!src || typeof src !== "string") return "";
+  const generateSrcset = (src: string | Blob | undefined) => {
+    if (!src || typeof src !== "string") return undefined;
     return Object.values(ImageSizes)
       .map((size) => {
         return `${src.replaceAll(imagePattern, size)} ${size}w`;
@@ -95,7 +95,6 @@ export function CardImage({
         alt={alt}
         srcSet={generateSrcset(props.src)}
         src={generateSrc(props.src)}
-        sizes="(max-width: 768px) 180px, 240px"
         className={`${props.className ?? ""}`}
       />
     </div>

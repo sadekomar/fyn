@@ -28,6 +28,7 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Endpoints } from "@/api/endpoints";
 import { AddBrandView } from "./(components)/add-brand-view";
+import { CardImage } from "@/components/card-image";
 
 export function BrandPageClient() {
   const { brand } = useParams<{ brand: brandKey }>();
@@ -70,7 +71,7 @@ export function BrandPageClient() {
 
         <div className="BrandImageContainer">
           {brandData && (
-            <LoomImage
+            <CardImage
               src={brandData.image ?? undefined}
               className={`BrandImage`}
               alt={brandData.name}

@@ -4,8 +4,8 @@ import "./CategorySelector.css";
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
-import { LoomImage } from "../LoomImage";
 import { CategoriesI } from "@/lib/types";
+import { CardImage } from "../card-image";
 
 export function CategorySelector({
   brandCategories,
@@ -52,8 +52,8 @@ export function CategorySelector({
       <div className="category-selector-scroller">
         {[...Array(6)].map((_, index) => (
           <div key={index} className="category-selector-wrapper animate-pulse">
-            <div className="w-16 h-16 rounded-full bg-gray-200" />
-            <div className="h-6 w-24 bg-gray-200 rounded mt-2" />
+            <div className="h-16 w-16 rounded-full bg-gray-200" />
+            <div className="mt-2 h-6 w-24 rounded bg-gray-200" />
           </div>
         ))}
       </div>
@@ -69,7 +69,7 @@ export function CategorySelector({
             toggleCategory(categoryObject.name);
           }}
         >
-          <LoomImage
+          <CardImage
             className="category-selector__img"
             src={categoryObject.image}
             alt={categoryObject.name}
