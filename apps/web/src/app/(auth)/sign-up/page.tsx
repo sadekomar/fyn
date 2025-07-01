@@ -168,6 +168,20 @@ export default function RegisterForm() {
                 )}
               />
 
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <div className="grid grid-cols-2 gap-2">
                 <FormField
                   control={form.control}
@@ -202,22 +216,6 @@ export default function RegisterForm() {
                   )}
                 />
               </div>
-
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Username <span className="text-gray-500">(optional)</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <Button
                 className="text-md w-full"
