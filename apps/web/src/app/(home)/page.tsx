@@ -50,10 +50,10 @@ export default async function Home() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["home-daddys-girl"],
+    queryKey: ["capsule"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=daddysgirl&limit=20&sort_by=date-descending`,
+        `/items?brands=capsule&limit=20&sort_by=date-descending`,
       ),
   });
 

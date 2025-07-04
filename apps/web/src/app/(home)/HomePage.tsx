@@ -15,13 +15,6 @@ export function ClientHomePage() {
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(`/items?limit=20&sort_by=date-descending`),
   });
-  const { data: brand = [] } = useQuery<ItemCardsI[]>({
-    queryKey: ["home-daddys-girl"],
-    queryFn: () =>
-      clientHttp.get<ItemCardsI[]>(
-        `/items?brands=daddysgirl&limit=20&sort_by=date-descending`,
-      ),
-  });
   const { data: pants = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-pants"],
     queryFn: () =>
@@ -50,6 +43,13 @@ export function ClientHomePage() {
         `/items?brands=${conifg.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
       ),
   });
+  const { data: capsule = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["capsule"],
+    queryFn: () =>
+      clientHttp.get<ItemCardsI[]>(
+        `/items?brands=capsule&limit=20&sort_by=date-descending`,
+      ),
+  });
 
   return (
     <>
@@ -62,16 +62,16 @@ export function ClientHomePage() {
         <HorizontalScroller items={newItems} />
       </section>
 
-      <section className="flex flex-col">
+      <section>
         <div className="h-scroller-title">
           <h3>
             New from{" "}
-            <Link href={`/brands/daddysgirl`} className="brand-link">
-              Daddy's Girl
+            <Link href={`/brands/capsule`} className="brand-link">
+              Capsule
             </Link>
           </h3>
         </div>
-        <HorizontalScroller items={brand} />
+        <HorizontalScroller items={capsule} />
       </section>
 
       <section className="flex flex-col">
