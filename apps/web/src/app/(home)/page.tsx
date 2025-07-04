@@ -58,6 +58,38 @@ export default async function Home() {
   });
 
   await queryClient.prefetchQuery({
+    queryKey: ["leena-andeel"],
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(
+        `/items?brands=leena-andeel&limit=20&sort_by=date-descending`,
+      ),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["niffty"],
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(
+        `/items?brands=niffty&limit=20&sort_by=date-descending`,
+      ),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["vinci"],
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(
+        `/items?brands=vinci&limit=20&sort_by=date-descending`,
+      ),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["pulp"],
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(
+        `/items?brands=pulp&limit=20&sort_by=date-descending`,
+      ),
+  });
+
+  await queryClient.prefetchQuery({
     queryKey: ["home-pants"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(

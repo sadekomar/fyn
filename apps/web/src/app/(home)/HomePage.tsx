@@ -50,6 +50,34 @@ export function ClientHomePage() {
         `/items?brands=capsule&limit=20&sort_by=date-descending`,
       ),
   });
+  const { data: leenaAndeel = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["leena-andeel"],
+    queryFn: () =>
+      clientHttp.get<ItemCardsI[]>(
+        `/items?brands=leena-andeel&limit=20&sort_by=date-descending`,
+      ),
+  });
+  const { data: niffty = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["niffty"],
+    queryFn: () =>
+      clientHttp.get<ItemCardsI[]>(
+        `/items?brands=niffty&limit=20&sort_by=date-descending`,
+      ),
+  });
+  const { data: vinci = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["vinci"],
+    queryFn: () =>
+      clientHttp.get<ItemCardsI[]>(
+        `/items?brands=vinci&limit=20&sort_by=date-descending`,
+      ),
+  });
+  const { data: pulp = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["pulp"],
+    queryFn: () =>
+      clientHttp.get<ItemCardsI[]>(
+        `/items?brands=pulp&limit=20&sort_by=date-descending`,
+      ),
+  });
 
   return (
     <>
@@ -72,6 +100,54 @@ export function ClientHomePage() {
           </h3>
         </div>
         <HorizontalScroller items={capsule} />
+      </section>
+
+      <section>
+        <div className="h-scroller-title">
+          <h3>
+            New from{" "}
+            <Link href={`/brands/leena-andeel`} className="brand-link">
+              Leena Andeel
+            </Link>
+          </h3>
+        </div>
+        <HorizontalScroller items={leenaAndeel} />
+      </section>
+
+      <section>
+        <div className="h-scroller-title">
+          <h3>
+            New from{" "}
+            <Link href={`/brands/niffty`} className="brand-link">
+              Niffty
+            </Link>
+          </h3>
+        </div>
+        <HorizontalScroller items={niffty} />
+      </section>
+
+      <section>
+        <div className="h-scroller-title">
+          <h3>
+            New from{" "}
+            <Link href={`/brands/vinci`} className="brand-link">
+              Vinci
+            </Link>
+          </h3>
+        </div>
+        <HorizontalScroller items={vinci} />
+      </section>
+
+      <section>
+        <div className="h-scroller-title">
+          <h3>
+            New from{" "}
+            <Link href={`/brands/pulp`} className="brand-link">
+              Pulp
+            </Link>
+          </h3>
+        </div>
+        <HorizontalScroller items={pulp} />
       </section>
 
       <section className="flex flex-col">
