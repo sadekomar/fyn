@@ -58,10 +58,10 @@ export default async function Home() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["leena-andeel"],
+    queryKey: ["byleenaandeel"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=leena-andeel&limit=20&sort_by=date-descending`,
+        `/items?brands=byleenaandeel&limit=20&sort_by=date-descending`,
       ),
   });
 

@@ -50,11 +50,11 @@ export function ClientHomePage() {
         `/items?brands=capsule&limit=20&sort_by=date-descending`,
       ),
   });
-  const { data: leenaAndeel = [] } = useQuery<ItemCardsI[]>({
-    queryKey: ["leena-andeel"],
+  const { data: byleenaandeel = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["byleenaandeel"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=leena-andeel&limit=20&sort_by=date-descending`,
+        `/items?brands=byleenaandeel&limit=20&sort_by=date-descending`,
       ),
   });
   const { data: niffty = [] } = useQuery<ItemCardsI[]>({
@@ -106,12 +106,12 @@ export function ClientHomePage() {
         <div className="h-scroller-title">
           <h3>
             New from{" "}
-            <Link href={`/brands/leena-andeel`} className="brand-link">
-              Leena Andeel
+            <Link href={`/brands/byleenaandeel`} className="brand-link">
+              ByLeenaAndeel
             </Link>
           </h3>
         </div>
-        <HorizontalScroller items={leenaAndeel} />
+        <HorizontalScroller items={byleenaandeel} />
       </section>
 
       <section>
