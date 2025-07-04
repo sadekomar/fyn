@@ -73,9 +73,9 @@ export const readItems = handleExceptions(
     const orderBy = getSortBy(sort_by);
 
     const items = await prisma.item.findMany({
-      take: limit || 300,
+      take: limit || 50,
       orderBy,
-      skip: page ? (page - 1) * (limit || 10) : 0,
+      skip: page ? (page - 1) * (limit || 50) : 0,
       where,
       select: {
         id: true,
