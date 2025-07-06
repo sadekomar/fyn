@@ -1,7 +1,8 @@
 import { createLike } from "./create-like";
 import { readLike } from "./read-like";
+import { readLikes } from "./read-likes";
 
-export { createLike, readLike };
+export { createLike, readLike, readLikes };
 
 // create
 type CreateLikeUserRequest = {

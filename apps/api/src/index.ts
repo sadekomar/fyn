@@ -82,9 +82,11 @@ import {
   readUserCategoryViews,
 } from "./handlers/category-view/category-view";
 import { createGuestUser } from "./handlers/guest-user/guest-user";
-import { createLike, readLike } from "./handlers/like/like";
-import { readLikes } from "./handlers/like/read-likes";
-
+import { createLike, readLike, readLikes } from "./handlers/like/like";
+import {
+  createBrandFollow,
+  readFollowedBrands,
+} from "./handlers/brand-follow/brand-follow";
 const app = express();
 const PORT = process.env.PORT;
 
@@ -140,6 +142,10 @@ app.delete(Endpoints.CartItemById, deleteCartItem);
 app.post(Endpoints.Like, createLike);
 app.get(Endpoints.Like, readLike);
 app.get(Endpoints.Likes, readLikes);
+
+// brand follow
+app.post(Endpoints.FollowedBrand, createBrandFollow);
+app.get(Endpoints.FollowedBrands, readFollowedBrands);
 
 app.post(Endpoints.Order, createOrder);
 app.get(Endpoints.OrderById, readOrder);

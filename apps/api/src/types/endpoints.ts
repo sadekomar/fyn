@@ -41,6 +41,8 @@ export enum Endpoints {
   Likes = "/likes",
   Address = "/address",
   Addresses = "/addresses/:userId",
+  FollowedBrand = "/followed-brand",
+  FollowedBrands = "/followed-brands",
   // views
   ItemView = "/item-view",
   ItemViews = "/item-views",

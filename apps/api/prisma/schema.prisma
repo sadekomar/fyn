@@ -52,15 +52,16 @@ model Item {
 }
 
 model GuestUser {
-  id            String         @id @default(uuid())
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  itemViews     ItemView[]
-  categoryViews CategoryView[]
-  brandViews    BrandView[]
-  likes         Like[]
-  itemCarts     ItemCart[]
-  sessions      Session[]
+  id             String         @id @default(uuid())
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  itemViews      ItemView[]
+  categoryViews  CategoryView[]
+  brandViews     BrandView[]
+  followedBrands BrandFollow[]
+  likes          Like[]
+  itemCarts      ItemCart[]
+  sessions       Session[]
 
   @@index([createdAt])
 }
@@ -131,6 +132,24 @@ model BrandView {
   @@index([guestUserId])
 }
 
+model BrandFollow {
+  id          String     @id @default(uuid())
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  brand       Brand      @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId     String
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  guestUserId String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@unique([userId, brandId])
+  @@unique([guestUserId, brandId])
+  @@index([userId])
+  @@index([brandId])
+  @@index([guestUserId])
+}
+
 model Like {
   id          String     @id @default(uuid())
   user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -163,8 +182,12 @@ model Brand {
   description      String?
   image            String?
   logo             String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now()) @updatedAt
+  isPartnerBrand   Boolean            @default(false)
   items            Item[]
   brandViews       BrandView[]
+  brandFollows     BrandFollow[]
   showrooms        Showroom[]
   ShippingEstimate ShippingEstimate[]
   inTrash          Boolean            @default(false)
@@ -274,6 +297,7 @@ model User {
   itemViews                ItemView[]
   categoryViews            CategoryView[]
   brandViews               BrandView[]
+  brandFollows             BrandFollow[]
   likes                    Like[]
   itemCarts                ItemCart[]
   orders                   Order[]
