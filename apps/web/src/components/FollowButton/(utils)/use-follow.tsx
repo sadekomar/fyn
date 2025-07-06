@@ -29,10 +29,20 @@ export function useAddFollowedBrand() {
 
       const previousData = queryClient.getQueryData(["following"]);
 
-      queryClient.setQueryData(
+      queryClient.setQueryData<ReadFollowedBrandsResponse>(
         ["following"],
-        (old: ReadFollowedBrandsResponse) => {
-          return [...old, { brandId: brandId }];
+        (old: ReadFollowedBrandsResponse | undefined) => {
+          if (!old) return [{ brandId: brandId }];
+
+          const isAlreadyFollowing = old.some(
+            (brand) => brand.brandId === brandId,
+          );
+
+          if (isAlreadyFollowing) {
+            return old.filter((brand) => brand.brandId !== brandId);
+          } else {
+            return [...old, { brandId: brandId }];
+          }
         },
       );
 

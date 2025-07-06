@@ -1,35 +1,36 @@
 "use client";
 
-import { useAddLike, useGetLike } from "@/app/(you)/likes/(utils)/use-likes";
-import { IconButton } from "@radix-ui/themes";
+import { useAddLike, useGetLikes } from "@/app/(you)/likes/(utils)/use-likes";
+import { ItemCardsI } from "@/lib/types";
 import { HeartIcon } from "lucide-react";
 
 export function LikeButton({
   id,
   className,
+  item,
 }: {
   id: string;
   className: string;
+  item: ItemCardsI;
 }) {
-  const { data } = useGetLike(id);
   const { mutate: addLike } = useAddLike();
+  const { data: liked } = useGetLikes();
 
   return (
     <>
-      <IconButton
-        name="like button"
-        className={className}
-        variant="soft"
+      <button
+        name="like-button"
+        className={`${className} flex items-center justify-center rounded-lg bg-gray-300/50 backdrop-blur-sm transition-all duration-300 active:scale-103`}
         onClick={() => {
-          addLike(id);
+          addLike(item);
         }}
       >
-        {data?.isLiked ? (
+        {liked?.some((like) => like.id === id) ? (
           <HeartIcon style={{ fill: "#FF69B4" }} />
         ) : (
           <HeartIcon />
         )}
-      </IconButton>
+      </button>
     </>
   );
 }

@@ -33,7 +33,18 @@ export function ItemData({ data }: { data: ItemPageI }) {
 
       <Flex direction={"column"} gap={"4"}>
         <Flex direction={"row"} gap={"2"}>
-          <LikeButton id={data.id} className={"ItemPage_Button"} />
+          <LikeButton
+            id={data.id}
+            className={"ItemPage_Button"}
+            item={{
+              id: data.id,
+              name: data.name,
+              price: data.price,
+              brand: data.brand,
+              image: data.images[0],
+              isSoldOut: false,
+            }}
+          />
           <ShareButton
             id={data.id}
             name={data.name}

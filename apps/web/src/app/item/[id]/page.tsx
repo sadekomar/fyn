@@ -11,7 +11,7 @@ import { ItemData } from "./(components)/ItemData";
 import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
 import { DesktopImages } from "./(components)/DesktopImages";
 import { serverHttp } from "@/lib/queries/http.service";
-import { ItemPageI } from "@/lib/types";
+import { ItemCardsI, ItemPageI } from "@/lib/types";
 import { AddToRecentlyViewed } from "../AddToRecentlyViewed";
 import type { Metadata } from "next";
 import { ImageSlider } from "./(components)/image-slider";
@@ -25,6 +25,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { Endpoints } from "@/api/endpoints";
 
 export async function generateMetadata({
   params,
@@ -74,11 +75,11 @@ export default async function ItemPage(props: {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["item-like", id],
+    queryKey: ["likes"],
     queryFn: async () => {
-      const { id: userId, type } = await getCurrentUser();
-      return serverHttp.get<ReadLikeResponse>(
-        `/like?type=${type}&${getIdQuery(userId!, type)}&itemId=${id}`,
+      const { id, type } = await getCurrentUser();
+      return serverHttp.get<ItemCardsI[]>(
+        `${Endpoints.Likes}?type=${type}&${getIdQuery(id!, type)}`,
       );
     },
   });

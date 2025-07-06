@@ -8,6 +8,7 @@ import "./Feather.css";
 import { ItemCardsI } from "@/lib/types";
 import { useState } from "react";
 import { CardImage } from "../card-image";
+import { LikeButton } from "./LikeButton";
 
 export function ItemCard({
   id,
@@ -29,6 +30,15 @@ export function ItemCard({
     return null;
   }
 
+  const item: ItemCardsI = {
+    id,
+    name,
+    price,
+    brand,
+    image,
+    isSoldOut,
+  };
+
   return (
     <>
       <div
@@ -37,6 +47,7 @@ export function ItemCard({
         }`}
       >
         {/* <CompareButton id={id} className="CompareButton" /> */}
+        <LikeButton id={id} className="LikeButton" item={item} />
         <Link prefetch={true} href={`/item/${id}`} className="relative">
           <CardImage
             loading={imgLoading}

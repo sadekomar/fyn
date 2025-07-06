@@ -13,51 +13,58 @@ import { ItemCardsI } from "@/lib/types";
 export const useAddLike = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (itemId: string) => {
+    mutationFn: async (item: ItemCardsI) => {
       const { id, type } = await getCurrentUser();
 
       return clientHttp.post<CreateLikeRequest, CreateLikeResponse>(
         `${Endpoints.Like}`,
         {
-          itemId,
+          itemId: item.id,
           type,
           ...getIdBody(id!, type),
         } as CreateLikeRequest,
       );
     },
-    onMutate: async (itemId) => {
-      await queryClient.cancelQueries({ queryKey: ["item-like", itemId] });
-      const previousData = queryClient.getQueryData(["item-like", itemId]);
-      queryClient.setQueryData(["item-like", itemId], (old: any) => ({
-        isLiked: !old.isLiked,
-      }));
-      return { previousData };
-    },
-    onSuccess: (_, itemId) => {
-      queryClient.invalidateQueries({ queryKey: ["item-like", itemId] });
-      queryClient.invalidateQueries({ queryKey: ["item-likes"] });
-    },
-    onError: (error, itemId, context) => {
-      queryClient.setQueryData(["item-like", itemId], context?.previousData);
-    },
-  });
-};
+    onMutate: async (item) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ["likes"] });
 
-export const useGetLike = (itemId: string) => {
-  return useQuery({
-    queryKey: ["item-like", itemId],
-    queryFn: async () => {
-      const { id, type } = await getCurrentUser();
-      return clientHttp.get<ReadLikeResponse>(
-        `${Endpoints.Like}?type=${type}&${getIdQuery(id!, type)}&itemId=${itemId}`,
-      );
+      // Snapshot the previous value
+      const previousLikes = queryClient.getQueryData<ItemCardsI[]>(["likes"]);
+
+      // Optimistically update to the new value
+      queryClient.setQueryData<ItemCardsI[]>(["likes"], (old = []) => {
+        // Check if item is already liked
+        const isAlreadyLiked = old.some((like) => like.id === item.id);
+
+        if (isAlreadyLiked) {
+          // Remove the item if already liked (toggle off)
+          return old.filter((like) => like.id !== item.id);
+        } else {
+          // Add the item if not liked (toggle on)
+          return [...old, item];
+        }
+      });
+
+      // Return a context object with the snapshotted value
+      return { previousLikes };
+    },
+    onSuccess: () => {
+      // Refetch after success to ensure data consistency
+      queryClient.invalidateQueries({ queryKey: ["likes"] });
+    },
+    onError: (error, item, context) => {
+      // If the mutation fails, use the context returned from onMutate to roll back
+      if (context?.previousLikes) {
+        queryClient.setQueryData(["likes"], context.previousLikes);
+      }
     },
   });
 };
 
 export const useGetLikes = () => {
   return useQuery({
-    queryKey: ["item-likes"],
+    queryKey: ["likes"],
     queryFn: async () => {
       const { id, type } = await getCurrentUser();
       return clientHttp.get<ItemCardsI[]>(
@@ -68,9 +75,28 @@ export const useGetLikes = () => {
 };
 
 export const useDeleteLike = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (itemId: string) => {
       return clientHttp.delete(`${Endpoints.Like}/${itemId}`);
+    },
+    onMutate: async (itemId) => {
+      await queryClient.cancelQueries({ queryKey: ["likes"] });
+      const previousLikes = queryClient.getQueryData<ItemCardsI[]>(["likes"]);
+
+      queryClient.setQueryData<ItemCardsI[]>(["likes"], (old = []) => {
+        return old.filter((like) => like.id !== itemId);
+      });
+
+      return { previousLikes };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["likes"] });
+    },
+    onError: (error, itemId, context) => {
+      if (context?.previousLikes) {
+        queryClient.setQueryData(["likes"], context.previousLikes);
+      }
     },
   });
 };
