@@ -55,6 +55,10 @@ export const readItem = handleExceptions(
             price: true,
             createdAt: true,
           },
+          orderBy: {
+            createdAt: "desc",
+          },
+          take: 1,
         },
       },
     });
