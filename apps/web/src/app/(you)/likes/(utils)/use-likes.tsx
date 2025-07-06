@@ -37,6 +37,9 @@ export const useAddLike = () => {
       queryClient.invalidateQueries({ queryKey: ["item-like", itemId] });
       queryClient.invalidateQueries({ queryKey: ["item-likes"] });
     },
+    onError: (error, itemId, context) => {
+      queryClient.setQueryData(["item-like", itemId], context?.previousData);
+    },
   });
 };
 

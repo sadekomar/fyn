@@ -1,47 +1,41 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 
 import "./FollowButton.css";
+import { BrandData } from "@/api/types/brand-types";
+import {
+  useAddFollowedBrand,
+  useGetFollowedBrands,
+} from "./(utils)/use-follow";
 
 export function FollowButton({
-  brand,
+  brandData,
   className = "",
 }: {
-  brand: string;
+  brandData: BrandData | undefined;
   className?: string;
 }) {
-  const [isFollowing, setIsFollowing] = useState(false);
-  let followButtonRef = useRef(null);
+  const { mutate: addFollowedBrand } = useAddFollowedBrand();
+  const { data: following } = useGetFollowedBrands();
 
-  useEffect(() => {
-    const following = JSON.parse(localStorage.getItem("following") || "[]");
-    const isFollowing = following.includes(brand);
-    setIsFollowing(isFollowing);
-  }, [brand]);
-
-  const toggleIcon = (e: any) => {
-    setIsFollowing((currentlyFollowing) => !currentlyFollowing);
-
-    let following = JSON.parse(localStorage.getItem("following") || "[]");
-    if (isFollowing) {
-      following = following.filter(
-        (followingBrand: string) => followingBrand !== brand,
-      );
-    } else {
-      following.push(brand);
-    }
-
-    localStorage.setItem("following", JSON.stringify(following));
-  };
+  if (!brandData) return null;
 
   return (
     <>
       <button
-        onClick={toggleIcon}
-        className={`follow-button ${isFollowing ? "followed" : ""} ${className}`}
+        onClick={() => {
+          addFollowedBrand(brandData.id);
+        }}
+        className={`follow-button ${className} ${
+          following?.some((brand) => brand.brandId === brandData.id)
+            ? "followed"
+            : ""
+        }`}
       >
-        {isFollowing ? "Following" : "Follow"}
+        {following?.some((brand) => brand.brandId === brandData.id)
+          ? "Following"
+          : "Follow"}
       </button>
     </>
   );

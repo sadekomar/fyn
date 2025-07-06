@@ -1,7 +1,5 @@
 "use client";
 
-import { heroImages } from "@/data/heroImages";
-
 import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { CategorySelector } from "@/components/CategorySelector/CategorySelector";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
@@ -10,7 +8,6 @@ import { PaginationControl } from "@/components/Pagination/PaginationControl";
 import "./(components)/BrandPage.css";
 
 import { BrandsNavigator } from "./(components)/BrandsNavigator";
-import { LoomImage } from "@/components/LoomImage";
 import { BrandDescription, brandKey } from "./(components)/BrandDescription";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
@@ -83,7 +80,10 @@ export function BrandPageClient() {
             <div>
               <div className="brand-info-wrapper">
                 <h2 className="brand-name">{brandData?.name}</h2>
-                <FollowButton className={"follow-button-white"} brand={brand} />
+                <FollowButton
+                  className={"follow-button-white"}
+                  brandData={brandData}
+                />
               </div>
               <BrandDescription brand={brand} />
             </div>

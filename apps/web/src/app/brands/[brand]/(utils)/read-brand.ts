@@ -1,6 +1,7 @@
 import { Endpoints } from "@/api/endpoints";
 import { HttpService } from "@/lib/queries/http.service";
 import { CategoriesI, ItemCardsI, MetadataI } from "@/lib/types";
+import { BrandData } from "@/api/types/brand-types";
 
 export function getBrandItems(
   brand: string,
