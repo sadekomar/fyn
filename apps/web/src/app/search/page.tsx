@@ -175,6 +175,7 @@ export default function SearchPage() {
                   name="search"
                   ref={searchFieldRef}
                   type="search"
+                  autoFocus
                   onChange={generateAutofillSuggestions}
                   onFocus={() => {
                     autofillRef.current?.classList.remove("search-blurred");

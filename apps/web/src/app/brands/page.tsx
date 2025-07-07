@@ -1,10 +1,12 @@
-import Link from "next/link";
-
-import { LetterNavigator } from "./LetterNavigator";
-import { IsometricBrands } from "@/app/(home)/(components)/IsometricBrands";
 import "./AllBrands.css";
 import { serverHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/api/endpoints";
+import BrandPage from "./BrandPage";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 export const metadata = {
   title: "All Brands",
@@ -32,42 +34,16 @@ export type BrandsAPI = {
 };
 
 export default async function AllBrands() {
-  const brands = await serverHttp.get<BrandsAPI>(Endpoints.BrandsAlphabetical);
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["/brands"],
+    queryFn: () => serverHttp.get<BrandsAPI>(Endpoints.BrandsAlphabetical),
+  });
 
   return (
-    <>
-      <div>
-        <LetterNavigator brands={brands} />
-
-        <div className="all-brands-title-wrapper">
-          <h2 className="all-brands-title">All Brands</h2>
-          <IsometricBrands />
-        </div>
-
-        {Object.keys(brands).map((letter, index) => {
-          return (
-            <div key={index}>
-              <a className="letter-label" href={`#${letter}`}>
-                {letter}
-              </a>
-              <ul className="brands-container">
-                {brands[letter].map(
-                  (brand: { id: string; name: string }, index: number) => (
-                    <li key={index} className="brandLink--li">
-                      <Link
-                        href={`/brands/${brand.name}`}
-                        className="brandLink"
-                      >
-                        {brand.name}
-                      </Link>
-                    </li>
-                  ),
-                )}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <BrandPage />
+    </HydrationBoundary>
   );
 }
