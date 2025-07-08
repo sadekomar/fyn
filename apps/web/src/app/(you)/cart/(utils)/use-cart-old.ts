@@ -1,4 +1,4 @@
-import { ItemCardsI, ItemPageI } from "@/lib/types";
+import { ItemCardsI } from "@/lib/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addToLocalCart,
@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { clientHttp } from "@/lib/queries/http.service";
 import { Endpoints } from "@/api/endpoints";
 import { getUserSession } from "@/lib/auth";
+import { ItemSuccess } from "@/app/item/[id]/item";
 
 type CartRequest = {
   itemId: string;
@@ -34,7 +35,7 @@ export function useAddToCart() {
   const router = useRouter();
 
   return async (
-    data: ItemPageI,
+    data: ItemSuccess,
     selectedSize: { id: string; name: string; available: boolean },
     selectedColor: { id: string; name: string },
   ) => {

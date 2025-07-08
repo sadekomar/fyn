@@ -1,6 +1,7 @@
 "use client";
 
-import { ItemCardsI, ItemPageI } from "@/lib/types";
+import { ItemCardsI } from "@/lib/types";
+import { ItemSuccess } from "@/app/item/[id]/item";
 
 // Read
 export type ItemCart = {
@@ -31,7 +32,7 @@ export type CartItemWithItemCard = {
 };
 
 export function addToLocalCart(
-  data: ItemPageI,
+  data: ItemSuccess,
   selectedSize: { id: string; name: string; available: boolean },
   selectedColor: { id: string; name: string },
 ) {

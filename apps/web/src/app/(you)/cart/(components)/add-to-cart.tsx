@@ -1,17 +1,17 @@
 "use client";
 
 import "./AddToCart.css";
-import { ItemPageI } from "@/lib/types";
 import { useAddItemCart } from "../(utils)/use-cart";
+import { ItemSuccess } from "@/app/item/[id]/item";
 
 export function AddToCart({
   data,
   selectedColor,
   selectedSize,
 }: {
-  data: ItemPageI;
-  selectedColor: ItemPageI["colors"][number];
-  selectedSize: ItemPageI["sizes"][number];
+  data: ItemSuccess;
+  selectedColor: ItemSuccess["colors"][number];
+  selectedSize: ItemSuccess["sizes"][number];
 }) {
   const isDisabled = !selectedSize;
   const { mutate: addItemCart } = useAddItemCart();

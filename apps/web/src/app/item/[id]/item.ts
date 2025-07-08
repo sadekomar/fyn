@@ -1,4 +1,4 @@
-import { Item } from "./base-types";
+import { Item } from "../../../api/types/base-types";
 
 export enum Genders {
   UNISEX = "Unisex",
@@ -98,6 +98,8 @@ export type ItemSuccess = {
   name: string;
   description: string;
   price: number;
+  lowestPrice: number | null;
+  highestPrice: number | null;
   brand: string;
   images: string[];
   categories: string[];

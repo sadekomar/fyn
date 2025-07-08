@@ -9,25 +9,6 @@ export type ItemCardsI = {
   isSoldOut: boolean;
 };
 
-export type ItemPageI = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  brand: string;
-  images: string[];
-  categories: string[];
-  colors: { id: string; name: string }[];
-  gender: string;
-  material: string;
-  link: string;
-  sizes: {
-    id: string;
-    name: string;
-    available: boolean;
-  }[];
-};
-
 export type MetadataI = {
   items: {
     name: string;

@@ -1,6 +1,6 @@
-import { ItemPageI } from "@/lib/types";
+import { ItemSuccess } from "../item";
 
-export function BuyNowLink({ data }: { data: ItemPageI }) {
+export function BuyNowLink({ data }: { data: ItemSuccess }) {
   {
     /* link opens in a new tab which exposes loom to an attack that redirects the user through the window.opener object */
   }

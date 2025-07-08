@@ -8,7 +8,7 @@ import {
   CreateCartRequest,
   CreateCartResponse,
 } from "@/api/types/item-cart-types";
-import { ItemPageI } from "@/lib/types";
+import { ItemSuccess } from "@/app/item/[id]/item";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -34,9 +34,9 @@ export function useAddItemCart() {
       selectedSize,
       selectedColor,
     }: {
-      data: ItemPageI;
-      selectedSize: ItemPageI["sizes"][number];
-      selectedColor: ItemPageI["colors"][number];
+      data: ItemSuccess;
+      selectedSize: ItemSuccess["sizes"][number];
+      selectedColor: ItemSuccess["colors"][number];
     }) => {
       const { id, type } = await getCurrentUser();
 

@@ -7,15 +7,15 @@ import Link from "next/link";
 import { LikeButton } from "@/components/ItemCard/LikeButton";
 import { ShareButton } from "@/components/ShareButton";
 import { SizesPicker } from "./SizesPicker";
-import { ItemPageI } from "@/lib/types";
+import { ItemSuccess } from "../item";
 import { useState } from "react";
 
-export function ItemData({ data }: { data: ItemPageI }) {
-  const [selectedSize, setSelectedSize] = useState<ItemPageI["sizes"][number]>(
-    data.sizes.filter((size) => size.available)[0],
-  );
+export function ItemData({ data }: { data: ItemSuccess }) {
+  const [selectedSize, setSelectedSize] = useState<
+    ItemSuccess["sizes"][number]
+  >(data.sizes.filter((size) => size.available)[0]);
   const [selectedColor, setSelectedColor] = useState<
-    ItemPageI["colors"][number]
+    ItemSuccess["colors"][number]
   >(data.colors[0] ?? null);
 
   return (
@@ -29,6 +29,16 @@ export function ItemData({ data }: { data: ItemPageI }) {
           </Link>
         </p>
         <p className="item-data__price">LE {data.price.toLocaleString()}.00</p>
+        {data.lowestPrice && (
+          <p className="item-data__price">
+            Lowest price: LE {data.lowestPrice?.toLocaleString()}.00
+          </p>
+        )}
+        {data.highestPrice && (
+          <p className="item-data__price">
+            Highest price: LE {data.highestPrice?.toLocaleString()}.00
+          </p>
+        )}
       </div>
 
       <Flex direction={"column"} gap={"4"}>
