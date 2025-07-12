@@ -95,6 +95,10 @@
   font-style: normal;
 }
 
+.brand-name--long {
+  font-size: var(--fs-700);
+}
+
 .follow-button-white {
   background-color: var(--clr-neutral-100);
   color: var(--clr-neutral-900);
@@ -147,5 +151,9 @@
     flex-direction: column;
     justify-content: space-between;
     padding-inline: 2rem;
+  }
+
+  .brand-name--long {
+    font-size: var(--fs-800);
   }
 }

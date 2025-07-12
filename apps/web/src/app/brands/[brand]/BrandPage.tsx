@@ -79,7 +79,13 @@ export function BrandPageClient() {
           <div className="BrandContainer">
             <div>
               <div className="brand-info-wrapper">
-                <h2 className="brand-name">
+                <h2
+                  className={`brand-name ${
+                    ((brandData?.label ?? brandData?.name) || "").length > 12
+                      ? "brand-name--long"
+                      : ""
+                  }`}
+                >
                   {brandData?.label ?? brandData?.name}
                 </h2>
                 <FollowButton
