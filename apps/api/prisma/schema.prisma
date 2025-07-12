@@ -179,6 +179,7 @@ model Price {
 model Brand {
   id               String             @id @default(uuid())
   name             String             @unique
+  label            String?
   description      String?
   image            String?
   logo             String?
