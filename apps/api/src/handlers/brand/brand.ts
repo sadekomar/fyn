@@ -40,8 +40,19 @@ export type CreateBrandResponse =
   | CreateBrandErrorResponse;
 
 // Read
+export type BrandData = {
+  name: string;
+  id: string;
+  description: string | null;
+  image: string | null;
+  logo: string | null;
+  label: string | null;
+  inTrash: boolean;
+} | null;
+
 export type ReadBrandsResponse = {
   name: string;
+  label: string | null;
   id: string;
   description: string | null;
   image: string | null;
@@ -51,6 +62,7 @@ export type ReadBrandsResponse = {
 export type ReadBrandsByLetterResponse = Record<
   string,
   {
+    label: string | null;
     id: string;
     name: string;
     description: string | null;

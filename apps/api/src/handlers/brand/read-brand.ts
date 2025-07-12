@@ -1,15 +1,7 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-
-type BrandData = {
-  name: string;
-  id: string;
-  description: string | null;
-  image: string | null;
-  logo: string | null;
-  inTrash: boolean;
-} | null;
+import { BrandData } from "./brand";
 
 export const readBrand = handleExceptions(
   async (req: Request, res: Response<BrandData>) => {
@@ -27,8 +19,9 @@ export const readBrand = handleExceptions(
       id: brand?.id,
       name: brand?.name,
       description: brand?.description,
-      image: brand?.image ?? null,
-      logo: brand?.logo ?? null,
+      image: brand?.image,
+      logo: brand?.logo,
+      label: brand?.label,
       inTrash: brand?.inTrash,
     });
   }

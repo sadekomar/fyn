@@ -84,6 +84,7 @@ export const readItems = handleExceptions(
         brand: {
           select: {
             name: true,
+            label: true,
           },
         },
         material: {
@@ -115,7 +116,10 @@ export const readItems = handleExceptions(
       id: item.id,
       name: item.name,
       price: item.latestPrice,
-      brand: item.brand.name,
+      brand: {
+        name: item.brand.name,
+        label: item.brand.label,
+      },
       image: item.images[0]?.url,
       isSoldOut: item.isSoldOut,
     }));

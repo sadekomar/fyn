@@ -43,6 +43,7 @@ export const readItem = handleExceptions(
         brand: {
           select: {
             name: true,
+            label: true,
           },
         },
         categories: {
@@ -86,7 +87,10 @@ export const readItem = handleExceptions(
       price: latestPrice,
       lowestPrice: lowestPrice,
       highestPrice: highestPrice,
-      brand: item.brand.name,
+      brand: {
+        name: item.brand.name,
+        label: item.brand.label,
+      },
       link: item.link,
       images: item.images.map((image) => image.url),
       categories: item.categories.map((category) => category.name),

@@ -16,6 +16,11 @@ export const readBrands = handleExceptions(
       where: {
         inTrash: false,
       },
+      select: {
+        id: true,
+        name: true,
+        label: true,
+      },
     });
 
     return res.status(200).json(brands);

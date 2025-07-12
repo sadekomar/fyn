@@ -24,6 +24,7 @@ export const readUserItemViews = handleExceptions(
     }
 
     const itemViews = await prisma.itemView.findMany({
+      take: 30,
       where: {
         ...where,
         deletedAt: null,
@@ -46,7 +47,10 @@ export const readUserItemViews = handleExceptions(
         id: itemView.item.id,
         name: itemView.item.name,
         price: itemView.item.latestPrice,
-        brand: itemView.item.brand.name,
+        brand: {
+          name: itemView.item.brand.name,
+          label: itemView.item.brand.label,
+        },
         image: itemView.item.images[0].url,
         isSoldOut: itemView.item.isSoldOut,
       }))

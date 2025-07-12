@@ -115,7 +115,10 @@ export type ItemCardsI = {
   id: string;
   name: string;
   price: number;
-  brand: string;
+  brand: {
+    name: string;
+    label: string | null;
+  };
   image: string;
   isSoldOut: boolean;
 };
@@ -128,7 +131,10 @@ export type ItemSuccess = {
   price: number;
   lowestPrice: number | null;
   highestPrice: number | null;
-  brand: string;
+  brand: {
+    name: string;
+    label: string | null;
+  };
   images: string[];
   categories: string[];
   colors: { id: string; name: string }[];

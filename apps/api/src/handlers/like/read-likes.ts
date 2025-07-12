@@ -69,7 +69,10 @@ export const readLikes = handleExceptions(
       name: like.item.name,
       image: like.item.images[0].url,
       price: like.item.latestPrice,
-      brand: like.item.brand.name,
+      brand: {
+        name: like.item.brand.name,
+        label: like.item.brand.label,
+      },
       isSoldOut: like.item.isSoldOut,
     }));
 
