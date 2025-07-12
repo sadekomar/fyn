@@ -21,7 +21,6 @@
 
 .brand-link {
   color: var(--clr-loom-lilac);
-  text-transform: capitalize;
   text-decoration: underline;
 }
 
