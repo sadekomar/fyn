@@ -126,6 +126,8 @@ export type ItemSuccess = {
   name: string;
   description: string;
   price: number;
+  lowestPrice: number | null;
+  highestPrice: number | null;
   brand: string;
   images: string[];
   categories: string[];

@@ -55,10 +55,6 @@ export const readItem = handleExceptions(
             price: true,
             createdAt: true,
           },
-          orderBy: {
-            createdAt: "desc",
-          },
-          take: 1,
         },
       },
     });
@@ -72,12 +68,24 @@ export const readItem = handleExceptions(
       });
     }
 
+    const latestPrice = item.prices[item.prices.length - 1].price;
+    let lowestPrice: number | null = item.prices.sort(
+      (a, b) => a.price - b.price
+    )[0].price;
+    let highestPrice: number | null = item.prices.sort(
+      (a, b) => b.price - a.price
+    )[0].price;
+    lowestPrice = lowestPrice == latestPrice ? null : lowestPrice;
+    highestPrice = highestPrice == latestPrice ? null : highestPrice;
+
     return res.status(200).json({
       status: "success",
       id: item.id,
       name: item.name,
       description: item.description,
-      price: item.prices[0].price,
+      price: latestPrice,
+      lowestPrice: lowestPrice,
+      highestPrice: highestPrice,
       brand: item.brand.name,
       link: item.link,
       images: item.images.map((image) => image.url),
