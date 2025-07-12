@@ -3,7 +3,7 @@
 import React from "react";
 
 import "./FollowButton.css";
-import { BrandData } from "@/api/types/brand-types";
+import { ReadBrandResponse } from "@/app/brands/[brand]/(utils)/brand";
 import {
   useAddFollowedBrand,
   useGetFollowedBrands,
@@ -13,7 +13,7 @@ export function FollowButton({
   brandData,
   className = "",
 }: {
-  brandData: BrandData | undefined;
+  brandData: ReadBrandResponse | undefined;
   className?: string;
 }) {
   const { mutate: addFollowedBrand } = useAddFollowedBrand();

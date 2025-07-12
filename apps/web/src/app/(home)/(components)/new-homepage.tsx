@@ -10,7 +10,6 @@ import { clientHttp } from "@/lib/queries/http.service";
 import { ItemCardsI } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { conifg } from "../utils";
-import FestivalFashion from "./festival-fashion";
 import HeroByV0 from "./hero-by-v0";
 import HeroExperimentPage from "./experiment";
 
@@ -185,7 +184,6 @@ export default function ClientHomePage() {
         </div>
       </section>
       <HeroByV0 />
-      <FestivalFashion items={featuredBrands} />
       {/* Featured Brands Section */}
       <section className="px-4 md:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">

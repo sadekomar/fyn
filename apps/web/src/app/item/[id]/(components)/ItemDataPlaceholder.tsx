@@ -26,7 +26,10 @@ export function ItemDataPlaceholder() {
                 id: "undefined",
                 name: "undefined",
                 price: 0,
-                brand: "undefined",
+                brand: {
+                  name: "undefined",
+                  label: "undefined",
+                },
                 image: "undefined",
                 isSoldOut: false,
               }}

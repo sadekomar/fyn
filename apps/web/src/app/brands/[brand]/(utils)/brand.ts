@@ -26,7 +26,7 @@ export type CreateBrandResponse =
   | CreateBrandErrorResponse;
 
 // Read
-export type BrandData = {
+export type ReadBrandResponse = {
   name: string;
   id: string;
   description: string | null;

@@ -24,8 +24,8 @@ export function ItemData({ data }: { data: ItemSuccess }) {
         <h2 className="item-data__title">{data.name}</h2>
         <p className="item-data__brand">
           By{" "}
-          <Link className="brand-link" href={`/brands/${data.brand}`}>
-            {data.brand}
+          <Link className="brand-link" href={`/brands/${data.brand.name}`}>
+            {data.brand.label ?? data.brand.name}
           </Link>
         </p>
         <p className="item-data__price">LE {data.price.toLocaleString()}.00</p>

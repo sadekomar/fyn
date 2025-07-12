@@ -30,8 +30,6 @@ export async function generateMetadata(props: {
 
   const brandData = await getBrand(brand, true);
 
-  console.log(brandData);
-
   return {
     title: brandData.label ?? brandData.name,
     description:
@@ -43,7 +41,7 @@ export async function generateMetadata(props: {
         brandData.description ??
         "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
       type: "website",
-      images: brandData.image ?? "",
+      images: brandData.image?.replaceAll("loom-image-dimensions", "720") ?? "",
     },
   };
 }

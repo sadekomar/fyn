@@ -135,7 +135,7 @@ export default async function ItemPage(props: {
       </Suspense>
 
       <Suspense fallback={<HScrollerPlaceholder />}>
-        <BrandScroller brand={data["brand"]} title={"More from "} />
+        <BrandScroller brand={data.brand.name} title={"More from "} />
       </Suspense>
 
       <Suspense fallback={<HScrollerPlaceholder />}>

@@ -1,7 +1,7 @@
 import { Endpoints } from "@/api/endpoints";
 import { HttpService } from "@/lib/queries/http.service";
 import { CategoriesI, ItemCardsI, MetadataI } from "@/lib/types";
-import { BrandData } from "./brand";
+import { ReadBrandResponse } from "./brand";
 
 export function getBrandItems(
   brand: string,
@@ -14,7 +14,7 @@ export function getBrandItems(
 
 export function getBrand(brand: string, isServer = true) {
   const httpService = new HttpService(isServer);
-  return httpService.get<BrandData>(
+  return httpService.get<ReadBrandResponse>(
     Endpoints.BrandByName.replace(":name", brand),
   );
 }

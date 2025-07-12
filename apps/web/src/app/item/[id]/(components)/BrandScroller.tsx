@@ -6,8 +6,8 @@ import { serverHttp } from "@/lib/queries/http.service";
 
 import "@/layouts/HorizontalScroller/HorizontalScroll.css";
 import { ItemCardsI } from "@/lib/types";
-import { BrandData } from "@/api/types/brand-types";
 import { Endpoints } from "@/api/endpoints";
+import { ReadBrandResponse } from "@/app/brands/[brand]/(utils)/brand";
 
 export async function BrandScroller({
   brand,
@@ -19,7 +19,7 @@ export async function BrandScroller({
   const data: ItemCardsI[] = await serverHttp.get(
     `/items?brands=${brand}&limit=20&sort_by=date-descending`,
   );
-  const brandData = await serverHttp.get<BrandData>(
+  const brandData = await serverHttp.get<ReadBrandResponse>(
     `${Endpoints.BrandByName.replace(":name", brand)}`,
   );
 
