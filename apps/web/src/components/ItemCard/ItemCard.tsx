@@ -80,10 +80,10 @@ export function ItemCard({
         </Link>
         <Link
           prefetch={true}
-          href={`/brands/${brand}`}
+          href={`/brands/${brand.name}`}
           className="text-gray-500 capitalize underline-offset-2 hover:text-gray-700 hover:underline"
         >
-          {brand}
+          {brand.label ?? brand.name}
         </Link>
         <data value={price} className={isSoldOut ? "text-gray-500" : ""}>
           LE {price.toLocaleString()}

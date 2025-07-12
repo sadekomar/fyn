@@ -2,14 +2,14 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { BrandsList } from "@/lib/types";
+import { ReadBrandsResponse } from "../(utils)/brand";
 
 export function BrandsNavigator({
   params,
   brandsList,
 }: {
   params: { brand: string };
-  brandsList: BrandsList | undefined;
+  brandsList: ReadBrandsResponse | undefined;
 }) {
   let currentBrand = params.brand.replaceAll("%20", " ");
 
@@ -30,10 +30,10 @@ export function BrandsNavigator({
           {currentBrand === brand.name ? (
             <b style={{ fontWeight: "900" }} className="active">
               {" "}
-              {brand.name}{" "}
+              {brand.label ?? brand.name}{" "}
             </b>
           ) : (
-            brand.name
+            (brand.label ?? brand.name)
           )}
         </Link>
       ))}

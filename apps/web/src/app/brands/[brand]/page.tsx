@@ -5,7 +5,6 @@ import {
 } from "@tanstack/react-query";
 import { BrandPageClient } from "./BrandPage";
 import { serverHttp } from "@/lib/queries/http.service";
-import { BrandsList } from "@/lib/types";
 import { getQueryString, getQueryStringArray } from "@/app/(utils)/utils";
 import {
   getBrand,
@@ -14,12 +13,11 @@ import {
   getBrandMetadata,
 } from "./(utils)/read-brand";
 import { Endpoints } from "@/api/endpoints";
-import { getUserSession } from "@/lib/auth";
-import { postBrandView } from "@/api/brand-views";
 import { Metadata } from "next/types";
+import { ReadBrandsResponse } from "./(utils)/brand";
 
 export async function generateStaticParams() {
-  const brands = await serverHttp.get<BrandsList>(Endpoints.Brands);
+  const brands = await serverHttp.get<ReadBrandsResponse>(Endpoints.Brands);
 
   return brands.map((brand) => ({ brand: brand.name }));
 }
@@ -28,16 +26,24 @@ export async function generateMetadata(props: {
   params: Promise<{ brand: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const brand = params.brand.replaceAll("%20", " ");
+  const brand = params.brand;
+
+  const brandData = await getBrand(brand, true);
+
+  console.log(brandData);
 
   return {
-    title: brand,
+    title: brandData.label ?? brandData.name,
+    description:
+      brandData.description ??
+      "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
     openGraph: {
-      title: brand,
+      title: brandData.label ?? brandData.name,
       description:
+        brandData.description ??
         "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
       type: "website",
-      images: "https://capsuleegy.com/products/flip-flops-1",
+      images: brandData.image ?? "",
     },
   };
 }
@@ -57,7 +63,7 @@ export default async function BrandPage(props: {
 
   await queryClient.prefetchQuery({
     queryKey: ["brands-list"],
-    queryFn: () => serverHttp.get<BrandsList>(Endpoints.Brands),
+    queryFn: () => serverHttp.get<ReadBrandsResponse>(Endpoints.Brands),
   });
   await queryClient.prefetchQuery({
     queryKey: ["/brand", brand],

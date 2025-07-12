@@ -1,10 +1,11 @@
-export type BrandsList = { name: string; id: string }[];
-
 export type ItemCardsI = {
   id: string;
   name: string;
   price: number;
-  brand: string;
+  brand: {
+    name: string;
+    label: string | null;
+  };
   image: string;
   isSoldOut: boolean;
 };

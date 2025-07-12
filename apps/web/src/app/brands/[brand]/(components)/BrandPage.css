@@ -15,7 +15,6 @@
 
 .brands-nav {
   background-color: var(--clr-transparent-lilac);
-  text-transform: capitalize;
   color: var(--clr-neutral-100);
   flex-shrink: 0;
   text-decoration: none;

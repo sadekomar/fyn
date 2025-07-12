@@ -14,7 +14,6 @@ import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { clientHttp } from "@/lib/queries/http.service";
-import { BrandsList } from "@/lib/types";
 import {
   getBrand,
   getBrandCategories,
@@ -26,6 +25,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Endpoints } from "@/api/endpoints";
 import { AddBrandView } from "./(components)/add-brand-view";
 import { CardImage } from "@/components/card-image";
+import { ReadBrandsResponse } from "./(utils)/brand";
 
 export function BrandPageClient() {
   const { brand } = useParams<{ brand: brandKey }>();
@@ -40,7 +40,7 @@ export function BrandPageClient() {
   });
   const { data: brandsList } = useQuery({
     queryKey: ["brands-list"],
-    queryFn: () => clientHttp.get<BrandsList>(Endpoints.Brands),
+    queryFn: () => clientHttp.get<ReadBrandsResponse>(Endpoints.Brands),
   });
   const { data } = useQuery({
     queryKey: ["/brand-items", brand, ...queryStringArray],
@@ -79,7 +79,9 @@ export function BrandPageClient() {
           <div className="BrandContainer">
             <div>
               <div className="brand-info-wrapper">
-                <h2 className="brand-name">{brandData?.name}</h2>
+                <h2 className="brand-name">
+                  {brandData?.label ?? brandData?.name}
+                </h2>
                 <FollowButton
                   className={"follow-button-white"}
                   brandData={brandData}
@@ -118,7 +120,7 @@ export function BrandPageClient() {
 
 function getPreviousNextBrands(
   brand: string,
-  brandsList: BrandsList | undefined,
+  brandsList: ReadBrandsResponse | undefined,
 ) {
   const currentBrand = brand.replace(/%20/g, " ");
   const currentBrandIndex = brandsList?.findIndex(

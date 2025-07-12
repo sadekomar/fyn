@@ -28,8 +28,8 @@ export async function BrandScroller({
       <div className="h-scroller-title mt-10">
         <h3>
           {title}
-          <Link href={`/brands/${brand}`} className="brand-link">
-            {brand}
+          <Link href={`/brands/${brandData.name}`} className="brand-link">
+            {brandData.label ?? brandData.name}
           </Link>
         </h3>
         <FollowButton brandData={brandData} />
