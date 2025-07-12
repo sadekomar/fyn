@@ -81,7 +81,7 @@ export function ItemCard({
         <Link
           prefetch={true}
           href={`/brands/${brand.name}`}
-          className="text-gray-500 capitalize underline-offset-2 hover:text-gray-700 hover:underline"
+          className="text-gray-500 underline-offset-2 hover:text-gray-700 hover:underline"
         >
           {brand.label ?? brand.name}
         </Link>

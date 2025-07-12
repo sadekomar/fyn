@@ -89,7 +89,6 @@
 
 .brand-name {
   color: white;
-  text-transform: capitalize;
   font-size: var(--fs-900);
   text-align: left;
   font-style: normal;
