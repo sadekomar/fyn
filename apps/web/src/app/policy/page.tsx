@@ -3,28 +3,20 @@ import React from "react";
 export default function PolicyPage() {
   // Policy data arrays
   const orderPolicies = [
-    "All orders are processed within 24-48 hours during business days (Sunday to Thursday).",
-    "Orders placed after 2:00 PM will be processed the next business day.",
-    "You will receive an order confirmation email with tracking information once your order is shipped.",
+    "All orders are processed within 24 hours of the order being placed.",
+    "You will receive an order confirmation email from the brand itself once the order is processed.",
     "Orders can be cancelled within 2 hours of placement by contacting our customer service.",
   ];
 
   const deliveryPolicies = [
-    "Standard delivery takes 3-5 business days across Egypt.",
+    "Standard delivery takes 1-14 business days across Egypt.",
   ];
 
   const discountPolicies = [
     "Discount codes cannot be combined with other promotions or offers.",
-    "Promotional discounts apply to the subtotal before shipping and taxes.",
+    "Promotional discounts apply to the subtotal before shipping and taxes (if applicable).",
     "Sale items may have additional restrictions and cannot be returned.",
     "We reserve the right to modify or cancel promotions at any time.",
-  ];
-
-  const returnPolicies = [
-    "Returns are accepted within 14 days of delivery for unused items in original packaging.",
-    "Sale items, undergarments, and personalized items are non-returnable.",
-    "Return shipping costs are the responsibility of the customer unless the item is defective.",
-    "Refunds are processed within 5-7 business days after receiving the returned item.",
   ];
 
   const verifiedBrandBenefits = [
@@ -32,6 +24,10 @@ export default function PolicyPage() {
     "Direct communication with the brand for resolution",
     "Full refund or replacement guarantee",
     "Support throughout the entire return process",
+    "Sale items, undergarments, and personalized items are non-returnable.",
+    "Returns are accepted within 14 days of delivery for unused items in original packaging.",
+    "Return shipping costs are the responsibility of the customer unless the item is defective.",
+    "Refunds are processed within 5-7 business days after receiving the returned item.",
   ];
 
   const unverifiedBrandResponsibilities = [
@@ -50,10 +46,7 @@ export default function PolicyPage() {
   const contactInfo = {
     customerService: {
       title: "Customer Service",
-      details: [
-        "Email: contact@loom.com",
-        "Hours: Sunday - Thursday, 9 AM - 6 PM",
-      ],
+      details: ["Email: contact@loom.com", "Hours: Everyday, 9 AM - 6 PM"],
     },
     liveChat: {
       title: "Live Chat",
@@ -178,34 +171,6 @@ export default function PolicyPage() {
                 </div>
               </div>
               {discountPolicies.map((policy, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gray-400"></div>
-                  <p>{policy}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Return Policy */}
-          <section className="rounded-lg bg-white p-8 shadow-md">
-            <h2 className="mb-6 flex items-center text-2xl font-semibold text-gray-900">
-              <svg
-                className="mr-3 h-6 w-6 text-gray-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"
-                />
-              </svg>
-              Return & Exchange Policy
-            </h2>
-            <div className="space-y-4 text-gray-700">
-              {returnPolicies.map((policy, index) => (
                 <div key={index} className="flex items-start">
                   <div className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gray-400"></div>
                   <p>{policy}</p>
