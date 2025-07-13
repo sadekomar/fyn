@@ -28,6 +28,11 @@ const BrowseMenu: NavigationItem[] = [
     label: "Careers",
     href: "/careers",
   },
+  {
+    type: "link",
+    label: "Policy",
+    href: "/policy",
+  },
 ];
 
 const ShopMenu: NavigationItem[] = [
