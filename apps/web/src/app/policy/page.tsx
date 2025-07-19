@@ -5,11 +5,11 @@ export default function PolicyPage() {
   const orderPolicies = [
     "All orders are processed within 24 hours of the order being placed.",
     "You will receive an order confirmation email from the brand itself once the order is processed.",
-    "Orders can be cancelled within 2 hours of placement by contacting our customer service.",
+    "Orders can be cancelled within 1 hour of placement by contacting our customer service.",
   ];
 
   const deliveryPolicies = [
-    "Standard delivery takes 1-14 business days across Egypt.",
+    "Standard delivery across Egypt usually takes 2-4 business days, but in rare cases it may take up to 14 business days.",
   ];
 
   const discountPolicies = [
