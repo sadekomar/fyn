@@ -50,11 +50,11 @@ export function ClientHomePage() {
         `/items?brands=capsule&limit=20&sort_by=date-descending`,
       ),
   });
-  const { data: byleenaandeel = [] } = useQuery<ItemCardsI[]>({
-    queryKey: ["byleenaandeel"],
+  const { data: locken = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["locken"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=byleenaandeel&limit=20&sort_by=date-descending`,
+        `/items?brands=locken&limit=20&sort_by=date-descending`,
       ),
   });
   const { data: niffty = [] } = useQuery<ItemCardsI[]>({
@@ -64,11 +64,11 @@ export function ClientHomePage() {
         `/items?brands=niffty&limit=20&sort_by=date-descending`,
       ),
   });
-  const { data: vinci = [] } = useQuery<ItemCardsI[]>({
-    queryKey: ["vinci"],
+  const { data: myMayz = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["mymayz"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=vinci&limit=20&sort_by=date-descending`,
+        `/items?brands=mymayz&limit=20&sort_by=date-descending`,
       ),
   });
   const { data: pulp = [] } = useQuery<ItemCardsI[]>({
@@ -106,12 +106,12 @@ export function ClientHomePage() {
         <div className="h-scroller-title">
           <h3>
             New from{" "}
-            <Link href={`/brands/byleenaandeel`} className="brand-link">
-              ByLeenaAndeel
+            <Link href={`/brands/locken`} className="brand-link">
+              Locken
             </Link>
           </h3>
         </div>
-        <HorizontalScroller items={byleenaandeel} />
+        <HorizontalScroller items={locken} />
       </section>
 
       <section>
@@ -130,12 +130,12 @@ export function ClientHomePage() {
         <div className="h-scroller-title">
           <h3>
             New from{" "}
-            <Link href={`/brands/vinci`} className="brand-link">
-              Vinci
+            <Link href={`/brands/mymayz`} className="brand-link">
+              myMayz
             </Link>
           </h3>
         </div>
-        <HorizontalScroller items={vinci} />
+        <HorizontalScroller items={myMayz} />
       </section>
 
       <section>

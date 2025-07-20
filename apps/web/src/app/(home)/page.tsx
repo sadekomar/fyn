@@ -58,10 +58,10 @@ export default async function Home() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["byleenaandeel"],
+    queryKey: ["locken"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=byleenaandeel&limit=20&sort_by=date-descending`,
+        `/items?brands=locken&limit=20&sort_by=date-descending`,
       ),
   });
 
@@ -74,10 +74,10 @@ export default async function Home() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["vinci"],
+    queryKey: ["myMayz"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=vinci&limit=20&sort_by=date-descending`,
+        `/items?brands=mymayz&limit=20&sort_by=date-descending`,
       ),
   });
 
