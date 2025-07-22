@@ -8,7 +8,6 @@ export function GuestSessionProvider() {
     async function guestCreation() {
       try {
         await createGuestSession();
-        console.log("Guest session created");
       } catch (error) {
         console.error("Error creating guest session", error);
       }

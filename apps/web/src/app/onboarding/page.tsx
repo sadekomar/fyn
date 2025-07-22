@@ -218,9 +218,6 @@ export default function Onboarding() {
   const activeSteps = user?.isPasswordReset ? [steps[0], steps[2]] : steps;
 
   const nextStep = async () => {
-    console.log("next step is running");
-    console.log("curerntstep", currentStep);
-    console.log("user", user);
     if (currentStep === 1 && !user?.isPasswordReset) {
       const isValid = await form.trigger();
       if (!isValid) {

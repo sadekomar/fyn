@@ -21,7 +21,6 @@ export async function createGuestSession() {
       CreateGuestUserRequest,
       CreateGuestUserResponse
     >(Endpoints.GuestUser, {});
-    console.log("response", response);
     if (response.status === "success") {
       session = await createSession(response.data.id, "guest-session");
     } else if (response.status === "error") {

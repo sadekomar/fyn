@@ -41,8 +41,6 @@ export const useGetGuest = () => {
 export function useGetCurrentUser() {
   const user = useGetUser();
   const guest = useGetGuest();
-  console.log("user", user);
-  console.log("guest", guest);
   const type = user ? "user" : "guest";
   const id = user ? user.userId : guest?.guestUserId;
   return { id, type } as const;
