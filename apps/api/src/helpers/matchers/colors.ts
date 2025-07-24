@@ -247,6 +247,9 @@ export const colorMatcher: Record<string, C> = {
   yellows: C.Yellow,
   sand: C.Yellow,
   sands: C.Yellow,
+  "butter yellow": C.Yellow,
+  "butter yellows": C.Yellow,
+  butteryellow: C.Yellow,
 
   // Gold
   gold: C.Gold,
