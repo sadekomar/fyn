@@ -119,7 +119,7 @@ export type ItemCardsI = {
     name: string;
     label: string | null;
   };
-  image: string;
+  image: string | null;
   isSoldOut: boolean;
 };
 
