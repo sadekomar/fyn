@@ -67,7 +67,7 @@ export const readLikes = handleExceptions(
     const likedItems: ItemCardsI[] = likes.map((like) => ({
       id: like.item.id,
       name: like.item.name,
-      image: like.item.images[0].url,
+      image: like.item.images ? like.item.images[0].url : null,
       price: like.item.latestPrice,
       brand: {
         name: like.item.brand.name,
