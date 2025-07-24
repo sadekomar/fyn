@@ -6,7 +6,7 @@ import { ItemCardsI } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { Brands } from "./(components)/brands";
 import { CategoriesComponent } from "../categories/categories-component";
-import { conifg } from "./utils";
+import { config } from "./utils";
 import Link from "next/link";
 
 export function ClientHomePage() {
@@ -15,6 +15,7 @@ export function ClientHomePage() {
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(`/items?limit=20&sort_by=date-descending`),
   });
+
   const { data: pants = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-pants"],
     queryFn: () =>
@@ -22,6 +23,7 @@ export function ClientHomePage() {
         `/items?categories=pants&limit=20&sort_by=date-descending`,
       ),
   });
+
   const { data: sets = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-sets"],
     queryFn: () =>
@@ -29,6 +31,7 @@ export function ClientHomePage() {
         `/items?categories=sets&limit=20&sort_by=date-descending`,
       ),
   });
+
   const { data: jeans = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-jeans"],
     queryFn: () =>
@@ -36,13 +39,16 @@ export function ClientHomePage() {
         `/items?categories=jeans&limit=20&sort_by=date-descending`,
       ),
   });
+
   const { data: brandOfTheDay = [] } = useQuery<ItemCardsI[]>({
-    queryKey: ["brand-of-the-day", conifg.brandOfTheDay.value],
+    queryKey: ["brand-of-the-day", config.brandOfTheDay.value],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=${conifg.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
+        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
       ),
+    enabled: !!config.brandOfTheDay.value,
   });
+
   const { data: capsule = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["capsule"],
     queryFn: () =>
@@ -50,6 +56,7 @@ export function ClientHomePage() {
         `/items?brands=capsule&limit=20&sort_by=date-descending`,
       ),
   });
+
   const { data: locken = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["locken"],
     queryFn: () =>
@@ -57,6 +64,7 @@ export function ClientHomePage() {
         `/items?brands=locken&limit=20&sort_by=date-descending`,
       ),
   });
+
   const { data: niffty = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["niffty"],
     queryFn: () =>
@@ -64,6 +72,7 @@ export function ClientHomePage() {
         `/items?brands=niffty&limit=20&sort_by=date-descending`,
       ),
   });
+
   const { data: myMayz = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["mymayz"],
     queryFn: () =>
@@ -71,6 +80,7 @@ export function ClientHomePage() {
         `/items?brands=mymayz&limit=20&sort_by=date-descending`,
       ),
   });
+
   const { data: pulp = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["pulp"],
     queryFn: () =>
@@ -90,93 +100,114 @@ export function ClientHomePage() {
         <HorizontalScroller items={newItems} />
       </section>
 
-      <section>
-        <div className="h-scroller-title">
-          <h3>
-            New from{" "}
-            <Link href={`/brands/capsule`} className="brand-link">
-              Capsule
-            </Link>
-          </h3>
-        </div>
-        <HorizontalScroller items={capsule} />
-      </section>
-
-      <section>
-        <div className="h-scroller-title">
-          <h3>
-            New from{" "}
-            <Link href={`/brands/locken`} className="brand-link">
-              Locken
-            </Link>
-          </h3>
-        </div>
-        <HorizontalScroller items={locken} />
-      </section>
-
-      <section>
-        <div className="h-scroller-title">
-          <h3>
-            New from{" "}
-            <Link href={`/brands/niffty`} className="brand-link">
-              Niffty
-            </Link>
-          </h3>
-        </div>
-        <HorizontalScroller items={niffty} />
-      </section>
-
-      <section>
-        <div className="h-scroller-title">
-          <h3>
-            New from{" "}
-            <Link href={`/brands/mymayz`} className="brand-link">
-              myMayz
-            </Link>
-          </h3>
-        </div>
-        <HorizontalScroller items={myMayz} />
-      </section>
-
-      <section>
-        <div className="h-scroller-title">
-          <h3>
-            New from{" "}
-            <Link href={`/brands/pulp`} className="brand-link">
-              Pulp
-            </Link>
-          </h3>
-        </div>
-        <HorizontalScroller items={pulp} />
-      </section>
-
-      <section className="flex flex-col">
-        <div className="h-scroller-title">
-          <h3>Pants</h3>
-        </div>
-        <HorizontalScroller items={pants} />
-      </section>
-      <section className="flex flex-col">
-        <div className="h-scroller-title">
-          <h3>Sets</h3>
-        </div>
-        <HorizontalScroller items={sets} />
-      </section>
-      <section className="flex flex-col">
-        <div className="h-scroller-title">
-          <h3>Jeans</h3>
-        </div>
-        <HorizontalScroller items={jeans} />
-      </section>
-
-      {brandOfTheDay.length > 0 && (
-        <section className="flex flex-col">
+      {capsule && capsule.length > 0 && (
+        <section>
           <div className="h-scroller-title">
-            <h3>{conifg.brandOfTheDay.label}</h3>
+            <h3>
+              New from{" "}
+              <Link href={`/brands/capsule`} className="brand-link">
+                Capsule
+              </Link>
+            </h3>
           </div>
-          <HorizontalScroller items={brandOfTheDay ?? []} />
+          <HorizontalScroller items={capsule} />
         </section>
       )}
+
+      {locken && locken.length > 0 && (
+        <section>
+          <div className="h-scroller-title">
+            <h3>
+              New from{" "}
+              <Link href={`/brands/locken`} className="brand-link">
+                Locken
+              </Link>
+            </h3>
+          </div>
+          <HorizontalScroller items={locken} />
+        </section>
+      )}
+
+      {niffty && niffty.length > 0 && (
+        <section>
+          <div className="h-scroller-title">
+            <h3>
+              New from{" "}
+              <Link href={`/brands/niffty`} className="brand-link">
+                Niffty
+              </Link>
+            </h3>
+          </div>
+          <HorizontalScroller items={niffty} />
+        </section>
+      )}
+
+      {myMayz && myMayz.length > 0 && (
+        <section>
+          <div className="h-scroller-title">
+            <h3>
+              New from{" "}
+              <Link href={`/brands/mymayz`} className="brand-link">
+                myMayz
+              </Link>
+            </h3>
+          </div>
+          <HorizontalScroller items={myMayz} />
+        </section>
+      )}
+
+      {pulp && pulp.length > 0 && (
+        <section>
+          <div className="h-scroller-title">
+            <h3>
+              New from{" "}
+              <Link href={`/brands/pulp`} className="brand-link">
+                Pulp
+              </Link>
+            </h3>
+          </div>
+          <HorizontalScroller items={pulp} />
+        </section>
+      )}
+
+      {pants && pants.length > 0 && (
+        <section className="flex flex-col">
+          <div className="h-scroller-title">
+            <h3>Pants</h3>
+          </div>
+          <HorizontalScroller items={pants} />
+        </section>
+      )}
+
+      {sets && sets.length > 0 && (
+        <section className="flex flex-col">
+          <div className="h-scroller-title">
+            <h3>Sets</h3>
+          </div>
+          <HorizontalScroller items={sets} />
+        </section>
+      )}
+
+      {jeans && jeans.length > 0 && (
+        <section className="flex flex-col">
+          <div className="h-scroller-title">
+            <h3>Jeans</h3>
+          </div>
+          <HorizontalScroller items={jeans} />
+        </section>
+      )}
+
+      {brandOfTheDay &&
+        brandOfTheDay.length > 0 &&
+        config.brandOfTheDay.value &&
+        config.brandOfTheDay.label && (
+          <section className="flex flex-col">
+            <div className="h-scroller-title">
+              <h3>{config.brandOfTheDay.label}</h3>
+            </div>
+            <HorizontalScroller items={brandOfTheDay} />
+          </section>
+        )}
 
       <CategoriesComponent />
     </>

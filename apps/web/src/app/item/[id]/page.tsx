@@ -134,9 +134,11 @@ export default async function ItemPage(props: {
         <SimilarItems category={category} color={color?.name} gender={gender} />
       </Suspense>
 
-      <Suspense fallback={<HScrollerPlaceholder />}>
-        <BrandScroller brand={data.brand.name} title={"More from "} />
-      </Suspense>
+      {data.brand && (
+        <Suspense fallback={<HScrollerPlaceholder />}>
+          <BrandScroller brand={data.brand.name} title={"More from "} />
+        </Suspense>
+      )}
 
       <Suspense fallback={<HScrollerPlaceholder />}>
         <RecentlyViewed />

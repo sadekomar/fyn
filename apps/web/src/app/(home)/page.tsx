@@ -74,7 +74,7 @@ export default async function Home() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["myMayz"],
+    queryKey: ["mymayz"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
         `/items?brands=mymayz&limit=20&sort_by=date-descending`,
