@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
-import { BrandData } from "./brand";
+import { ReadBrandResponse } from "./brand";
 
 export const readBrand = handleExceptions(
-  async (req: Request, res: Response<BrandData>) => {
+  async (req: Request, res: Response<ReadBrandResponse>) => {
     const { name } = req.params;
 
     const brand = await prisma.brand.findUnique({

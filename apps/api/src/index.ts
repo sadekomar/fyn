@@ -45,6 +45,7 @@ import {
 } from "./handlers/applicant/applicant";
 import {
   readCategories,
+  readPopularCategories,
   createCategory,
   updateCategory,
   deleteCategory,
@@ -87,8 +88,10 @@ import {
   createBrandFollow,
   readFollowedBrands,
 } from "./handlers/brand-follow/brand-follow";
+// import { readRecommendations } from "./handlers/recommendation/read-recommendation";
 const app = express();
-const PORT = process.env.PORT;
+const PORT: number = parseInt(process.env.PORT || "3000");
+const ipAddress = process.env.IP_ADDRESS || "localhost";
 
 // Middleware
 app.use(express.json());
@@ -110,6 +113,7 @@ app.post(Endpoints.ItemsByIds, readItemsByIds);
 
 // Categories
 app.get(Endpoints.Categories, readCategories);
+app.get(Endpoints.PopularCategories, readPopularCategories);
 app.post(Endpoints.Categories, createCategory);
 app.put(Endpoints.CategoryById, updateCategory);
 app.delete(Endpoints.CategoryById, deleteCategory);
@@ -147,6 +151,9 @@ app.get(Endpoints.Likes, readLikes);
 app.post(Endpoints.FollowedBrand, createBrandFollow);
 app.get(Endpoints.FollowedBrands, readFollowedBrands);
 
+// // recommendations
+// app.get(Endpoints.Recommendations, readRecommendations);
+
 app.post(Endpoints.Order, createOrder);
 app.get(Endpoints.OrderById, readOrder);
 app.get(Endpoints.OrderByNumber, readOrderByNumber);
@@ -179,6 +186,9 @@ app.get(Endpoints.ApplicantById, readApplicant);
 app.put(Endpoints.ApplicantById, updateApplicant);
 app.delete(Endpoints.ApplicantById, deleteApplicant);
 
+// app.listen(PORT, ipAddress, () => {
+//   console.log(`Server is running on port http://${ipAddress}:${PORT} and more`);
+// });
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT} and more`);
 });

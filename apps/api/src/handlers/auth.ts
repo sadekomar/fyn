@@ -1,5 +1,5 @@
 import prisma from "../helpers/prisma";
-import { handleExceptions } from "../helpers/utils";
+import { handleExceptions, isDevelopment } from "../helpers/utils";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { z } from "zod";
@@ -63,14 +63,20 @@ export const login = handleExceptions(
         data: { confirmationToken: token, tokenExpiresAt: expires },
       });
 
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const html = getEmailConfirmationHtml(user.firstName || "", token);
-      await resend.emails.send({
-        from: confirmFromAddress,
-        to: email,
-        subject: "Confirm your email",
-        html,
-      });
+      if (!isDevelopment()) {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const html = getEmailConfirmationHtml(user.firstName || "", token);
+        await resend.emails.send({
+          from: confirmFromAddress,
+          to: email,
+          subject: "Confirm your email",
+          html,
+        });
+      } else {
+        console.log(
+          `[DEV] Email confirmation would be sent to ${email} with token: ${token}`
+        );
+      }
 
       return res.status(200).json({
         status: "success",
@@ -161,14 +167,20 @@ export const register = handleExceptions(
         },
       });
 
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const html = getEmailConfirmationHtml(firstName || "", token);
-      await resend.emails.send({
-        from: confirmFromAddress,
-        to: email,
-        subject: "Confirm your email",
-        html,
-      });
+      if (!isDevelopment()) {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const html = getEmailConfirmationHtml(firstName || "", token);
+        await resend.emails.send({
+          from: confirmFromAddress,
+          to: email,
+          subject: "Confirm your email",
+          html,
+        });
+      } else {
+        console.log(
+          `[DEV] Email confirmation would be sent to ${email} with token: ${token}`
+        );
+      }
 
       return res.status(201).json({
         status: "success",
@@ -286,14 +298,20 @@ export const resendVerificationEmail = handleExceptions(
       data: { confirmationToken: token, tokenExpiresAt: expires },
     });
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const html = getEmailConfirmationHtml(user.firstName || "", token);
-    await resend.emails.send({
-      from: confirmFromAddress,
-      to: email,
-      subject: "Confirm your email",
-      html,
-    });
+    if (!isDevelopment()) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const html = getEmailConfirmationHtml(user.firstName || "", token);
+      await resend.emails.send({
+        from: confirmFromAddress,
+        to: email,
+        subject: "Confirm your email",
+        html,
+      });
+    } else {
+      console.log(
+        `[DEV] Email confirmation would be sent to ${email} with token: ${token}`
+      );
+    }
 
     return res.status(200).json({
       status: "success",

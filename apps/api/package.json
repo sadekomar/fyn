@@ -14,7 +14,8 @@
     "db:deploy": "npx prisma migrate deploy && npx prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "fill-categories": "ts-node src/scripts/fill-categories-slug-women-image.ts"
   },
   "keywords": [],
   "author": "",

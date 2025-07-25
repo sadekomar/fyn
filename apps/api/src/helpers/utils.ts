@@ -25,3 +25,10 @@ export const handleExceptions =
       res.status(500).json(response);
     }
   };
+
+/**
+ * Check if the application is running in development mode
+ */
+export const isDevelopment = (): boolean => {
+  return process.env.NODE_ENV === "development";
+};

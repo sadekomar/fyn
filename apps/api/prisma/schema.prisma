@@ -194,6 +194,9 @@ model Brand {
   showrooms            Showroom[]
   ShippingEstimate     ShippingEstimate[]
   inTrash              Boolean            @default(false)
+  deletedAt            DateTime?
+
+  @@index([deletedAt])
 }
 
 model Showroom {
@@ -204,9 +207,26 @@ model Showroom {
 
 model Category {
   id           String         @id @default(uuid())
+  level        Int            @default(3)
   name         String         @unique
+  parentId     String?
+  parent       Category?      @relation("ParentCategory", fields: [parentId], references: [id])
+  children     Category[]     @relation("ParentCategory")
+  gender       Gender?
+  slug         String?        @unique
+  keywords     String[]
+  label        String?
+  description  String?
+  menImage     String?
+  womenImage   String?
+  kidsImage    String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now()) @updatedAt
+  deletedAt    DateTime?
   Item         Item[]
   CategoryView CategoryView[]
+
+  @@index([deletedAt])
 }
 
 model Color {

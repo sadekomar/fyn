@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { handleExceptions } from "../../helpers/utils";
+import { handleExceptions, isDevelopment } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
 import {
   OrderStatus,
@@ -320,12 +320,19 @@ async function sendOrderConfirmationEmail(result: {
   };
 
   const html = getOrderConfirmationHtml(order);
-  await resend.emails.send({
-    from: "Loom Cairo <orders@loomcairo.com>",
-    to: [result.order.email, "contact@loomcairo.com"],
-    subject: "Order Confirmation",
-    html,
-  });
+
+  if (!isDevelopment()) {
+    await resend.emails.send({
+      from: "Loom Cairo <orders@loomcairo.com>",
+      to: [result.order.email, "contact@loomcairo.com"],
+      subject: "Order Confirmation",
+      html,
+    });
+  } else {
+    console.log(
+      `[DEV] Order confirmation email would be sent to ${result.order.email} for order ${result.order.orderNumber}`
+    );
+  }
 }
 
 function generateOrderNumber(): string {

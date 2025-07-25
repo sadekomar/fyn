@@ -10,6 +10,7 @@ export enum Endpoints {
   BrandByName = "/brand/:name",
   // categories
   Categories = "/categories",
+  PopularCategories = "/popular-categories",
   CategoryById = "/categories/:id",
   // checks
   Latency = "/latency",
@@ -56,4 +57,6 @@ export enum Endpoints {
   // applicants
   Applicants = "/applicants",
   ApplicantById = "/applicant/:id",
+  // recommendations
+  Recommendations = "/recommendations",
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { handleExceptions } from "../../helpers/utils";
+import { handleExceptions, isDevelopment } from "../../helpers/utils";
 import prisma from "../../helpers/prisma";
 import { Resend } from "resend";
 import { getApplicationConfirmationHtml } from "../../helpers/html-emails";
@@ -42,14 +42,20 @@ export const createApplicant = handleExceptions(
 );
 
 async function sendConfirmationEmail(email: string, name: string) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  if (!isDevelopment()) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const html = getApplicationConfirmationHtml(name);
+    const html = getApplicationConfirmationHtml(name);
 
-  await resend.emails.send({
-    from: careersFromAddress,
-    to: email,
-    subject: "Loom application confirmation",
-    html,
-  });
+    await resend.emails.send({
+      from: careersFromAddress,
+      to: email,
+      subject: "Loom application confirmation",
+      html,
+    });
+  } else {
+    console.log(
+      `[DEV] Application confirmation email would be sent to ${email} for ${name}`
+    );
+  }
 }
