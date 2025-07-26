@@ -21,13 +21,15 @@ export function ClientHomePage() {
   const { data: newItems = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-items"],
     queryFn: () =>
-      clientHttp.get<ItemCardsI[]>(`/items?limit=20&sort_by=date-descending`),
+      clientHttp.get<ItemCardsI[]>(
+        `/items?limit=20&sort_by=date-descending&in-stock=true`,
+      ),
   });
   const { data: brandOfTheDay = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["brand-of-the-day", config.brandOfTheDay.value],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
+        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending&in_stock=true`,
       ),
     enabled: !!config.brandOfTheDay.value,
   });
@@ -63,14 +65,14 @@ export function ClientHomePage() {
     queryKey: ["home-tops"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?categories=tops&limit=20&sort_by=date-descending`,
+        `/items?categories=tops&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
   const { data: sets = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-sets"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?categories=sets&limit=20&sort_by=date-descending`,
+        `/items?categories=sets&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -79,7 +81,7 @@ export function ClientHomePage() {
     queryKey: ["linens"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?materials=linen&limit=20&sort_by=date-descending`,
+        `/items?materials=linen&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -88,7 +90,7 @@ export function ClientHomePage() {
     queryKey: ["home-yellow"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?colors=yellow&limit=20&sort_by=date-descending`,
+        `/items?colors=yellow&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -97,21 +99,21 @@ export function ClientHomePage() {
     queryKey: ["kloth"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=kloth&limit=20&sort_by=date-descending`,
+        `/items?brands=kloth&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
   const { data: locken = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["locken"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=locken&limit=20&sort_by=date-descending`,
+        `/items?brands=locken&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
   const { data: mymayz = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["mymayz"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=mymayz&limit=20&sort_by=date-descending`,
+        `/items?brands=mymayz&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -221,6 +223,8 @@ export function ClientHomePage() {
         items={locken}
       />
 
+      <div className="h-10" />
+
       <CategorySection
         cover={"/tops-cover.webp"}
         description="Light, breezy, and effortlessly chic—tops made for warm days and cool nights"
@@ -230,6 +234,8 @@ export function ClientHomePage() {
         category="Tops"
         items={tops ?? []}
       />
+
+      <div className="h-10" />
 
       <CategorySection
         cover={"/linens-cover.webp"}
@@ -241,6 +247,8 @@ export function ClientHomePage() {
         items={linens ?? []}
       />
 
+      <div className="h-10" />
+
       <CategorySection
         cover={"/categories/sets.webp"}
         description="Complete outfits that make a statement"
@@ -251,18 +259,23 @@ export function ClientHomePage() {
         items={sets ?? []}
       />
 
+      <div className="h-10" />
+
       {brandOfTheDay && brandOfTheDay.length > 0 && (
-        <section className="flex flex-col gap-4 bg-gray-200 py-8">
-          <div className="rounded-b-[20px] px-4">
-            <Link href={`/brands/${config.brandOfTheDay.value}`}>
-              <h2 className="text-2xl font-bold">
-                {config.brandOfTheDay.label}
-              </h2>
-            </Link>
-            <p>New arrivals from {config.brandOfTheDay.label}.</p>
-          </div>
-          <HorizontalScroller items={brandOfTheDay} />
-        </section>
+        <>
+          <section className="flex flex-col gap-4 bg-gray-200 py-8">
+            <div className="rounded-b-[20px] px-4">
+              <Link href={`/brands/${config.brandOfTheDay.value}`}>
+                <h2 className="text-2xl font-bold">
+                  {config.brandOfTheDay.label}
+                </h2>
+              </Link>
+              <p>New arrivals from {config.brandOfTheDay.label}.</p>
+            </div>
+            <HorizontalScroller items={brandOfTheDay} />
+          </section>
+          <div className="h-10" />
+        </>
       )}
 
       <CategorySection
@@ -274,6 +287,8 @@ export function ClientHomePage() {
         category="Butter Yellow"
         items={yellow ?? []}
       />
+
+      <div className="h-10" />
 
       <BrandSection
         cover={"/kloth-cover.webp"}

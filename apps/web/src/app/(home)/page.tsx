@@ -50,14 +50,16 @@ export default async function Home() {
   await queryClient.prefetchQuery({
     queryKey: ["home-items"],
     queryFn: () =>
-      serverHttp.get<ItemCardsI[]>(`/items?limit=20&sort_by=date-descending`),
+      serverHttp.get<ItemCardsI[]>(
+        `/items?limit=20&sort_by=date-descending&in_stock=true`,
+      ),
   });
 
   await queryClient.prefetchQuery({
     queryKey: ["brand-of-the-day", config.brandOfTheDay.value],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
+        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -83,7 +85,7 @@ export default async function Home() {
     queryKey: ["home-tops"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?categories=tops&limit=20&sort_by=date-descending`,
+        `/items?categories=tops&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -91,7 +93,7 @@ export default async function Home() {
     queryKey: ["home-sets"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?categories=sets&limit=20&sort_by=date-descending`,
+        `/items?categories=sets&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -100,7 +102,7 @@ export default async function Home() {
     queryKey: ["linens"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?materials=linen&limit=20&sort_by=date-descending`,
+        `/items?materials=linen&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -109,7 +111,7 @@ export default async function Home() {
     queryKey: ["home-yellow"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?colors=yellow&limit=20&sort_by=date-descending`,
+        `/items?colors=yellow&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -118,7 +120,7 @@ export default async function Home() {
     queryKey: ["kloth"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=kloth&limit=20&sort_by=date-descending`,
+        `/items?brands=kloth&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -126,14 +128,14 @@ export default async function Home() {
     queryKey: ["locken"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=locken&limit=20&sort_by=date-descending`,
+        `/items?brands=locken&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
   await queryClient.prefetchQuery({
     queryKey: ["mymayz"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=mymayz&limit=20&sort_by=date-descending`,
+        `/items?brands=mymayz&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
