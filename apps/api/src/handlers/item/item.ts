@@ -6,6 +6,7 @@ import {
   readCategoriesWithImages,
   readItemsMetadata,
 } from "./read-items";
+import { readOnSale } from "./read-on-sale";
 import { readItemsByIds } from "./read-items-by-ids";
 import { deleteItem } from "./delete-item";
 
@@ -17,6 +18,7 @@ export {
   readItemsByIds,
   readCategoriesWithImages,
   readItemsMetadata,
+  readOnSale,
 };
 
 //misc
@@ -111,6 +113,19 @@ export type CreateItemResponse =
   | CreateItemErrorResponse;
 
 // Read
+export type OnSaleCard = {
+  id: string;
+  name: string;
+  price: number;
+  highestPrice: number;
+  brand: {
+    name: string;
+    label: string | null;
+  };
+  image: string | null;
+  isSoldOut: boolean;
+};
+
 export type ItemCardsI = {
   id: string;
   name: string;

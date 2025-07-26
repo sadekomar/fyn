@@ -34,3 +34,27 @@ export const readPopularCategories = handleExceptions(
     return res.status(200).json(categories);
   }
 );
+
+export const readMoreCategories = handleExceptions(
+  async (req: Request, res: Response<ReadCategoriesResponse>) => {
+    const moreCategories = [
+      "jeans",
+      "polos",
+      "shoes",
+      "swimwear",
+      "tanks",
+      "dresses",
+      "necklaces",
+      "earrings",
+    ];
+    const categories = await prisma.category.findMany({
+      where: {
+        name: {
+          in: moreCategories,
+        },
+      },
+    });
+
+    return res.status(200).json(categories);
+  }
+);

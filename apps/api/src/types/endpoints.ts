@@ -1,5 +1,6 @@
 export enum Endpoints {
   Items = "/items",
+  ItemsOnSale = "/items/on-sale",
   ItemsMetadata = "/items-metadata",
   BrandCategories = "/brand-categories",
   ItemById = "/item/:id",
@@ -11,6 +12,7 @@ export enum Endpoints {
   // categories
   Categories = "/categories",
   PopularCategories = "/popular-categories",
+  MoreCategories = "/more-categories",
   CategoryById = "/categories/:id",
   // checks
   Latency = "/latency",

@@ -1,5 +1,9 @@
 import { Category } from "@prisma/client";
-import { readCategories, readPopularCategories } from "./read-categories";
+import {
+  readCategories,
+  readPopularCategories,
+  readMoreCategories,
+} from "./read-categories";
 import { createCategory } from "./create-category";
 import { deleteCategory } from "./delete-category";
 import { updateCategory } from "./update-category";
@@ -7,6 +11,7 @@ import { updateCategory } from "./update-category";
 export {
   readCategories,
   readPopularCategories,
+  readMoreCategories,
   createCategory,
   deleteCategory,
   updateCategory,

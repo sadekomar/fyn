@@ -49,6 +49,7 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
+  readMoreCategories,
 } from "./handlers/category/category";
 import {
   createItem,
@@ -58,6 +59,7 @@ import {
   readCategoriesWithImages,
   readItemsMetadata,
   readItemsByIds,
+  readOnSale,
 } from "./handlers/item/item";
 import { createNewsletter } from "./handlers/newsletter/create-newsletter";
 import {
@@ -110,10 +112,12 @@ app.get(Endpoints.ItemsMetadata, readItemsMetadata);
 app.get(Endpoints.BrandCategories, readCategoriesWithImages);
 app.get(Endpoints.ItemById, readItem);
 app.post(Endpoints.ItemsByIds, readItemsByIds);
+app.get(Endpoints.ItemsOnSale, readOnSale);
 
 // Categories
 app.get(Endpoints.Categories, readCategories);
 app.get(Endpoints.PopularCategories, readPopularCategories);
+app.get(Endpoints.MoreCategories, readMoreCategories);
 app.post(Endpoints.Categories, createCategory);
 app.put(Endpoints.CategoryById, updateCategory);
 app.delete(Endpoints.CategoryById, deleteCategory);
