@@ -18,12 +18,12 @@ export default async function ShopPage(props: {
   const queryString = getQueryString(searchParams);
   const queryStringArray = getQueryStringArray(searchParams);
 
-  queryClient.prefetchQuery({
-    queryKey: ["items", ...queryStringArray],
+  await queryClient.prefetchQuery({
+    queryKey: ["shop", ...queryStringArray],
     queryFn: () => serverHttp.get(`/items?limit=50&${queryString}`),
   });
-  queryClient.prefetchQuery({
-    queryKey: ["metadata", ...queryStringArray],
+  await queryClient.prefetchQuery({
+    queryKey: ["shop-metadata", ...queryStringArray],
     queryFn: () => serverHttp.get(`/items-metadata?limit=50&${queryString}`),
   });
 

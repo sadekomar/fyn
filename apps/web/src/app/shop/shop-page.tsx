@@ -20,11 +20,11 @@ export function ShopPageClient() {
   const queryStringArray = Array.from(searchParams.entries());
 
   const { data } = useQuery<ItemCardsI[]>({
-    queryKey: ["items", ...queryStringArray],
+    queryKey: ["shop", ...queryStringArray],
     queryFn: () => clientHttp.get(`/items?limit=50&${queryString}`),
   });
   const { data: metadata } = useQuery<MetadataI>({
-    queryKey: ["metadata", ...queryStringArray],
+    queryKey: ["shop-metadata", ...queryStringArray],
     queryFn: () => clientHttp.get(`/items-metadata?limit=50&${queryString}`),
   });
 
