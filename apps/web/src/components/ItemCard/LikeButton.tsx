@@ -20,7 +20,7 @@ export function LikeButton({
     <>
       <button
         name="like-button"
-        className={`${className} flex items-center justify-center rounded-lg bg-gray-300/50 backdrop-blur-sm transition-all duration-300 active:scale-103`}
+        className={`${className} flex items-center justify-center rounded-lg bg-gray-300/50 backdrop-blur-sm transition-all duration-300 active:scale-80`}
         onClick={() => {
           addLike(item);
         }}

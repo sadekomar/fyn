@@ -46,9 +46,12 @@ export function CategoryPageClient() {
   return (
     <>
       <div className="category-page-header">
-        <LoomImage src={categoryData.image} alt={categoryData.description} />
+        <LoomImage
+          src={categoryData?.image || ""}
+          alt={categoryData?.description || ""}
+        />
         <div className="category-page-title-wrapper">
-          <h2 className="category-page-title">{categoryData.term}</h2>
+          <h2 className="category-page-title">{categoryData?.term || ""}</h2>
         </div>
       </div>
 

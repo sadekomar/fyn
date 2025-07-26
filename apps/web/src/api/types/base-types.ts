@@ -99,12 +99,27 @@ export interface Showroom {
   brands: Brand[];
 }
 
-export interface Category {
+export type Category = {
   id: string;
   name: string;
-  items: Item[];
-  categoryViews: CategoryView[];
-}
+  level: number;
+  parentId: string | null;
+  parent: Category | null;
+  children: Category[];
+  gender: Gender | null;
+  slug: string | null;
+  keywords: string[];
+  label: string | null;
+  description: string | null;
+  menImage: string | null;
+  womenImage: string | null;
+  kidsImage: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  Item: Item[];
+  CategoryView: CategoryView[];
+};
 
 export interface Color {
   id: string;

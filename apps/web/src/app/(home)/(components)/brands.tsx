@@ -1,20 +1,25 @@
+import { LoomImage } from "@/components/LoomImage";
 import "./css/Brands.css";
 import { IsometricBrands } from "./IsometricBrands";
+import Link from "next/link";
 
 export function Brands() {
   return (
-    <div className="brands-wrapper">
+    <div className="brands-wrapper pb-10">
       <IsometricBrands />
-      <div className="brands-content">
+      <div className="brands-content flex flex-col items-center gap-4">
         <div className="brands-title-wrapper">
-          <ArrayNumberOfBrands />
-          <h2 className="brands-title">Local Brands</h2>
-          <h2 className="brands-title">in One Place</h2>
+          <LoomImage src="/threeHundred.svg" className="min-h-[150px]" alt="" />
+          <p className="text-center text-lg font-medium tracking-[-0.02em]">
+            Explore new brands and collections before anyone else.
+          </p>
         </div>
-        <p className="brands-description">
-          Explore new brands and collections before anyone else. Be at the
-          forefront of fashion.
-        </p>
+        <Link
+          href="/shop"
+          className="flex h-10 w-fit items-center justify-center rounded-3xl border border-solid border-gray-800 bg-gray-600 px-4 text-white transition-all duration-300 active:scale-95"
+        >
+          Shop now
+        </Link>
       </div>
     </div>
   );

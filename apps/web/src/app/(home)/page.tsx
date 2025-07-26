@@ -8,7 +8,10 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { ClientHomePage } from "./HomePage";
-import { conifg } from "./utils";
+import { config } from "./utils";
+import { ReadCategoriesResponse } from "../categories/[category]/(utils)/category-types";
+import { Endpoints } from "@/api/endpoints";
+import { OnSaleCard } from "../item/[id]/item";
 
 export const revalidate = 43200; // 12 hours in seconds
 
@@ -43,6 +46,7 @@ export const metadata = {
 export default async function Home() {
   const queryClient = new QueryClient();
 
+  // miscellaneous
   await queryClient.prefetchQuery({
     queryKey: ["home-items"],
     queryFn: () =>
@@ -50,50 +54,36 @@ export default async function Home() {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["capsule"],
+    queryKey: ["brand-of-the-day", config.brandOfTheDay.value],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=capsule&limit=20&sort_by=date-descending`,
+        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
       ),
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["locken"],
+    queryKey: ["popular-categories"],
     queryFn: () =>
-      serverHttp.get<ItemCardsI[]>(
-        `/items?brands=locken&limit=20&sort_by=date-descending`,
-      ),
+      serverHttp.get<ReadCategoriesResponse>(Endpoints.PopularCategories),
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["niffty"],
+    queryKey: ["more-categories"],
     queryFn: () =>
-      serverHttp.get<ItemCardsI[]>(
-        `/items?brands=niffty&limit=20&sort_by=date-descending`,
-      ),
+      serverHttp.get<ReadCategoriesResponse>(Endpoints.MoreCategories),
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["mymayz"],
-    queryFn: () =>
-      serverHttp.get<ItemCardsI[]>(
-        `/items?brands=mymayz&limit=20&sort_by=date-descending`,
-      ),
+    queryKey: ["on-sale-items"],
+    queryFn: () => serverHttp.get<OnSaleCard[]>(Endpoints.ItemsOnSale),
   });
 
+  // categories
   await queryClient.prefetchQuery({
-    queryKey: ["pulp"],
+    queryKey: ["home-tops"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=pulp&limit=20&sort_by=date-descending`,
-      ),
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: ["home-pants"],
-    queryFn: () =>
-      serverHttp.get<ItemCardsI[]>(
-        `/items?categories=pants&limit=20&sort_by=date-descending`,
+        `/items?categories=tops&limit=20&sort_by=date-descending`,
       ),
   });
 
@@ -105,27 +95,45 @@ export default async function Home() {
       ),
   });
 
+  // materials
   await queryClient.prefetchQuery({
-    queryKey: ["home-jeans"],
+    queryKey: ["linens"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?categories=jeans&limit=20&sort_by=date-descending`,
+        `/items?materials=linen&limit=20&sort_by=date-descending`,
+      ),
+  });
+
+  // colors
+  await queryClient.prefetchQuery({
+    queryKey: ["home-yellow"],
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(
+        `/items?colors=yellow&limit=20&sort_by=date-descending`,
+      ),
+  });
+
+  // brands
+  await queryClient.prefetchQuery({
+    queryKey: ["kloth"],
+    queryFn: () =>
+      serverHttp.get<ItemCardsI[]>(
+        `/items?brands=kloth&limit=20&sort_by=date-descending`,
       ),
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ["latest-brand", conifg.latestFromBrand.value],
+    queryKey: ["locken"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=${conifg.latestFromBrand.value}&limit=20&sort_by=date-descending`,
+        `/items?brands=locken&limit=20&sort_by=date-descending`,
       ),
   });
-
   await queryClient.prefetchQuery({
-    queryKey: ["brand-of-the-day", conifg.brandOfTheDay.value],
+    queryKey: ["mymayz"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=${conifg.brandOfTheDay.value}&limit=20&sort_by=date-descending`,
+        `/items?brands=mymayz&limit=20&sort_by=date-descending`,
       ),
   });
 

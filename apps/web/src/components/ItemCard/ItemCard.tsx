@@ -19,10 +19,14 @@ export function ItemCard({
   imgLoading = "lazy",
   className = "",
   isSoldOut = false,
+  theme,
+  highestPrice = null,
 }: ItemCardsI & {
   imgLoading?: "lazy" | "eager";
   className?: string;
   isSoldOut?: boolean;
+  theme?: "dark" | "light";
+  highestPrice?: number | null;
 }) {
   const [imageError, setImageError] = useState(false);
 
@@ -42,14 +46,14 @@ export function ItemCard({
   return (
     <>
       <div
-        className={`ItemCard ${className} transition-all duration-300 active:scale-103 ${
+        className={`ItemCard ${className} transition-all duration-300 ${
           isSoldOut ? "opacity-75" : ""
         }`}
       >
-        {/* <CompareButton id={id} className="CompareButton" /> */}
         <LikeButton id={id} className="LikeButton" item={item} />
         <Link prefetch={true} href={`/item/${id}`} className="relative">
           <CardImage
+            className="transition-all duration-300 active:scale-95"
             loading={imgLoading}
             src={image === "" ? undefined : image}
             sizes="(max-width: 768px) 180px, 240px"
@@ -58,7 +62,7 @@ export function ItemCard({
             style={{
               borderRadius: "8px",
               width: "100%",
-              height: "300px",
+              height: "240px",
               backgroundColor: "var(--gray-5)",
             }}
           />
@@ -74,20 +78,34 @@ export function ItemCard({
         <Link
           prefetch={true}
           href={`/item/${id}`}
-          className={`block ${isSoldOut ? "text-gray-500" : ""}`}
+          className={`mt-1 block ${isSoldOut ? "text-gray-500" : ""} text-sm`}
         >
           {name}
         </Link>
         <Link
           prefetch={true}
           href={`/brands/${brand.name}`}
-          className="text-gray-500 underline-offset-2 hover:text-gray-700 hover:underline"
+          className={`${theme === "dark" ? "text-white hover:text-gray-300" : "text-gray-500 hover:text-gray-700"} text-sm underline-offset-2 transition-all duration-300 hover:underline active:scale-105`}
         >
           {brand.label ?? brand.name}
         </Link>
-        <data value={price} className={isSoldOut ? "text-gray-500" : ""}>
-          LE {price.toLocaleString()}
-        </data>
+        <div className="flex items-center gap-2">
+          <data
+            value={price}
+            className={`${isSoldOut ? "text-gray-500" : ""} ${
+              highestPrice ? "text-red-500" : ""
+            } text-sm`}
+          >
+            LE {price.toLocaleString()}
+          </data>
+          {highestPrice && (
+            <data value={highestPrice}>
+              <span className="text-sm text-gray-500 line-through">
+                LE {highestPrice.toLocaleString()}
+              </span>
+            </data>
+          )}
+        </div>
       </div>
     </>
   );

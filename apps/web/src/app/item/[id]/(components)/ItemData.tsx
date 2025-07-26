@@ -28,15 +28,21 @@ export function ItemData({ data }: { data: ItemSuccess }) {
             {data.brand.label ?? data.brand.name}
           </Link>
         </p>
-        <p className="item-data__price">LE {data.price.toLocaleString()}.00</p>
+        <div className="flex gap-2">
+          <p
+            className={`item-data__price ${data.highestPrice ? "text-red-500" : ""}`}
+          >
+            LE {data.price.toLocaleString()}.00
+          </p>
+          {data.highestPrice && (
+            <p className="item-data__price line-through">
+              LE {data.highestPrice?.toLocaleString()}.00
+            </p>
+          )}
+        </div>
         {data.lowestPrice && (
           <p className="item-data__price">
             Lowest price: LE {data.lowestPrice?.toLocaleString()}.00
-          </p>
-        )}
-        {data.highestPrice && (
-          <p className="item-data__price">
-            Highest price: LE {data.highestPrice?.toLocaleString()}.00
           </p>
         )}
       </div>

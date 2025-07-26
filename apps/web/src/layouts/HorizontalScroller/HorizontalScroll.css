@@ -26,17 +26,16 @@
 
 .horizontalScroller {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   overflow: auto;
   padding-inline: max(
     calc((100% - var(--grid-max-width)) / 2),
     var(--margin-inline)
   );
-  margin-block-end: 2rem;
 }
 
 .horizontalScroller > * {
-  --min-card-size: 200px;
+  --min-card-size: 164px;
   flex-basis: var(--min-card-size);
   flex-shrink: 0;
   flex-grow: 0;
@@ -44,7 +43,7 @@
 
 @media (min-width: 768px) {
   .horizontalScroller > * {
-    --min-card-size: 240px;
+    --min-card-size: 200px;
   }
 }
 

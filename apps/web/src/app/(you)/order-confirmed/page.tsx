@@ -10,6 +10,7 @@ import { LoomImage } from "@/components/LoomImage";
 import { useSearchParams } from "next/navigation";
 import { getOrderById } from "@/api/orders";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 function OrderConfirmedSkeleton() {
   return (
@@ -104,7 +105,9 @@ export default function OrderConfirmedPage() {
     },
   });
 
-  queryClient.invalidateQueries({ queryKey: ["cart"] });
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["cart"] });
+  }, [queryClient]);
 
   if (isLoading) {
     return <OrderConfirmedSkeleton />;

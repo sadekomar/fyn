@@ -236,6 +236,15 @@ export const allCategoriesData: Record<
   },
 
   // Accessories
+  accessories: {
+    image: "/categories/accessories.webp",
+    description: "The accessories",
+    link: "/categories/accessories",
+    term: "accessories",
+    display_item: "Leather Wallet by LuxeStyle",
+    display_item_link: "/item/1229",
+    parent_category: "accessories",
+  },
   hats: {
     image: "/categories/hats.webp",
     description: "The hats",

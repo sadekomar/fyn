@@ -6,7 +6,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1r));
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1r));
 
   overflow: auto;
   gap: 8px;
@@ -17,20 +17,20 @@
 }
 
 .parent-category-slider * {
-  width: 200px;
+  width: 80px;
   text-decoration: none;
 }
 
 .parent-category-slider img {
-  height: 200px;
-  width: 200px;
+  height: 80px;
+  width: 80px;
   border-radius: 12px;
 }
 
 .category-slider-label {
   text-transform: capitalize;
   text-align: center;
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
   font-weight: var(--fw-bold);
   margin-top: 0.5rem;
   padding-block: 0.4rem;
