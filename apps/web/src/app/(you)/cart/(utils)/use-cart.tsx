@@ -137,3 +137,61 @@ export const useDeleteItemCart = () => {
     },
   });
 };
+
+export const useMoveToSavedForLater = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id }: { id: string }) => {
+      return clientHttp.put(`${Endpoints.CartItemById.replace(":id", id)}`, {
+        isSavedForLater: true,
+      });
+    },
+    onMutate: ({ id }: { id: string }) => {
+      queryClient.setQueryData(["cart"], (old: ItemCart[]) => {
+        return old.map((item) =>
+          item.id === id ? { ...item, isSavedForLater: true } : item,
+        );
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: (error) => {
+      console.error("Error moving item to saved for later:", error);
+      toast.error("Error moving item to saved for later", {
+        description: "Please try again",
+        duration: 3000,
+      });
+    },
+  });
+};
+
+export const useMoveToCart = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id }: { id: string }) => {
+      return clientHttp.put(`${Endpoints.CartItemById.replace(":id", id)}`, {
+        isSavedForLater: false,
+      });
+    },
+    onMutate: ({ id }: { id: string }) => {
+      queryClient.setQueryData(["cart"], (old: ItemCart[]) => {
+        return old.map((item) =>
+          item.id === id ? { ...item, isSavedForLater: false } : item,
+        );
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: (error) => {
+      console.error("Error moving item to cart:", error);
+      toast.error("Error moving item to cart", {
+        description: "Please try again",
+        duration: 3000,
+      });
+    },
+  });
+};

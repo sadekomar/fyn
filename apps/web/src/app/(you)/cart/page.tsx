@@ -31,5 +31,7 @@ export default async function Cart() {
 }
 
 function getTotalPrice(cart: ItemCart[]) {
-  return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  return cart
+    .filter((item) => !item.isSavedForLater)
+    .reduce((acc, item) => acc + item.price * item.quantity, 0);
 }

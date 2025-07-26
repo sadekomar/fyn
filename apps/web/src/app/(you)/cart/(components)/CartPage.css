@@ -6,6 +6,7 @@
 .cart-page-header h2 {
   line-height: 1.5;
   font-size: var(--fs-800);
+  font-weight: var(--fw-bold);
 }
 
 .cart-page-header p {

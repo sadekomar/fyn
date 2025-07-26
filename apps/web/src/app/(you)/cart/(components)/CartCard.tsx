@@ -9,11 +9,16 @@ import "./CartCard.css";
 import { LoomImage } from "@/components/LoomImage";
 import { ItemCart } from "@/app/(you)/cart/(utils)/cart-utils";
 
-import { useDeleteItemCart, useEditItemCart } from "../(utils)/use-cart";
+import {
+  useDeleteItemCart,
+  useEditItemCart,
+  useMoveToSavedForLater,
+} from "../(utils)/use-cart";
 
 export function CartCard({ product }: { product: ItemCart }) {
   const { mutate: deleteItemCart } = useDeleteItemCart();
   const { mutate: editItemCart } = useEditItemCart();
+  const { mutate: moveToSavedForLater } = useMoveToSavedForLater();
 
   return (
     <>
@@ -68,6 +73,14 @@ export function CartCard({ product }: { product: ItemCart }) {
               <p className="cart-card-color capitalize">
                 Color: {product.color?.name}
               </p>
+            </div>
+            <div className="mt-3">
+              <button
+                className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                onClick={() => moveToSavedForLater({ id: product.id })}
+              >
+                Save for Later
+              </button>
             </div>
           </div>
           {/* <div className="cart-card-content-buttons">

@@ -49,7 +49,8 @@ export type OrderFormSchema = z.infer<typeof orderFormSchema>;
 
 export default function CheckoutPage() {
   const session = useGetUser();
-  const { data: cartItems = [] } = useGetItemCarts();
+  const { data: allCartItems = [] } = useGetItemCarts();
+  const cartItems = allCartItems.filter((item) => !item.isSavedForLater);
   const router = useRouter();
 
   const { data: user } = useQuery({

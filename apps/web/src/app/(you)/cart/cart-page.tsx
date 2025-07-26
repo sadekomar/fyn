@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 
 import { CartLayout } from "@/app/(you)/cart/(components)/CartLayout";
-import { CartSkeleton } from "@/app/(you)/cart/(components)/CartSkeleton";
 import "./(components)/CartPage.css";
 import { getTotalPrice } from "./(utils)/cart-utils";
 import Link from "next/link";
 import { useGetItemCarts } from "./(utils)/use-cart";
+import { SavedForLaterCard } from "./(components)/SavedForLaterCard";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
 
 export function CartPageClient({
   initialTotalPrice,
@@ -20,6 +21,10 @@ export function CartPageClient({
   useEffect(() => {
     setTotalPrice(getTotalPrice(cart));
   }, [cart]);
+
+  const cartItems = cart.filter((item) => !item.isSavedForLater);
+  const savedForLaterItems = cart.filter((item) => item.isSavedForLater);
+  const hasCartItems = cartItems.length > 0;
 
   if (error) {
     return (
@@ -64,15 +69,7 @@ export function CartPageClient({
         <h2>Your Cart</h2>
       </div>
       <div className="cart-wrapper">
-        {isLoading ? (
-          <div className="cart-cards-wrapper">
-            {[...Array(3)].map((_, index) => (
-              <CartSkeleton key={index} />
-            ))}
-          </div>
-        ) : (
-          <CartLayout products={cart} isEmpty={cart.length === 0} />
-        )}
+        <CartLayout products={cartItems} />
         <div className="cart-page-footer">
           <div className="subtotal-wrapper">
             <span>Subtotal</span>
@@ -82,16 +79,44 @@ export function CartPageClient({
           </div>
           <div className="w-full">
             <Link
-              href={cart.length === 0 ? "#" : "/checkout"}
+              href={!hasCartItems ? "#" : "/checkout"}
               className="block w-full rounded-md bg-black px-4 py-3 text-center text-white transition-colors hover:bg-gray-800"
               style={{
-                opacity: cart.length === 0 ? 0.5 : 1,
-                pointerEvents: cart.length === 0 ? "none" : "auto",
+                opacity: !hasCartItems ? 0.5 : 1,
+                pointerEvents: !hasCartItems ? "none" : "auto",
               }}
             >
               Checkout
             </Link>
           </div>
+        </div>
+      </div>
+      <div className="mt-8">
+        <div className="mx-4 mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">
+            Saved for Later
+          </h3>
+          <p className="text-sm text-gray-500">
+            {savedForLaterItems.length} item
+            {savedForLaterItems.length !== 1 ? "s" : ""} saved for later
+          </p>
+        </div>
+        <div className="cart-cards-wrapper">
+          {savedForLaterItems.length > 0 ? (
+            savedForLaterItems?.map((product, index) => (
+              <SavedForLaterCard key={index} product={product} />
+            ))
+          ) : (
+            <EmptyState title="No items saved for later">
+              <p>
+                Items you save for later will appear here.{" "}
+                <Link className="inline-link underline" href={"/shop"}>
+                  Continue shopping
+                </Link>{" "}
+                to find items you love.
+              </p>
+            </EmptyState>
+          )}
         </div>
       </div>
     </>

@@ -22,13 +22,15 @@ export type ItemCart = {
   brand: {
     id: string;
     name: string;
-    label: string | null;
   };
   image: string;
+  isSavedForLater: boolean;
 };
 
 export function getTotalPrice(cart: ItemCart[]) {
-  return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  return cart
+    .filter((item) => !item.isSavedForLater)
+    .reduce((acc, item) => acc + item.price * item.quantity, 0);
 }
 
 export type ShippingEstimate = {
