@@ -42,13 +42,14 @@ export const readOnSale = handleExceptions(
       WHERE "itemId" = i.id
       LIMIT 1
     ) img ON true
-    WHERE EXISTS (
-      SELECT 1
-      FROM "Price" p_prev
-      WHERE p_prev."itemId" = i.id
-        AND p_prev."createdAt" < p_latest."createdAt"
-        AND p_prev.price > p_latest.price
-    )
+    WHERE i."inTrash" = false
+      AND EXISTS (
+        SELECT 1
+        FROM "Price" p_prev
+        WHERE p_prev."itemId" = i.id
+          AND p_prev."createdAt" < p_latest."createdAt"
+          AND p_prev.price > p_latest.price
+      )
     ORDER BY i."createdAt" DESC
     LIMIT 20
   `);
