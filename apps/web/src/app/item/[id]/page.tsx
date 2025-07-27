@@ -42,24 +42,24 @@ export async function generateMetadata({
   }
 
   return {
-    title: data.name,
-    images: data.images[0],
-    description: data.description.slice(0, 60),
+    title: data?.name,
+    images: data?.images[0],
+    description: data?.description.slice(0, 60),
     robots:
       "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
     keywords: "Loom Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
     openGraph: {
-      title: data.name,
-      images: data.images[0],
-      description: data.description.slice(0, 60),
+      title: data?.name,
+      images: data?.images[0],
+      description: data?.description.slice(0, 60),
       type: "website",
       url: `https://loomcairo.com/item/${id}`,
     },
     twitter: {
       card: "summary",
-      title: data.name,
-      images: data.images[0],
-      description: data.description.slice(0, 60),
+      title: data?.name,
+      images: data?.images[0],
+      description: data?.description.slice(0, 60),
     },
     alternates: {
       canonical: `https://loomcairo.com/item/${id}`,
@@ -136,7 +136,7 @@ export default async function ItemPage(props: {
 
       {data.brand && (
         <Suspense fallback={<HScrollerPlaceholder />}>
-          <BrandScroller brand={data.brand.name} title={"More from "} />
+          <BrandScroller brand={data?.brand?.name} title={"More from "} />
         </Suspense>
       )}
 
