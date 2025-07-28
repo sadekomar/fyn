@@ -66,6 +66,7 @@ export type ItemCart = {
     name: string;
   };
   image: string;
+  isSavedForLater: boolean;
 };
 
 // Update
@@ -79,6 +80,7 @@ type UpdateCartSuccessResponse = {
   data: {
     id: string;
     quantity: number;
+    isSavedForLater: boolean;
   };
 };
 

@@ -93,6 +93,7 @@ export const createCartItem = handleExceptions(
         where: { id: existingCartItem.id },
         data: {
           quantity: existingCartItem.quantity + parsedBody.data.quantity,
+          isSavedForLater: false,
         },
       });
 

@@ -194,6 +194,7 @@ export const createOrder = handleExceptions(
         await tx.itemCart.deleteMany({
           where: {
             userId: user.id,
+            isSavedForLater: false,
           },
         });
 

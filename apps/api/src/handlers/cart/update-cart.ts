@@ -4,16 +4,13 @@ import { Request, Response } from "express";
 import { UpdateCartResponse } from "./cart";
 
 export const updateCartItem = handleExceptions(
-  async (
-    req: Request,
-    res: Response
-  ): Promise<Response<UpdateCartResponse>> => {
+  async (req: Request, res: Response<UpdateCartResponse>) => {
     const { id } = req.params;
-    const { quantity } = req.body;
+    const { quantity, isSavedForLater } = req.body;
 
     const cartItem = await prisma.itemCart.update({
       where: { id },
-      data: { quantity },
+      data: { quantity, isSavedForLater },
     });
 
     const response: UpdateCartResponse = {
@@ -22,6 +19,7 @@ export const updateCartItem = handleExceptions(
       data: {
         id: cartItem.id,
         quantity: cartItem.quantity,
+        isSavedForLater: cartItem.isSavedForLater,
       },
     };
 

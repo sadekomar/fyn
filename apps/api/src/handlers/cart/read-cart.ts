@@ -85,6 +85,7 @@ export const readCartItems = handleExceptions(
           },
         },
         createdAt: true,
+        isSavedForLater: true,
       },
       where: {
         ...where,
@@ -106,6 +107,7 @@ export const readCartItems = handleExceptions(
       brand: cartItem.item.brand,
       image: cartItem.item.images[0].url,
       link: cartItem.item.link,
+      isSavedForLater: cartItem.isSavedForLater,
     }));
 
     return res.status(200).json(formattedCartItems);
