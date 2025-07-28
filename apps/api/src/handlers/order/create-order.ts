@@ -295,7 +295,7 @@ async function sendOrderConfirmationEmail(result: {
         items
           .find((i) => i.id === item.itemId)
           ?.sizes.find((s) => s.id === item.sizeId)?.name ?? "",
-      image: item.image ?? "",
+      image: item.image.replaceAll("loom-image-dimensions", "360") ?? "",
     })),
     shippingEstimates: result.shippingEstimates.map((estimate) => ({
       cost: estimate.cost,
