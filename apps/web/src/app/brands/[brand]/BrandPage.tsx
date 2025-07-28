@@ -8,7 +8,7 @@ import { PaginationControl } from "@/components/Pagination/PaginationControl";
 import "./(components)/BrandPage.css";
 
 import { BrandsNavigator } from "./(components)/BrandsNavigator";
-import { BrandDescription, brandKey } from "./(components)/BrandDescription";
+import { BrandDescription } from "./(components)/BrandDescription";
 
 import { FollowButton } from "@/components/FollowButton/FollowButton";
 import { useParams, useSearchParams } from "next/navigation";
@@ -28,7 +28,7 @@ import { CardImage } from "@/components/card-image";
 import { ReadBrandsResponse } from "./(utils)/brand";
 
 export function BrandPageClient() {
-  const { brand } = useParams<{ brand: brandKey }>();
+  const { brand } = useParams<{ brand: string }>();
   const searchParams = useSearchParams();
 
   const queryString = searchParams.toString();
@@ -93,7 +93,7 @@ export function BrandPageClient() {
                   brandData={brandData}
                 />
               </div>
-              <BrandDescription brand={brand} />
+              {brandData && <BrandDescription brandData={brandData} />}
             </div>
             <div className="flex gap-4">
               <Link
@@ -114,7 +114,9 @@ export function BrandPageClient() {
           </div>
         </div>
 
-        <CategorySelector brandCategories={brandCategories} />
+        {brandCategories && (
+          <CategorySelector brandCategories={brandCategories} />
+        )}
         <FiltersAndCount metadata={metadata} />
         <GridLayout items={data} />
         <PaginationControl metadata={metadata} />

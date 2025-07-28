@@ -1,26 +1,27 @@
 "use client";
 
 import { Dialog } from "@radix-ui/themes";
-import { descriptionsAndLogos } from "@/data/descriptionsAndLogos";
+import { ReadBrandResponse } from "../(utils)/brand";
 
-export type brandKey = keyof typeof descriptionsAndLogos;
-export function BrandDescription({ brand }: { brand: brandKey }) {
+export function BrandDescription({
+  brandData,
+}: {
+  brandData: ReadBrandResponse;
+}) {
   return (
     <div className="BrandContainer__Description">
-      {descriptionsAndLogos[brand]?.description.length >= 110 ? (
+      {brandData.description && brandData.description.length >= 110 ? (
         <div>
-          {descriptionsAndLogos[brand]?.description.slice(0, 110)}
+          {brandData.description?.slice(0, 110)}
           <Dialog.Root>
             <Dialog.Trigger>
               <span className="description-trigger">...MORE</span>
             </Dialog.Trigger>
-            <Dialog.Content>
-              {descriptionsAndLogos[brand]?.description}
-            </Dialog.Content>
+            <Dialog.Content>{brandData.description}</Dialog.Content>
           </Dialog.Root>
         </div>
       ) : (
-        <p>{descriptionsAndLogos[brand]?.description}</p>
+        <p>{brandData.description}</p>
       )}
     </div>
   );
