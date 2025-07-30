@@ -61,4 +61,6 @@ export enum Endpoints {
   ApplicantById = "/applicant/:id",
   // recommendations
   Recommendations = "/recommendations",
+  // autofill
+  Autofill = "/autofill",
 }
