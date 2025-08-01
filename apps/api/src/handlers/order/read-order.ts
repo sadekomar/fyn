@@ -24,6 +24,11 @@ export const readOrder = handleExceptions(
     const order = await prisma.order.findUnique({
       where: { id },
       include: {
+        shippingEstimates: {
+          include: {
+            brand: true,
+          },
+        },
         items: {
           include: {
             size: true,
@@ -62,6 +67,11 @@ export const readOrderByNumber = handleExceptions(
     const order = await prisma.order.findUnique({
       where: { orderNumber },
       include: {
+        shippingEstimates: {
+          include: {
+            brand: true,
+          },
+        },
         items: {
           include: {
             size: true,
