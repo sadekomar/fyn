@@ -180,108 +180,11 @@ export default function PolicyPage() {
           </section>
 
           {/* Brand Verification & Return Responsibility */}
-          <section className="rounded-lg bg-white p-8 shadow-md">
-            <h2 className="mb-6 flex items-center text-2xl font-semibold text-gray-900">
-              <svg
-                className="mr-3 h-6 w-6 text-red-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Brand Verification & Return Responsibility
-            </h2>
-            <div className="space-y-6">
-              {/* Verified Brands */}
-              <div className="border-l-4 border-green-400 bg-green-50 p-4">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-5 w-5 text-green-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-green-800">
-                      Verified Brands
-                    </h3>
-                    <div className="mt-2 text-sm text-green-700">
-                      <p>
-                        For verified brands on our platform, Loom takes full
-                        responsibility for ensuring smooth return processes. We
-                        guarantee:
-                      </p>
-                      <ul className="mt-2 space-y-1">
-                        {verifiedBrandBenefits.map((benefit, index) => (
-                          <li key={index}>• {benefit}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Unverified Brands */}
-              <div className="border-l-4 border-red-400 bg-red-50 p-4">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-5 w-5 text-red-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">
-                      Unverified Brands
-                    </h3>
-                    <div className="mt-2 text-sm text-red-700">
-                      <p>
-                        <strong>Important:</strong> For orders from unverified
-                        brands, Loom is not responsible for return processing or
-                        refunds. Customers should:
-                      </p>
-                      <ul className="mt-2 space-y-1">
-                        {unverifiedBrandResponsibilities.map(
-                          (responsibility, index) => (
-                            <li key={index}>• {responsibility}</li>
-                          ),
-                        )}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3 text-gray-700">
-                {brandVerificationNotes.map((note, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gray-400"></div>
-                    <p>{note}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          {/* {BrandVerificationPolicy(
+            verifiedBrandBenefits,
+            unverifiedBrandResponsibilities,
+            brandVerificationNotes,
+          )} */}
 
           {/* Contact Information */}
           <section className="rounded-lg bg-blue-50 p-8">
@@ -333,5 +236,116 @@ export default function PolicyPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function BrandVerificationPolicy(
+  verifiedBrandBenefits: string[],
+  unverifiedBrandResponsibilities: string[],
+  brandVerificationNotes: string[],
+) {
+  return (
+    <section className="rounded-lg bg-white p-8 shadow-md">
+      <h2 className="mb-6 flex items-center text-2xl font-semibold text-gray-900">
+        <svg
+          className="mr-3 h-6 w-6 text-red-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        Brand Verification & Return Responsibility
+      </h2>
+      <div className="space-y-6">
+        {/* Verified Brands */}
+        <div className="border-l-4 border-green-400 bg-green-50 p-4">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg
+                className="h-5 w-5 text-green-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-green-800">
+                Verified Brands
+              </h3>
+              <div className="mt-2 text-sm text-green-700">
+                <p>
+                  For verified brands on our platform, Loom takes full
+                  responsibility for ensuring smooth return processes. We
+                  guarantee:
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {verifiedBrandBenefits.map((benefit, index) => (
+                    <li key={index}>• {benefit}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Unverified Brands */}
+        <div className="border-l-4 border-red-400 bg-red-50 p-4">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg
+                className="h-5 w-5 text-red-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-red-800">
+                Unverified Brands
+              </h3>
+              <div className="mt-2 text-sm text-red-700">
+                <p>
+                  <strong>Important:</strong> For orders from unverified brands,
+                  Loom is not responsible for return processing or refunds.
+                  Customers should:
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {unverifiedBrandResponsibilities.map(
+                    (responsibility, index) => (
+                      <li key={index}>• {responsibility}</li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3 text-gray-700">
+          {brandVerificationNotes.map((note, index) => (
+            <div key={index} className="flex items-start">
+              <div className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gray-400"></div>
+              <p>{note}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
