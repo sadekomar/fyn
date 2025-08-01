@@ -79,6 +79,11 @@ export type ReadOrderResponse = {
   email: string;
   phoneNumber: string;
   addressId: string;
+  shippingEstimates: {
+    id: string;
+    brand: Brand;
+    cost: number;
+  }[];
   items: {
     name: string;
     id: string;

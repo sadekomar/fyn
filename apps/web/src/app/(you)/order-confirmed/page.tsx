@@ -121,7 +121,7 @@ export default function OrderConfirmedPage() {
     (acc: number, item) => acc + item.price * item.quantity,
     0,
   );
-  const shippingEstimates = order.items.map((item) => item.shippingEstimate);
+  const shippingEstimates = order.shippingEstimates;
   const total =
     subtotal +
     shippingEstimates.reduce((acc: number, estimate) => acc + estimate.cost, 0);
