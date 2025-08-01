@@ -43,6 +43,12 @@ export default function PolicyPage() {
     "For questions about brand verification status, please contact our customer service team.",
   ];
 
+  const refundExchangePolicies = [
+    "Refunds and exchanges are subject to the individual brand's terms and conditions.",
+    "Each brand sets their own refund and exchange policies, which may vary significantly.",
+    "Customers must contact the specific brand directly for refund and exchange requests.",
+  ];
+
   const contactInfo = {
     customerService: {
       title: "Customer Service",
@@ -171,6 +177,58 @@ export default function PolicyPage() {
                 </div>
               </div>
               {discountPolicies.map((policy, index) => (
+                <div key={index} className="flex items-start">
+                  <div className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gray-400"></div>
+                  <p>{policy}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Refunds & Exchanges Policy */}
+          <section className="rounded-lg bg-white p-8 shadow-md">
+            <h2 className="mb-6 flex items-center text-2xl font-semibold text-gray-900">
+              <svg
+                className="mr-3 h-6 w-6 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                />
+              </svg>
+              Refunds & Exchanges
+            </h2>
+            <div className="space-y-4 text-gray-700">
+              <div className="mb-6 border-l-4 border-orange-400 bg-orange-50 p-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="h-5 w-5 text-orange-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-orange-700">
+                      <strong>Important:</strong> Refunds and exchanges are
+                      handled directly by each brand according to their
+                      individual policies.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {refundExchangePolicies.map((policy, index) => (
                 <div key={index} className="flex items-start">
                   <div className="mt-2 mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-gray-400"></div>
                   <p>{policy}</p>
