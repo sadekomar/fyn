@@ -1,60 +1,78 @@
+import prisma from "../prisma";
+
+export const findMissingBrands = async () => {
+  const dbBrands = await prisma.brand.findMany({
+    where: {
+      inTrash: false,
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+      name: true,
+      label: true,
+    },
+  });
+
+  const matcherBrands = new Set(
+    Object.keys(brandMatcher).map((key) => key.toLowerCase())
+  );
+
+  const missingBrands = dbBrands.filter((brand) => {
+    const brandName = brand.name.toLowerCase();
+    const brandLabel = brand.label?.toLowerCase();
+
+    return (
+      !matcherBrands.has(brandName) ||
+      (brandLabel && brandLabel !== brandName && !matcherBrands.has(brandLabel))
+    );
+  });
+
+  // Add missing brands to the brandMatcher object
+  missingBrands.forEach((brand) => {
+    const brandName = brand.name.toLowerCase();
+    const brandLabel = brand.label?.toLowerCase();
+
+    // Create enum key from brand name
+    const enumKey = brand.name.replace(/[^a-zA-Z0-9]/g, "");
+
+    // Add brand name to matcher if missing
+    if (!matcherBrands.has(brandName)) {
+      (brandMatcher as any)[brandName] = brand.name;
+    }
+
+    // Add brand label to matcher if it exists and is different from name
+    if (
+      brandLabel &&
+      brandLabel !== brandName &&
+      !matcherBrands.has(brandLabel)
+    ) {
+      (brandMatcher as any)[brandLabel] = brand.name;
+    }
+  });
+
+  console.log("missingbrands", missingBrands);
+  console.log(`Added ${missingBrands.length} missing brands to brandMatcher`);
+};
+
 const brands = {
-  konga: ["konga"],
   "basic stitches": ["basicstitches", "basic stitches"],
-  daddysgirl: ["daddysgirl"],
-  blnco: ["blnco"],
-  soul: ["soul"],
-  terre: ["terre"],
-  wahm: ["wahm"],
   "denim label": ["denimlabel", "denim label"],
   "double a": ["doublea", "double a"],
-  dodici: ["dodici"],
   "katee by kristina": ["kateebykristina", "katee by kristina"],
-  organdy: ["organdy"],
   "frill n wear": ["frillnwear", "frill n wear"],
-  bazic: ["bazic"],
-  moshpits: ["moshpits"],
-  fling: ["fling"],
-  almah: ["almah"],
-  ray: ["ray"],
-  mad: ["mad"],
-  clarified: ["clarified"],
   "euphoria denims": ["euphoriadenims", "euphoria denims"],
-  doxx: ["doxx"],
-  taycan: ["taycan"],
-  "am pm": ["ampm", "am pm"],
-  frenchee: ["frenchee"],
-  maiia: ["maiia"],
-  navy: ["nav"],
   "the preppy society": [
     "thepreppysociety",
     "the preppy society",
     "preppysociety",
     "preppy society",
   ],
-  psych: ["psych"],
-  mgmp: ["mgmp"],
-  quwa: ["quwa"],
-  aja: ["aja"],
-  notfound: ["notfound"],
-  jai: ["jai"],
   "daar dahlia": ["daardahlia", "daar dahlia"],
   sweep: ["sweep"],
   "mirna nakhla": ["mirnanakhla", "mirna nakhla"],
   seashell: ["seashell"],
   "black edition": ["blackedition", "black edition"],
-  spaceout: ["spaceout"],
-  stps: ["stps"],
-  tamo: ["tamo"],
-  musts: ["musts"],
-  totelly: ["totelly"],
-  forme: ["forme"],
   "brown toast": ["browntoast", "brown toast"],
-  elemnts: ["elemnts"],
-  hudz: ["hudz"],
-  seemly: ["seemly"],
-  haze: ["haze"],
-  madehill: ["madehill"],
   "boujee lane": ["boujeelane", "boujee lane"],
   "the basic look": [
     "thebasiclook",
@@ -62,18 +80,77 @@ const brands = {
     "basic look",
     "basiclook",
   ],
+  "baggy collective": ["baggycollective", "baggy collective"],
+  "ctrl cairo": ["ctrlcairo", "ctrl cairo"],
+  "designed by ducky": ["designedbyducky", "designed by ducky"],
+  "sa studio": ["sastudio", "sa studio"],
+  "null beings": ["nullbeings", "null beings"],
+  "little lads": ["littlelads", "little lads"],
+  coddiwomple: ["coddiwomple", "coddi womple", "codi womple"],
+  jiggyandco: ["jiggyandco", "jiggy and co"],
+  twoguys: ["twoguys", "two guys"],
+  "the stahps": ["thestahps", "the stahps"],
+  "basic couture": ["basiccouture", "basic couture"],
+  nashecollection: ["nashecollection", "nashe collection"],
+  "ordinary product": ["ordinaryproduct", "ordinary product"],
+  ppanther: ["ppanther", "p panther"],
+  homeboyattire: ["homeboyattire", "homeboy attire"],
+  designkaf: ["designkaf", "design kaf"],
+  fullslang: ["fullslang", "full slang"],
+  "be indie": ["beindie", "be indie"],
+  hrtbrk: ["hrtbrk", "hrt brk"],
+  "fehe concept": ["feheconcept", "fehe concept"],
+  alcamileon: ["alcamileon", "al camileon"],
+  "99 threads": ["99threads", "99 threads"],
+  thewpclub: ["thewpclub", "the wp club", "the wpclub"],
+  "maison dousha": ["maisondousha", "maison dousha"],
+  konga: ["konga"],
+  daddysgirl: ["daddysgirl"],
+  blnco: ["blnco"],
+  soul: ["soul"],
+  terre: ["terre"],
+  wahm: ["wahm"],
+  dodici: ["dodici"],
+  organdy: ["organdy"],
+  bazic: ["bazic"],
+  moshpits: ["moshpits"],
+  fling: ["fling"],
+  almah: ["almah"],
+  ray: ["ray"],
+  mad: ["mad"],
+  clarified: ["clarified"],
+  doxx: ["doxx"],
+  taycan: ["taycan"],
+  "am pm": ["ampm", "am pm"],
+  frenchee: ["frenchee"],
+  maiia: ["maiia"],
+  navy: ["nav"],
+  psych: ["psych"],
+  mgmp: ["mgmp"],
+  quwa: ["quwa"],
+  aja: ["aja"],
+  notfound: ["notfound"],
+  jai: ["jai"],
+  spaceout: ["spaceout"],
+  stps: ["stps"],
+  tamo: ["tamo"],
+  musts: ["musts"],
+  totelly: ["totelly"],
+  forme: ["forme"],
+  elemnts: ["elemnts"],
+  hudz: ["hudz"],
+  seemly: ["seemly"],
+  haze: ["haze"],
+  madehill: ["madehill"],
   freyya: ["freyya"],
   zei: ["zei"],
-  "baggy collective": ["baggycollective", "baggy collective"],
   moongie: ["moongie"],
   nare: ["nare"],
   ayo: ["ayo"],
   takeover: ["takeover"],
-  "ctrl cairo": ["ctrlcairo", "ctrl cairo"],
   peppers: ["peppers"],
   blameworthy: ["blameworthy"],
   abstract: ["abstract"],
-  "designed by ducky": ["designedbyducky", "designed by ducky"],
   manifest: ["manifest"],
   vulaire: ["vulaire"],
   elodie: ["elodie"],
@@ -83,7 +160,6 @@ const brands = {
   denjo: ["denjo"],
   blac: ["blac"],
   zuri: ["zuri"],
-  "sa studio": ["sastudio", "sa studio"],
   ausetia: ["ausetia"],
   loafers: ["loafers"],
   najlah: ["najlah"],
@@ -94,11 +170,9 @@ const brands = {
   escala: ["escala"],
   antidote: ["antidote"],
   ghazl: ["ghazl"],
-  "null beings": ["nullbeings", "null beings"],
   dnm: ["dnm"],
   juvenile: ["juvenile"],
   runes: ["runes"],
-  "little lads": ["littlelads", "little lads"],
   sundaysbest: ["sundaysbest"],
   kijaqo: ["kijaqo"],
   "3einn": ["3einn"],
@@ -115,57 +189,43 @@ const brands = {
   glitch: ["glitch"],
   horra: ["horra"],
   minerva: ["minerva"],
-  coddiwomple: ["coddiwomple", "coddi womple", "codi womple"],
   taysa: ["taysa"],
-  jiggyandco: ["jiggyandco", "jiggy and co"],
   mayaba: ["mayaba"],
   "8tsh": ["8tsh"],
   crunk: ["crunk"],
   beyond: ["beyond"],
   leaf: ["leaf"],
   leil: ["leil"],
-  twoguys: ["twoguys", "two guys"],
-  "the stahps": ["thestahps", "the stahps"],
   nuude: ["nuude"],
   alyqza: ["alyqza"],
   camo: ["camo"],
   kracked: ["kracked"],
   warped: ["warped"],
   urbns: ["urbns"],
-  "basic couture": ["basiccouture", "basic couture"],
   vega: ["vega"],
   core: ["core"],
   lalas: ["lalas"],
   chav: ["chav"],
-  nashecollection: ["nashecollection", "nashe collection"],
-  "ordinary product": ["ordinaryproduct", "ordinary product"],
-  ppanther: ["ppanther", "p panther"],
   myne: ["myne"],
   mzaco: ["mzaco"],
   leon: ["leon"],
   minilet: ["minilet"],
-  homeboyattire: ["homeboyattire", "homeboy attire"],
-  designkaf: ["designkaf", "design kaf"],
   slack: ["slack"],
   fufa: ["fufa"],
-  fullslang: ["fullslang", "full slang"],
   kulture: ["kulture"],
   kato: ["kato"],
   riddle: ["riddle"],
   replica: ["replica"],
   kangaroo: ["kangaroo"],
   azelea: ["azelea"],
-  "be indie": ["beindie", "be indie"],
   asili: ["asili"],
   stache: ["stache"],
   nspired: ["nspired"],
   odd: ["odd"],
   silq: ["silq"],
-  hrtbrk: ["hrtbrk", "hrt brk"],
   fools: ["fools"],
   pulp: ["pulp"],
   novencci: ["novencci"],
-  "fehe concept": ["feheconcept", "fehe concept"],
   greaze: ["greaze"],
   illusion: ["illusion"],
   bazets: ["bazets"],
@@ -173,18 +233,13 @@ const brands = {
   sass: ["sass"],
   kuji: ["kuji"],
   tamaa: ["tamaa"],
-  alcamileon: ["alcamileon", "al camileon"],
   clother: ["clother"],
-  "99 threads": ["99threads", "99 threads"],
-  thewpclub: ["thewpclub", "the wp club", "the wpclub"],
   locco: ["locco"],
   kika: ["kika"],
   antikka: ["antikka"],
-  "maison dousha": ["maisondousha", "maison dousha"],
 };
 
 enum b {
-  Mymayz = "mymayz",
   Secret = "secret",
   Kloth = "kloth",
   LeenaAndeel = "leena andeel",
@@ -379,8 +434,6 @@ enum b {
 // console.log(reverseBrands);
 
 export const brandMatcher: Record<string, b> = {
-  "my mayz": b.Mymayz,
-  mymayz: b.Mymayz,
   secret: b.Secret,
   kloth: b.Kloth,
   "by leena andeel": b.LeenaAndeel,
@@ -609,3 +662,5 @@ export const brandMatcher: Record<string, b> = {
   maisondousha: b.MaisonDousha,
   "maison dousha": b.MaisonDousha,
 };
+
+findMissingBrands();
