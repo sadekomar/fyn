@@ -56,7 +56,7 @@ export function ItemCard({
             className="transition-all duration-300 active:scale-95"
             loading={imgLoading}
             src={image === "" ? undefined : image}
-            sizes="(max-width: 768px) 180px, 240px"
+            sizes="(max-width: 768px) 80px, 200px"
             alt={name}
             onError={() => setImageError(true)}
             style={{

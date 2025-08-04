@@ -14,6 +14,7 @@ export function CardImage({ ...props }: ImgHTMLAttributes<HTMLImageElement>) {
     XL: "900",
     L: "720",
     M: "590",
+    SM: "400",
     S: "360",
     XS: "180",
     BLUR: "20",
