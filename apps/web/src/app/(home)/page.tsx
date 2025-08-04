@@ -132,10 +132,10 @@ export default async function Home() {
       ),
   });
   await queryClient.prefetchQuery({
-    queryKey: ["mymayz"],
+    queryKey: ["secret"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=mymayz&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=secret&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 

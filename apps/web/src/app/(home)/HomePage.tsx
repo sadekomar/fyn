@@ -109,11 +109,11 @@ export function ClientHomePage() {
         `/items?brands=locken&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
-  const { data: mymayz = [] } = useQuery<ItemCardsI[]>({
-    queryKey: ["mymayz"],
+  const { data: secret = [] } = useQuery<ItemCardsI[]>({
+    queryKey: ["secret"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=mymayz&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=secret&limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 
@@ -184,15 +184,14 @@ export function ClientHomePage() {
       </section>
 
       <BrandSection
-        cover={"/mymayz-cover.png"}
-        logo={"/mymayz-logo.png"}
-        description="offering sustainable, elegant, and affordable
-        solutions that reflect the art of living well."
+        cover={"/secret-cover.jpg"}
+        logo={"/secret-logo.png"}
+        description="Since 2015, Secret has blended elegance with simplicity, offering timeless, high-quality pieces."
         theme="dark"
         primaryColor="#515151"
         secondaryColor="#343434"
-        brand="mymayz"
-        items={mymayz}
+        brand="secret"
+        items={secret}
       />
 
       {recentlyViewedItems && recentlyViewedItems.length > 0 && (
