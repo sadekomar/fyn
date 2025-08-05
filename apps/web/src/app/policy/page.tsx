@@ -76,6 +76,56 @@ export default function PolicyPage() {
           </p>
         </div>
 
+        {/* Important Disclosure Section */}
+        <section className="mb-8 rounded-lg border-l-4 border-red-400 bg-red-50 p-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg
+                className="h-6 w-6 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="mb-2 text-lg font-semibold text-red-800">
+                Important Disclosure
+              </h3>
+              <div className="space-y-2 text-red-700">
+                <p>
+                  <strong>Data Collection:</strong> Loom scrapes product data
+                  from various brands and retailers across the internet to
+                  provide you with a comprehensive shopping experience.
+                </p>
+                <p>
+                  <strong>No Affiliation:</strong> We are not affiliated with,
+                  endorsed by, or partnered with any of the brands or retailers
+                  whose products we display on our platform.
+                </p>
+                <p>
+                  <strong>Sales Process:</strong> All sales are processed
+                  directly by the respective brands and retailers. Loom does not
+                  handle any financial transactions or receive any portion of
+                  the sales proceeds.
+                </p>
+                <p>
+                  <strong>Brand Responsibility:</strong> Each brand is solely
+                  responsible for their products, pricing, shipping, returns,
+                  and customer service. Loom acts solely as a discovery
+                  platform.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Policy Sections */}
         <div className="space-y-8">
           {/* Orders Policy */}
