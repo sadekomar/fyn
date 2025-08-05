@@ -51,7 +51,7 @@ export default async function Home() {
     queryKey: ["home-items"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -59,7 +59,7 @@ export default async function Home() {
     queryKey: ["brand-of-the-day", config.brandOfTheDay.value],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -85,7 +85,7 @@ export default async function Home() {
     queryKey: ["home-tops"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?categories=tops&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?categories=tops&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -93,7 +93,7 @@ export default async function Home() {
     queryKey: ["home-sets"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?categories=sets&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?categories=sets&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -102,7 +102,7 @@ export default async function Home() {
     queryKey: ["linens"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?materials=linen&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?materials=linen&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -111,7 +111,7 @@ export default async function Home() {
     queryKey: ["home-yellow"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?colors=yellow&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?colors=yellow&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -120,7 +120,7 @@ export default async function Home() {
     queryKey: ["kloth"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=kloth&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=kloth&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -128,14 +128,14 @@ export default async function Home() {
     queryKey: ["locken"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=locken&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=locken&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
   await queryClient.prefetchQuery({
     queryKey: ["secret"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?brands=secret&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=secret&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 

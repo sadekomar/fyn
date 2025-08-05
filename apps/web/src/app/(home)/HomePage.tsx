@@ -22,14 +22,14 @@ export function ClientHomePage() {
     queryKey: ["home-items"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?limit=20&sort_by=date-descending&in-stock=true`,
+        `/items?limit=20&sort_by=date-descending&in-stock=true&is_partnered_brand=true`,
       ),
   });
   const { data: brandOfTheDay = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["brand-of-the-day", config.brandOfTheDay.value],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=${config.brandOfTheDay.value}&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
     enabled: !!config.brandOfTheDay.value,
   });
@@ -65,14 +65,14 @@ export function ClientHomePage() {
     queryKey: ["home-tops"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?categories=tops&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?categories=tops&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
   const { data: sets = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["home-sets"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?categories=sets&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?categories=sets&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -81,7 +81,7 @@ export function ClientHomePage() {
     queryKey: ["linens"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?materials=linen&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?materials=linen&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -90,7 +90,7 @@ export function ClientHomePage() {
     queryKey: ["home-yellow"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?colors=yellow&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?colors=yellow&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
@@ -99,21 +99,21 @@ export function ClientHomePage() {
     queryKey: ["kloth"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=kloth&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=kloth&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
   const { data: locken = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["locken"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=locken&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=locken&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
   const { data: secret = [] } = useQuery<ItemCardsI[]>({
     queryKey: ["secret"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?brands=secret&limit=20&sort_by=date-descending&in_stock=true`,
+        `/items?brands=secret&limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
       ),
   });
 
