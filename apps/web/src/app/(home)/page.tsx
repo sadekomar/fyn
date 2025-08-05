@@ -11,7 +11,7 @@ import { ClientHomePage } from "./HomePage";
 import { config } from "./utils";
 import { ReadCategoriesResponse } from "../categories/[category]/(utils)/category-types";
 import { Endpoints } from "@/api/endpoints";
-import { OnSaleCard } from "../item/[id]/item";
+// import { OnSaleCard } from "../item/[id]/item";
 
 export const revalidate = 43200; // 12 hours in seconds
 
@@ -75,10 +75,10 @@ export default async function Home() {
       serverHttp.get<ReadCategoriesResponse>(Endpoints.MoreCategories),
   });
 
-  await queryClient.prefetchQuery({
-    queryKey: ["on-sale-items"],
-    queryFn: () => serverHttp.get<OnSaleCard[]>(Endpoints.ItemsOnSale),
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["on-sale-items"],
+  //   queryFn: () => serverHttp.get<OnSaleCard[]>(Endpoints.ItemsOnSale),
+  // });
 
   // categories
   await queryClient.prefetchQuery({

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { LoomImage } from "@/components/LoomImage";
 import { Endpoints } from "@/api/endpoints";
 import { ReadCategoriesResponse } from "../categories/[category]/(utils)/category-types";
-import { OnSaleCard } from "../item/[id]/item";
+// import { OnSaleCard } from "../item/[id]/item";
 import { getIdQuery } from "../(utils)/utils";
 import { getCurrentUser } from "@/lib/auth";
 import { HScrollerPlaceholder } from "@/layouts/HorizontalScroller/HScrollerPlaceholder";
@@ -43,10 +43,10 @@ export function ClientHomePage() {
     queryFn: () =>
       clientHttp.get<ReadCategoriesResponse>(Endpoints.MoreCategories),
   });
-  const { data: onSaleItems } = useQuery({
-    queryKey: ["on-sale-items"],
-    queryFn: () => clientHttp.get<OnSaleCard[]>(Endpoints.ItemsOnSale),
-  });
+  // const { data: onSaleItems } = useQuery({
+  //   queryKey: ["on-sale-items"],
+  //   queryFn: () => clientHttp.get<OnSaleCard[]>(Endpoints.ItemsOnSale),
+  // });
   const { data: recentlyViewedItems, isLoading } = useQuery({
     queryKey: ["recently-viewed-items"],
     queryFn: async () => {
@@ -175,13 +175,13 @@ export function ClientHomePage() {
 
       <PopularCategories categories={popularCategories ?? []} />
 
-      <section className="flex flex-col gap-4 bg-gray-200 py-8">
+      {/* <section className="flex flex-col gap-4 bg-gray-200 py-8">
         <div className="rounded-b-[20px] px-4">
           <h2 className="text-2xl font-bold">On Sale</h2>
           <p>Snag them up before they're gone.</p>
         </div>
         <HorizontalScroller items={onSaleItems ?? []} />
-      </section>
+      </section> */}
 
       <BrandSection
         cover={"/secret-cover.jpg"}

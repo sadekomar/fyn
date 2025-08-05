@@ -11,7 +11,7 @@ export function HorizontalScroller({
   children,
   theme,
 }: {
-  items: ItemCardsI[] | OnSaleCard[];
+  items: ItemCardsI[];
   children?: ReactElement<any>;
   theme?: "dark" | "light";
 }) {
@@ -33,9 +33,6 @@ export function HorizontalScroller({
               imgLoading="eager"
               isSoldOut={item.isSoldOut}
               theme={theme}
-              highestPrice={
-                "highestPrice" in item ? item.highestPrice : undefined
-              }
             />
           ))
         : [...Array(20)].map((_, index) => <ItemCardPlaceholder key={index} />)}
