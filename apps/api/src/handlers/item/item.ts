@@ -133,6 +133,7 @@ export type ItemCardsI = {
   brand: {
     name: string;
     label: string | null;
+    isPartneredBrand: boolean;
   };
   image: string | null;
   isSoldOut: boolean;
@@ -149,6 +150,7 @@ export type ItemSuccess = {
   brand: {
     name: string;
     label: string | null;
+    isPartneredBrand: boolean;
   };
   images: string[];
   categories: string[];

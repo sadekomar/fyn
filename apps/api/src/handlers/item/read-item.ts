@@ -44,6 +44,7 @@ export const readItem = handleExceptions(
           select: {
             name: true,
             label: true,
+            isPartnerBrand: true,
           },
         },
         categories: {
@@ -90,6 +91,7 @@ export const readItem = handleExceptions(
       brand: {
         name: item.brand.name,
         label: item.brand.label,
+        isPartneredBrand: item.brand.isPartnerBrand,
       },
       link: item.link,
       images: item.images.map((image) => image.url),

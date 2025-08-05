@@ -72,6 +72,7 @@ export const readLikes = handleExceptions(
       brand: {
         name: like.item.brand.name,
         label: like.item.brand.label,
+        isPartneredBrand: like.item.brand.isPartnerBrand,
       },
       isSoldOut: like.item.isSoldOut,
     }));

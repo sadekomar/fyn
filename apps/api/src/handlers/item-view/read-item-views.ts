@@ -50,6 +50,7 @@ export const readUserItemViews = handleExceptions(
         brand: {
           name: itemView.item.brand.name,
           label: itemView.item.brand.label,
+          isPartneredBrand: itemView.item.brand.isPartnerBrand,
         },
         image: itemView.item.images[0].url,
         isSoldOut: itemView.item.isSoldOut,

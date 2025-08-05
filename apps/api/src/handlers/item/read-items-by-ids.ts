@@ -36,6 +36,7 @@ export const readItemsByIds = handleExceptions(
           select: {
             name: true,
             label: true,
+            isPartnerBrand: true,
           },
         },
         images: {
@@ -61,6 +62,7 @@ export const readItemsByIds = handleExceptions(
           brand: {
             name: item.brand.name,
             label: item.brand.label,
+            isPartneredBrand: item.brand.isPartnerBrand,
           },
           image: item.images[0].url,
           gender: item.gender ? translateGender(item.gender) : null,

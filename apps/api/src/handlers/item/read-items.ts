@@ -7,6 +7,7 @@ import { constructWhere } from "../../helpers/construct-where";
 import { getSortBy } from "../../helpers/get-sort-by";
 import { Gender } from "@prisma/client";
 import { hasValidValue } from "../../helpers/has-valid-value";
+import { ErrorResponse } from "../like/like";
 
 const genderMap: Record<string, Gender> = {
   MALE: Gender.MALE,
@@ -85,6 +86,7 @@ export const readItems = handleExceptions(
           select: {
             name: true,
             label: true,
+            isPartnerBrand: true,
           },
         },
         material: {
@@ -119,6 +121,7 @@ export const readItems = handleExceptions(
       brand: {
         name: item.brand.name,
         label: item.brand.label,
+        isPartneredBrand: item.brand.isPartnerBrand,
       },
       image: item.images[0]?.url,
       isSoldOut: item.isSoldOut,
@@ -183,13 +186,13 @@ export const readCategoriesWithImages = handleExceptions(
 );
 
 export const readItemsMetadata = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<MetadataI>> => {
+  async (req: Request, res: Response<MetadataI | ErrorResponse>) => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
     if (!parsedQuery.success) {
       return res.status(400).json({
-        error: "Invalid query parameters",
-        details: parsedQuery.error.format(),
+        status: "error",
+        error: { root: ["Invalid query parameters"] },
       });
     }
 
