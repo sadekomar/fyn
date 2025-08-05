@@ -20,6 +20,7 @@ export default function PolicyPage() {
   ];
 
   const verifiedBrandBenefits = [
+    "Direct ordering through Loom platform",
     "Hassle-free return processing",
     "Direct communication with the brand for resolution",
     "Full refund or replacement guarantee",
@@ -31,6 +32,7 @@ export default function PolicyPage() {
   ];
 
   const unverifiedBrandResponsibilities = [
+    "You can only place orders through the brand's original website",
     "Contact the brand directly for returns and refunds",
     "Follow the brand's specific return policies",
     "Handle shipping and return costs independently",
@@ -77,11 +79,11 @@ export default function PolicyPage() {
         </div>
 
         {/* Important Disclosure Section */}
-        <section className="mb-8 rounded-lg border-l-4 border-red-400 bg-red-50 p-6">
+        <section className="mb-8 rounded-lg bg-white p-6 shadow-md">
           <div className="flex">
             <div className="flex-shrink-0">
               <svg
-                className="h-6 w-6 text-red-400"
+                className="h-6 w-6 text-gray-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -95,10 +97,10 @@ export default function PolicyPage() {
               </svg>
             </div>
             <div className="ml-3">
-              <h3 className="mb-2 text-lg font-semibold text-red-800">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 Important Disclosure
               </h3>
-              <div className="space-y-2 text-red-700">
+              <div className="space-y-2 text-gray-700">
                 <p>
                   <strong>Data Collection:</strong> Loom scrapes product data
                   from various brands across the internet to provide you with a
@@ -108,6 +110,11 @@ export default function PolicyPage() {
                   <strong>No Affiliation:</strong> We are not affiliated with,
                   endorsed by, or partnered with any unverified brands we
                   display on our platform.
+                </p>
+                <p>
+                  <strong>Ordering Process:</strong> For unverified brands, you
+                  can only place orders directly through the brand's original
+                  website. Loom does not process orders for unverified brands.
                 </p>
                 <p>
                   <strong>Brand Responsibility:</strong> Each brand is solely
@@ -357,10 +364,10 @@ function BrandVerificationPolicy({
   brandVerificationNotes: string[];
 }) {
   return (
-    <section className="rounded-lg bg-white p-8 shadow-md">
+    <section className="mb-8 rounded-lg bg-white p-8 shadow-md">
       <h2 className="mb-6 flex items-center text-2xl font-semibold text-gray-900">
         <svg
-          className="mr-3 h-6 w-6 text-red-600"
+          className="mr-3 h-6 w-6 text-blue-600"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -376,11 +383,11 @@ function BrandVerificationPolicy({
       </h2>
       <div className="space-y-6">
         {/* Verified Brands */}
-        <div className="border-l-4 border-green-400 bg-green-50 p-4">
+        <div className="border-l-4 border-blue-400 bg-blue-50 p-4">
           <div className="flex">
             <div className="flex-shrink-0">
               <svg
-                className="h-5 w-5 text-green-400"
+                className="h-5 w-5 text-blue-400"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -392,10 +399,10 @@ function BrandVerificationPolicy({
               </svg>
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-green-800">
+              <h3 className="text-sm font-medium text-blue-800">
                 Verified Brands
               </h3>
-              <div className="mt-2 text-sm text-green-700">
+              <div className="mt-2 text-sm text-blue-700">
                 <p>
                   For verified brands on our platform, Loom takes full
                   responsibility for ensuring smooth return processes. We
@@ -412,11 +419,11 @@ function BrandVerificationPolicy({
         </div>
 
         {/* Unverified Brands */}
-        <div className="border-l-4 border-red-400 bg-red-50 p-4">
+        <div className="border-l-4 border-blue-300 bg-blue-50 p-4">
           <div className="flex">
             <div className="flex-shrink-0">
               <svg
-                className="h-5 w-5 text-red-400"
+                className="h-5 w-5 text-blue-400"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -428,10 +435,10 @@ function BrandVerificationPolicy({
               </svg>
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-red-800">
+              <h3 className="text-sm font-medium text-blue-800">
                 Unverified Brands
               </h3>
-              <div className="mt-2 text-sm text-red-700">
+              <div className="mt-2 text-sm text-blue-700">
                 <p>
                   <strong>Important:</strong> For orders from unverified brands,
                   Loom is not responsible for return processing or refunds.
