@@ -29,6 +29,8 @@ export function ItemDataPlaceholder() {
                 brand: {
                   name: "undefined",
                   label: "undefined",
+
+                  isPartneredBrand: false,
                 },
                 image: "undefined",
                 isSoldOut: false,

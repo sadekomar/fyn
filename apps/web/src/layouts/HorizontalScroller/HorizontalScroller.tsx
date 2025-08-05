@@ -28,7 +28,7 @@ export function HorizontalScroller({
               id={item["id"]}
               name={item["name"]}
               price={item["price"]}
-              brand={item["brand"]}
+              brand={item.brand}
               image={item["image"]}
               imgLoading="eager"
               isSoldOut={item.isSoldOut}
