@@ -121,6 +121,7 @@ export type OnSaleCard = {
   brand: {
     name: string;
     label: string | null;
+    isPartneredBrand: boolean;
   };
   image: string | null;
   isSoldOut: boolean;

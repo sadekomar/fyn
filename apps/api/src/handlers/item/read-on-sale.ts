@@ -17,6 +17,7 @@ export const readOnSale = handleExceptions(
       i."isSoldOut",
       b.name AS "brandName",
       b.label AS "brandLabel",
+      b.isPartneredBrand AS "isPartneredBrand",
       p_latest.price AS price,
       p_high.price AS "highestPrice",
       img.url AS image
@@ -63,6 +64,7 @@ export const readOnSale = handleExceptions(
       brand: {
         name: item.brandName,
         label: item.brandLabel,
+        isPartneredBrand: item.isPartnerBrand,
       },
       image: item.image,
       isSoldOut: item.isSoldOut,
