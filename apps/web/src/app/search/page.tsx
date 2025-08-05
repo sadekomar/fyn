@@ -16,6 +16,7 @@ import { ColorPills } from "../(home)/(components)/color-pills";
 import { ItemCardsI, MetadataI } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { clientHttp } from "@/lib/queries/http.service";
+import { Endpoints } from "@/api/endpoints";
 
 export default function SearchPage() {
   const pathname = usePathname();
@@ -39,11 +40,21 @@ export default function SearchPage() {
   let [searchHistory, setSearchHistory] = useState<string[]>([]);
   let [autofill, setAutofill] = useState<string[]>([]);
 
+  useEffect(() => {
+    console.log("searchHistory", searchHistory);
+    console.log("autofill", autofill);
+  }, [searchHistory, autofill]);
+
   // Fetching data
   function search(query: string) {
     addToSearchHistory(query);
     window.history.pushState(null, "", pathname + `?search=${query}`);
   }
+
+  useQuery({
+    queryKey: ["autofill"],
+    queryFn: () => clientHttp.get<string[]>(Endpoints.Autofill),
+  });
 
   // Autofill
   function generateAutofillSuggestions() {
@@ -204,7 +215,7 @@ export default function SearchPage() {
           </div>
           <div
             ref={autofillRef}
-            className={`autofill-wrapper search-blurred ${!searchParams.get("search") ? "autofill-wrapper-initial" : ""}`}
+            className={`autofill-wrapper ${!searchParams.get("search") ? "autofill-wrapper-initial" : ""}`}
           >
             {searchHistory &&
               searchHistory.slice(0, 12).map((suggestion, index) => (

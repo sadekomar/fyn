@@ -126,6 +126,12 @@ export default function PolicyPage() {
           </div>
         </section>
 
+        <BrandVerificationPolicy
+          verifiedBrandBenefits={verifiedBrandBenefits}
+          unverifiedBrandResponsibilities={unverifiedBrandResponsibilities}
+          brandVerificationNotes={brandVerificationNotes}
+        />
+
         {/* Policy Sections */}
         <div className="space-y-8">
           {/* Orders Policy */}
@@ -347,11 +353,15 @@ export default function PolicyPage() {
   );
 }
 
-function BrandVerificationPolicy(
-  verifiedBrandBenefits: string[],
-  unverifiedBrandResponsibilities: string[],
-  brandVerificationNotes: string[],
-) {
+function BrandVerificationPolicy({
+  verifiedBrandBenefits,
+  unverifiedBrandResponsibilities,
+  brandVerificationNotes,
+}: {
+  verifiedBrandBenefits: string[];
+  unverifiedBrandResponsibilities: string[];
+  brandVerificationNotes: string[];
+}) {
   return (
     <section className="rounded-lg bg-white p-8 shadow-md">
       <h2 className="mb-6 flex items-center text-2xl font-semibold text-gray-900">

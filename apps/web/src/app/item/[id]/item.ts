@@ -116,6 +116,7 @@ export type ItemSuccess = {
   brand: {
     name: string;
     label: string | null;
+    isPartneredBrand: boolean;
   };
   images: string[];
   categories: string[];

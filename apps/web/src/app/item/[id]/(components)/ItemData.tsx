@@ -24,8 +24,25 @@ export function ItemData({ data }: { data: ItemSuccess }) {
         <h2 className="item-data__title">{data.name}</h2>
         <p className="item-data__brand">
           By{" "}
-          <Link className="brand-link" href={`/brands/${data.brand.name}`}>
+          <Link
+            className="brand-link flex items-center gap-1"
+            href={`/brands/${data.brand.name}`}
+          >
             {data.brand.label ?? data.brand.name}
+            {data.brand.isPartneredBrand && (
+              <svg
+                className="h-4 w-4 flex-shrink-0 text-blue-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
           </Link>
         </p>
         <div className="flex gap-2">
@@ -76,11 +93,22 @@ export function ItemData({ data }: { data: ItemSuccess }) {
         />
 
         <div className="action-buttons-wrapper">
-          <AddToCart
-            data={data}
-            selectedColor={selectedColor}
-            selectedSize={selectedSize}
-          />
+          {data.brand.isPartneredBrand ? (
+            <AddToCart
+              data={data}
+              selectedColor={selectedColor}
+              selectedSize={selectedSize}
+            />
+          ) : (
+            <a
+              href={data.link}
+              className="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buy from {data.brand.label ? data.brand.label : data.brand.name}
+            </a>
+          )}
         </div>
 
         {data.description && data.description.length > 0 && (
