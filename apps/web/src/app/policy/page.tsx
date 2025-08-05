@@ -101,19 +101,13 @@ export default function PolicyPage() {
               <div className="space-y-2 text-red-700">
                 <p>
                   <strong>Data Collection:</strong> Loom scrapes product data
-                  from various brands and retailers across the internet to
-                  provide you with a comprehensive shopping experience.
+                  from various brands across the internet to provide you with a
+                  comprehensive shopping experience.
                 </p>
                 <p>
                   <strong>No Affiliation:</strong> We are not affiliated with,
-                  endorsed by, or partnered with any of the brands or retailers
-                  whose products we display on our platform.
-                </p>
-                <p>
-                  <strong>Sales Process:</strong> All sales are processed
-                  directly by the respective brands and retailers. Loom does not
-                  handle any financial transactions or receive any portion of
-                  the sales proceeds.
+                  endorsed by, or partnered with any unverified brands we
+                  display on our platform.
                 </p>
                 <p>
                   <strong>Brand Responsibility:</strong> Each brand is solely
