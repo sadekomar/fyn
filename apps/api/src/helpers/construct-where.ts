@@ -14,6 +14,7 @@ export function constructWhere(parsedQuery: QueryI) {
     materials,
     showrooms,
     in_stock,
+    is_partnered_brand,
   } = parsedQuery;
 
   if (search?.trim()) {
@@ -65,6 +66,12 @@ export function constructWhere(parsedQuery: QueryI) {
       some: {
         available: true,
       },
+    };
+  }
+  if (is_partnered_brand === true) {
+    where.brand = {
+      ...where.brand,
+      isPartnerBrand: true,
     };
   }
   where.inTrash = false;

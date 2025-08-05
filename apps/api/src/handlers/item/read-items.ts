@@ -45,6 +45,13 @@ const QuerySchema = z.object({
   page: z.coerce.number().optional(),
   limit: z.coerce.number().optional(),
   sort_by: z.string().optional(),
+  is_partnered_brand: z
+    .union([
+      z.literal("true").transform(() => true),
+      z.literal("false").transform(() => false),
+      z.boolean(),
+    ])
+    .optional(),
   in_stock: z
     .union([
       z.literal("true").transform(() => true),
@@ -60,6 +67,7 @@ export const readItems = handleExceptions(
   async (req: Request, res: Response): Promise<Response<ItemCardsI[]>> => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
+    console.log(parsedQuery.data);
     if (!parsedQuery.success) {
       return res.status(400).json({
         error: "Invalid query parameters",
