@@ -102,7 +102,7 @@ export default function PolicyPage() {
               </h3>
               <div className="space-y-2 text-gray-700">
                 <p>
-                  <strong>Data Collection:</strong> Loom scrapes product data
+                  <strong>Data Collection:</strong> Loom gathers product data
                   from various brands across the internet to provide you with a
                   comprehensive shopping experience.
                 </p>
@@ -110,17 +110,6 @@ export default function PolicyPage() {
                   <strong>No Affiliation:</strong> We are not affiliated with,
                   endorsed by, or partnered with any unverified brands we
                   display on our platform.
-                </p>
-                <p>
-                  <strong>Ordering Process:</strong> For unverified brands, you
-                  can only place orders directly through the brand's original
-                  website. Loom does not process orders for unverified brands.
-                </p>
-                <p>
-                  <strong>Brand Responsibility:</strong> Each brand is solely
-                  responsible for their products, pricing, shipping, returns,
-                  and customer service. Loom acts solely as a discovery
-                  platform.
                 </p>
               </div>
             </div>
