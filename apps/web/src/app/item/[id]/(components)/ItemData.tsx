@@ -93,22 +93,11 @@ export function ItemData({ data }: { data: ItemSuccess }) {
         />
 
         <div className="action-buttons-wrapper">
-          {data.brand.isPartneredBrand ? (
-            <AddToCart
-              data={data}
-              selectedColor={selectedColor}
-              selectedSize={selectedSize}
-            />
-          ) : (
-            <a
-              href={data.link}
-              className="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Buy from {data.brand.label ? data.brand.label : data.brand.name}
-            </a>
-          )}
+          <AddToCart
+            data={data}
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+          />
         </div>
 
         {data.description && data.description.length > 0 && (

@@ -82,11 +82,12 @@ export function Footer() {
           <p>
             Loom makes local brands much more acessible, by combining more than
             300 of them all in one place. Items on Loom are always up to date,
-            reflecting the latest stock, prices, and images. Unverified brands
-            are not affiliated with, endorsed by, or partnered with Loom. (i.e.
-            Loom doesn't make any profits off of unverified brands) Loom gathers
-            product data from various brands across the internet to provide you
-            with a comprehensive shopping experience.
+            reflecting the latest stock, prices, and images.
+            <br />
+            <br />
+            <strong>Important note:</strong>
+            Unverified brands are not affiliated with, endorsed by, or partnered
+            with Loom.
           </p>
         </div>
         <div className="FooterBrowseNav">
