@@ -47,7 +47,7 @@ export function getShippingEstimates(
   uniqueBrands.forEach((brand) => {
     shippingEstimates.push({
       brand: brand,
-      cost: 70,
+      cost: 80,
       itemIds: cartItems
         .filter((item) => item.brand.name === brand)
         .map((item) => item.id),
