@@ -51,7 +51,7 @@ export default async function Home() {
     queryKey: ["home-items"],
     queryFn: () =>
       serverHttp.get<ItemCardsI[]>(
-        `/items?limit=20&sort_by=date-descending&in_stock=true&is_partnered_brand=true`,
+        `/items?limit=20&sort_by=date-descending&in_stock=true`,
       ),
   });
 

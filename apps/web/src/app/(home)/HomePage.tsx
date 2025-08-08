@@ -22,7 +22,7 @@ export function ClientHomePage() {
     queryKey: ["home-items"],
     queryFn: () =>
       clientHttp.get<ItemCardsI[]>(
-        `/items?limit=20&sort_by=date-descending&in-stock=true&is_partnered_brand=true`,
+        `/items?limit=20&sort_by=date-descending&in-stock=true`,
       ),
   });
   const { data: brandOfTheDay = [] } = useQuery<ItemCardsI[]>({
