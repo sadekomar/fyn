@@ -67,7 +67,6 @@ export const readItems = handleExceptions(
   async (req: Request, res: Response): Promise<Response<ItemCardsI[]>> => {
     const parsedQuery = QuerySchema.safeParse(req.query);
 
-    console.log(parsedQuery.data);
     if (!parsedQuery.success) {
       return res.status(400).json({
         error: "Invalid query parameters",

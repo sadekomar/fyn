@@ -49,9 +49,6 @@ export const findMissingBrands = async () => {
       (brandMatcher as any)[brandLabel] = brand.name;
     }
   });
-
-  console.log("missingbrands", missingBrands);
-  console.log(`Added ${missingBrands.length} missing brands to brandMatcher`);
 };
 
 const brands = {

@@ -1,3 +1,5 @@
+import { Gender } from "@prisma/client";
+
 export const genders: Record<string, string[]> = {
   male: [
     "male",
@@ -45,14 +47,14 @@ export const genders: Record<string, string[]> = {
   ],
 };
 
-enum G {
-  Male = "male",
-  Female = "female",
-  Unisex = "unisex",
-  Kids = "kids",
-}
+const G = {
+  Male: Gender.MALE,
+  Female: Gender.FEMALE,
+  Unisex: Gender.UNISEX,
+  Kids: Gender.KIDS,
+};
 
-export const genderMatcher: Record<string, G> = {
+export const genderMatcher: Record<string, Gender> = {
   // Male
   male: G.Male,
   men: G.Male,
