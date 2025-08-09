@@ -23,14 +23,5 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: "maskable",
       },
     ],
-    screenshots: [
-      {
-        src: "source/image1.png",
-        sizes: "640x320",
-        type: "image/png",
-        form_factor: "wide",
-        label: "Wonder Widgets",
-      },
-    ],
   };
 }
