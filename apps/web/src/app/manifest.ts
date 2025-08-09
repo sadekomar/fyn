@@ -22,6 +22,16 @@ export default function manifest(): MetadataRoute.Manifest {
         type: "image/png",
         purpose: "maskable",
       },
+      // {
+      //   src: "/icons/golden-loom.jpeg",
+      //   sizes: "512x512",
+      //   type: "image/jpeg",
+      // },
+      // {
+      //   src: "/icons/golden-loom.jpeg",
+      //   sizes: "192x192",
+      //   type: "image/jpeg",
+      // },
     ],
   };
 }
