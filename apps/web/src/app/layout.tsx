@@ -28,7 +28,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#A6A2DE" />
 
         {/* start of pwa-asset-generator */}
-        <link rel="apple-touch-icon" href="/icons/apple-icon-180.png" />
+        {/* <link rel="apple-touch-icon" href="/icons/apple-icon-180.png" /> */}
+        <link rel="apple-touch-icon" href="/icons/golden-loom.jpeg" />
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
 
