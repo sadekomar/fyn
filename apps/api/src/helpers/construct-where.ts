@@ -75,6 +75,5 @@ export function constructWhere(parsedQuery: QueryI) {
     };
   }
   where.inTrash = false;
-  where.deletedAt = null;
   return where;
 }
