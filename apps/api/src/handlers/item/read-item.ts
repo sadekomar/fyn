@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
 import { Genders, ItemPageResponse } from "./item";
 
+const EXPIRY_HOURS = 1;
+
 export const readItem = handleExceptions(
   async (req: Request, res: Response<ItemPageResponse>) => {
     const { id } = req.params;
@@ -68,6 +70,38 @@ export const readItem = handleExceptions(
           root: ["Item not found"],
         },
       });
+    }
+
+    const lastUpdatedDate = item?.updatedAt
+      ? new Date(item.updatedAt)
+      : new Date();
+    const expiryDate = new Date(
+      lastUpdatedDate.getTime() + EXPIRY_HOURS * 60 * 60 * 1000
+    );
+
+    console.log("now", new Date());
+    console.log("expiryAt", expiryDate);
+    console.log("isExpired", Date.now() > expiryDate.getTime());
+
+    if (Date.now() > expiryDate.getTime()) {
+      try {
+        const adminUrl = process.env.ADMIN_URL ?? "http://127.0.0.1:8000";
+        const apiKey = process.env.ADMIN_API_KEY ?? "00000";
+        fetch(`${adminUrl}/run`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": apiKey,
+          },
+          body: JSON.stringify({
+            link: item?.link || "",
+            brand: item?.brand?.name || "",
+            no_label: true,
+          }),
+        });
+      } catch (err) {
+        console.error("Failed to notify adminUrl:", err);
+      }
     }
 
     const latestPrice = item.prices[item.prices.length - 1].price;
