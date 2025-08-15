@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import prisma from "../../helpers/prisma";
 import { Genders, ItemPageResponse } from "./item";
 
-const EXPIRY_HOURS = 1;
+const EXPIRY_HOURS = 6;
 
 export const readItem = handleExceptions(
   async (req: Request, res: Response<ItemPageResponse>) => {
