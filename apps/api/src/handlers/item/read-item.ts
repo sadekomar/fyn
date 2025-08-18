@@ -79,8 +79,6 @@ export const readItem = handleExceptions(
       lastUpdatedDate.getTime() + EXPIRY_HOURS * 60 * 60 * 1000
     );
 
-    console.log("now", new Date());
-    console.log("expiryAt", expiryDate);
     console.log("isExpired", Date.now() > expiryDate.getTime());
 
     if (Date.now() > expiryDate.getTime()) {
@@ -98,6 +96,8 @@ export const readItem = handleExceptions(
             brand: item?.brand?.name || "",
             no_label: true,
           }),
+        }).catch((err) => {
+          console.error("Failed to notify adminUrl:", err);
         });
       } catch (err) {
         console.error("Failed to notify adminUrl:", err);
