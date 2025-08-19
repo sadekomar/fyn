@@ -31,14 +31,18 @@ export const orderFormSchema = z.discriminatedUnion("isLoggedIn", [
   z.object({
     isLoggedIn: z.literal(true),
     email: z.string().email({ message: "Invalid email address" }),
-    phoneNumber: z.string(),
+    phoneNumber: z.string().regex(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}$/, {
+      message: "Invalid Egyptian phone number",
+    }),
     address: addressSchema,
     billingAddress: billingAddressSchema,
   }),
   z.object({
     isLoggedIn: z.literal(false),
     email: z.string().email({ message: "Invalid email address" }),
-    phoneNumber: z.string().min(10, { message: "Phone number is required" }),
+    phoneNumber: z.string().regex(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}$/, {
+      message: "Invalid Egyptian phone number",
+    }),
     password: z.string().min(8, { message: "Password is required" }),
     address: addressSchema,
     billingAddress: billingAddressSchema,

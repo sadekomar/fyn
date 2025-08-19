@@ -33,9 +33,9 @@ const registerSchema = z.object({
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long" }),
-  phoneNumber: z
-    .string()
-    .min(10, { message: "Phone number must be at least 10 characters long" }),
+  phoneNumber: z.string().regex(/^(\+201|01|00201)[0-2,5]{1}[0-9]{8}$/, {
+    message: "Invalid Egyptian phone number",
+  }),
   username: z.string().optional(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
