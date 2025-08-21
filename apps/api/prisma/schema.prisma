@@ -20,6 +20,12 @@ enum Gender {
   KIDS
 }
 
+enum ItemStatus {
+  DELETED
+  IN_TRASH
+  ACTIVE
+}
+
 model Item {
   id          String      @id @default(uuid())
   name        String
@@ -32,6 +38,7 @@ model Item {
   materialId  String?
   gender      Gender?
   deletedAt   DateTime?
+  status      ItemStatus  @default(ACTIVE)
   inTrash     Boolean     @default(false)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -45,6 +52,8 @@ model Item {
   likes       Like[]
   carts       ItemCart[]
   orders      ItemOrder[]
+  // Note: search_vector column is managed by raw SQL migration
+  // It's a generated column: GENERATED ALWAYS AS (to_tsvector('english', name || ' ' || description)) STORED
 
   @@index([brandId])
   @@index([materialId])
@@ -187,6 +196,9 @@ model Brand {
   updatedAt            DateTime           @default(now()) @updatedAt
   isPartnerBrand       Boolean            @default(false)
   commissionPercentage Int?
+  category             Category?          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId           String?
+  gender               Gender?
   items                Item[]
   keywords             String[]
   brandViews           BrandView[]
@@ -208,7 +220,7 @@ model Showroom {
 model Category {
   id           String         @id @default(uuid())
   level        Int            @default(3)
-  name         String         @unique
+  name         String
   parentId     String?
   parent       Category?      @relation("ParentCategory", fields: [parentId], references: [id])
   children     Category[]     @relation("ParentCategory")
@@ -225,6 +237,7 @@ model Category {
   deletedAt    DateTime?
   Item         Item[]
   CategoryView CategoryView[]
+  Brand        Brand[]
 
   @@index([deletedAt])
 }
