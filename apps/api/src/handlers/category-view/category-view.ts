@@ -9,13 +9,13 @@ export { createCategoryView, readCategoryViewsCount, readUserCategoryViews };
 // Create
 type CreateCategoryViewGuestRequest = {
   type: "guest";
-  categoryName: string;
+  slug: string;
   guestUserId: string;
 };
 
 type CreateCategoryViewUserRequest = {
   type: "user";
-  categoryName: string;
+  slug: string;
   userId: string;
 };
 

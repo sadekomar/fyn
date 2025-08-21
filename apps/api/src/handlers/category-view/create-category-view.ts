@@ -12,10 +12,10 @@ export const createCategoryView = handleExceptions(
     req: Request<{}, {}, CreateCategoryViewRequest>,
     res: Response<CreateCategoryViewResponse>
   ) => {
-    const { categoryName, type } = req.body;
+    const { slug, type } = req.body;
 
     const category = await prisma.category.findUnique({
-      where: { name: categoryName },
+      where: { slug: slug },
     });
     if (!category) {
       return res.status(404).json({
