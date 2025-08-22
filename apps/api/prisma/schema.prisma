@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,48 +7,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Gender {
-  MALE
-  FEMALE
-  UNISEX
-  KIDS
-}
-
-enum ItemStatus {
-  DELETED
-  IN_TRASH
-  ACTIVE
-}
-
 model Item {
-  id          String      @id @default(uuid())
+  id          String                                                                                                                                                @id @default(uuid())
   name        String
   description String
+  createdAt   DateTime                                                                                                                                              @default(now())
+  updatedAt   DateTime                                                                                                                                              @updatedAt
   latestPrice Int
   link        String
-  brand       Brand       @relation(fields: [brandId], references: [id])
   brandId     String
-  material    Material?   @relation(fields: [materialId], references: [id])
   materialId  String?
   gender      Gender?
   deletedAt   DateTime?
-  status      ItemStatus  @default(ACTIVE)
-  inTrash     Boolean     @default(false)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  isSoldOut   Boolean     @default(false)
-  categories  Category[]
-  colors      Color[]
+  inTrash     Boolean                                                                                                                                               @default(false)
+  isSoldOut   Boolean                                                                                                                                               @default(false)
+  status      ItemStatus                                                                                                                                            @default(ACTIVE)
+  search_tsv  Unsupported("tsvector GENERATED ALWAYS AS (to_tsvector('english', coalesce(name, '')) || to_tsvector('english', coalesce(description, ''))) STORED")?
+  categories  CategoryItem[]
   images      Image[]
-  sizes       Size[]
-  prices      Price[]
-  views       ItemView[]
-  likes       Like[]
+  brand       Brand                                                                                                                                                 @relation(fields: [brandId], references: [id])
+  material    Material?                                                                                                                                             @relation(fields: [materialId], references: [id])
   carts       ItemCart[]
   orders      ItemOrder[]
-  // Note: search_vector column is managed by raw SQL migration
-  // It's a generated column: GENERATED ALWAYS AS (to_tsvector('english', name || ' ' || description)) STORED
+  views       ItemView[]
+  likes       Like[]
+  prices      Price[]
+  sizes       Size[]
+  colors      Color[]                                                                                                                                               @relation("ColorToItem")
 
+  @@index([search_tsv], map: "idx_items_search_tsv", type: Gin)
   @@index([brandId])
   @@index([materialId])
   @@index([inTrash])
@@ -64,42 +45,40 @@ model GuestUser {
   id            String         @id @default(uuid())
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-  itemViews     ItemView[]
-  categoryViews CategoryView[]
-  brandViews    BrandView[]
   brandFollows  BrandFollow[]
-  likes         Like[]
+  brandViews    BrandView[]
+  categoryViews CategoryView[]
   itemCarts     ItemCart[]
+  itemViews     ItemView[]
+  likes         Like[]
   sessions      Session[]
 
   @@index([createdAt])
 }
 
-// okay lemme worry about session expiry later on.
 model Session {
   id          String    @id @default(uuid())
   guestUserId String
-  GuestUser   GuestUser @relation(fields: [guestUserId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   isExpired   Boolean   @default(false)
+  GuestUser   GuestUser @relation(fields: [guestUserId], references: [id])
 
   @@index([guestUserId])
 }
 
-// Analytics
 model ItemView {
   id          String     @id @default(uuid())
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
-  item        Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId      String
-  quantity    Int        @default(1)
   createdAt   DateTime   @default(now())
+  quantity    Int        @default(1)
   updatedAt   DateTime   @updatedAt
-  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId String?
   deletedAt   DateTime?
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  item        Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([deletedAt])
   @@index([itemId])
@@ -109,15 +88,15 @@ model ItemView {
 
 model CategoryView {
   id          String     @id @default(uuid())
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
-  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId  String
-  quantity    Int        @default(1)
   createdAt   DateTime   @default(now())
+  quantity    Int        @default(1)
   updatedAt   DateTime   @updatedAt
-  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId String?
+  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([categoryId])
   @@index([userId])
@@ -126,15 +105,15 @@ model CategoryView {
 
 model BrandView {
   id          String     @id @default(uuid())
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
-  brand       Brand      @relation(fields: [brandId], references: [id], onDelete: Cascade)
   brandId     String
-  quantity    Int        @default(1)
   createdAt   DateTime   @default(now())
+  quantity    Int        @default(1)
   updatedAt   DateTime   @updatedAt
-  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId String?
+  brand       Brand      @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([brandId])
   @@index([userId])
@@ -143,14 +122,14 @@ model BrandView {
 
 model BrandFollow {
   id          String     @id @default(uuid())
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
-  brand       Brand      @relation(fields: [brandId], references: [id], onDelete: Cascade)
   brandId     String
-  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
-  guestUserId String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  guestUserId String?
+  brand       Brand      @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, brandId])
   @@unique([guestUserId, brandId])
@@ -161,13 +140,13 @@ model BrandFollow {
 
 model Like {
   id          String     @id @default(uuid())
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
-  item        Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId      String
   createdAt   DateTime   @default(now())
-  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId String?
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  item        Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, itemId])
   @@unique([guestUserId, itemId])
@@ -179,8 +158,8 @@ model Price {
   id        String   @id @default(uuid())
   price     Int
   createdAt DateTime @default(now())
-  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId    String
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
 
   @@index([itemId, createdAt(sort: Desc)])
 }
@@ -188,25 +167,25 @@ model Price {
 model Brand {
   id                   String             @id @default(uuid())
   name                 String             @unique
-  label                String?
   description          String?
   image                String?
   logo                 String?
+  inTrash              Boolean            @default(false)
   createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @default(now()) @updatedAt
   isPartnerBrand       Boolean            @default(false)
+  updatedAt            DateTime           @default(now()) @updatedAt
+  label                String?
   commissionPercentage Int?
-  category             Category?          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  keywords             String[]
+  deletedAt            DateTime?
   categoryId           String?
   gender               Gender?
-  items                Item[]
-  keywords             String[]
-  brandViews           BrandView[]
+  category             Category?          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   brandFollows         BrandFollow[]
-  showrooms            Showroom[]
+  brandViews           BrandView[]
+  items                Item[]
   ShippingEstimate     ShippingEstimate[]
-  inTrash              Boolean            @default(false)
-  deletedAt            DateTime?
+  showrooms            Showroom[]         @relation("BrandToShowroom")
 
   @@index([deletedAt])
 }
@@ -214,51 +193,65 @@ model Brand {
 model Showroom {
   id     String  @id @default(uuid())
   name   String
-  brands Brand[]
+  brands Brand[] @relation("BrandToShowroom")
 }
 
 model Category {
   id           String         @id @default(uuid())
-  level        Int            @default(3)
   name         String
+  createdAt    DateTime       @default(now())
+  deletedAt    DateTime?
+  description  String?
+  gender       Gender?
+  keywords     String[]
+  kidsImage    String?
+  label        String?
+  level        Int            @default(3)
+  menImage     String?
   parentId     String?
+  slug         String?        @unique
+  updatedAt    DateTime       @default(now()) @updatedAt
+  womenImage   String?
+  Brand        Brand[]
   parent       Category?      @relation("ParentCategory", fields: [parentId], references: [id])
   children     Category[]     @relation("ParentCategory")
-  gender       Gender?
-  slug         String?        @unique
-  keywords     String[]
-  label        String?
-  description  String?
-  menImage     String?
-  womenImage   String?
-  kidsImage    String?
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @default(now()) @updatedAt
-  deletedAt    DateTime?
-  Item         Item[]
+  items        CategoryItem[]
   CategoryView CategoryView[]
-  Brand        Brand[]
 
   @@index([deletedAt])
+}
+
+model CategoryItem {
+  id         String      @id @default(uuid())
+  categoryId String
+  itemId     String
+  confidence Int?
+  score      Float?
+  status     LabelStatus @default(PENDING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  category   Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  item       Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([itemId])
+  @@index([categoryId])
 }
 
 model Color {
   id         String      @id @default(uuid())
   name       String
-  items      Item[]
-  itemOrders ItemOrder[]
   itemCarts  ItemCart[]
+  itemOrders ItemOrder[]
+  items      Item[]      @relation("ColorToItem")
 }
 
-// TODO
-// a way to specify a primary/thumbnail image for an item.
 model Image {
   id          String   @id @default(uuid())
   url         String
-  Item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId      String
-  isThumbnail Boolean  @default(false)
   createdAt   DateTime @default(now())
+  isThumbnail Boolean  @default(false)
+  Item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
 
   @@index([itemId])
 }
@@ -266,12 +259,12 @@ model Image {
 model Size {
   id         String      @id @default(uuid())
   name       String
+  itemId     String
   available  Boolean     @default(true)
   createdAt  DateTime    @default(now())
-  Item       Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  itemId     String
   itemCarts  ItemCart[]
   itemOrders ItemOrder[]
+  Item       Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
 
   @@index([itemId])
 }
@@ -282,31 +275,15 @@ model Material {
   items Item[]
 }
 
-enum ApplicantStatus {
-  PENDING
-  EMAIL_SENT
-  ONLINE_INTERVIEW_SCHEDULED
-  ONLINE_INTERVIEW_COMPLETED
-  IN_PERSON_INTERVIEW_SCHEDULED
-  IN_PERSON_INTERVIEW_COMPLETED
-  HIRED
-  REJECTED
-}
-
 model Applicant {
   id        String          @id @default(uuid())
   name      String
   email     String
   phone     String
-  whyYou    String
-  whyLoom   String
   createdAt DateTime        @default(now())
+  whyLoom   String
+  whyYou    String
   status    ApplicantStatus @default(PENDING)
-}
-
-enum NewsletterType {
-  CAREERS
-  NEWSLETTER
 }
 
 model Newsletter {
@@ -327,45 +304,45 @@ model User {
   password                 String
   username                 String         @unique
   isEmailConfirmed         Boolean        @default(false)
-  firstName                String?
-  lastName                 String?
   phoneNumber              String
-  itemViews                ItemView[]
-  categoryViews            CategoryView[]
-  brandViews               BrandView[]
-  brandFollows             BrandFollow[]
-  likes                    Like[]
-  itemCarts                ItemCart[]
-  orders                   Order[]
-  addresses                Address[]
-  confirmationToken        String?
-  tokenExpiresAt           DateTime?
   createdAt                DateTime       @default(now())
   updatedAt                DateTime       @updatedAt
+  firstName                String?
+  lastName                 String?
+  confirmationToken        String?
+  tokenExpiresAt           DateTime?
   isPasswordReset          Boolean        @default(true)
   isOnboardingLoginAllowed Boolean        @default(false)
   customMessage            String?
+  addresses                Address[]
+  brandFollows             BrandFollow[]
+  brandViews               BrandView[]
+  categoryViews            CategoryView[]
+  itemCarts                ItemCart[]
+  itemViews                ItemView[]
+  likes                    Like[]
+  orders                   Order[]
 
   @@index([email])
 }
 
 model ItemCart {
   id              String     @id @default(uuid())
-  item            Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId          String
   quantity        Int        @default(1)
-  size            Size       @relation(fields: [sizeId], references: [id])
   sizeId          String
-  color           Color?     @relation(fields: [colorId], references: [id])
   colorId         String?
-  user            User?      @relation(fields: [userId], references: [id])
   userId          String?
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
-  GuestUser       GuestUser? @relation(fields: [guestUserId], references: [id])
   guestUserId     String?
   deletedAt       DateTime?
   isSavedForLater Boolean    @default(false)
+  color           Color?     @relation(fields: [colorId], references: [id])
+  GuestUser       GuestUser? @relation(fields: [guestUserId], references: [id])
+  item            Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  size            Size       @relation(fields: [sizeId], references: [id])
+  user            User?      @relation(fields: [userId], references: [id])
 
   @@index([deletedAt])
   @@index([itemId])
@@ -373,24 +350,20 @@ model ItemCart {
   @@index([guestUserId])
 }
 
-// After clicking checkout.
 model Order {
   id                String             @id @default(uuid())
   orderNumber       String             @unique
-  items             ItemOrder[]
-  // shipping + prices
   orderTotal        Int
   status            OrderStatus        @default(PENDING)
-  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            String
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
-  // user associated data
-  // but what if someone wants to order again with a different email or phone number for this specific order. also a user could have multiple addresses but we need to associate that order with just one address.
   email             String
   phoneNumber       String
-  address           Address            @relation(fields: [addressId], references: [id])
   addressId         String
+  items             ItemOrder[]
+  address           Address            @relation(fields: [addressId], references: [id])
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   shippingEstimates ShippingEstimate[]
 
   @@index([orderNumber, status])
@@ -398,25 +371,20 @@ model Order {
 
 model ItemOrder {
   id                 String           @id @default(uuid())
-  order              Order            @relation(fields: [orderId], references: [id])
   orderId            String
-  item               Item             @relation(fields: [itemId], references: [id])
   itemId             String
   quantity           Int              @default(1)
   name               String
   image              String
   price              Int
-  size               Size             @relation(fields: [sizeId], references: [id])
   sizeId             String
-  color              Color?           @relation(fields: [colorId], references: [id])
   colorId            String?
-  shippingEstimate   ShippingEstimate @relation(fields: [shippingEstimateId], references: [id], onDelete: Cascade)
   shippingEstimateId String
-}
-
-enum AddressType {
-  NORMAL
-  BILLING
+  color              Color?           @relation(fields: [colorId], references: [id])
+  item               Item             @relation(fields: [itemId], references: [id])
+  order              Order            @relation(fields: [orderId], references: [id])
+  shippingEstimate   ShippingEstimate @relation(fields: [shippingEstimateId], references: [id], onDelete: Cascade)
+  size               Size             @relation(fields: [sizeId], references: [id])
 }
 
 model Address {
@@ -431,20 +399,60 @@ model Address {
   country     String      @default("Egypt")
   postalCode  String?
   createdAt   DateTime    @default(now())
-  orders      Order[]
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   addressType AddressType @default(NORMAL)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders      Order[]
 }
 
 model ShippingEstimate {
   id         String      @id @default(uuid())
   cost       Int
-  brand      Brand       @relation(fields: [brandId], references: [id])
   brandId    String
-  itemOrders ItemOrder[]
-  order      Order       @relation(fields: [orderId], references: [id])
   orderId    String
+  itemOrders ItemOrder[]
+  brand      Brand       @relation(fields: [brandId], references: [id])
+  order      Order       @relation(fields: [orderId], references: [id])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNISEX
+  KIDS
+}
+
+enum ItemStatus {
+  DELETED
+  IN_TRASH
+  ACTIVE
+}
+
+enum LabelStatus {
+  PENDING
+  AUTO_LABEL
+  MANUAL_LABEL
+}
+
+enum ApplicantStatus {
+  PENDING
+  EMAIL_SENT
+  ONLINE_INTERVIEW_SCHEDULED
+  ONLINE_INTERVIEW_COMPLETED
+  IN_PERSON_INTERVIEW_SCHEDULED
+  IN_PERSON_INTERVIEW_COMPLETED
+  HIRED
+  REJECTED
+}
+
+enum NewsletterType {
+  CAREERS
+  NEWSLETTER
+}
+
+enum AddressType {
+  NORMAL
+  BILLING
 }
 
 enum OrderStatus {
