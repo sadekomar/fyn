@@ -50,9 +50,13 @@ export const readItem = handleExceptions(
           },
         },
         categories: {
-          select: {
-            name: true,
-          },
+            include: {
+              category: {
+                select: {
+                  name: true,
+                },
+              },
+            },
         },
         prices: {
           select: {
@@ -129,7 +133,7 @@ export const readItem = handleExceptions(
       },
       link: item.link,
       images: item.images.map((image) => image.url),
-      categories: item.categories.map((category) => category.name),
+      categories: item.categories.map((category) => category.category.name),
       colors: item.colors.map((color) => ({
         id: color.id,
         name: color.name,

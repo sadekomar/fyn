@@ -104,7 +104,11 @@ export const readItems = handleExceptions(
         gender: true,
         categories: {
           select: {
-            name: true,
+            category: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
         colors: {
@@ -157,7 +161,15 @@ export const readCategoriesWithImages = handleExceptions(
     const items = await prisma.item.findMany({
       where,
       select: {
-        categories: true,
+        categories: {
+          include: {
+            category: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
         images: true,
       },
       orderBy: {
@@ -168,10 +180,10 @@ export const readCategoriesWithImages = handleExceptions(
     const categoryCount = items.reduce(
       (acc, item) => {
         item.categories.forEach((category) => {
-          if (!acc[category.name]) {
-            acc[category.name] = 0;
+          if (!acc[category.category.name]) {
+            acc[category.category.name] = 0;
           }
-          acc[category.name]++;
+          acc[category.category.name]++;
         });
         return acc;
       },
@@ -184,7 +196,7 @@ export const readCategoriesWithImages = handleExceptions(
       name,
       count,
       image:
-        items.find((item) => item.categories.some((c) => c.name === name))
+        items.find((item) => item.categories.some((c) => c.category.name === name))
           ?.images[0]?.url ?? null,
     }));
 
@@ -216,7 +228,15 @@ export const readItemsMetadata = handleExceptions(
       select: {
         gender: true,
         brand: true,
-        categories: true,
+        categories: {
+          include: {
+            category: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
         colors: true,
         material: true,
       },
@@ -253,10 +273,10 @@ export const readItemsMetadata = handleExceptions(
       (acc, item) => {
         const categories = item.categories;
         categories.forEach((c) => {
-          if (!acc[c.name]) {
-            acc[c.name] = 0;
+          if (!acc[c.category.name]) {
+            acc[c.category.name] = 0;
           }
-          acc[c.name]++;
+          acc[c.category.name]++;
         });
         return acc;
       },
@@ -381,16 +401,24 @@ export const readItemsMetadata = handleExceptions(
       const items = await prisma.item.findMany({
         where,
         select: {
-          categories: true,
+          categories: {
+            include: {
+              category: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
         },
       });
       const categoriesCount = items.reduce(
         (acc, item) => {
           item.categories.forEach((category) => {
-            if (!acc[category.name]) {
-              acc[category.name] = 0;
+            if (!acc[category.category.name]) {
+              acc[category.category.name] = 0;
             }
-            acc[category.name]++;
+            acc[category.category.name]++;
           });
           return acc;
         },
