@@ -103,7 +103,7 @@ export const readItems = handleExceptions(
         },
         gender: true,
         categories: {
-          select: {
+          include: {
             category: {
               select: {
                 name: true,
