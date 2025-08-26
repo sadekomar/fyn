@@ -49,7 +49,6 @@ function matchNGram(ngram: string): {
  * Removes matched words from the remaining words array
  */
 function removeMatchedWords(words: string[], matchedNgram: string): string[] {
-  console.log("removeMatchedWords", words, matchedNgram);
   const matchedWords = matchedNgram.split(" ");
   const result = [...words];
 
@@ -109,7 +108,6 @@ export function parseSearchQuery(searchQuery: string): MatchResult {
   // Process n-grams from largest to smallest (to avoid false positives)
   for (let n = maxNGramSize; n >= 1; n--) {
     const ngrams = generateNGrams(words, n);
-    console.log("ngrams", ngrams);
 
     for (const ngram of ngrams) {
       const matches = matchNGram(ngram);
@@ -125,27 +123,22 @@ export function parseSearchQuery(searchQuery: string): MatchResult {
         // Add unique matches to results
         if (matches.category && !result.categories.includes(matches.category)) {
           result.categories.push(matches.category);
-          console.log(`Matched category: "${ngram}" -> ${matches.category}`);
         }
 
         if (matches.brand && !result.brands.includes(matches.brand)) {
           result.brands.push(matches.brand);
-          console.log(`Matched brand: "${ngram}" -> ${matches.brand}`);
         }
 
         if (matches.material && !result.materials.includes(matches.material)) {
           result.materials.push(matches.material);
-          console.log(`Matched material: "${ngram}" -> ${matches.material}`);
         }
 
         if (matches.color && !result.colors.includes(matches.color)) {
           result.colors.push(matches.color);
-          console.log(`Matched color: "${ngram}" -> ${matches.color}`);
         }
 
         if (matches.gender && !result.genders.includes(matches.gender)) {
           result.genders.push(matches.gender);
-          console.log(`Matched gender: "${ngram}" -> ${matches.gender}`);
         }
 
         // Remove matched words from remaining words

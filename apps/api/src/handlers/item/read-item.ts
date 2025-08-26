@@ -83,8 +83,6 @@ export const readItem = handleExceptions(
       lastUpdatedDate.getTime() + EXPIRY_HOURS * 60 * 60 * 1000
     );
 
-    console.log("isExpired", Date.now() > expiryDate.getTime());
-
     if (Date.now() > expiryDate.getTime()) {
       try {
         const adminUrl = process.env.ADMIN_URL ?? "http://127.0.0.1:8000";

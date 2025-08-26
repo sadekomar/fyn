@@ -157,9 +157,6 @@ export const readCategoriesWithImages = handleExceptions(
     }
 
     const where: any = constructWhere(parsedQuery.data);
-    console.log("categories with images where", {
-      where: JSON.stringify(where),
-    });
 
     const items = await prisma.item.findMany({
       where,

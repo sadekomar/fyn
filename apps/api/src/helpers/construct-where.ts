@@ -50,7 +50,7 @@ export function constructWhere(parsedQuery: QueryI) {
     where.gender = { in: genders };
   }
   if (hasValidValue(categories)) {
-    where.categories = { some: { category: { name: { in: categories } } } };
+    where.categories = { some: { category: { slug: { in: categories } } } };
   }
   if (hasValidValue(colors)) {
     where.colors = { some: { name: { in: colors } } };
