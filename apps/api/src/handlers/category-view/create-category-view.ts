@@ -14,6 +14,16 @@ export const createCategoryView = handleExceptions(
   ) => {
     const { slug, type } = req.body;
 
+    console.log("slug", slug);
+    console.log("type", type);
+
+    if (!slug || !type) {
+      return res.status(400).json({
+        status: "error",
+        message: "slug and type are required",
+      });
+    }
+
     const category = await prisma.category.findUnique({
       where: { slug: slug },
     });
