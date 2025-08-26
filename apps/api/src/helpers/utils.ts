@@ -15,8 +15,6 @@ export const handleExceptions =
       console.debug("handleExceptions", {
         endpoint: req.originalUrl,
         file: fn.name,
-        req: req,
-        res: res,
       });
       await fn(req, res);
     } catch (error) {
