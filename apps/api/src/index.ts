@@ -90,10 +90,8 @@ import {
   createBrandFollow,
   readFollowedBrands,
 } from "./handlers/brand-follow/brand-follow";
-// import { readRecommendations } from "./handlers/recommendation/read-recommendation";
 const app = express();
 const PORT: number = parseInt(process.env.PORT || "3000");
-const ipAddress = process.env.IP_ADDRESS || "localhost";
 
 // Middleware
 app.use(express.json());
@@ -155,9 +153,6 @@ app.get(Endpoints.Likes, readLikes);
 app.post(Endpoints.FollowedBrand, createBrandFollow);
 app.get(Endpoints.FollowedBrands, readFollowedBrands);
 
-// // recommendations
-// app.get(Endpoints.Recommendations, readRecommendations);
-
 app.post(Endpoints.Order, createOrder);
 app.get(Endpoints.OrderById, readOrder);
 app.get(Endpoints.OrderByNumber, readOrderByNumber);
@@ -190,11 +185,8 @@ app.get(Endpoints.ApplicantById, readApplicant);
 app.put(Endpoints.ApplicantById, updateApplicant);
 app.delete(Endpoints.ApplicantById, deleteApplicant);
 
-// app.listen(PORT, ipAddress, () => {
-//   console.log(`Server is running on port http://${ipAddress}:${PORT} and more`);
-// });
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT} and more`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server is running on port http://0.0.0.0:${PORT} and more`);
 });
 
 // Graceful shutdown
