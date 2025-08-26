@@ -169,6 +169,7 @@ export const readCategoriesWithImages = handleExceptions(
             category: {
               select: {
                 name: true,
+                slug: true,
               },
             },
           },
@@ -183,10 +184,13 @@ export const readCategoriesWithImages = handleExceptions(
     const categoryCount = items.reduce(
       (acc, item) => {
         item.categories.forEach((category) => {
-          if (!acc[category.category.name]) {
-            acc[category.category.name] = 0;
+          // @ts-ignore
+          if (!acc[category.category.slug]) {
+            // @ts-ignore
+            acc[category.category.slug] = 0;
           }
-          acc[category.category.name]++;
+          // @ts-ignore
+          acc[category.category.slug]++;
         });
         return acc;
       },
@@ -199,7 +203,9 @@ export const readCategoriesWithImages = handleExceptions(
       name,
       count,
       image:
-        items.find((item) => item.categories.some((c) => c.category.name === name))
+        items.find((item) =>
+          item.categories.some((c) => c.category.slug === name)
+        )
           ?.images[0]?.url ?? null,
     }));
 
