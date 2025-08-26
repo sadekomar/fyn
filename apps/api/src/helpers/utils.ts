@@ -12,10 +12,6 @@ type ErrorResponse = {
 export const handleExceptions =
   (fn: HandlerFunction) => async (req: Request, res: Response) => {
     try {
-      console.debug("handleExceptions", {
-        endpoint: req.originalUrl,
-        file: fn.name,
-      });
       await fn(req, res);
     } catch (error) {
       console.error(error);
