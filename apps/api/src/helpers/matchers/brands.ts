@@ -237,6 +237,7 @@ const brands = {
 };
 
 enum b {
+  Jadilah = "jadilah",
   Secret = "secret",
   Kloth = "kloth",
   LeenaAndeel = "leena andeel",
@@ -431,6 +432,7 @@ enum b {
 // console.log(reverseBrands);
 
 export const brandMatcher: Record<string, b> = {
+  jadilah: b.Jadilah,
   secret: b.Secret,
   kloth: b.Kloth,
   "by leena andeel": b.LeenaAndeel,
