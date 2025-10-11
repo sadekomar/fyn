@@ -1,0 +1,130 @@
+.cart-cards-wrapper {
+  background-color: rgb(230, 230, 230);
+  padding-block: 2.5rem;
+  padding-inline: var(--margin-inline);
+  display: grid;
+  gap: 1rem;
+}
+
+.cart-card-wrapper {
+  position: relative;
+
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--clr-neutral-100);
+  border-radius: 16px;
+  padding: 1rem;
+  margin-inline: auto;
+}
+
+.cart-card-wrapper * {
+  flex-grow: 1;
+}
+
+.cart-card-img {
+  width: 109px;
+  height: 184px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-grow: 0;
+}
+
+.cart-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-card-content-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 4px;
+}
+
+.cart-card-content-info * {
+  flex-grow: 0;
+}
+
+.cart-card-title,
+.cart-card-price {
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  color: var(--clr-neutral-900);
+  margin-right: calc(1rem + 2rem);
+}
+
+.cart-card-brand {
+  color: var(--clr-gray-text);
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+.cart-card-price::before {
+  content: "LE ";
+}
+.cart-card-price::after {
+  content: ".00 ";
+}
+
+.cart-card-content-buttons {
+  /* doesn't take up any extra height */
+  flex-grow: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4px;
+}
+
+.cart-card-remove-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-gray-background);
+}
+
+.cart-card-buy-button {
+  display: flex;
+  height: 40px;
+  color: var(--clr-neutral-100);
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-loom-lilac);
+  border-radius: 30px;
+  padding-inline: 1rem;
+}
+
+.cart-card-quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-button {
+  height: 24px;
+  width: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quantity-button:hover {
+  background-color: #f5f5f5;
+}
+
+.quantity-button:active {
+  background-color: #e0e0e0;
+}

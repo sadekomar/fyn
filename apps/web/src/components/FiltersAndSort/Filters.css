@@ -1,0 +1,145 @@
+.filters-and-sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 1rem;
+  margin-inline: var(--margin-inline);
+}
+
+/* filters-button */
+/* this is the trigger for the filters modal */
+.filters-trigger {
+  display: flex;
+  align-items: center;
+  padding-inline: 1.5rem;
+  height: 40px;
+  width: fit-content;
+  border-radius: 30px;
+  background-color: var(--clr-loom-lilac);
+  color: white;
+  gap: 4px;
+}
+
+/* modal content */
+.dialog-content {
+  position: fixed;
+  z-index: 9;
+  top: var(--navbar-height);
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  width: 300px;
+  background-color: white;
+  padding-inline: 1rem;
+  box-shadow: 5px 4px 20.1px rgba(0, 0, 0, 0.25);
+}
+
+.dialog-content {
+  &:where([data-state="open"]) {
+    animation: content-show 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &:where([data-state="closed"]) {
+    animation: content-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes content-show {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes content-hide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.filters-wrapper {
+  background-color: white;
+  padding-block: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  height: inherit;
+}
+
+.in-stock-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.5rem;
+  margin-inline-start: 0.5rem;
+  margin-block: 1rem;
+}
+
+.filters-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  padding-block: 4px;
+  gap: 8px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.filters-checkbox {
+  height: 22px;
+  width: 22px;
+  cursor: inherit;
+  accent-color: var(--clr-loom-lilac);
+}
+
+.filters-checkbox-label {
+  cursor: inherit;
+}
+
+.filters-buttons-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filters-button {
+  background-color: var(--clr-loom-lilac);
+  color: white;
+  height: 30px;
+}
+
+.filters-button-secondary {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+
+/* sort-by-dropdown */
+.dropdown {
+  -webkit-appearance: none;
+  height: 40px;
+  padding-inline: 4px;
+  min-width: 180px;
+  border-radius: 30px;
+  border: 1px solid #adadad;
+  color: black;
+  text-transform: capitalize;
+  text-align: center;
+  background-color: var(--clr-neutral-100);
+
+  /* adding the dropdown caret */
+  position: relative;
+  background-color: var(--clr-neutral-100);
+  background-image: url("../Icons//caretDown.svg"); /* Path to custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Position the arrow inside the dropdown */
+  padding-right: 30px; /* Adjust padding to make space for the arrow */
+}

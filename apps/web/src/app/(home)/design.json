@@ -1,0 +1,193 @@
+{
+  "design_system_profile": {
+    "name": "Modern Beauty E-commerce Mobile App",
+    "category": "Beauty & Personal Care",
+    "platform": "Mobile App",
+
+    "color_palette": {
+      "primary": {
+        "purple": "#8B7ED8",
+        "lavender": "#B8AEE8",
+        "light_purple": "#E8E3F5"
+      },
+      "secondary": {
+        "white": "#FFFFFF",
+        "soft_gray": "#F8F9FA",
+        "medium_gray": "#E9ECEF"
+      },
+      "accent": {
+        "blue_gray": "#6C7B8A",
+        "dark_text": "#2D3748"
+      },
+      "gradient": {
+        "primary": "linear-gradient(135deg, #8B7ED8 0%, #B8AEE8 100%)",
+        "card": "linear-gradient(135deg, #E8E3F5 0%, #F8F9FA 100%)"
+      }
+    },
+
+    "typography": {
+      "brand_title": {
+        "font_weight": "800",
+        "font_size": "28px",
+        "letter_spacing": "2px",
+        "text_transform": "uppercase",
+        "color": "white"
+      },
+      "tagline": {
+        "font_weight": "400",
+        "font_size": "16px",
+        "line_height": "1.4",
+        "color": "white",
+        "opacity": "0.9"
+      },
+      "product_name": {
+        "font_weight": "600",
+        "font_size": "14px",
+        "color": "#2D3748"
+      },
+      "price": {
+        "font_weight": "700",
+        "font_size": "16px",
+        "color": "#2D3748"
+      }
+    },
+
+    "layout_structure": {
+      "header_section": {
+        "background": "primary_gradient",
+        "padding": "40px 20px",
+        "text_align": "center",
+        "content": [
+          "hero_image_with_models",
+          "brand_title",
+          "descriptive_tagline"
+        ]
+      },
+      "product_grid": {
+        "columns": 2,
+        "gap": "16px",
+        "padding": "20px",
+        "layout": "grid"
+      },
+      "card_structure": {
+        "background": "white",
+        "border_radius": "16px",
+        "padding": "16px",
+        "shadow": "0 4px 12px rgba(0,0,0,0.1)",
+        "content_order": [
+          "product_image",
+          "product_name",
+          "brand_name",
+          "price"
+        ]
+      }
+    },
+
+    "visual_elements": {
+      "hero_section": {
+        "type": "lifestyle_photography",
+        "style": "young_models_using_product",
+        "mood": "happy_casual_authentic",
+        "composition": "close_up_intimate"
+      },
+      "product_images": {
+        "style": "clean_product_shots",
+        "background": "white_or_transparent",
+        "lighting": "soft_even",
+        "angle": "straight_on_or_slight_angle"
+      },
+      "icons": {
+        "style": "minimal_line_icons",
+        "stroke_width": "2px",
+        "color": "inherit"
+      }
+    },
+
+    "spacing_system": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "xxl": "40px"
+    },
+
+    "border_radius": {
+      "sm": "8px",
+      "md": "12px",
+      "lg": "16px",
+      "xl": "24px",
+      "pill": "50px"
+    },
+
+    "shadows": {
+      "card": "0 4px 12px rgba(139, 126, 216, 0.15)",
+      "hover": "0 8px 24px rgba(139, 126, 216, 0.2)",
+      "subtle": "0 2px 8px rgba(0, 0, 0, 0.1)"
+    },
+
+    "component_patterns": {
+      "hero_banner": {
+        "structure": "full_width_gradient_background",
+        "image_treatment": "curved_rounded_corners",
+        "text_overlay": "centered_white_text",
+        "call_to_action": "implicit_through_tagline"
+      },
+      "product_card": {
+        "structure": "vertical_stack",
+        "image_aspect_ratio": "1:1",
+        "text_hierarchy": "name_brand_price",
+        "interactive_states": "hover_lift_shadow"
+      },
+      "grid_system": {
+        "mobile": "2_column_grid",
+        "tablet": "3_column_grid",
+        "desktop": "4_column_grid"
+      }
+    },
+
+    "interaction_patterns": {
+      "navigation": "bottom_tab_navigation",
+      "product_browsing": "grid_view_with_filters",
+      "product_selection": "tap_to_view_details",
+      "scrolling": "vertical_infinite_scroll"
+    },
+
+    "brand_personality": {
+      "tone": "youthful_confident_inclusive",
+      "style": "modern_clean_approachable",
+      "target_audience": "young_adults_beauty_conscious",
+      "key_values": [
+        "inclusivity",
+        "self_expression",
+        "quality",
+        "accessibility"
+      ]
+    },
+
+    "responsive_behavior": {
+      "breakpoints": {
+        "mobile": "< 768px",
+        "tablet": "768px - 1024px",
+        "desktop": "> 1024px"
+      },
+      "grid_adaptation": {
+        "mobile": "2_columns",
+        "tablet": "3_columns",
+        "desktop": "4_columns"
+      },
+      "typography_scaling": {
+        "mobile": "base_size",
+        "tablet": "1.1x_scale",
+        "desktop": "1.2x_scale"
+      }
+    },
+
+    "accessibility_considerations": {
+      "color_contrast": "WCAG_AA_compliant",
+      "touch_targets": "minimum_44px",
+      "focus_indicators": "visible_outline",
+      "alt_text": "descriptive_product_images"
+    }
+  }
+}

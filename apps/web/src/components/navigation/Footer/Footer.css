@@ -1,0 +1,62 @@
+.FooterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  column-gap: 20px;
+  row-gap: 1em;
+}
+
+.FooterDescription {
+  display: grid;
+  grid-column: span 2;
+  grid-auto-rows: min-content;
+}
+
+.FooterBrowseNav {
+  display: grid;
+  grid-auto-rows: min-content;
+}
+
+.FooterShopNav {
+  display: grid;
+  grid-auto-rows: min-content;
+}
+
+.FooterContactSection {
+  display: grid;
+  grid-auto-rows: min-content;
+  row-gap: 4px;
+}
+
+.CopyrightNotice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.CopyrightNoticeText:first-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.CopyrightNoticeText {
+  font-size: 0.75em;
+  padding-inline: 15px;
+  margin-block: 2em;
+}
+
+.social-media {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.footer-wrapper {
+  padding-inline: var(--margin-inline);
+  padding-block: 2rem;
+  background-color: rgb(245, 245, 245);
+}
+
+.footnotes {
+  font-size: var(--fs-300);
+}
+
+.footer-title {
+  font-weight: 700;
+}

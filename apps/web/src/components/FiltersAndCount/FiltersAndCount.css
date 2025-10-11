@@ -1,0 +1,5 @@
+.item-count {
+  text-align: right;
+  margin-inline: calc(var(--margin-inline) + 0.5rem);
+  padding-block-end: 1rem;
+}

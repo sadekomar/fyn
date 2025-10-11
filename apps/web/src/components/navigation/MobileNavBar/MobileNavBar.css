@@ -1,0 +1,36 @@
+.MobileNavBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--navbar-height);
+  z-index: 9;
+  background: rgba(166, 162, 222, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loom-nav-icon {
+  padding: 1rem;
+}
+
+.MobileNavTitle {
+  color: white;
+}
+
+.search-icon {
+  background-color: transparent;
+  height: var(--navbar-height);
+  width: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-icon * {
+  color: white;
+}

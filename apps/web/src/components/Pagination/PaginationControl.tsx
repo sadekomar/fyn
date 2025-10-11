@@ -1,0 +1,95 @@
+"use client";
+
+import "./Pagination.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { MetadataI } from "@/lib/types";
+
+export function PaginationControl({
+  metadata,
+}: {
+  metadata: MetadataI | undefined;
+}) {
+  const ITEMS_PER_PAGE = 100;
+  let numberOfItems = metadata?.items.count || 0;
+  let numberOfPages = Math.ceil(numberOfItems / ITEMS_PER_PAGE);
+  let pageNumbers = Array.from(
+    { length: numberOfPages },
+    (_, index) => index + 1,
+  );
+
+  const searchParams = useSearchParams();
+  let currentPage = parseInt(searchParams.get("page") || "1");
+
+  function goToPage(index: number) {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", index.toString());
+    window.history.pushState(null, "", `?${params.toString()}`);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function goToNextPage() {
+    const nextPageNumber = parseInt(searchParams.get("page") || "1") + 1;
+    const params = new URLSearchParams(searchParams);
+    params.set("page", nextPageNumber.toString());
+    window.history.pushState(null, "", `?${params.toString()}`);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function goToPrevPage() {
+    const previousPageNumber = parseInt(searchParams.get("page") || "1") - 1;
+    const params = new URLSearchParams(searchParams);
+    params.set("page", previousPageNumber.toString());
+    window.history.pushState(null, "", `?${params.toString()}`);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function isFirstPage() {
+    return currentPage == 1;
+  }
+
+  function isLastPage(numberOfPages: number) {
+    currentPage = parseInt(searchParams.get("page") || "1");
+    return currentPage === numberOfPages;
+  }
+
+  return (
+    <div className="pagination-wrapper">
+      <button
+        className="pagination-button"
+        onClick={goToPrevPage}
+        disabled={isFirstPage()}
+      >
+        <ChevronLeft />
+        Previous
+      </button>
+      {pageNumbers.map((number, index) => (
+        <button
+          className={`pagination-number ${currentPage === number ? "pagination-selected" : ""}`}
+          onClick={() => {
+            goToPage(index + 1);
+          }}
+          key={index + 1}
+        >
+          {number}
+        </button>
+      ))}
+      <button
+        className="pagination-button"
+        onClick={goToNextPage}
+        disabled={isLastPage(numberOfPages)}
+      >
+        Next <ChevronRight />
+      </button>
+    </div>
+  );
+}
