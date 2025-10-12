@@ -44,8 +44,8 @@ export default function BookInterview({
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
           `}</style>
         </Head>
-        <Body className="font-sans bg-secondary m-0 p-0">
-          <Container className="max-w-[600px] mx-auto">
+        <Body className="bg-secondary m-0 p-0 font-sans">
+          <Container className="mx-auto max-w-[600px]">
             {/* Header */}
             <Section className="mt-8 mb-12 text-center">
               <Img
@@ -57,8 +57,8 @@ export default function BookInterview({
             </Section>
 
             {/* Main Content */}
-            <Section className="bg-white rounded-lg p-8 shadow-lg">
-              <Heading className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+            <Section className="rounded-lg bg-white p-8 shadow-lg">
+              <Heading className="mb-6 text-center text-2xl font-semibold text-gray-800">
                 Time to meet! 🎉
               </Heading>
 
@@ -71,11 +71,11 @@ export default function BookInterview({
                 where we can discuss your potential role at Loom.
               </Text>
 
-              <Section className="bg-brand/10 rounded-lg p-6 mb-6">
-                <Text className={`${bodyTextStyle} font-medium mb-4`}>
+              <Section className="bg-brand/10 mb-6 rounded-lg p-6">
+                <Text className={`${bodyTextStyle} mb-4 font-medium`}>
                   What to expect in the interview:
                 </Text>
-                <ul className="list-disc pl-4 space-y-2">
+                <ul className="list-disc space-y-2 pl-4">
                   <li className={bodyTextStyle}>
                     Discussion about your background and experience
                   </li>
@@ -89,10 +89,10 @@ export default function BookInterview({
                 </ul>
               </Section>
 
-              <Section className="text-center mb-8">
+              <Section className="mb-8 text-center">
                 <Link
                   href={calendlyLink}
-                  className="bg-brand text-white px-8 py-3 rounded-full text-base font-semibold inline-block hover:bg-brand/90"
+                  className="bg-brand hover:bg-brand/90 inline-block rounded-full px-8 py-3 text-base font-semibold text-white"
                 >
                   Schedule Your Interview
                 </Link>
@@ -104,12 +104,12 @@ export default function BookInterview({
                 to this email and we'll find an alternative.
               </Text>
 
-              <Hr className="border border-gray-200 my-6" />
+              <Hr className="my-6 border border-gray-200" />
 
               <Text className={`${bodyTextStyle} mb-4`}>
                 To prepare for the interview, you might want to:
               </Text>
-              <ul className="list-disc pl-4 mb-6 space-y-2">
+              <ul className="mb-6 list-disc space-y-2 pl-4">
                 <li className={bodyTextStyle}>
                   Review our social media presence to understand our brand
                   better
@@ -142,7 +142,7 @@ export default function BookInterview({
             </Section>
 
             {/* Footer */}
-            <Section className="text-center mt-8 mb-8">
+            <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
                 © 2025 Loom. All rights reserved.
               </Text>
