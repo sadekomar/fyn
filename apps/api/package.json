@@ -1,5 +1,5 @@
 {
-  "name": "loom-node",
+  "name": "api",
   "version": "1.0.0",
   "description": "A Node.js application with TypeScript and Prismass",
   "main": "dist/index.js",
