@@ -27,8 +27,8 @@ export function LoomImage({ ...props }: ImgHTMLAttributes<HTMLImageElement>) {
       .join(", ");
   };
 
-  const generateSrc = (src: string | Blob | undefined): string => {
-    if (!src || typeof src !== "string") return "";
+  const generateSrc = (src: string | Blob | undefined): string | undefined => {
+    if (!src || typeof src !== "string") return undefined;
     return src.replaceAll(imagePattern, ImageSizes.L);
   };
 
