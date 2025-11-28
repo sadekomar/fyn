@@ -15,8 +15,11 @@ export function MobileNavBar() {
         {/* <SideBar /> */}
         <HamburgerMenu />
 
-        <Link href={"/"} className="loom-nav-icon">
-          <LoomImage width={"80px"} src="/branding/loom.webp" alt="Loom logo" />
+        <Link
+          href={"/"}
+          className="loom-nav-icon text-2xl font-bold text-white"
+        >
+          Clyo
         </Link>
         <Link href={"/search"} className="search-icon">
           <CustomMagnifyingGlassIcon />
