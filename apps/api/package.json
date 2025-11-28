@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@repo/database": "workspace:*",
+    "@repo/database": "*",
     "@prisma/extension-optimize": "^1.1.8",
     "@prisma/instrumentation": "^6.6.0",
     "@types/cors": "^2.8.17",
