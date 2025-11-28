@@ -14,9 +14,9 @@ export function ItemData({ data }: { data: ItemSuccess }) {
   const [selectedSize, setSelectedSize] = useState<
     ItemSuccess["sizes"][number]
   >(data.sizes.filter((size) => size.available)[0]);
-  const [selectedColor, setSelectedColor] = useState<
-    ItemSuccess["colors"][number]
-  >(data.colors[0] ?? null);
+  // const [selectedColor, setSelectedColor] = useState<a
+  //   ItemSuccess["colors"][number]
+  // >(data.colors[0] ?? null);
 
   return (
     <div className="ItemData">
@@ -95,7 +95,7 @@ export function ItemData({ data }: { data: ItemSuccess }) {
         <div className="action-buttons-wrapper">
           <AddToCart
             data={data}
-            selectedColor={selectedColor}
+            selectedColor={null}
             selectedSize={selectedSize}
           />
         </div>
@@ -104,7 +104,7 @@ export function ItemData({ data }: { data: ItemSuccess }) {
           <Accordion trigger={"Description"}>{data.description}</Accordion>
         )}
 
-        <div>
+        {/* <div>
           <div className="sizes-title">Colors</div>
           <div className="mt-2 flex flex-wrap gap-1">
             {data.colors.map((color, index) => (
@@ -148,7 +148,7 @@ export function ItemData({ data }: { data: ItemSuccess }) {
               </label>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div>
           <div className="sizes-title">Material</div>

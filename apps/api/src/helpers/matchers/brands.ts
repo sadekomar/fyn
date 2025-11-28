@@ -1,4 +1,4 @@
-import prisma from "../prisma";
+import { prisma } from "@repo/database";
 
 export const findMissingBrands = async () => {
   const dbBrands = await prisma.brand.findMany({
@@ -662,4 +662,4 @@ export const brandMatcher: Record<string, b> = {
   "maison dousha": b.MaisonDousha,
 };
 
-findMissingBrands();
+// findMissingBrands();

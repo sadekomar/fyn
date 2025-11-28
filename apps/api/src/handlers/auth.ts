@@ -1,4 +1,4 @@
-import prisma from "../helpers/prisma";
+import { prisma } from "@repo/database";
 import { handleExceptions, isDevelopment } from "../helpers/utils";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";

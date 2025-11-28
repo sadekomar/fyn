@@ -23,6 +23,17 @@ export type CreateCategoryResponse =
   | CreateCategoryErrorResponse;
 
 // Read
+export type CategoryNode = {
+  slug: string;
+  name: string;
+  label: string;
+  images?: {
+    womenImage?: string;
+    menImage?: string;
+    kidsImage?: string;
+  };
+  children?: CategoryNode[];
+};
 export type ReadCategoriesResponse = Category[];
 
 // Update

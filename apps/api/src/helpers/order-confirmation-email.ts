@@ -1,4 +1,4 @@
-import { AddressType, OrderStatus } from "@prisma/client";
+import { AddressType, OrderStatus } from "@repo/database";
 
 export type OrderConfirmationEmail = {
   orderNumber: string;

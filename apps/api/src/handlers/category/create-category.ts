@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreateCategoryRequest, CreateCategoryResponse } from "./category";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { z } from "zod";
 
 const createCategorySchema = z.object({

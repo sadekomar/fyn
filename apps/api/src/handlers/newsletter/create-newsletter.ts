@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../../helpers/prisma";
-import { Newsletter } from "@prisma/client";
+import { prisma, Newsletter } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
 
 export const createNewsletter = handleExceptions(

@@ -1,4 +1,4 @@
-import { Gender } from "@prisma/client";
+import { Gender } from "@repo/database";
 
 export const genders: Record<string, string[]> = {
   male: [

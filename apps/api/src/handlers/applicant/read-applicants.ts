@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ReadApplicantsResponse } from "./applicant";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 
 export const readApplicants = handleExceptions(
   async (

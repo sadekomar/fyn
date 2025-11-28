@@ -9,8 +9,8 @@ import {
 } from "@tanstack/react-query";
 import { ClientHomePage } from "./HomePage";
 import { config } from "./utils";
-import { ReadCategoriesResponse } from "../categories/[category]/(utils)/category-types";
 import { Endpoints } from "@/api/endpoints";
+import { ReadCategoriesResponse } from "../categories/[...category]/(utils)/category-types";
 // import { OnSaleCard } from "../item/[id]/item";
 
 export const revalidate = 43200; // 12 hours in seconds

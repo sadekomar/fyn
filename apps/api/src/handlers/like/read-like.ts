@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { handleExceptions } from "../../helpers/utils";
-import { Prisma } from "@prisma/client";
-import prisma from "../../helpers/prisma";
+import { Prisma, prisma } from "@repo/database";
 import { Request, Response } from "express";
 import { ErrorResponse, ReadLikeResponse } from "./like";
 

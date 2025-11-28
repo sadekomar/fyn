@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
-import { Address } from "@prisma/client";
-import prisma from "../../helpers/prisma";
+import { Address, prisma } from "@repo/database";
 
 export const readAddress = handleExceptions(
   async (req: Request, res: Response): Promise<Response<Address>> => {

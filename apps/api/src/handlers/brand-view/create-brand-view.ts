@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { CreateBrandViewRequest, CreateBrandViewResponse } from "./brand-view";
 
 export const createBrandView = handleExceptions(

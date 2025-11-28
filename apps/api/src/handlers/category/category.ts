@@ -1,4 +1,4 @@
-import { Category } from "@prisma/client";
+import { Category } from "@repo/database";
 import {
   readCategories,
   readPopularCategories,

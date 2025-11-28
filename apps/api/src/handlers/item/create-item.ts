@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { CreateItemResponse } from "./item";
 import { z } from "zod";
-import { Gender } from "@prisma/client";
+import { Gender } from "@repo/database";
 
 const CreateItemSchema = z.object({
   name: z.string().min(1, "Name is required"),

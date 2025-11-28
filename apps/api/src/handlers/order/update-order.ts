@@ -1,14 +1,12 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma, Order } from "@repo/database";
 import { UpdateOrderRequest, UpdateOrderResponse } from "./order";
-import { ParamsDictionary } from "express-serve-static-core";
 import { Resend } from "resend";
-import { Order } from "@prisma/client";
 
 export const updateOrder = handleExceptions(
   async (
-    req: Request<ParamsDictionary, {}, UpdateOrderRequest>,
+    req: Request<any, {}, UpdateOrderRequest>,
     res: Response<UpdateOrderResponse>
   ) => {
     const { id } = req.params;

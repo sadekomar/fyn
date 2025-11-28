@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
-import { User } from "@prisma/client";
 import { DeleteUserResponse } from "./user";
 
 export const deleteUser = handleExceptions(

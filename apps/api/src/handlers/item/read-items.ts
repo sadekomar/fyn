@@ -1,11 +1,11 @@
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import { z } from "zod";
 import { CategoriesI, ItemCardsI, MetadataI } from "./item";
 import { constructWhere } from "../../helpers/construct-where";
 import { getSortBy } from "../../helpers/get-sort-by";
-import { Gender } from "@prisma/client";
+import { Gender } from "@repo/database";
 import { hasValidValue } from "../../helpers/has-valid-value";
 import { ErrorResponse } from "../like/like";
 
@@ -202,8 +202,7 @@ export const readCategoriesWithImages = handleExceptions(
       image:
         items.find((item) =>
           item.categories.some((c) => c.category.slug === name)
-        )
-          ?.images[0]?.url ?? null,
+        )?.images[0]?.url ?? null,
     }));
 
     return res.status(200).json(formattedCategories);

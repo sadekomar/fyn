@@ -1,5 +1,5 @@
 import express from "express";
-import prisma from "./helpers/prisma";
+import { prisma } from "@repo/database";
 import cors from "cors";
 
 import { Endpoints } from "./types/endpoints";
@@ -60,6 +60,7 @@ import {
   readItemsMetadata,
   readItemsByIds,
   readOnSale,
+  readItemsSearch,
 } from "./handlers/item/item";
 import { createNewsletter } from "./handlers/newsletter/create-newsletter";
 import {
@@ -184,6 +185,8 @@ app.get(Endpoints.Applicants, readApplicants);
 app.get(Endpoints.ApplicantById, readApplicant);
 app.put(Endpoints.ApplicantById, updateApplicant);
 app.delete(Endpoints.ApplicantById, deleteApplicant);
+
+app.get(Endpoints.ItemsSearch, readItemsSearch);
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port http://0.0.0.0:${PORT} and more`);

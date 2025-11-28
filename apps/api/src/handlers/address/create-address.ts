@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { CreateAddressRequest, CreateAddressResponse } from "./address";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { z } from "zod";
-import { AddressType } from "@prisma/client";
+import { AddressType } from "@repo/database";
 
 const createAddressSchema = z.object({
   userId: z.string().uuid(),

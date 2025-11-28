@@ -1,13 +1,56 @@
 import { Request, Response } from "express";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { ReadCategoriesResponse } from "./category";
 import { handleExceptions } from "../../helpers/utils";
 
-export const readCategories = handleExceptions(
-  async (req: Request, res: Response<ReadCategoriesResponse>) => {
-    const categories = await prisma.category.findMany();
+type CategoryNode = {
+  slug: string;
+  name: string;
+  label: string;
+  images?: {
+    womenImage?: string;
+    menImage?: string;
+    kidsImage?: string;
+  };
+  children?: CategoryNode[];
+};
 
-    return res.status(200).json(categories);
+// Helper function to recursively build category tree
+const buildCategoryTree = (
+  categories: any[],
+  parentId: string | null = null
+): CategoryNode[] => {
+  return categories
+    .filter((category) => category.parentId === parentId)
+    .map((category) => ({
+      slug: category.slug || "",
+      name: category.name || "",
+      label: category.label || "",
+      images: {
+        womenImage: category.womenImage || "",
+        menImage: category.menImage || "",
+        kidsImage: category.kidsImage || "",
+      },
+      children: buildCategoryTree(categories, category.id),
+    }));
+};
+
+export const readCategories = handleExceptions(
+  async (req: Request, res: Response<CategoryNode[]>) => {
+    const categories = await prisma.category.findMany({
+      include: {
+        children: true,
+        parent: true,
+      },
+      where: {
+        inTrash: false,
+      },
+    });
+
+    // Build the complete category tree recursively
+    const categoryNodes: CategoryNode[] = buildCategoryTree(categories);
+
+    return res.status(200).json(categoryNodes);
   }
 );
 
@@ -52,6 +95,7 @@ export const readMoreCategories = handleExceptions(
         name: {
           in: moreCategories,
         },
+        inTrash: false,
       },
     });
 

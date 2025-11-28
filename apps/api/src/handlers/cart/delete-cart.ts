@@ -1,5 +1,5 @@
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { Request, Response } from "express";
 import { DeleteCartResponse } from "./cart";
 

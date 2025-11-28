@@ -1,5 +1,4 @@
-import { Brand } from "@prisma/client";
-import prisma from "../../helpers/prisma";
+import { Brand, prisma } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import { UpdateBrandRequest, UpdateBrandResponse } from "./brand";

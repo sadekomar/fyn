@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
-import { Prisma } from "@prisma/client";
+import { prisma } from "@repo/database";
+import { Prisma } from "@repo/database";
 import { z } from "zod";
 
 const DeletItemViewsQuery = z.discriminatedUnion("type", [

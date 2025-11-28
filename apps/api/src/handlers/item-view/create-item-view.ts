@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { CreateItemViewRequest, CreateItemViewResponse } from "./item-view";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@repo/database";
 
 const CreateItemViewRequestBody = z.discriminatedUnion("type", [
   z.object({

@@ -1,8 +1,8 @@
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import { ReadBrandsByLetterResponse, ReadBrandsResponse } from "./brand";
-import { Brand } from "@prisma/client";
+import { Brand } from "@repo/database";
 
 export const readBrands = handleExceptions(
   async (

@@ -1,8 +1,7 @@
-import prisma from "../../helpers/prisma";
+import { prisma, Prisma } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
 import { CreateLikeRequest, CreateLikeResponse } from "./like";
 
 const CreateLikeRequestSchema = z.discriminatedUnion("type", [

@@ -1,4 +1,4 @@
-import { Applicant } from "@prisma/client";
+import { Applicant } from "@repo/database";
 import { createApplicant } from "./create-applicant";
 import { readApplicant } from "./read-applicant";
 import { readApplicants } from "./read-applicants";

@@ -1,39 +1,39 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Item {
-  id          String                                                                                                                                                @id @default(uuid())
+  id          String                                                                                                                                                                                                                                                                                                                         @id @default(uuid())
   name        String
   description String
-  createdAt   DateTime                                                                                                                                              @default(now())
-  updatedAt   DateTime                                                                                                                                              @updatedAt
+  createdAt   DateTime                                                                                                                                                                                                                                                                                                                       @default(now())
+  updatedAt   DateTime                                                                                                                                                                                                                                                                                                                       @updatedAt
   latestPrice Int
   link        String
   brandId     String
   materialId  String?
   gender      Gender?
   deletedAt   DateTime?
-  inTrash     Boolean                                                                                                                                               @default(false)
-  isSoldOut   Boolean                                                                                                                                               @default(false)
-  status      ItemStatus                                                                                                                                            @default(ACTIVE)
-  search_tsv  Unsupported("tsvector GENERATED ALWAYS AS (to_tsvector('english', coalesce(name, '')) || to_tsvector('english', coalesce(description, ''))) STORED")?
+  inTrash     Boolean                                                                                                                                                                                                                                                                                                                        @default(false)
+  isSoldOut   Boolean                                                                                                                                                                                                                                                                                                                        @default(false)
+  status      ItemStatus                                                                                                                                                                                                                                                                                                                     @default(ACTIVE)
+  search_tsv  Unsupported("tsvector GENERATED ALWAYS AS (setweight(to_tsvector('english', mask_unstemmable_words(coalesce(name, ''))), 'A') || setweight(to_tsvector('english', mask_unstemmable_words(coalesce(description, ''))), 'D') || setweight(to_tsvector('english', extract_last_path_segment(coalesce(link, ''))), 'C')) STORED")?
   categories  CategoryItem[]
   images      Image[]
-  brand       Brand                                                                                                                                                 @relation(fields: [brandId], references: [id])
-  material    Material?                                                                                                                                             @relation(fields: [materialId], references: [id])
+  brand       Brand                                                                                                                                                                                                                                                                                                                          @relation(fields: [brandId], references: [id])
+  material    Material?                                                                                                                                                                                                                                                                                                                      @relation(fields: [materialId], references: [id])
   carts       ItemCart[]
   orders      ItemOrder[]
   views       ItemView[]
   likes       Like[]
   prices      Price[]
   sizes       Size[]
-  colors      Color[]                                                                                                                                               @relation("ColorToItem")
+  colors      Color[]                                                                                                                                                                                                                                                                                                                        @relation("ColorToItem")
 
   @@index([search_tsv], map: "idx_items_search_tsv", type: Gin)
   @@index([brandId])
@@ -179,8 +179,10 @@ model Brand {
   keywords             String[]
   deletedAt            DateTime?
   categoryId           String?
+  category             Category?          @relation("CategoryToBrand", fields: [categoryId], references: [id], onDelete: Cascade)
+  restrictedCategoryId String?
+  restrictedCategory   Category?          @relation("RestrictedCategoryToBrand", fields: [restrictedCategoryId], references: [id], onDelete: Cascade)
   gender               Gender?
-  category             Category?          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   brandFollows         BrandFollow[]
   brandViews           BrandView[]
   items                Item[]
@@ -197,26 +199,29 @@ model Showroom {
 }
 
 model Category {
-  id           String         @id @default(uuid())
-  name         String
-  createdAt    DateTime       @default(now())
-  deletedAt    DateTime?
-  description  String?
-  gender       Gender?
-  keywords     String[]
-  kidsImage    String?
-  label        String?
-  level        Int            @default(3)
-  menImage     String?
-  parentId     String?
-  slug         String?        @unique
-  updatedAt    DateTime       @default(now()) @updatedAt
-  womenImage   String?
-  Brand        Brand[]
-  parent       Category?      @relation("ParentCategory", fields: [parentId], references: [id])
-  children     Category[]     @relation("ParentCategory")
-  items        CategoryItem[]
-  CategoryView CategoryView[]
+  id               String         @id @default(uuid())
+  name             String
+  createdAt        DateTime       @default(now())
+  deletedAt        DateTime?
+  description      String?
+  gender           Gender?
+  isDefault        Boolean        @default(false)
+  keywords         String[]
+  kidsImage        String?
+  label            String?
+  level            Int            @default(3)
+  menImage         String?
+  parentId         String?
+  slug             String?        @unique
+  updatedAt        DateTime       @default(now()) @updatedAt
+  womenImage       String?
+  parent           Category?      @relation("ParentCategory", fields: [parentId], references: [id])
+  children         Category[]     @relation("ParentCategory")
+  items            CategoryItem[]
+  CategoryView     CategoryView[]
+  brands           Brand[]        @relation("CategoryToBrand")
+  restrictedBrands Brand[]        @relation("RestrictedCategoryToBrand")
+  inTrash          Boolean        @default(false)
 
   @@index([deletedAt])
 }
@@ -225,7 +230,6 @@ model CategoryItem {
   id         String      @id @default(uuid())
   categoryId String
   itemId     String
-  confidence Int?
   score      Float?
   status     LabelStatus @default(PENDING)
   createdAt  DateTime    @default(now())
@@ -462,3 +466,4 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
+

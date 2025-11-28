@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { OnSaleCard } from "./item";
 import { handleExceptions } from "../../helpers/utils";
 

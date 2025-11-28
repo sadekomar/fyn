@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { handleExceptions, isDevelopment } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { Resend } from "resend";
 import { getApplicationConfirmationHtml } from "../../helpers/html-emails";
 import { careersFromAddress } from "../../helpers/email";

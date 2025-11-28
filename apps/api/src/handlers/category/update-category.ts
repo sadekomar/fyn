@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
 import { UpdateCategoryRequest, UpdateCategoryResponse } from "./category";
 import { z } from "zod";

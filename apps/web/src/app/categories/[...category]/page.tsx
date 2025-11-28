@@ -11,33 +11,33 @@ import { Endpoints } from "@/api/endpoints";
 
 export const revalidate = 43200; // 12 hours in seconds
 
-export async function generateStaticParams() {
-  const categories = await serverHttp.get<{ id: string; name: string }[]>(
-    Endpoints.Categories,
-  );
+// export async function generateStaticParams() {
+//   const categories = await serverHttp.get<{ id: string; name: string }[]>(
+//     Endpoints.Categories,
+//   );
 
-  return categories.map((category) => ({ category: category.name }));
-}
+//   return categories.map((category) => ({ category: category.name }));
+// }
 
-export async function generateMetadata(props: {
-  params: Promise<{ category: string }>;
-}) {
-  const params = await props.params;
-  const category = params.category.replaceAll("%20", " ");
+// export async function generateMetadata(props: {
+//   params: Promise<{ category: string }>;
+// }) {
+//   const params = await props.params;
+//   const category = params.category.replaceAll("%20", " ");
 
-  return {
-    title: category,
-    openGraph: {
-      title: category,
-      description:
-        "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
-      type: "website",
-    },
-  };
-}
+//   return {
+//     title: category,
+//     openGraph: {
+//       title: category,
+//       description:
+//         "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+//       type: "website",
+//     },
+//   };
+// }
 
 export default async function CategoryPage(props: {
-  params: Promise<{ category: string }>;
+  params: Promise<{ category: string[] }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const queryClient = new QueryClient();
@@ -49,7 +49,7 @@ export default async function CategoryPage(props: {
 
   await queryClient.prefetchQuery({
     queryKey: ["/category", category, ...queryStringArray],
-    queryFn: () => getCategoryItems(category, queryString),
+    queryFn: () => getCategoryItems(`/${category.join("/")}`, queryString),
   });
 
   await queryClient.prefetchQuery({
@@ -58,7 +58,7 @@ export default async function CategoryPage(props: {
       category,
       ...queryStringArray.filter(([key]) => key !== "page"),
     ],
-    queryFn: () => getCategoryMetadata(category, queryString),
+    queryFn: () => getCategoryMetadata(`/${category.join("/")}`, queryString),
   });
 
   return (

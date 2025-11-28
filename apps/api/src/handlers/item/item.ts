@@ -1,4 +1,4 @@
-import { Item } from "@prisma/client";
+import { Item } from "@repo/database";
 import { createItem } from "./create-item";
 import { readItem } from "./read-item";
 import {
@@ -9,6 +9,7 @@ import {
 import { readOnSale } from "./read-on-sale";
 import { readItemsByIds } from "./read-items-by-ids";
 import { deleteItem } from "./delete-item";
+import { readItemsSearch } from "./read-items-search";
 
 export {
   createItem,
@@ -19,6 +20,7 @@ export {
   readCategoriesWithImages,
   readItemsMetadata,
   readOnSale,
+  readItemsSearch,
 };
 
 //misc

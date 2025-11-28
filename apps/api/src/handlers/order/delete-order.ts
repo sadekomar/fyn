@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
-import { Order } from "@prisma/client";
+import { prisma, Order } from "@repo/database";
 
 export const deleteOrder = handleExceptions(
   async (req: Request, res: Response): Promise<Response<Order>> => {

@@ -10,7 +10,7 @@ export function AddToCart({
   selectedSize,
 }: {
   data: ItemSuccess;
-  selectedColor: ItemSuccess["colors"][number];
+  selectedColor: ItemSuccess["colors"][number] | null;
   selectedSize: ItemSuccess["sizes"][number];
 }) {
   const isDisabled = !selectedSize;
@@ -23,7 +23,7 @@ export function AddToCart({
         addItemCart({
           data,
           selectedSize,
-          selectedColor,
+          selectedColor: null,
         });
       }}
       disabled={isDisabled}

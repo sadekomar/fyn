@@ -5,6 +5,7 @@ export enum Endpoints {
   BrandCategories = "/brand-categories",
   ItemById = "/item/:id",
   ItemsByIds = "/items-by-ids",
+  ItemsSearch = "/items-search",
   // brands
   Brands = "/brands",
   BrandsAlphabetical = "/brands-alphabetical",

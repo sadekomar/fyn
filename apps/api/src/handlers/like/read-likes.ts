@@ -2,8 +2,7 @@ import { z } from "zod";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import { ErrorResponse } from "./like";
-import { Prisma } from "@prisma/client";
-import prisma from "../../helpers/prisma";
+import { Prisma, prisma } from "@repo/database";
 import { ItemCardsI } from "../item/item";
 
 const ReadLikesRequestSchema = z.discriminatedUnion("type", [

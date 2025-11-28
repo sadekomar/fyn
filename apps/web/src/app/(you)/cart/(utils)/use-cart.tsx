@@ -36,7 +36,7 @@ export function useAddItemCart() {
     }: {
       data: ItemSuccess;
       selectedSize: ItemSuccess["sizes"][number];
-      selectedColor: ItemSuccess["colors"][number];
+      selectedColor: ItemSuccess["colors"][number] | null;
     }) => {
       const { id, type } = await getCurrentUser();
 

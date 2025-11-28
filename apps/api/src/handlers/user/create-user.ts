@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { CreateUserRequest, CreateUserResponse } from "./user";
 import { Resend } from "resend";
 import { getEmailConfirmationHtml } from "../../helpers/html-emails";

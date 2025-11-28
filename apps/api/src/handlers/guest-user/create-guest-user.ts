@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { CreateGuestUserRequest, CreateGuestUserResponse } from "./guest-user";
 
 export const createGuestUser = handleExceptions(

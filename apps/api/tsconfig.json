@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "lib": ["ES2024"],
-    "target": "es2024",
-    "module": "commonjs",
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -10,8 +11,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["node"]
   },
-  "include": ["src/**/*", "src/handlers/test.handler.ts"],
+  "include": ["src/**/*", "src/handlers/test.handler.ts", "prisma.config.ts"],
   "exclude": ["node_modules", "**/*.test.ts"]
 }

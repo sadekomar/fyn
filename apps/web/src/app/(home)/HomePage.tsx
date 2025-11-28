@@ -10,7 +10,7 @@ import { config } from "./utils";
 import Link from "next/link";
 import { LoomImage } from "@/components/LoomImage";
 import { Endpoints } from "@/api/endpoints";
-import { ReadCategoriesResponse } from "../categories/[category]/(utils)/category-types";
+import { ReadCategoriesResponse } from "../categories/[...category]/(utils)/category-types";
 // import { OnSaleCard } from "../item/[id]/item";
 import { getIdQuery } from "../(utils)/utils";
 import { getCurrentUser } from "@/lib/auth";

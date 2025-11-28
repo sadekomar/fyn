@@ -11,7 +11,7 @@ import {
   OrderStatus,
   ShippingEstimate,
   Size,
-} from "@prisma/client";
+} from "@repo/database";
 
 export { createOrder, readOrder, readOrders, updateOrder, deleteOrder };
 

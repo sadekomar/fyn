@@ -1,4 +1,4 @@
-import { Address, AddressType } from "@prisma/client";
+import { Address, AddressType } from "@repo/database";
 import { createAddress } from "./create-address";
 import { readAddress } from "./read-addresses";
 import { deleteAddress } from "./delete-address";

@@ -1,6 +1,6 @@
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { Genders, ItemPageResponse } from "./item";
 
 const EXPIRY_HOURS = 6;
@@ -50,13 +50,13 @@ export const readItem = handleExceptions(
           },
         },
         categories: {
-            include: {
-              category: {
-                select: {
-                  name: true,
-                },
+          include: {
+            category: {
+              select: {
+                name: true,
               },
             },
+          },
         },
         prices: {
           select: {

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { handleExceptions } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { ItemCardsI } from "../item/item";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@repo/database";
 
 export const readUserItemViews = handleExceptions(
   async (req: Request, res: Response<ItemCardsI[]>) => {

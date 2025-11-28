@@ -1,8 +1,8 @@
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@repo/database";
 import {
   CreateBrandFollowRequest,
   CreateBrandFollowResponse,

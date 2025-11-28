@@ -1,14 +1,14 @@
 import { Response, Request } from "express";
 import { handleExceptions, isDevelopment } from "../../helpers/utils";
-import prisma from "../../helpers/prisma";
 import {
+  prisma,
   OrderStatus,
   ItemOrder,
   Order,
   Address,
   ShippingEstimate,
   AddressType,
-} from "@prisma/client";
+} from "@repo/database";
 import { z } from "zod";
 import {
   getOrderConfirmationHtml,

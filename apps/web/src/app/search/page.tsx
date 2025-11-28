@@ -27,13 +27,13 @@ export default function SearchPage() {
 
   const { data: products } = useQuery({
     queryKey: ["/search", ...queryStringArray],
-    queryFn: () => clientHttp.get<ItemCardsI[]>(`/items?${queryString}`),
+    queryFn: () => clientHttp.get<ItemCardsI[]>(`/items-search?${queryString}`),
   });
 
-  const { data: metadata } = useQuery({
-    queryKey: ["/metadata", ...queryStringArray],
-    queryFn: () => clientHttp.get<MetadataI>(`/items-metadata?${queryString}`),
-  });
+  // const { data: metadata } = useQuery({
+  //   queryKey: ["/metadata", ...queryStringArray],
+  //   queryFn: () => clientHttp.get<MetadataI>(`/items-metadata?${queryString}`),
+  // });
 
   let searchFieldRef = useRef<HTMLInputElement>(null);
   let autofillRef = useRef<HTMLDivElement>(null);
@@ -274,14 +274,14 @@ export default function SearchPage() {
           </div>
         </div>
 
-        {searchParams.get("search") && (
+        <GridLayout items={products} />
+        {/* {searchParams.get("search") && (
           <>
             <ColorPills metadata={metadata} />
             <FiltersAndCount metadata={metadata} />
-            <GridLayout items={products} />
             <PaginationControl metadata={metadata} />
           </>
-        )}
+        )} */}
 
         {/* {
                 (!searchParams.get('query')) ?

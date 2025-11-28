@@ -1,4 +1,4 @@
-import { Brand } from "@prisma/client";
+import { Brand } from "@repo/database";
 import { readBrands, readBrandsByLetter } from "./read-brands";
 import { createBrand } from "./create-brand";
 import { deleteBrand } from "./delete-brand";

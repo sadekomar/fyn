@@ -1,8 +1,8 @@
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 import { handleExceptions } from "../../helpers/utils";
 import { Request, Response } from "express";
 import { ItemCardsI } from "./item";
-import { Gender } from "@prisma/client";
+import { Gender } from "@repo/database";
 
 // Function to translate gender values from request to enum values
 const translateGender = (gender: string): Gender | null => {

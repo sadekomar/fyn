@@ -1,4 +1,4 @@
-import prisma from "../../helpers/prisma";
+import { prisma } from "@repo/database";
 
 export const allCategoriesData: Record<
   string,
