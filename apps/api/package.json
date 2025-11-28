@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@repo/database": "*",
     "@prisma/extension-optimize": "^1.1.8",
     "@prisma/instrumentation": "^6.6.0",
     "@types/cors": "^2.8.17",
@@ -28,6 +27,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@repo/database": "*",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
