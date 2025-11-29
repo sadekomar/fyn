@@ -10,7 +10,7 @@ import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { useParams, useSearchParams } from "next/navigation";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
 import { AddCategoryView } from "./add-category-view";
 
@@ -48,7 +48,7 @@ export function CategoryPageClient() {
   return (
     <>
       <div className="category-page-header">
-        <ClyoImage
+        <UnivyrImage
           src={categoryData?.image || ""}
           alt={categoryData?.description || ""}
         />

@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { getOrderByNumber } from "@/api/orders";
 import { ReadOrderResponse } from "@/api/types/order-types";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { useQuery } from "@tanstack/react-query";
 
 export default function OrderNumberPage() {
@@ -64,7 +64,7 @@ export default function OrderNumberPage() {
             {order.items.map((item) => (
               <div key={item.id} className="flex gap-4 border-b pb-4">
                 <div className="h-24 w-24 flex-shrink-0">
-                  <ClyoImage
+                  <UnivyrImage
                     src={item.image}
                     alt={item.name}
                     className="h-full w-full object-cover"

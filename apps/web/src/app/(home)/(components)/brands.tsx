@@ -1,4 +1,4 @@
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import "./css/Brands.css";
 import { IsometricBrands } from "./IsometricBrands";
 import Link from "next/link";
@@ -9,7 +9,11 @@ export function Brands() {
       <IsometricBrands />
       <div className="brands-content flex flex-col items-center gap-4">
         <div className="brands-title-wrapper">
-          <ClyoImage src="/threeHundred.svg" className="min-h-[150px]" alt="" />
+          <UnivyrImage
+            src="/threeHundred.svg"
+            className="min-h-[150px]"
+            alt=""
+          />
           <p className="text-center text-lg font-medium tracking-[-0.02em]">
             Explore new brands and collections before anyone else.
           </p>

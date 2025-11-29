@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CrossIcon } from "@/components/Icons/CustomIcons";
 
 import "./CartCard.css";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { ItemCart } from "@/app/(you)/cart/(utils)/cart-utils";
 
 import {
@@ -23,7 +23,7 @@ export function CartCard({ product }: { product: ItemCart }) {
   return (
     <>
       <div className="cart-card-wrapper">
-        <ClyoImage
+        <UnivyrImage
           className="cart-card-img"
           src={product.image}
           sizes="120px"

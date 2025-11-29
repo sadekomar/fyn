@@ -3,7 +3,7 @@
 import { getOrdersByUserId, putOrder } from "@/api/orders";
 import { ReadAllOrdersResponse } from "@/api/types/order-types";
 import { getUserSession } from "@/lib/auth";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import Link from "next/link";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { OrderStatus } from "@/api/types/base-types";
@@ -278,7 +278,7 @@ export default function OrdersPage() {
                       key={item.id}
                       className="flex items-start gap-4"
                     >
-                      <ClyoImage
+                      <UnivyrImage
                         src={item.image}
                         alt={item.name}
                         className="h-20 w-20 rounded-md object-cover"

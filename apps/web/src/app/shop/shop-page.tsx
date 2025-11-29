@@ -10,7 +10,7 @@ import { ItemCardsI, MetadataI } from "@/lib/types";
 import { ColorPills } from "../(home)/(components)/color-pills";
 import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { useSearchParams } from "next/navigation";
 
 export function ShopPageClient() {
@@ -31,7 +31,7 @@ export function ShopPageClient() {
   return (
     <>
       <div className="category-page-header">
-        <ClyoImage src={"/shop.webp"} alt={"Shop"} />
+        <UnivyrImage src={"/shop.webp"} alt={"Shop"} />
         <div className="category-page-title-wrapper">
           <h2 className="category-page-title">Shop</h2>
         </div>

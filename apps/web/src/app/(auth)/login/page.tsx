@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { login } from "@/lib/auth";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
@@ -76,7 +76,7 @@ export default function LoginForm() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="mb-4 flex justify-center">
-            <ClyoImage
+            <UnivyrImage
               src={"/branding/loom-black.png"}
               className="h-8"
               alt="Clyo logo"

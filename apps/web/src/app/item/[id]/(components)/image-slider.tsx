@@ -1,6 +1,6 @@
 "use client";
 
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { debounce } from "lodash";
 import { Dialog } from "@radix-ui/themes";
 import { useRef, useState } from "react";
@@ -41,7 +41,7 @@ export const ImageSlider = ({ images }: { images: string[] }) => {
         {images.map((image, index) => (
           <Dialog.Root key={index}>
             <Dialog.Trigger>
-              <ClyoImage
+              <UnivyrImage
                 alt={`${name}-${index + 1}`}
                 key={index}
                 sizes="(max-width: 768px) 180px, 240px"
@@ -57,7 +57,7 @@ export const ImageSlider = ({ images }: { images: string[] }) => {
               <Dialog.Close className="mobile-images-modal-exit">
                 <X className="h-4 w-4" />
               </Dialog.Close>
-              <ClyoImage
+              <UnivyrImage
                 className="SnapScroller__Image"
                 src={image}
                 sizes="300px"

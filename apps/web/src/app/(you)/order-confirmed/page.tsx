@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { CheckCircle2, Package, Truck, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 
 import { useSearchParams } from "next/navigation";
 import { getOrderById } from "@/api/orders";
@@ -153,7 +153,7 @@ export default function OrderConfirmedPage() {
                 {order.items.map((item) => (
                   <div key={item.id} className="flex items-center space-x-4">
                     <div className="relative">
-                      <ClyoImage
+                      <UnivyrImage
                         src={item.image}
                         alt={item.name}
                         className="h-16 w-16 rounded-md object-cover"

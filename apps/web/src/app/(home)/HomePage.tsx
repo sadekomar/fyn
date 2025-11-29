@@ -8,7 +8,7 @@ import { Brands } from "./(components)/brands";
 import { CategoriesComponent } from "../categories/categories-component";
 import { config } from "./utils";
 import Link from "next/link";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { Endpoints } from "@/api/endpoints";
 import { ReadCategoriesResponse } from "../categories/[...category]/(utils)/category-types";
 // import { OnSaleCard } from "../item/[id]/item";
@@ -320,7 +320,7 @@ function PopularCategories({
           className="flex flex-col items-center gap-2"
         >
           <div className="aspect-square w-full rounded-lg bg-gray-200 transition-all duration-300 active:scale-90">
-            <ClyoImage
+            <UnivyrImage
               key={category.id}
               src={category.womenImage || category.kidsImage || ""}
               alt={category.name}
@@ -362,14 +362,14 @@ function BrandSection({
         className={`flex flex-col gap-6 rounded-b-[32px] p-7 pb-8`}
         style={{ backgroundColor: primaryColor }}
       >
-        <ClyoImage
+        <UnivyrImage
           src={cover}
           className="h-[150px] w-full rounded-[28px]"
           alt={logo}
         />
         <div className="flex flex-col items-center gap-4">
           <Link href={`/brands/${brand}`}>
-            <ClyoImage
+            <UnivyrImage
               src={logo}
               alt={logo}
               className="min-h-[30px]"
@@ -424,7 +424,7 @@ function CategorySection({
             dangerouslySetInnerHTML={{ __html: description }}
           />
         </div>
-        <ClyoImage
+        <UnivyrImage
           src={cover}
           className="h-[150px] w-full rounded-[28px]"
           alt={category}

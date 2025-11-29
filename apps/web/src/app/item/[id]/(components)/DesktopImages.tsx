@@ -1,6 +1,6 @@
 "use client";
 
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { Dialog, IconButton } from "@radix-ui/themes";
 // import { Cross1Icon } from "@radix-ui/react-icons";
 
@@ -15,7 +15,7 @@ export function DesktopImages({
         {data &&
           data["images"].map((image, index) => (
             <Dialog.Trigger key={index}>
-              <ClyoImage
+              <UnivyrImage
                 alt={data.name}
                 key={index}
                 style={{ width: "100%" }}

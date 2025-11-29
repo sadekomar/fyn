@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ClyoImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/clyo-image";
 import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -74,7 +74,7 @@ export default function ConfirmEmailPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="mb-4 flex justify-center">
-            <ClyoImage
+            <UnivyrImage
               src={"/branding/loom-black.png"}
               className="h-8"
               alt="Clyo logo"
