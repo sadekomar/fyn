@@ -39,15 +39,16 @@ export function ColorPills({ metadata }: { metadata: MetadataI | undefined }) {
         All
       </div>
 
-      {metadata?.colors.map((color, index) => (
-        <div
-          key={index}
-          className={`color-pill ${color.name === searchParams.get("colors") ? "color-pill-selected" : ""}`}
-          onClick={() => toggleColor(color.name)}
-        >
-          {color.name} ({color.count})
-        </div>
-      ))}
+      {Array.isArray(metadata?.colors) &&
+        metadata.colors.map((color, index) => (
+          <div
+            key={index}
+            className={`color-pill ${color.name === searchParams.get("colors") ? "color-pill-selected" : ""}`}
+            onClick={() => toggleColor(color.name)}
+          >
+            {color.name} ({color.count})
+          </div>
+        ))}
 
       <style jsx>{`
         .color-pills-wrapper {

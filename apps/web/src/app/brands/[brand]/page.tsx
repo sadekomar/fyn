@@ -19,6 +19,10 @@ import { ReadBrandsResponse } from "./(utils)/brand";
 export async function generateStaticParams() {
   const brands = await serverHttp.get<ReadBrandsResponse>(Endpoints.Brands);
 
+  if (!Array.isArray(brands)) {
+    return [];
+  }
+
   return brands.map((brand) => ({ brand: brand.name }));
 }
 

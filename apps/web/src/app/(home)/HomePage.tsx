@@ -307,9 +307,13 @@ function PopularCategories({
 }: {
   categories: ReadCategoriesResponse;
 }) {
+  if (!Array.isArray(categories)) {
+    return null;
+  }
+
   return (
     <section className="mx-4 my-10 grid grid-cols-4 gap-2">
-      {categories?.map((category) => (
+      {categories.map((category) => (
         <Link
           href={`/categories/${category.slug}`}
           key={category.id}

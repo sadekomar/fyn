@@ -21,7 +21,7 @@ export function HorizontalScroller({
         theme === "dark" ? "text-white" : "text-black"
       }`}
     >
-      {items
+      {Array.isArray(items) && items.length > 0
         ? items.map((item, index) => (
             <ItemCard
               key={index}

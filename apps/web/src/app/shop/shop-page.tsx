@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import "@/app/categories/[category]/CategoryPage.css";
+import "@/app/categories/[...category]/CategoryPage.css";
 
 import { clientHttp } from "@/lib/queries/http.service";
 import { GridLayout } from "@/layouts/GridLayout/GridLayout";
