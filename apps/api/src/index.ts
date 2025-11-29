@@ -2,7 +2,7 @@ import express from "express";
 import { prisma } from "@repo/database";
 import cors from "cors";
 
-import { Endpoints } from "./types/endpoints";
+import { Endpoints } from "./types/endpoints.js";
 import { testLatency } from "./handlers/checks/test-latency";
 import { healthCheck } from "./handlers/checks/health-check";
 import {
