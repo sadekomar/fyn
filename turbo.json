@@ -20,7 +20,7 @@
     "build": {
       "dependsOn": ["^build", "^db:generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "packages/database/generated/**"],
-      "outputs": [".next/**", "!.next/cache/**"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
       "env": [
         "DATABASE_URL",
         "DIRECT_URL",
