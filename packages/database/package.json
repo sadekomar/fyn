@@ -15,7 +15,7 @@
     "db:studio": "prisma studio"
   },
   "exports": {
-    ".": "./src/index.js"
+    ".": "./src/index.ts"
   },
   "devDependencies": {
     "@types/pg": "^8.11.10",
