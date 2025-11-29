@@ -1,4 +1,4 @@
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import { categoriesPage } from "@/data/extendedCategories";
 import Link from "next/link";
 import "./AllCategories.css";
@@ -47,7 +47,7 @@ export function CategoriesComponent({
                           : category.link
                       }
                     >
-                      <LoomImage
+                      <ClyoImage
                         src={
                           generateCategoryImage
                             ? generateCategoryImage(category)
@@ -63,7 +63,7 @@ export function CategoriesComponent({
                   ) : null
                 ) : (
                   <Link key={indexTwo} href={category.link}>
-                    <LoomImage src={category.image} alt="" />
+                    <ClyoImage src={category.image} alt="" />
                     <button className="category-slider-label">
                       {category.term}
                       <ArrowIcon />

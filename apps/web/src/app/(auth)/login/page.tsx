@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import { login } from "@/lib/auth";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
@@ -76,14 +76,14 @@ export default function LoginForm() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="mb-4 flex justify-center">
-            <LoomImage
+            <ClyoImage
               src={"/branding/loom-black.png"}
               className="h-8"
-              alt="Loom logo"
+              alt="Clyo logo"
             />
           </div>
           <CardTitle className="text-center text-2xl">
-            Welcome back, Loomer!
+            Welcome back, Clyoer!
           </CardTitle>
           <CardDescription className="text-center">
             Pop in your details and let's get you back to your account

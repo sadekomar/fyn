@@ -25,7 +25,7 @@ export function PositionSidebar({
         <div className="flex flex-col gap-1">
           <h5 className="text-[25px] font-semibold">Apply for position</h5>
           <p className="text-gray-600">
-            Ready to join Loom? Submit your application below.
+            Ready to join Clyo? Submit your application below.
           </p>
         </div>
         <div className="flex flex-col gap-2">

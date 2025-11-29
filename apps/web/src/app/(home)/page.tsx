@@ -16,17 +16,17 @@ import { ReadCategoriesResponse } from "../categories/[...category]/(utils)/cate
 export const revalidate = 43200; // 12 hours in seconds
 
 export const metadata = {
-  title: "Loom Cairo: Shop 300 Local Fashion Brands in One Place",
+  title: "Clyo Cairo: Shop 300 Local Fashion Brands in One Place",
   description:
-    "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+    "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
   robots:
     "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
-  keywords: "Loom Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
+  keywords: "Clyo Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
   openGraph: {
-    title: "Loom Cairo: Shop 300 Local Fashion Brands in One Place",
+    title: "Clyo Cairo: Shop 300 Local Fashion Brands in One Place",
     images: "https://capsuleegy.com/products/flip-flops-1",
     description:
-      "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
     type: "website",
   },
   icons: {
@@ -34,12 +34,12 @@ export const metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Loom Cairo: Shop 300 Local Fashion Brands in One Place",
+    title: "Clyo Cairo: Shop 300 Local Fashion Brands in One Place",
     description:
-      "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
   },
   alternates: {
-    canonical: "https://loomcairo.com/",
+    canonical: "https://clyocairo.com/",
   },
 };
 

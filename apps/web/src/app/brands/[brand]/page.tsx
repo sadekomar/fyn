@@ -38,12 +38,12 @@ export async function generateMetadata(props: {
     title: brandData.label ?? brandData.name,
     description:
       brandData.description ??
-      "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
     openGraph: {
       title: brandData.label ?? brandData.name,
       description:
         brandData.description ??
-        "Find everything you need on Loom Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+        "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
       type: "website",
       images: brandData.image?.replaceAll("loom-image-dimensions", "720") ?? "",
     },

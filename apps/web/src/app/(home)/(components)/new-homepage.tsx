@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import "../home.css";
 
 import { Brands } from "./brands";
@@ -48,7 +48,7 @@ export default function ClientHomePage() {
 
   return (
     <div className="space-y-12">
-      <LoomImage
+      <ClyoImage
         src="/model.webp"
         className="h-[320px] w-full object-cover object-[50%_20%]"
         alt="Fashion editorial"
@@ -76,7 +76,7 @@ export default function ClientHomePage() {
       <section className="relative h-[95vh] min-h-[800px] overflow-hidden bg-black">
         {/* Background Image with Dynamic Overlay */}
         <div className="absolute inset-0">
-          <LoomImage
+          <ClyoImage
             src="/dreamy.webp"
             alt="Fashion editorial"
             className="h-full w-full object-cover"

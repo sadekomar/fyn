@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -74,10 +74,10 @@ export default function ConfirmEmailPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="mb-4 flex justify-center">
-            <LoomImage
+            <ClyoImage
               src={"/branding/loom-black.png"}
               className="h-8"
-              alt="Loom logo"
+              alt="Clyo logo"
             />
           </div>
           <div className="mb-4 flex justify-center">

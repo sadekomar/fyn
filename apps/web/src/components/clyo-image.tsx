@@ -2,7 +2,7 @@ import { ImgHTMLAttributes } from "react";
 
 // very very cool to be honest
 // i now get all the props and type safety from the ImgHTMLAttributes with my custom component
-export function LoomImage({ ...props }: ImgHTMLAttributes<HTMLImageElement>) {
+export function ClyoImage({ ...props }: ImgHTMLAttributes<HTMLImageElement>) {
   const imagePattern = "loom-image-dimensions";
   enum ImageSizes {
     "6XL" = "2048",

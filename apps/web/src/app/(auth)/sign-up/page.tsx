@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import { login, register } from "@/lib/auth";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
@@ -94,14 +94,14 @@ export default function RegisterForm() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="mb-4 flex justify-center">
-            <LoomImage
+            <ClyoImage
               src={"/branding/loom-black.png"}
               className="h-8"
-              alt="Loom logo"
+              alt="Clyo logo"
             />
           </div>
           <CardTitle className="text-center text-2xl">
-            The Loomer world awaits!
+            The Clyo world awaits!
           </CardTitle>
           <CardDescription className="text-center">
             Please enter your details to create an account.

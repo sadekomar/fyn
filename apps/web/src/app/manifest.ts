@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Loom",
-    short_name: "Loom",
-    description: "Shop all local brands in one place.",
+    name: "Clyo",
+    short_name: "Clyo",
+    description: "Clyo is a platform for buying and selling products online.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

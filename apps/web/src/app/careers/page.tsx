@@ -5,7 +5,7 @@ import Timeline from "./(components)/timeline";
 import React from "react";
 
 import { PositionData, PositionDetails } from "./(components)/PositionDetails";
-import { WhyJoinLoom } from "./(components)/WhyJoinLoom";
+import { WhyJoinClyo } from "./(components)/why-join-clyo";
 import { CareersHero } from "./(components)/CareersHero";
 import { OurValues } from "./(components)/OurValues";
 import { ApplicationForm } from "./(components)/ApplicationForm";
@@ -28,7 +28,7 @@ export default function Careers() {
       />
       {showForm && <ApplicationForm />}
       <OurValues />
-      <WhyJoinLoom />
+      <WhyJoinClyo />
 
       <Timeline />
     </div>
@@ -48,7 +48,7 @@ const positionCardsData = [
   },
   {
     title: Position.CharacterDesigner,
-    description: "Design characters for Loom.",
+    description: "Design characters for Clyo.",
   },
   {
     title: Position.ContentCreator,
@@ -133,7 +133,7 @@ function Positions(
   >,
 ) {
   return (
-    <section className="mx-4 md:mx-auto grid grid-cols-1 gap-4 max-w-[100ch] mb-10 md:grid-cols-3">
+    <section className="mx-4 mb-10 grid max-w-[100ch] grid-cols-1 gap-4 md:mx-auto md:grid-cols-3">
       {positionCardsData.map((position) => (
         <PositionCard
           key={position.title}
@@ -158,12 +158,12 @@ function PositionCard({
   };
 }) {
   return (
-    <div className="flex flex-col gap-4 justify-between rounded-[26px] border border-[#0000001a] bg-gradient-to-b from-[#ffffff] to-[#ffffff] px-9 py-6 text-center shadow-[93px_75px_48px_rgba(166,162,222,0.02),52px_42px_40px_rgba(166,162,222,0.06),23px_19px_30px_rgba(166,162,222,0.1),6px_5px_16px_rgba(166,162,222,0.11)]">
+    <div className="flex flex-col justify-between gap-4 rounded-[26px] border border-[#0000001a] bg-gradient-to-b from-[#ffffff] to-[#ffffff] px-9 py-6 text-center shadow-[93px_75px_48px_rgba(166,162,222,0.02),52px_42px_40px_rgba(166,162,222,0.06),23px_19px_30px_rgba(166,162,222,0.1),6px_5px_16px_rgba(166,162,222,0.11)]">
       <div className="flex flex-col gap-1">
         <h5 className="text-[25px] font-semibold">
           {position.title.replace(/([a-z])([A-Z])/g, "$1 $2")}
         </h5>
-        <p className="text-gray-600 text-left">{position.description}</p>
+        <p className="text-left text-gray-600">{position.description}</p>
       </div>
       <div className="flex flex-col gap-2">
         <button

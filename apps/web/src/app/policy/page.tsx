@@ -20,7 +20,7 @@ export default function PolicyPage() {
   ];
 
   const verifiedBrandBenefits = [
-    "Direct ordering through Loom platform",
+    "Direct ordering through Clyo platform",
     "Hassle-free return processing",
     "Direct communication with the brand for resolution",
     "Full refund or replacement guarantee",
@@ -54,7 +54,7 @@ export default function PolicyPage() {
   const contactInfo = {
     customerService: {
       title: "Customer Service",
-      details: ["Email: contact@loom.com", "Hours: Everyday, 9 AM - 6 PM"],
+      details: ["Email: contact@clyocairo.com", "Hours: Everyday, 9 AM - 6 PM"],
     },
     liveChat: {
       title: "Live Chat",
@@ -71,7 +71,7 @@ export default function PolicyPage() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-4xl font-bold text-gray-900">
-            Loom Policies
+            Clyo Policies
           </h1>
           <p className="text-lg text-gray-600">
             Important information about our orders, deliveries, and promotions
@@ -102,7 +102,7 @@ export default function PolicyPage() {
               </h3>
               <div className="space-y-2 text-gray-700">
                 <p>
-                  <strong>Data Collection:</strong> Loom gathers product data
+                  <strong>Data Collection:</strong> Clyo gathers product data
                   from various brands across the internet to provide you with a
                   comprehensive shopping experience.
                 </p>
@@ -393,7 +393,7 @@ function BrandVerificationPolicy({
               </h3>
               <div className="mt-2 text-sm text-blue-700">
                 <p>
-                  For verified brands on our platform, Loom takes full
+                  For verified brands on our platform, Clyo takes full
                   responsibility for ensuring smooth return processes. We
                   guarantee:
                 </p>
@@ -430,7 +430,7 @@ function BrandVerificationPolicy({
               <div className="mt-2 text-sm text-blue-700">
                 <p>
                   <strong>Important:</strong> For orders from unverified brands,
-                  Loom is not responsible for return processing or refunds.
+                  Clyo is not responsible for return processing or refunds.
                   Customers should:
                 </p>
                 <ul className="mt-2 space-y-1">

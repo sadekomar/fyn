@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CrossIcon } from "@/components/Icons/CustomIcons";
 import "./CartCard.css";
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import { ItemCart } from "@/app/(you)/cart/(utils)/cart-utils";
 import { useDeleteItemCart, useMoveToCart } from "../(utils)/use-cart";
 
@@ -14,7 +14,7 @@ export function SavedForLaterCard({ product }: { product: ItemCart }) {
   return (
     <>
       <div className="cart-card-wrapper">
-        <LoomImage
+        <ClyoImage
           className="cart-card-img"
           src={product.image}
           sizes="120px"

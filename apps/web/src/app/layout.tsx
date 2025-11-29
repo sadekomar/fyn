@@ -12,8 +12,8 @@ import QueryProvider from "@/lib/provider";
 import { GuestSessionProvider } from "./guest-session-provider";
 
 export const metadata = {
-  title: "Loom",
-  description: "Loom is a platform for buying and selling products online.",
+  title: "Clyo",
+  description: "Clyo is a platform for buying and selling products online.",
   manifest: "/manifest.webmanifest",
 };
 

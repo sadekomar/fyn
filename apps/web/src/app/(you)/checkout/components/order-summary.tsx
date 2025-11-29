@@ -1,4 +1,4 @@
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import { CardHeader, CardTitle, CardContent, Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ export function OrderSummary({
               {cartItems.map((item) => (
                 <div key={item.id} className="flex items-center space-x-4">
                   <div className="relative">
-                    <LoomImage
+                    <ClyoImage
                       src={item.image}
                       alt={item.name}
                       className="h-16 w-16 rounded-md object-cover"

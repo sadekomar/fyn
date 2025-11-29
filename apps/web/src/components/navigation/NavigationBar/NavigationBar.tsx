@@ -12,7 +12,7 @@ import {
 } from "../../Icons/CustomIcons";
 
 import "./NavigationBar.css";
-import { LoomImage } from "@/components/LoomImage";
+import { ClyoImage } from "@/components/clyo-image";
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -46,7 +46,7 @@ function NavigationBar() {
     <>
       <div className="NavBar">
         <Link href={"/"}>
-          <LoomImage
+          <ClyoImage
             style={{ height: "22px", maxWidth: "none" }}
             src="/branding/loom.png"
             alt=""
