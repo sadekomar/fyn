@@ -16,7 +16,7 @@
     "db:studio": "prisma studio"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.js"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
