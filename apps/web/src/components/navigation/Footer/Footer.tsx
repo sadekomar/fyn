@@ -78,16 +78,16 @@ export function Footer() {
     <div className="footer-wrapper">
       <div className="FooterGrid">
         <div className="FooterDescription">
-          <div className="footer-title">Loom</div>
+          <div className="footer-title">Clyo</div>
           <p>
-            Loom makes local brands much more acessible, by combining more than
-            300 of them all in one place. Items on Loom are always up to date,
+            Clyo makes local brands much more acessible, by combining more than
+            300 of them all in one place. Items on Clyo are always up to date,
             reflecting the latest stock, prices, and images.
             <br />
             <br />
             <strong>Important note:</strong>
             Unverified brands are not affiliated with, endorsed by, or partnered
-            with Loom.
+            with Clyo.
           </p>
         </div>
         <div className="FooterBrowseNav">
@@ -198,13 +198,13 @@ export function Footer() {
               </svg>
             </a>
           </div>
-          <div className="footnotes">contact@loomcairo.com</div>
+          <div className="footnotes">contact@clyocairo.com</div>
           <div className="footnotes">Cairo, Egypt</div>
         </div>
       </div>
       <div className="CopyrightNotice">
         <div className="CopyrightNoticeText">
-          Copyright © {new Date().getFullYear()} Loom
+          Copyright © {new Date().getFullYear()} Clyo
         </div>
         <div className="CopyrightNoticeText">
           <Link href={"/privacy"}>Privacy Policy</Link>

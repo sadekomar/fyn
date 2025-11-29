@@ -12,7 +12,7 @@ import {
   InstagramIcon,
   TiktokIcon,
   LinkedinIcon,
-  LoomHamburger,
+  ClyoHamburger,
 } from "../../Icons/CustomIcons";
 
 import { getFromLocalStorage } from "../../../app/(utils)/localStorageUtils";
@@ -65,7 +65,7 @@ export function SideBar() {
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger className="DialogTrigger" asChild>
           <button className="hamburger-icon" name="side menu">
-            <LoomHamburger />
+            <ClyoHamburger />
           </button>
         </Dialog.Trigger>
         <Dialog.Portal>

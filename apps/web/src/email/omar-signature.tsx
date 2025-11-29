@@ -48,26 +48,26 @@ export default function OmarSignature() {
                 <Text className="text-sm text-gray-600">
                   📧{" "}
                   <Link
-                    href="mailto:omar@loomcairo.com"
+                    href="mailto:omar@clyocairo.com"
                     className="text-brand hover:text-brand/80"
                   >
-                    omar@loomcairo.com
+                    omar@clyocairo.com
                   </Link>
                 </Text>
                 <Text className="text-sm text-gray-600">
                   🌐{" "}
                   <Link
-                    href="https://loomcairo.com"
+                    href="https://clyocairo.com"
                     className="text-brand hover:text-brand/80"
                   >
-                    loomcairo.com
+                    clyocairo.com
                   </Link>
                 </Text>
               </Section>
 
               <Img
                 src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                alt="Loom"
+                alt="Clyo"
                 height={18}
               />
             </Section>

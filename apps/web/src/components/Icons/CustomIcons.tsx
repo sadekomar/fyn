@@ -1,4 +1,4 @@
-export function LoomHamburger() {
+export function ClyoHamburger() {
   return (
     <svg
       width="19.6"

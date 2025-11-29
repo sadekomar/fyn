@@ -44,7 +44,7 @@ export default function SalaryBreakdown({
   return (
     <Html>
       <Preview>
-        Loom - Salary Breakdown for July Week & August + Video Bonus
+        Clyo - Salary Breakdown for July Week & August + Video Bonus
       </Preview>
       <Tailwind
         config={{
@@ -69,7 +69,7 @@ export default function SalaryBreakdown({
             <Section className="mt-8 mb-12 text-center">
               <Img
                 src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                alt="Loom Logo"
+                alt="Clyo Logo"
                 height={36}
                 className="mx-auto mb-4"
               />
@@ -253,14 +253,14 @@ export default function SalaryBreakdown({
 
               <Text className={`${bodyTextStyle} mb-4`}>
                 Congratulations on the success of your video! Your creativity
-                and hard work continue to drive Loom's growth. If you have any
+                and hard work continue to drive Clyo's growth. If you have any
                 questions about this payment, please don't hesitate to contact
                 us at{" "}
                 <Link
-                  href="mailto:contact@loomcairo.com"
+                  href="mailto:contact@clyocairo.com"
                   className="text-brand"
                 >
-                  contact@loomcairo.com
+                  contact@clyocairo.com
                 </Link>
               </Text>
 
@@ -271,14 +271,14 @@ export default function SalaryBreakdown({
                 Omar Sadek
               </Text>
               <Text className={`${bodyTextStyle} text-sm text-gray-600`}>
-                CEO, Loom
+                CEO, Clyo
               </Text>
             </Section>
 
             {/* Footer */}
             <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
-                © 2025 Loom. All rights reserved.
+                © 2025 Clyo. All rights reserved.
               </Text>
               <Text className="text-sm text-gray-500">Cairo, Egypt</Text>
               <Text className="mt-2 text-xs text-gray-400">

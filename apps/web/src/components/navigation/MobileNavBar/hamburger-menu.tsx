@@ -19,7 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { LoomHamburger } from "@/components/Icons/CustomIcons";
+import { ClyoHamburger } from "@/components/Icons/CustomIcons";
 import Link from "next/link";
 import {
   PiPants,
@@ -158,14 +158,14 @@ export default function HamburgerMenu() {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger className="h-full p-4">
-        <LoomHamburger />
+        <ClyoHamburger />
       </SheetTrigger>
       <SheetContent side="left" className="w-80 p-0">
         <SheetHeader className="flex flex-row items-center justify-between border-b border-gray-200">
           <SheetClose className="h-full px-4">
             <X className="h-5 w-5" />
           </SheetClose>
-          <SheetTitle className="mx-4">Loom</SheetTitle>
+          <SheetTitle className="mx-4">Clyo</SheetTitle>
         </SheetHeader>
 
         <div className="flex h-full flex-col overflow-y-auto">

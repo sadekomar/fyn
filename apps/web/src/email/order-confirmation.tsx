@@ -74,7 +74,7 @@ function formatEmailNotification(
 }
 
 const dummyOrder: OrderConfirmationEmail = {
-  orderNumber: "LOOM-547521",
+  orderNumber: "CLYO-547521",
   shippingEstimates: [
     {
       brand: {
@@ -151,7 +151,7 @@ export default function OrderConfirmation({
 
   return (
     <Html>
-      <Preview>Loom - Order Confirmation #{order.orderNumber}</Preview>
+      <Preview>Clyo - Order Confirmation #{order.orderNumber}</Preview>
       <Tailwind
         config={{
           theme: {
@@ -175,7 +175,7 @@ export default function OrderConfirmation({
               <Section className="mt-8 mb-12 text-center">
                 <Img
                   src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                  alt="Loom Logo"
+                  alt="Clyo Logo"
                   height={36}
                   className="mx-auto mb-4"
                 />
@@ -191,7 +191,7 @@ export default function OrderConfirmation({
                   Your order is now pending. {emailNotification}
                 </Text>
                 <Link
-                  href={`https://loomcairo.com/orders/${order.orderNumber}`}
+                  href={`https://clyocairo.com/orders/${order.orderNumber}`}
                   className="bg-brand hover:bg-brand/90 inline-block rounded-full px-8 py-3 text-base font-semibold text-white"
                 >
                   View order
@@ -370,24 +370,24 @@ export default function OrderConfirmation({
               <Text className={bodyTextStyle}>
                 If you have any questions, contact us at{" "}
                 <Link
-                  href="mailto:contact@loomcairo.com"
+                  href="mailto:contact@clyocairo.com"
                   className="text-brand"
                 >
-                  contact@loomcairo.com
+                  contact@clyocairo.com
                 </Link>
               </Text>
               <div className="mt-4 flex flex-col gap-2">
                 <div className={`${bodyTextStyle}`}>
-                  Thank you for shopping with Loom,
+                  Thank you for shopping with Clyo,
                 </div>
                 <div className={`${bodyTextStyle} font-semibold`}>
-                  The Loom Team
+                  The Clyo Team
                 </div>
               </div>
             </Section>
             <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
-                © 2025 Loom. All rights reserved.
+                © 2025 Clyo. All rights reserved.
               </Text>
               <Text className="text-sm text-gray-500">Cairo, Egypt</Text>
             </Section>
