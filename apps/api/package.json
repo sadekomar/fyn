@@ -4,7 +4,7 @@
   "description": "A Node.js application with TypeScript and Prismass",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --outfile=dist/index.js",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "test": "jest",
@@ -31,6 +31,7 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.18.10",
+    "esbuild": "^0.27.0",
     "jest": "^29.7.0",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.2",
