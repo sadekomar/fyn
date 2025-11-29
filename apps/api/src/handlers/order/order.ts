@@ -7,7 +7,6 @@ import {
   Address,
   Brand,
   Color,
-  ItemOrder,
   OrderStatus,
   ShippingEstimate,
   Size,
