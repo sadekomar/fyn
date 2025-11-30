@@ -165,7 +165,7 @@ export default function HamburgerMenu() {
           <SheetClose className="h-full px-4">
             <X className="h-5 w-5" />
           </SheetClose>
-          <SheetTitle className="mx-4">Clyo</SheetTitle>
+          <SheetTitle className="mx-4">Univyr</SheetTitle>
         </SheetHeader>
 
         <div className="flex h-full flex-col overflow-y-auto">

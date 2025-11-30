@@ -11,21 +11,21 @@ import {
 export const metadata = {
   title: "All Brands",
   description:
-    "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+    "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
   robots:
     "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
-  keywords: "Clyo Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
+  keywords: "Univyr Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
   openGraph: {
     title: "All Brands",
     description:
-      "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "All Brands",
     description:
-      "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
   },
 };
 

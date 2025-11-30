@@ -4,7 +4,7 @@ import { Rocket, Users, Banknote, Sparkles } from "lucide-react";
 export function WhyJoinClyo(): React.JSX.Element {
   return (
     <section className="mx-4 mb-10 max-w-[100ch] md:mx-auto">
-      <h2 className="mb-10 text-[39.06px] font-bold">Why Join Clyo</h2>
+      <h2 className="mb-10 text-[39.06px] font-bold">Why Join Univyr</h2>
       <div className="grid grid-cols-1 place-items-center gap-6 sm:grid-cols-2 sm:gap-2 md:grid-cols-4">
         {[
           {

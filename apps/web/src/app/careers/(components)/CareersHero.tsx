@@ -24,7 +24,7 @@ export function CareersHero() {
           href="/about"
           className="flex h-[40px] items-center justify-center rounded-[26px] border-2 border-solid border-[#000000] bg-[#ffffff] px-4 font-bold text-black"
         >
-          About Clyo
+          About Univyr
         </Link>
         <button
           onClick={() => {

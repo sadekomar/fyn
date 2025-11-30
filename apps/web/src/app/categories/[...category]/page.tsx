@@ -30,7 +30,7 @@ export const revalidate = 43200; // 12 hours in seconds
 //     openGraph: {
 //       title: category,
 //       description:
-//         "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+//         "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
 //       type: "website",
 //     },
 //   };

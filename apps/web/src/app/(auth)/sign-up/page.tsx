@@ -97,11 +97,11 @@ export default function RegisterForm() {
             <UnivyrImage
               src={"/branding/loom-black.png"}
               className="h-8"
-              alt="Clyo logo"
+              alt="Univyr logo"
             />
           </div>
           <CardTitle className="text-center text-2xl">
-            The Clyo world awaits!
+            The Univyr world awaits!
           </CardTitle>
           <CardDescription className="text-center">
             Please enter your details to create an account.

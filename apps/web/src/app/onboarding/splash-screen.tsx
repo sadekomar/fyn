@@ -10,7 +10,7 @@ export function SplashScreen() {
         <div className="animate-fade-in mb-8 text-center sm:mb-12">
           <h1 className="animate-slide-up mb-4 text-3xl font-bold text-gray-900 sm:mb-6 sm:text-4xl md:text-5xl">
             Welcome to{" "}
-            <span className="animate-pulse text-purple-600">Clyo</span>
+            <span className="animate-pulse text-purple-600">Univyr</span>
           </h1>
           <p className="animate-slide-up-delay mx-auto max-w-xl text-lg text-gray-600 sm:text-xl">
             Discover the world of fashion at your fingertips. Shop, explore, and
@@ -216,7 +216,7 @@ export function SplashScreen() {
               Ready to Start Shopping?
             </h2>
             <p className="mb-4 text-sm text-gray-600 sm:mb-6 sm:text-base">
-              Join thousands of fashion enthusiasts who trust Clyo for their
+              Join thousands of fashion enthusiasts who trust Univyr for their
               shopping needs.
             </p>
             <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">

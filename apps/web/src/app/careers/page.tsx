@@ -48,7 +48,7 @@ const positionCardsData = [
   },
   {
     title: Position.CharacterDesigner,
-    description: "Design characters for Clyo.",
+    description: "Design characters for Univyr.",
   },
   {
     title: Position.ContentCreator,

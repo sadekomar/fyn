@@ -12,8 +12,8 @@ import QueryProvider from "@/lib/provider";
 import { GuestSessionProvider } from "./guest-session-provider";
 
 export const metadata = {
-  title: "Clyo",
-  description: "Clyo is a platform for buying and selling products online.",
+  title: "Univyr",
+  description: "Univyr is a platform for buying and selling products online.",
   manifest: "/manifest.webmanifest",
 };
 

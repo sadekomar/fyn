@@ -207,7 +207,7 @@ export default function Onboarding() {
             Start exploring and discover amazing fashion pieces just for you.
           </p>
           <Link href="/">
-            <Button className="w-full">Explore Clyo</Button>
+            <Button className="w-full">Explore Univyr</Button>
           </Link>
         </div>
       ),

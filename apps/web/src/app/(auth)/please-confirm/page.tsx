@@ -77,7 +77,7 @@ export default function ConfirmEmailPage() {
             <UnivyrImage
               src={"/branding/loom-black.png"}
               className="h-8"
-              alt="Clyo logo"
+              alt="Univyr logo"
             />
           </div>
           <div className="mb-4 flex justify-center">

@@ -67,7 +67,7 @@ export default function OmarSignature() {
 
               <Img
                 src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                alt="Clyo"
+                alt="Univyr"
                 height={18}
               />
             </Section>

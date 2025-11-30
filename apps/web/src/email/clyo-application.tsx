@@ -21,7 +21,7 @@ export default function ClyoApplication({ name = "Omar" }: { name: string }) {
 
   return (
     <Html>
-      <Preview>Welcome to Clyo - Application Received!</Preview>
+      <Preview>Welcome to Univyr - Application Received!</Preview>
       <Tailwind
         config={{
           theme: {
@@ -45,7 +45,7 @@ export default function ClyoApplication({ name = "Omar" }: { name: string }) {
             <Section className="mt-8 mb-12 text-center">
               <Img
                 src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                alt="Clyo Logo"
+                alt="Univyr Logo"
                 height={36}
                 className="mx-auto mb-4"
               />
@@ -54,16 +54,16 @@ export default function ClyoApplication({ name = "Omar" }: { name: string }) {
             {/* Main Content */}
             <Section className="rounded-lg bg-white p-8 shadow-lg">
               <Heading className="mb-6 text-center text-2xl font-semibold text-gray-800">
-                Clyo application confirmation!
+                Univyr application confirmation!
               </Heading>
 
               <Text className="mb-4 text-gray-700">Hi {name},</Text>
 
               <Text className="mb-4 text-gray-700">
-                Thank you for taking the first step towards joining Clyo! We're
-                excited to review your application and learn more about how you
-                can contribute to making Cairo the fifth fashion capital of the
-                world! 🎉
+                Thank you for taking the first step towards joining Univyr!
+                We're excited to review your application and learn more about
+                how you can contribute to making Cairo the fifth fashion capital
+                of the world! 🎉
               </Text>
 
               <Text className="mb-4 text-gray-700">
@@ -128,13 +128,15 @@ export default function ClyoApplication({ name = "Omar" }: { name: string }) {
               </Text>
 
               <Text className="mb-1 text-gray-700">Best regards,</Text>
-              <Text className="font-semibold text-gray-700">The Clyo Team</Text>
+              <Text className="font-semibold text-gray-700">
+                The Univyr Team
+              </Text>
             </Section>
 
             {/* Footer */}
             <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
-                © 2025 Clyo. All rights reserved.
+                © 2025 Univyr. All rights reserved.
               </Text>
               <Text className="text-sm text-gray-500">Cairo, Egypt</Text>
             </Section>

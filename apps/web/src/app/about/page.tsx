@@ -1,23 +1,23 @@
 import "./About.css";
 
 export const metadata = {
-  title: "About Clyo",
+  title: "About Univyr",
   description:
-    "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+    "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
   robots:
     "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
-  keywords: "Clyo Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
+  keywords: "Univyr Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
   openGraph: {
-    title: "About Clyo",
+    title: "About Univyr",
     description:
-      "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "About Clyo",
+    title: "About Univyr",
     description:
-      "Find everything you need on Clyo Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
+      "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
   },
   alternates: {
     canonical: "https://clyocairo.com/",
@@ -28,18 +28,18 @@ export default function About() {
   return (
     <>
       <div className="about-page-wrapper">
-        <h1 className="about-title">About Clyo</h1>
+        <h1 className="about-title">About Univyr</h1>
         <div className="about-section-wrapper">
-          <h2 className="about-section-title">Clyo in 30s</h2>
+          <h2 className="about-section-title">Univyr in 30s</h2>
           <p>
-            Clyo is a platform that combines 300+ Local Brands, helping you
-            explore new items, brands, and collections. Items on Clyo are always
-            up to date, reflecting exactly what's on the original brands'
+            Univyr is a platform that combines 300+ Local Brands, helping you
+            explore new items, brands, and collections. Items on Univyr are
+            always up to date, reflecting exactly what's on the original brands'
             websites.
           </p>
         </div>
         <div className="about-section-wrapper">
-          <h2 className="about-section-title">Things You Can Do With Clyo</h2>
+          <h2 className="about-section-title">Things You Can Do With Univyr</h2>
           <ul>
             <li>Discover new, unique brands</li>
             <li>Explore a wide range of categories</li>
@@ -61,7 +61,7 @@ export default function About() {
           <h2 className="about-section-title">Behind The Name</h2>
           <p>
             Our name, inspired by the loom machine, reflects our mission: just
-            as a loom weaves threads into a single yarn, Clyo seamlessly
+            as a loom weaves threads into a single yarn, Univyr seamlessly
             combines various clothing brands into a single, cohesive platform.
           </p>
           <p>
@@ -71,7 +71,7 @@ export default function About() {
           </p>
         </div>
         <div className="about-section-wrapper">
-          <h2 className="about-section-title">Why Clyo</h2>
+          <h2 className="about-section-title">Why Univyr</h2>
           <p>
             We love Local Brands, and were tired of having to mentally remember
             the names of brands or take screenshots of their websites, of having
@@ -90,7 +90,7 @@ export default function About() {
             connect intimately with their favorite brands, fostering a
             continuous exploration rather than a one-time discovery. We believe
             that the beauty of brand exploration should be an ongoing, evolving
-            process, and Clyo is your dedicated companion in this sartorial
+            process, and Univyr is your dedicated companion in this sartorial
             adventure.
           </p>
           <p>
@@ -102,13 +102,13 @@ export default function About() {
           <p>
             There's a dichotomy between product-driven and story-driven brands.
             Egypt has always had local brands, but this new wave of rich,
-            story-driven brands was unheard of at this scale before. Clyo leans
-            towards the narrative-rich, trend-setting nature of story-driven
-            brands rather than the conventional product-driven ones that
-            primarily focus on commodities. The allure of new-wave brands also
-            lies in their brand-centric approach, wherein the emphasis shifts
-            from individual products to the overarching narrative and philosophy
-            behind the brand.
+            story-driven brands was unheard of at this scale before. Univyr
+            leans towards the narrative-rich, trend-setting nature of
+            story-driven brands rather than the conventional product-driven ones
+            that primarily focus on commodities. The allure of new-wave brands
+            also lies in their brand-centric approach, wherein the emphasis
+            shifts from individual products to the overarching narrative and
+            philosophy behind the brand.
           </p>
         </div>
       </div>

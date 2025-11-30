@@ -54,7 +54,7 @@ export default function Timeline() {
       <div className="mb-10">
         <h2 className="mt-10 mb-4 text-[39.06px] font-bold">How we hire</h2>
         <p className="bg-gradient-to-r from-[#383838] to-[rgb(146,97,226)] bg-clip-text text-lg font-bold text-transparent">
-          Clyo's process
+          Univyr's process
         </p>
       </div>
 

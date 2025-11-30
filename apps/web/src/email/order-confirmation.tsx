@@ -151,7 +151,7 @@ export default function OrderConfirmation({
 
   return (
     <Html>
-      <Preview>Clyo - Order Confirmation #{order.orderNumber}</Preview>
+      <Preview>Univyr - Order Confirmation #{order.orderNumber}</Preview>
       <Tailwind
         config={{
           theme: {
@@ -175,7 +175,7 @@ export default function OrderConfirmation({
               <Section className="mt-8 mb-12 text-center">
                 <Img
                   src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                  alt="Clyo Logo"
+                  alt="Univyr Logo"
                   height={36}
                   className="mx-auto mb-4"
                 />
@@ -378,16 +378,16 @@ export default function OrderConfirmation({
               </Text>
               <div className="mt-4 flex flex-col gap-2">
                 <div className={`${bodyTextStyle}`}>
-                  Thank you for shopping with Clyo,
+                  Thank you for shopping with Univyr,
                 </div>
                 <div className={`${bodyTextStyle} font-semibold`}>
-                  The Clyo Team
+                  The Univyr Team
                 </div>
               </div>
             </Section>
             <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
-                © 2025 Clyo. All rights reserved.
+                © 2025 Univyr. All rights reserved.
               </Text>
               <Text className="text-sm text-gray-500">Cairo, Egypt</Text>
             </Section>

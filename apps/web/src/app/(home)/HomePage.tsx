@@ -167,7 +167,7 @@ export function ClientHomePage() {
 
       <section className="mb-10 flex flex-col gap-4 bg-gray-200 py-8">
         <div className="rounded-b-[20px] px-4">
-          <h2 className="text-2xl font-bold">New on Clyo</h2>
+          <h2 className="text-2xl font-bold">New on Univyr</h2>
           <p>Hundreds of new items added every day.</p>
         </div>
         <HorizontalScroller items={newItems} />

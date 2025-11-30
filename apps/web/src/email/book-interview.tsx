@@ -26,7 +26,7 @@ export default function BookInterview({
 
   return (
     <Html>
-      <Preview>Clyo - Schedule Your Interview!</Preview>
+      <Preview>Univyr - Schedule Your Interview!</Preview>
       <Tailwind
         config={{
           theme: {
@@ -50,7 +50,7 @@ export default function BookInterview({
             <Section className="mt-8 mb-12 text-center">
               <Img
                 src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                alt="Clyo Logo"
+                alt="Univyr Logo"
                 height={36}
                 className="mx-auto mb-4"
               />
@@ -68,7 +68,7 @@ export default function BookInterview({
                 Congratulations! We're thrilled to inform you that your
                 application has been selected for the next stage, and we're
                 excited to meet you. The next step is to schedule an interview
-                where we can discuss your potential role at Clyo.
+                where we can discuss your potential role at Univyr.
               </Text>
 
               <Section className="bg-brand/10 mb-6 rounded-lg p-6">
@@ -83,7 +83,7 @@ export default function BookInterview({
                     Understanding your vision for fashion in Cairo
                   </li>
                   <li className={bodyTextStyle}>
-                    Q&A session about Clyo and the role
+                    Q&A session about Univyr and the role
                   </li>
                   <li className={bodyTextStyle}>Duration: 15-30 minutes</li>
                 </ul>
@@ -118,7 +118,7 @@ export default function BookInterview({
                   Think about your vision for fashion in Cairo
                 </li>
                 <li className={bodyTextStyle}>
-                  Prepare any questions you have about the role or Clyo
+                  Prepare any questions you have about the role or Univyr
                 </li>
               </ul>
 
@@ -137,14 +137,14 @@ export default function BookInterview({
                 Looking forward to meeting you!
               </Text>
               <Text className={`${bodyTextStyle} font-semibold`}>
-                The Clyo Team
+                The Univyr Team
               </Text>
             </Section>
 
             {/* Footer */}
             <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
-                © 2025 Clyo. All rights reserved.
+                © 2025 Univyr. All rights reserved.
               </Text>
               <Text className="text-sm text-gray-500">Cairo, Egypt</Text>
             </Section>

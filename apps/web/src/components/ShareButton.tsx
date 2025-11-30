@@ -19,7 +19,7 @@ export function ShareButton({
     try {
       if (navigator.share) {
         navigator.share({
-          title: `${name} - Clyo`,
+          title: `${name} - Univyr`,
           url: `https://clyocairo.com/item/${id}`,
         });
       } else {

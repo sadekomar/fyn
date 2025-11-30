@@ -20,7 +20,7 @@ export default function EmailConfirmation({ name = "Omar" }: { name: string }) {
 
   return (
     <Html>
-      <Preview>Welcome to Clyo - Please Confirm Your Email!</Preview>
+      <Preview>Welcome to Univyr - Please Confirm Your Email!</Preview>
       <Tailwind
         config={{
           theme: {
@@ -44,7 +44,7 @@ export default function EmailConfirmation({ name = "Omar" }: { name: string }) {
             <Section className="mt-8 mb-12 text-center">
               <Img
                 src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                alt="Clyo Logo"
+                alt="Univyr Logo"
                 height={36}
                 className="mx-auto mb-4"
               />
@@ -59,9 +59,9 @@ export default function EmailConfirmation({ name = "Omar" }: { name: string }) {
               <Text className={`${bodyTextStyle} mb-4`}>Hi {name},</Text>
 
               <Text className={`${bodyTextStyle} mb-4`}>
-                Welcome to Clyo! We're excited for you to discover the world of
-                fashion in Cairo. To get started, please confirm your email by
-                clicking the button below:
+                Welcome to Univyr! We're excited for you to discover the world
+                of fashion in Cairo. To get started, please confirm your email
+                by clicking the button below:
               </Text>
 
               <Section className="mb-8 text-center">
@@ -75,13 +75,13 @@ export default function EmailConfirmation({ name = "Omar" }: { name: string }) {
 
               <Text className={`${bodyTextStyle} mb-4`}>
                 This link will expire in 1 hour. After confirmation, you'll have
-                full access to your Clyo account.
+                full access to your Univyr account.
               </Text>
 
               <Hr className="my-6 border border-gray-200" />
 
               <Text className={`${bodyTextStyle} mb-4`}>
-                If you didn't create an account with Clyo, please ignore this
+                If you didn't create an account with Univyr, please ignore this
                 email or contact us at{" "}
                 <Link
                   href="mailto:contact@clyocairo.com"
@@ -93,14 +93,14 @@ export default function EmailConfirmation({ name = "Omar" }: { name: string }) {
 
               <Text className={`${bodyTextStyle} mb-1`}>Best regards,</Text>
               <Text className={`${bodyTextStyle} font-semibold`}>
-                The Clyo Team
+                The Univyr Team
               </Text>
             </Section>
 
             {/* Footer */}
             <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
-                © 2025 Clyo. All rights reserved.
+                © 2025 Univyr. All rights reserved.
               </Text>
               <Text className="text-sm text-gray-500">Cairo, Egypt</Text>
             </Section>

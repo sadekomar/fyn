@@ -19,7 +19,7 @@ export function MobileNavBar() {
           href={"/"}
           className="loom-nav-icon text-2xl font-bold text-white"
         >
-          Clyo
+          Univyr
         </Link>
         <Link href={"/search"} className="search-icon">
           <CustomMagnifyingGlassIcon />

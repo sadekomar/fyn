@@ -78,16 +78,16 @@ export function Footer() {
     <div className="footer-wrapper">
       <div className="FooterGrid">
         <div className="FooterDescription">
-          <div className="footer-title">Clyo</div>
+          <div className="footer-title">Univyr</div>
           <p>
-            Clyo makes local brands much more acessible, by combining more than
-            300 of them all in one place. Items on Clyo are always up to date,
-            reflecting the latest stock, prices, and images.
+            Univyr makes local brands much more acessible, by combining more
+            than 300 of them all in one place. Items on Univyr are always up to
+            date, reflecting the latest stock, prices, and images.
             <br />
             <br />
             <strong>Important note:</strong>
             Unverified brands are not affiliated with, endorsed by, or partnered
-            with Clyo.
+            with Univyr.
           </p>
         </div>
         <div className="FooterBrowseNav">
@@ -204,7 +204,7 @@ export function Footer() {
       </div>
       <div className="CopyrightNotice">
         <div className="CopyrightNoticeText">
-          Copyright © {new Date().getFullYear()} Clyo
+          Copyright © {new Date().getFullYear()} Univyr
         </div>
         <div className="CopyrightNoticeText">
           <Link href={"/privacy"}>Privacy Policy</Link>

@@ -79,7 +79,7 @@ export default function LoginForm() {
             <UnivyrImage
               src={"/branding/loom-black.png"}
               className="h-8"
-              alt="Clyo logo"
+              alt="Univyr logo"
             />
           </div>
           <CardTitle className="text-center text-2xl">

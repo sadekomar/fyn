@@ -47,7 +47,8 @@ export async function generateMetadata({
     description: data?.description.slice(0, 60),
     robots:
       "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
-    keywords: "Clyo Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
+    keywords:
+      "Univyr Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
     openGraph: {
       title: data?.name,
       images: data?.images[0],

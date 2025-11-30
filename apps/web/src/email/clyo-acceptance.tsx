@@ -21,7 +21,7 @@ export default function ClyoAcceptance({ name = "Omar" }: { name: string }) {
 
   return (
     <Html>
-      <Preview>Clyo - Meetup Invitation!</Preview>
+      <Preview>Univyr - Meetup Invitation!</Preview>
       <Tailwind
         config={{
           theme: {
@@ -45,7 +45,7 @@ export default function ClyoAcceptance({ name = "Omar" }: { name: string }) {
             <Section className="mt-8 mb-12 text-center">
               <Img
                 src="https://res.cloudinary.com/dffgye7z3/image/upload/v1747755019/loom-black_bywezj.png"
-                alt="Clyo Logo"
+                alt="Univyr Logo"
                 height={36}
                 className="mx-auto mb-4"
               />
@@ -68,7 +68,7 @@ export default function ClyoAcceptance({ name = "Omar" }: { name: string }) {
               <Text className="mb-4 text-gray-700">
                 We’re excited to move forward and invite you to an in-person
                 meet-up, where we’ll have the opportunity to get to know each
-                other better and dive deeper into what we’re building at Clyo.
+                other better and dive deeper into what we’re building at Univyr.
                 We’re looking forward to continuing the conversation and
                 learning more about you.
               </Text>
@@ -118,13 +118,15 @@ export default function ClyoAcceptance({ name = "Omar" }: { name: string }) {
               </Text>
 
               <Text className="mb-1 text-gray-700">Warm regards,</Text>
-              <Text className="font-semibold text-gray-700">The Clyo Team</Text>
+              <Text className="font-semibold text-gray-700">
+                The Univyr Team
+              </Text>
             </Section>
 
             {/* Footer */}
             <Section className="mt-8 mb-8 text-center">
               <Text className="text-sm text-gray-500">
-                © 2025 Clyo. All rights reserved.
+                © 2025 Univyr. All rights reserved.
               </Text>
               <Text className="text-sm text-gray-500">Cairo, Egypt</Text>
             </Section>
