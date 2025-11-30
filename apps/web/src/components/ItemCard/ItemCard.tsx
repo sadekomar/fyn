@@ -53,14 +53,13 @@ export function ItemCard({
         <LikeButton id={id} className="LikeButton" item={item} />
         <Link prefetch={true} href={`/item/${id}`} className="relative">
           <CardImage
-            className="transition-all duration-300 active:scale-95"
+            className="rounded-sm outline outline-gray-100 transition-all duration-300 active:scale-96"
             loading={imgLoading}
             src={image === "" ? undefined : image}
             sizes="(max-width: 768px) 80px, 200px"
             alt={name}
             onError={() => setImageError(true)}
             style={{
-              borderRadius: "8px",
               width: "100%",
               height: "240px",
               backgroundColor: "var(--gray-5)",

@@ -1,5 +1,5 @@
 .wrapper {
-  width: min(100% - (2 * var(--margin-inline)), var(--grid-max-width));
+  width: min(100% - (2 * 8px), var(--grid-max-width));
   margin-inline: auto;
   margin-block-end: 5rem;
 }
@@ -7,7 +7,7 @@
 .loom-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--min-card-size), 1fr));
-  gap: var(--card-spacing);
+  gap: 8px;
 }
 
 @media (min-width: 540px) {
