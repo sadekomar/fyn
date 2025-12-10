@@ -23,7 +23,7 @@ export const metadata = {
     "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
   keywords: "Univyr Cairo, Local Brands, Fashion Brands, Egyptian Local Brands",
   openGraph: {
-    title: "Univyr Cairo: Shop 300 Local Fashion Brands in One Place",
+    title: "Univyr: Shop 300 Local Fashion Brands in One Place",
     images: "https://capsuleegy.com/products/flip-flops-1",
     description:
       "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
