@@ -1,6 +1,7 @@
 import { createClient } from "redis";
 import { Request, Response } from "express";
 
+// singleton redis client
 const redisClient = createClient({
   url: process.env.REDIS_URL,
 });
