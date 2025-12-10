@@ -55,15 +55,15 @@ export function withCache<T>({
   ttlSeconds,
 }: CacheOptions<T>) {
   return async (req: Request, res: Response) => {
-    console.time("withCache");
+    const startTime = Date.now();
     const cacheKey = key(req);
     await ensureConnected();
 
     try {
       const hit = await redisClient.get(cacheKey);
       if (hit) {
-        console.log("cache hit");
-        console.timeEnd("withCache");
+        const duration = Date.now() - startTime;
+        console.log(`[CACHE HIT] ${duration.toFixed(2)}ms`);
         return res.status(200).json(JSON.parse(hit));
       }
     } catch (error) {
@@ -71,7 +71,6 @@ export function withCache<T>({
     }
 
     const payload = await handlerCallback(req, res);
-    console.log("payload", payload);
 
     await redisClient.set(cacheKey, JSON.stringify(payload), {
       expiration: {
@@ -80,8 +79,8 @@ export function withCache<T>({
       },
     });
 
-    console.log("cache miss");
-    console.timeEnd("withCache");
+    const duration = Date.now() - startTime;
+    console.log(`[CACHE MISS] ${duration.toFixed(2)}ms`);
     return res.status(200).json(payload);
   };
 }
