@@ -8,6 +8,7 @@ import { getSortBy } from "../../helpers/get-sort-by";
 import { Gender } from "@repo/database";
 import { hasValidValue } from "../../helpers/has-valid-value";
 import { ErrorResponse } from "../like/like";
+import { withCache } from "./cache";
 
 const genderMap: Record<string, Gender> = {
   MALE: Gender.MALE,
@@ -64,82 +65,91 @@ const QuerySchema = z.object({
 export type QueryI = z.infer<typeof QuerySchema>;
 
 export const readItems = handleExceptions(
-  async (req: Request, res: Response): Promise<Response<ItemCardsI[]>> => {
-    const parsedQuery = QuerySchema.safeParse(req.query);
+  withCache({
+    key: (req) => `items:${JSON.stringify(req.query)}`,
+    handlerCallback: async (
+      req: Request,
+      res: Response
+    ): Promise<ItemCardsI[] | ErrorResponse> => {
+      const parsedQuery = QuerySchema.safeParse(req.query);
 
-    if (!parsedQuery.success) {
-      return res.status(400).json({
-        error: "Invalid query parameters",
-        details: parsedQuery.error.format(),
-      });
-    }
-
-    const { page, limit, sort_by } = parsedQuery.data;
-
-    const where: any = constructWhere(parsedQuery.data);
-
-    const orderBy = getSortBy(sort_by);
-
-    const items = await prisma.item.findMany({
-      take: limit || 50,
-      orderBy,
-      skip: page ? (page - 1) * (limit || 50) : 0,
-      where,
-      select: {
-        id: true,
-        name: true,
-        latestPrice: true,
-        brand: {
-          select: {
-            name: true,
-            label: true,
-            isPartnerBrand: true,
+      if (!parsedQuery.success) {
+        return {
+          status: "error",
+          error: {
+            root: ["Invalid query parameters"],
           },
-        },
-        material: {
-          select: {
-            name: true,
+        };
+      }
+
+      const { page, limit, sort_by } = parsedQuery.data;
+
+      const where: any = constructWhere(parsedQuery.data);
+
+      const orderBy = getSortBy(sort_by);
+
+      const items = await prisma.item.findMany({
+        take: limit || 50,
+        orderBy,
+        skip: page ? (page - 1) * (limit || 50) : 0,
+        where,
+        select: {
+          id: true,
+          name: true,
+          latestPrice: true,
+          brand: {
+            select: {
+              name: true,
+              label: true,
+              isPartnerBrand: true,
+            },
           },
-        },
-        gender: true,
-        categories: {
-          include: {
-            category: {
-              select: {
-                name: true,
+          material: {
+            select: {
+              name: true,
+            },
+          },
+          gender: true,
+          categories: {
+            include: {
+              category: {
+                select: {
+                  name: true,
+                },
               },
             },
           },
-        },
-        colors: {
-          select: {
-            name: true,
+          colors: {
+            select: {
+              name: true,
+            },
           },
-        },
-        images: {
-          select: {
-            url: true,
+          images: {
+            select: {
+              url: true,
+            },
           },
+          isSoldOut: true,
         },
-        isSoldOut: true,
-      },
-    });
+      });
 
-    const formattedItems: ItemCardsI[] = items.map((item) => ({
-      id: item.id,
-      name: item.name,
-      price: item.latestPrice,
-      brand: {
-        name: item.brand.name,
-        label: item.brand.label,
-        isPartneredBrand: item.brand.isPartnerBrand,
-      },
-      image: item.images[0]?.url,
-      isSoldOut: item.isSoldOut,
-    }));
+      const formattedItems: ItemCardsI[] = items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.latestPrice,
+        brand: {
+          name: item.brand.name,
+          label: item.brand.label,
+          isPartneredBrand: item.brand.isPartnerBrand,
+        },
+        image: item.images[0]?.url,
+        isSoldOut: item.isSoldOut,
+      }));
 
-    return res.status(200).json(formattedItems);
-  }
+      return formattedItems;
+    },
+    ttlSeconds: 60 * 60 * 24,
+  })
 );
 
 /**
