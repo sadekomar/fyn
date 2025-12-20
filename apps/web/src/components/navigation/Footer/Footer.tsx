@@ -198,7 +198,7 @@ export function Footer() {
               </svg>
             </a>
           </div>
-          <div className="footnotes">contact@clyocairo.com</div>
+          <div className="footnotes">contact@univyr.com</div>
           <div className="footnotes">Cairo, Egypt</div>
         </div>
       </div>

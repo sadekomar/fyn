@@ -1,6 +1,6 @@
 "use client";
 
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { Dialog, IconButton } from "@radix-ui/themes";
 // import { Cross1Icon } from "@radix-ui/react-icons";
 

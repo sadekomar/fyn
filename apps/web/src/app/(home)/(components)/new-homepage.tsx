@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import "../home.css";
 
 import { Brands } from "./brands";

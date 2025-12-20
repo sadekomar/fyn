@@ -10,7 +10,7 @@ import { ItemCardsI, MetadataI } from "@/lib/types";
 import { ColorPills } from "../(home)/(components)/color-pills";
 import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { useSearchParams } from "next/navigation";
 
 export function ShopPageClient() {

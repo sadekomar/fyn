@@ -94,21 +94,21 @@ export default function ClyoApplication({ name = "Omar" }: { name: string }) {
                 <Row className="text-center">
                   <Column align="center">
                     <Link
-                      href="https://instagram.com/clyocairo"
+                      href="https://instagram.com/univyr"
                       className="text-brand hover:text-brand-dark mx-2"
                     >
                       Instagram
                     </Link>
                     <Text className="mx-2 inline text-gray-400">•</Text>
                     <Link
-                      href="https://tiktok.com/@clyocairo"
+                      href="https://tiktok.com/@univyr"
                       className="text-brand hover:text-brand-dark mx-2"
                     >
                       TikTok
                     </Link>
                     <Text className="mx-2 inline text-gray-400">•</Text>
                     <Link
-                      href="https://linkedin.com/company/clyo-cairo"
+                      href="https://linkedin.com/company/univyr"
                       className="text-brand hover:text-brand-dark mx-2"
                     >
                       LinkedIn
@@ -119,11 +119,8 @@ export default function ClyoApplication({ name = "Omar" }: { name: string }) {
 
               <Text className="mb-4 text-gray-700">
                 If you have any questions, don't hesitate to reach out to us at{" "}
-                <Link
-                  href="mailto:contact@clyocairo.com"
-                  className="text-brand"
-                >
-                  contact@clyocairo.com
+                <Link href="mailto:contact@univyr.com" className="text-brand">
+                  contact@univyr.com
                 </Link>
               </Text>
 

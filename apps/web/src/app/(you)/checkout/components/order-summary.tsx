@@ -1,4 +1,4 @@
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { CardHeader, CardTitle, CardContent, Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";

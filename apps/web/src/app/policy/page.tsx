@@ -54,7 +54,7 @@ export default function PolicyPage() {
   const contactInfo = {
     customerService: {
       title: "Customer Service",
-      details: ["Email: contact@clyocairo.com", "Hours: Everyday, 9 AM - 6 PM"],
+      details: ["Email: contact@univyr.com", "Hours: Everyday, 9 AM - 6 PM"],
     },
     liveChat: {
       title: "Live Chat",

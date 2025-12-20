@@ -1,4 +1,4 @@
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { categoriesPage } from "@/data/extendedCategories";
 import Link from "next/link";
 import "./AllCategories.css";

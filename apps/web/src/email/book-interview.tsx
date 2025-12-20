@@ -15,7 +15,7 @@ import {
 
 export default function BookInterview({
   name = "Omar",
-  calendlyLink = "https://calendly.com/contact-clyocairo/clyo-chat",
+  calendlyLink = "https://calendly.com/contact-univyr/univyr-chat",
 }: {
   name: string;
   calendlyLink: string;
@@ -125,11 +125,8 @@ export default function BookInterview({
               <Text className={`${bodyTextStyle} mb-4`}>
                 If you need to reschedule or have any questions, please contact
                 us at{" "}
-                <Link
-                  href="mailto:contact@clyocairo.com"
-                  className="text-brand"
-                >
-                  contact@clyocairo.com
+                <Link href="mailto:contact@univyr.com" className="text-brand">
+                  contact@univyr.com
                 </Link>
               </Text>
 

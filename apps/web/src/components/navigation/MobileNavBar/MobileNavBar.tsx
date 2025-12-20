@@ -5,7 +5,7 @@ import { SideBar } from "./SideBar";
 
 import "./MobileNavBar.css";
 import "../../PWA.css";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import HamburgerMenu from "./hamburger-menu";
 
 export function MobileNavBar() {

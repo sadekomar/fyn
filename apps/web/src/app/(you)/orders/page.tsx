@@ -3,7 +3,7 @@
 import { getOrdersByUserId, putOrder } from "@/api/orders";
 import { ReadAllOrdersResponse } from "@/api/types/order-types";
 import { getUserSession } from "@/lib/auth";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import Link from "next/link";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { OrderStatus } from "@/api/types/base-types";

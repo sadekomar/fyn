@@ -256,11 +256,8 @@ export default function SalaryBreakdown({
                 and hard work continue to drive Univyr's growth. If you have any
                 questions about this payment, please don't hesitate to contact
                 us at{" "}
-                <Link
-                  href="mailto:contact@clyocairo.com"
-                  className="text-brand"
-                >
-                  contact@clyocairo.com
+                <Link href="mailto:contact@univyr.com" className="text-brand">
+                  contact@univyr.com
                 </Link>
               </Text>
 

@@ -48,19 +48,19 @@ export default function OmarSignature() {
                 <Text className="text-sm text-gray-600">
                   📧{" "}
                   <Link
-                    href="mailto:omar@clyocairo.com"
+                    href="mailto:omar@univyr.com"
                     className="text-brand hover:text-brand/80"
                   >
-                    omar@clyocairo.com
+                    omar@univyr.com
                   </Link>
                 </Text>
                 <Text className="text-sm text-gray-600">
                   🌐{" "}
                   <Link
-                    href="https://clyocairo.com"
+                    href="https://univyr.com"
                     className="text-brand hover:text-brand/80"
                   >
-                    clyocairo.com
+                    univyr.com
                   </Link>
                 </Text>
               </Section>

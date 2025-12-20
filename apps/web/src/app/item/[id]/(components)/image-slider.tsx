@@ -1,6 +1,6 @@
 "use client";
 
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { debounce } from "lodash";
 import { Dialog } from "@radix-ui/themes";
 import { useRef, useState } from "react";

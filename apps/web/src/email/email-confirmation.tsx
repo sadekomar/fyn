@@ -83,11 +83,8 @@ export default function EmailConfirmation({ name = "Omar" }: { name: string }) {
               <Text className={`${bodyTextStyle} mb-4`}>
                 If you didn't create an account with Univyr, please ignore this
                 email or contact us at{" "}
-                <Link
-                  href="mailto:contact@clyocairo.com"
-                  className="text-brand"
-                >
-                  contact@clyocairo.com
+                <Link href="mailto:contact@univyr.com" className="text-brand">
+                  contact@univyr.com
                 </Link>
               </Text>
 

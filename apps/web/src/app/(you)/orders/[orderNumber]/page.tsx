@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { getOrderByNumber } from "@/api/orders";
 import { ReadOrderResponse } from "@/api/types/order-types";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { useQuery } from "@tanstack/react-query";
 
 export default function OrderNumberPage() {

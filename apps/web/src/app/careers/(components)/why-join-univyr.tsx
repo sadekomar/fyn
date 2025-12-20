@@ -1,7 +1,7 @@
 import React from "react";
 import { Rocket, Users, Banknote, Sparkles } from "lucide-react";
 
-export function WhyJoinClyo(): React.JSX.Element {
+export function WhyJoinUnivyr(): React.JSX.Element {
   return (
     <section className="mx-4 mb-10 max-w-[100ch] md:mx-auto">
       <h2 className="mb-10 text-[39.06px] font-bold">Why Join Univyr</h2>

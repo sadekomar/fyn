@@ -191,7 +191,7 @@ export default function OrderConfirmation({
                   Your order is now pending. {emailNotification}
                 </Text>
                 <Link
-                  href={`https://clyocairo.com/orders/${order.orderNumber}`}
+                  href={`https://univyr.com/orders/${order.orderNumber}`}
                   className="bg-brand hover:bg-brand/90 inline-block rounded-full px-8 py-3 text-base font-semibold text-white"
                 >
                   View order
@@ -369,11 +369,8 @@ export default function OrderConfirmation({
 
               <Text className={bodyTextStyle}>
                 If you have any questions, contact us at{" "}
-                <Link
-                  href="mailto:contact@clyocairo.com"
-                  className="text-brand"
-                >
-                  contact@clyocairo.com
+                <Link href="mailto:contact@univyr.com" className="text-brand">
+                  contact@univyr.com
                 </Link>
               </Text>
               <div className="mt-4 flex flex-col gap-2">

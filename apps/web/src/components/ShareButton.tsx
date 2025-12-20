@@ -20,10 +20,10 @@ export function ShareButton({
       if (navigator.share) {
         navigator.share({
           title: `${name} - Univyr`,
-          url: `https://clyocairo.com/item/${id}`,
+          url: `https://univyr.com/item/${id}`,
         });
       } else {
-        navigator.clipboard.writeText(`https://clyocairo.com/item/${id}`);
+        navigator.clipboard.writeText(`https://univyr.com/item/${id}`);
       }
     } catch (err) {
       console.log(`Error: ${err}`);

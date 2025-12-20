@@ -10,7 +10,7 @@ import { FiltersAndCount } from "@/components/FiltersAndCount/FiltersAndCount";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryItems, getCategoryMetadata } from "./(utils)/read-category";
 import { useParams, useSearchParams } from "next/navigation";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { PaginationControl } from "@/components/Pagination/PaginationControl";
 import { AddCategoryView } from "./add-category-view";
 

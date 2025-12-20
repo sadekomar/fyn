@@ -8,7 +8,7 @@ import { Brands } from "./(components)/brands";
 import { CategoriesComponent } from "../categories/categories-component";
 import { config } from "./utils";
 import Link from "next/link";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { Endpoints } from "@/api/endpoints";
 import { ReadCategoriesResponse } from "../categories/[...category]/(utils)/category-types";
 // import { OnSaleCard } from "../item/[id]/item";

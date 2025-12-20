@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { CheckCircle2, Package, Truck, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 
 import { useSearchParams } from "next/navigation";
 import { getOrderById } from "@/api/orders";

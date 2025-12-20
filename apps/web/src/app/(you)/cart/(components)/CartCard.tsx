@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CrossIcon } from "@/components/Icons/CustomIcons";
 
 import "./CartCard.css";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { ItemCart } from "@/app/(you)/cart/(utils)/cart-utils";
 
 import {

@@ -5,7 +5,7 @@ import Timeline from "./(components)/timeline";
 import React from "react";
 
 import { PositionData, PositionDetails } from "./(components)/PositionDetails";
-import { WhyJoinClyo } from "./(components)/why-join-clyo";
+import { WhyJoinUnivyr } from "./(components)/why-join-univyr";
 import { CareersHero } from "./(components)/CareersHero";
 import { OurValues } from "./(components)/OurValues";
 import { ApplicationForm } from "./(components)/ApplicationForm";
@@ -28,7 +28,7 @@ export default function Careers() {
       />
       {showForm && <ApplicationForm />}
       <OurValues />
-      <WhyJoinClyo />
+      <WhyJoinUnivyr />
 
       <Timeline />
     </div>

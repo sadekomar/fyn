@@ -1,4 +1,4 @@
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import "./css/Brands.css";
 import { IsometricBrands } from "./IsometricBrands";
 import Link from "next/link";

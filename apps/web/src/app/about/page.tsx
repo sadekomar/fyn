@@ -20,7 +20,7 @@ export const metadata = {
       "Find everything you need on Univyr Cairo. Shop more than 17000 items in Cairo, Alexandria, Egypt. Shop now and explore the largest selection of local fashion brands.",
   },
   alternates: {
-    canonical: "https://clyocairo.com/",
+    canonical: "https://univyr.com/",
   },
 };
 

@@ -12,7 +12,7 @@ import {
 } from "../../Icons/CustomIcons";
 
 import "./NavigationBar.css";
-import { UnivyrImage } from "@/components/clyo-image";
+import { UnivyrImage } from "@/components/univyr-image";
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 

@@ -54,7 +54,7 @@ export async function generateMetadata({
       images: data?.images[0],
       description: data?.description.slice(0, 60),
       type: "website",
-      url: `https://clyocairo.com/item/${id}`,
+      url: `https://univyr.com/item/${id}`,
     },
     twitter: {
       card: "summary",
@@ -63,7 +63,7 @@ export async function generateMetadata({
       description: data?.description.slice(0, 60),
     },
     alternates: {
-      canonical: `https://clyocairo.com/item/${id}`,
+      canonical: `https://univyr.com/item/${id}`,
     },
   } as Metadata;
 }
