@@ -7,7 +7,7 @@ export async function proxy(request: NextRequest) {
   const isCustom = isCustomDomain(request);
 
   if (isCustom) {
-    return NextResponse.rewrite(new URL(`/s/${pathname}`, request.url));
+    return NextResponse.rewrite(new URL(`/s/testing${pathname}`, request.url));
   }
 
   if (subdomain) {
