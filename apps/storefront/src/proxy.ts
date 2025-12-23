@@ -4,9 +4,14 @@ import { rootDomain } from "@/lib/utils";
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const subdomain = extractSubdomain(request);
+  const isCustom = isCustomDomain(request);
+
+  if (isCustom) {
+    return NextResponse.rewrite(new URL(`/s/${pathname}`, request.url));
+  }
 
   if (subdomain) {
-    // For a subdomain, rewrite to the subdomain pages
+    // For a subdomain or custom domain, rewrite to the subdomain pages
     return NextResponse.rewrite(
       new URL(`/s/${subdomain}${pathname}`, request.url)
     );
@@ -53,6 +58,23 @@ function extractSubdomain(request: NextRequest): string | null {
     hostname.endsWith(`.${rootDomainFormatted}`);
 
   return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
+}
+
+function isCustomDomain(request: NextRequest): boolean {
+  const url = request.url;
+  const host = request.headers.get("host") || "";
+
+  // Local dev or Vercel preview - not custom
+  if (
+    url.includes("localhost") ||
+    url.includes("127.0.0.1") ||
+    host.endsWith(".vercel.app")
+  ) {
+    return false;
+  }
+
+  // Custom domain = doesn't match root domain
+  return !host.includes(rootDomain);
 }
 
 export const config = {
