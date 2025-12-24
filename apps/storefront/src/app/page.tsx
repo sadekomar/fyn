@@ -2,7 +2,6 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { ProductShowcase } from "@/components/ProductShowcase";
-import { Lifestyle } from "@/components/Lifestyle";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
@@ -13,16 +12,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <CategoryGrid />
-      <div className="bg-white">
-        <div className="w-full text-center py-8 md:py-12">
-          <h2 className="font-serif text-2xl md:text-4xl text-black">
-            Runway to Realway
-          </h2>
-          <p className="text-sm md:text-base text-gray-500 mt-2">
-            THE SEASON OF TRANSITION
-          </p>
-        </div>
-      </div>
+
       <ProductShowcase />
       <section className="py-6 overflow-hidden border-y border-gray-200">
         <div className="flex animate-marquee whitespace-nowrap">
@@ -39,7 +29,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <Lifestyle />
       {/* Two-Column Feature Section */}
       <section className="grid grid-cols-1 md:grid-cols-2">
         {/* Left Image */}
