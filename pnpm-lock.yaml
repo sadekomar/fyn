@@ -111,6 +111,12 @@ importers:
       '@vercel/sdk':
         specifier: ^1.18.5
         version: 1.18.5(hono@4.11.1)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.508.0
+        version: 0.508.0(react@19.2.1)
       next:
         specifier: 16.0.10
         version: 16.0.10(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -120,6 +126,9 @@ importers:
       react-dom:
         specifier: 19.2.1
         version: 19.2.1(react@19.2.1)
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.3.1
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.1.5
