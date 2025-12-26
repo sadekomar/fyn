@@ -133,7 +133,7 @@ function ImageGallery({
 
   return (
     <div className="relative w-full bg-[#f5f1ec]">
-      <div className="relative h-[500px] md:aspect-[4/5]">
+      <div className="relative aspect-[3/4] md:aspect-[4/5]">
         <Image
           src={images[currentIndex]}
           alt="Product image"
@@ -424,7 +424,6 @@ export default function ProductPage({
         </div>
       </section>
 
-      {/* You May Also Like */}
       <YouMayAlsoLike />
 
       <Newsletter />

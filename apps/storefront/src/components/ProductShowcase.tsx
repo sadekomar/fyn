@@ -50,9 +50,7 @@ export function ProductShowcase() {
               href={`/products/${product.id}`}
               className="group flex-shrink-0 gap-0"
             >
-              <div
-                className="relative h-[294px] w-[235px] mb-4 bg-beige overflow-hidden rounded-md transition-transform duration-300 hover:-translate-y-1"
-              >
+              <div className="relative h-[294px] w-[235px] mb-4 bg-beige overflow-hidden rounded-md transition-transform duration-300 hover:-translate-y-1">
                 <Image
                   src={product.image}
                   alt={product.name}
