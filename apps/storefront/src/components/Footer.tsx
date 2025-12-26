@@ -1,5 +1,3 @@
-import { Instagram } from "lucide-react";
-
 const TikTokIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { ViewTransitions } from "next-view-transitions";
 import { Geist, Geist_Mono } from "next/font/google";
+import { LayoutProvider } from "@/components/LayoutProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,12 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <LayoutProvider>{children}</LayoutProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
