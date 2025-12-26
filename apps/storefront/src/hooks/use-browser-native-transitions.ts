@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useHash } from "./use-hash";
 
 // TODO: This implementation might not be complete when there are nested
@@ -8,7 +8,6 @@ import { useHash } from "./use-hash";
 
 export function useBrowserNativeTransitions() {
   const pathname = usePathname();
-  const currentPathname = useRef(pathname);
 
   /* DIFFERENCE FROM ORIGINAL: Added scroll position tracking
    * Store scroll positions by pathname to enable proper scroll restoration
@@ -16,16 +15,18 @@ export function useBrowserNativeTransitions() {
    */
   const scrollPositions = useRef(new Map<string, { x: number; y: number }>());
 
-  // This is a global state to keep track of the view transition state.
-  const [currentViewTransition, setCurrentViewTransition] = useState<
-    | null
-    | [
-        // Promise to wait for the view transition to start
-        Promise<void>,
-        // Resolver to finish the view transition
-        () => void,
-      ]
-  >(null);
+  /* FIX: Disable browser's automatic scroll restoration
+   * The browser's default scrollRestoration='auto' causes a race condition
+   * with View Transitions API. The browser restores scroll position between
+   * when startViewTransition() is called and when its callback executes,
+   * causing the snapshot to be taken at the wrong scroll position.
+   * Setting it to 'manual' gives us full control over scroll restoration.
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+  }, []);
 
   /* DIFFERENCE FROM ORIGINAL: Added continuous scroll position tracking
    * This effect continuously saves the scroll position as the user scrolls,
@@ -52,12 +53,10 @@ export function useBrowserNativeTransitions() {
         lastArgs = args;
 
         if (!timeout) {
-          /* console.log('🏃 Throttle: Executing immediately (first call)'); */
           // Execute immediately on first call
           fn(...args);
 
           timeout = setTimeout(() => {
-            /* console.log('⏰ Throttle: Timer expired, executing with latest args'); */
             // Execute with latest args after wait period
             if (lastArgs) {
               fn(...lastArgs);
@@ -65,19 +64,15 @@ export function useBrowserNativeTransitions() {
             timeout = null;
             lastArgs = null;
           }, wait);
-        } else {
-          /* console.log('🚫 Throttle: Skipping (waiting for timer)'); */
         }
       };
     };
 
     const onScroll = () => {
-      /* console.log('📍 Saving scroll for', pathname, ':', window.scrollX, window.scrollY); */
       scrollPositions.current.set(pathname, {
         x: window.scrollX,
         y: window.scrollY,
       });
-      /* console.log('📦 All saved positions:', Array.from(scrollPositions.current.entries())); */
     };
 
     /* Apply TanStack's 100ms throttle to scroll events
@@ -99,59 +94,13 @@ export function useBrowserNativeTransitions() {
     };
   }, [pathname]);
 
+  /* Track if navigation was triggered by popstate (back/forward) */
+  const isPopstateNavigation = useRef(false);
+
   useEffect(() => {
-    if (!("startViewTransition" in document)) {
-      return () => {};
-    }
-
     const onPopState = () => {
-      /* console.log('🔙 POPSTATE EVENT FIRED');
-      console.log('🗺️ Current saved positions before restore:', Array.from(scrollPositions.current.entries())); */
-
-      let pendingViewTransitionResolve: () => void;
-
-      const pendingViewTransition = new Promise<void>((resolve) => {
-        pendingViewTransitionResolve = resolve;
-      });
-
-      const pendingStartViewTransition = new Promise<void>((resolve) => {
-        /* DIFFERENCE FROM ORIGINAL: Changed to async function for scroll restoration
-         * The original only handles the view transition, we add scroll restoration
-         */
-        document.startViewTransition(async () => {
-          resolve();
-          await pendingViewTransition;
-
-          /* DIFFERENCE FROM ORIGINAL: Added delay and scroll restoration logic
-           * Small delay to ensure DOM is ready before restoring scroll.
-           * TanStack Router also faces similar timing challenges with restoring
-           * scroll before DOM paint (see their issue #2601)
-           */
-          await new Promise((r) => setTimeout(r, 50));
-
-          /* Restore scroll position for the destination page from our saved positions
-           * Unlike TanStack which uses sessionStorage, we use an in-memory Map
-           * for simplicity since view transitions don't survive page reloads anyway
-           */
-          const destinationPath = window.location.pathname;
-          /* console.log('🎯 Trying to restore scroll for path:', destinationPath); */
-          const savedPosition = scrollPositions.current.get(destinationPath);
-
-          if (savedPosition) {
-            /* console.log('✅ Found saved position:', savedPosition); */
-            window.scrollTo(savedPosition.x, savedPosition.y);
-          } else {
-            /* console.log('❌ No saved position, scrolling to top'); */
-            /* No saved position means it's a new page, scroll to top */
-            window.scrollTo(0, 0);
-          }
-        });
-      });
-
-      setCurrentViewTransition([
-        pendingStartViewTransition,
-        pendingViewTransitionResolve!,
-      ]);
+      /* Mark this as a popstate navigation so we can restore scroll after pathname changes */
+      isPopstateNavigation.current = true;
     };
     window.addEventListener("popstate", onPopState);
 
@@ -160,28 +109,32 @@ export function useBrowserNativeTransitions() {
     };
   }, []);
 
-  // eslint-disable-next-line
-  if (currentViewTransition && currentPathname.current !== pathname) {
-    // Whenever the pathname changes, we block the rendering of the new route
-    // until the view transition is started (i.e. DOM screenshotted).
-    use(currentViewTransition[0]);
-  }
-
-  // Keep the transition reference up-to-date.
-  const transitionRef = useRef(currentViewTransition);
-  useEffect(() => {
-    transitionRef.current = currentViewTransition;
-  }, [currentViewTransition]);
-
   const hash = useHash();
+  const prevPathname = useRef(pathname);
 
+  /* Restore scroll position after pathname changes (works for both forward and back navigation) */
   useEffect(() => {
-    // When the new route component is actually mounted, we finish the view
-    // transition.
-    currentPathname.current = pathname;
-    if (transitionRef.current) {
-      transitionRef.current[1]();
-      transitionRef.current = null;
+    if (prevPathname.current !== pathname) {
+      if (isPopstateNavigation.current) {
+        /* Back/forward navigation: restore saved scroll position */
+        const savedPosition = scrollPositions.current.get(pathname);
+
+        /* Use requestAnimationFrame to ensure DOM is ready */
+        requestAnimationFrame(() => {
+          if (savedPosition) {
+            window.scrollTo(savedPosition.x, savedPosition.y);
+          } else {
+            window.scrollTo(0, 0);
+          }
+        });
+
+        isPopstateNavigation.current = false;
+      } else {
+        /* Forward navigation (link click): scroll to top */
+        window.scrollTo(0, 0);
+      }
+
+      prevPathname.current = pathname;
     }
-  }, [hash, pathname]);
+  }, [pathname, hash]);
 }
