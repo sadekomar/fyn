@@ -48,3 +48,30 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Safari View Transition Fix: Prevent image disappearing during morph animation */
+/* Uses * wildcard to apply to ALL named view transitions dynamically */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal;
+}
+
+/* Root transition: restore default animation with plus-lighter to prevent "dip" to background */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: revert !important;
+  opacity: revert !important;
+  mix-blend-mode: plus-lighter;
+}
+
+::view-transition-image-pair(*) {
+  isolation: isolate;
+  overflow: visible;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
