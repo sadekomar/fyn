@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { motion } from "motion/react";
+import { Link } from "next-view-transitions";
 
 const products = [
   {
@@ -51,15 +50,8 @@ export function ProductShowcase() {
               href={`/products/${product.id}`}
               className="group flex-shrink-0 gap-0"
             >
-              <motion.div
-                layoutId={`product-image-${product.id}`}
-                className="relative h-[294px] w-[235px] mb-4 bg-beige overflow-hidden rounded-md"
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30,
-                }}
-                whileHover={{ y: -4 }}
+              <div
+                className="relative h-[294px] w-[235px] mb-4 bg-beige overflow-hidden rounded-md transition-transform duration-300 hover:-translate-y-1"
               >
                 <Image
                   src={product.image}
@@ -67,8 +59,9 @@ export function ProductShowcase() {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="235px"
+                  style={{ viewTransitionName: `product-image-${product.id}` }}
                 />
-              </motion.div>
+              </div>
               <h3 className="text-sm font-medium mb-1">{product.name}</h3>
               <p className="text-sm text-gray-600">{product.price}</p>
             </Link>

@@ -2,12 +2,11 @@
 
 import { useState, use } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Navbar } from "@/components/Navbar";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
 import { ChevronDown, ShoppingBag } from "lucide-react";
-import { motion } from "motion/react";
 
 // Mock product data - can be replaced with API fetch later
 const products: Record<
@@ -133,22 +132,15 @@ function ImageGallery({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <motion.div
-      layoutId={`product-image-${productId}`}
-      className="relative w-full bg-[#f5f1ec]"
-      transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-      }}
-    >
-      <div className="relative aspect-square md:aspect-[4/5]">
+    <div className="relative w-full bg-[#f5f1ec]">
+      <div className="relative h-[500px] md:aspect-[4/5]">
         <Image
           src={images[currentIndex]}
           alt="Product image"
           fill
           className="object-cover"
           priority
+          style={{ viewTransitionName: `product-image-${productId}` }}
         />
       </div>
 
@@ -175,7 +167,7 @@ function ImageGallery({
           </div>
         </>
       )}
-    </motion.div>
+    </div>
   );
 }
 

@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
+      <ProductShowcase />
       <Hero />
       <CategoryGrid />
 
-      <ProductShowcase />
       <section className="py-6 overflow-hidden border-y border-gray-200">
         <div className="flex animate-marquee whitespace-nowrap">
           {[...Array(6)].map((_, i) => (
