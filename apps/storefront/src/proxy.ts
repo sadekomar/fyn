@@ -4,11 +4,11 @@ import { rootDomain } from "@/lib/utils";
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const subdomain = extractSubdomain(request);
-  const isCustom = isCustomDomain(request);
+  // const isCustom = isCustomDomain(request);
 
-  if (isCustom) {
-    return NextResponse.rewrite(new URL(`/s/testing${pathname}`, request.url));
-  }
+  // if (isCustom) {
+  //   return NextResponse.rewrite(new URL(`/s/testing${pathname}`, request.url));
+  // }
 
   if (subdomain) {
     // For a subdomain or custom domain, rewrite to the subdomain pages
